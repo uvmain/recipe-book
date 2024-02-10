@@ -27,10 +27,4 @@ html, body, #__nuxt {
   color: white;
   color-scheme: dark;
 }
-
-#app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
 </style>

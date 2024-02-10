@@ -13,7 +13,7 @@ function getRouterLink() {
 </script>
 
 <template>
-  <router-link :to="getRouterLink()" class="p-4 border rounded shadow-md bg-blue-gray-600">
+  <NuxtLink :to="getRouterLink()" class="p-4 border rounded shadow-md bg-blue-gray-600 no-underline text-white">
     <h3 class="text-xl font-bold mb-2">
       {{ recipe.name }}
     </h3>
@@ -33,5 +33,5 @@ function getRouterLink() {
       <strong>Instructions:</strong>
       <p>{{ recipe.instructions }}</p>
     </div>
-  </router-link>
+  </NuxtLink>
 </template>
