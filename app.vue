@@ -1,18 +1,36 @@
+<script setup>
+useHead({
+  htmlAttrs: {
+    lang: 'en',
+  },
+  charset: 'utf-8',
+  title: 'RecipeBook',
+})
+</script>
+
 <template>
-  <NuxtLoadingIndicator />
-  <Header />
-  <div class="h-full w-full font-sans">
-    <NuxtPage />
+  <div id="app" class="flex flex-col min-h-screen">
+    <NuxtLoadingIndicator />
+    <Header />
+    <div class="flex-grow font-sans">
+      <NuxtPage />
+    </div>
+    <Footer />
   </div>
-  <Footer />
 </template>
 
 <style>
-html, body , #__nuxt{
+html, body, #__nuxt {
   margin: 0;
   padding: 0;
   background: grey;
   color: white;
   color-scheme: dark;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 </style>

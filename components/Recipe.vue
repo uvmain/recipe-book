@@ -1,12 +1,16 @@
 <script setup lang="ts">
-defineProps({
+const props = defineProps({
   recipe: { type: Object, required: true },
+})
+
+useHead({
+  titleTemplate: `RecipeBook: ${props.recipe.name}`,
 })
 </script>
 
 <template>
   <div class="p-4 border rounded shadow-md">
-    <img :src="recipe.imageUrl" :alt="recipe.title" class="w-full h-32 object-cover mb-4 rounded">
+    <img :src="recipe.imageUrl" :alt="recipe.name" class="w-full h-32 object-cover mb-4 rounded">
 
     <h3 class="text-xl font-bold mb-2">
       {{ recipe.title }}

@@ -3,7 +3,7 @@ export default {
   data() {
     return {
       recipes: [
-        { id: 1, title: 'Delicious Pasta', ingredients: ['Pasta', 'Sauce', 'Cheese'], instructions: 'Cook pasta, add sauce, sprinkle cheese, enjoy!' },
+        { name: 'Delicious Pasta', ingredients: ['Pasta', 'Sauce', 'Cheese'], instructions: 'Cook pasta, add sauce, sprinkle cheese, enjoy!' },
       ],
     }
   },
@@ -18,7 +18,7 @@ export default {
       </h2>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <Recipe v-for="recipe in recipes" :key="recipe.id" :recipe="recipe" />
+        <Recipe v-for="recipe in recipes" :key="recipe.name" :recipe="recipe" />
       </div>
     </main>
   </div>
