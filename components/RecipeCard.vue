@@ -3,10 +3,6 @@ const props = defineProps({
   recipe: { type: Object, required: true },
 })
 
-useHead({
-  titleTemplate: `RecipeBook: ${props.recipe.name}`,
-})
-
 function getRouterLink() {
   return `/recipe/${props.recipe.id}`
 }

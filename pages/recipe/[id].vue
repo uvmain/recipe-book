@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const recipes = [
+const recipes: Recipe[] = [
   { id: 1, name: 'Delicious Pasta', ingredients: ['Pasta', 'Sauce', 'Cheese'], instructions: 'Cook pasta, add sauce, sprinkle cheese, enjoy!', image: '/recipe-images/Puttanesca-fd5810c.webp' },
   { id: 2, name: 'Puttanesca', ingredients: ['Pasta', 'Sauce', 'Cheese'], instructions: 'Cook pasta, add sauce, sprinkle cheese, enjoy!', image: '/recipe-images/Puttanesca-fd5810c.webp' },
 ]

@@ -1,4 +1,8 @@
 <script setup lang="ts">
+useHead({
+  titleTemplate: 'RecipeBook: Home',
+})
+
 interface Recipe {
   id: number
   name: string
