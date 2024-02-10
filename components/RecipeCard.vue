@@ -6,19 +6,23 @@ const props = defineProps({
 useHead({
   titleTemplate: `RecipeBook: ${props.recipe.name}`,
 })
+
+function getRouterLink() {
+  return `/recipe/${props.recipe.id}`
+}
 </script>
 
 <template>
-  <div class="p-4 border rounded shadow-md">
-    <img :src="recipe.imageUrl" :alt="recipe.name" class="w-full h-32 object-cover mb-4 rounded">
-
+  <router-link :to="getRouterLink()" class="p-4 border rounded shadow-md bg-blue-gray-600">
     <h3 class="text-xl font-bold mb-2">
-      {{ recipe.title }}
+      {{ recipe.name }}
     </h3>
+
+    <img :src="recipe.image" :alt="recipe.name" class="w-full h-32 object-cover mb-4 rounded">
 
     <div class="mb-2">
       <strong>Ingredients:</strong>
-      <ul class="list-disc ml-4">
+      <ul class="list-disc">
         <li v-for="(ingredient, index) in recipe.ingredients" :key="index">
           {{ ingredient }}
         </li>
@@ -29,5 +33,5 @@ useHead({
       <strong>Instructions:</strong>
       <p>{{ recipe.instructions }}</p>
     </div>
-  </div>
+  </router-link>
 </template>
