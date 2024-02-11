@@ -4,12 +4,12 @@ const props = defineProps({
 })
 
 function getRouterLink() {
-  return `/recipe/${props.recipe.id}`
+  return `/recipe/${props.recipe.slug}`
 }
 </script>
 
 <template>
-  <NuxtLink :to="getRouterLink()" class="p-4 border rounded shadow-md bg-blue-gray-600 no-underline text-white">
+  <NuxtLink :to="getRouterLink()" class="p-4 border rounded shadow-md bg-blue-gray-600 no-underline text-white max-h-60% overflow-auto">
     <h3 class="text-xl font-bold mb-2">
       {{ recipe.name }}
     </h3>
@@ -23,11 +23,6 @@ function getRouterLink() {
           {{ ingredient }}
         </li>
       </ul>
-    </div>
-
-    <div>
-      <strong>Instructions:</strong>
-      <p>{{ recipe.instructions }}</p>
     </div>
   </NuxtLink>
 </template>

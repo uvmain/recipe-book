@@ -1,11 +1,19 @@
 <script setup lang="ts">
-const props = defineProps({
-  recipe: { type: Object, required: true },
-})
+const route = useRoute()
+const recipe = ref()
+
+const recipeSlug = `${route.params.slug}`
+
+async function getRecipe() {
+  const content = await queryContent('/recipes').where({ slug: { $eq: recipeSlug } }).find()
+  recipe.value = content[0]
+}
 
 useHead({
-  titleTemplate: `RecipeBook: ${props.recipe.name}`,
+  titleTemplate: recipe.value ? `RecipeBook: ${recipe.value.name}` : 'RecipeBook'
 })
+
+getRecipe()
 </script>
 
 <template>

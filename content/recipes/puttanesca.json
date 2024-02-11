@@ -1,0 +1,11 @@
+{
+  "slug": "puttanesca",
+  "name": "Delicious Pasta",
+  "ingredients": [
+    "Pasta",
+    "Sauce",
+    "Cheese"
+  ],
+  "instructions": "Cook pasta, add sauce, sprinkle cheese, enjoy!",
+  "image": "/recipe-images/puttanesca.webp"
+}
