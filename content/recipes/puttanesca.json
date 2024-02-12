@@ -1,20 +1,33 @@
 {
-  "slug": "puttanesca",
-  "name": "Delicious Pasta",
+  "slug": "courgetti-puttanesca",
+  "name": "Courgetti Puttanesca",
+  "author": "thelondoner.me",
+  "source": "https://www.thelondoner.me/2014/08/slutty-no-carb-pasta.html",
   "course": "main",
-  "vegetarian": true,
-  "prepTime": "5 minutes",
-  "cookingTime": "15 minutes",
+  "vegetarian": false,
+  "prepTime": "10 minutes",
+  "cookingTime": "10 minutes",
+  "calories": 500,
+  "servings": 2,
   "ingredients": [
-    "Pasta",
-    "Sauce",
-    "Cheese"
+    "1 tbsp olive oil",
+    "4 anchovies (15g)",
+    "2 cloves garlic, chopped",
+    "1 tbsp capers",
+    "1 tsp chili flakes",
+    "400g tinned chopped tomatoes",
+    "2 tbsp chopped parsley",
+    "650g (~3) courgettes, spiralized",
+    "10g parmesan",
+    "50g pitted olives, sliced"
   ],
   "instructions": [
-    "Cook pasta",
-    "add sauce",
-    "sprinkle cheese",
-    "enjoy!"
+    "Heat the oil and mix in the anchovies",
+    "Add the garlic for a few minutes",
+    "Add the chili flakes, capers and olives for a few minutes",
+    "Add the tomatoes, bring to a simmer",
+    "Add the courgetti, put a lid on top to steam",
+    "Serve with grated parmesan and the parsley"
   ],
   "image": "/recipe-images/puttanesca.webp"
 }

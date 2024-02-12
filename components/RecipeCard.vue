@@ -6,6 +6,10 @@ const props = defineProps({
 function getRouterLink() {
   return `/recipe/${props.recipe.slug}`
 }
+
+const caloriesPerServing = computed(() => {
+  return props.recipe.calories / props.recipe.servings
+})
 </script>
 
 <template>
@@ -24,10 +28,15 @@ function getRouterLink() {
     <img :src="recipe.image" :alt="recipe.name" class="w-full h-32 object-cover mb-4 rounded">
 
     <div>
-      <p v-if="recipe.course">
-        <strong>Course:</strong>
-        {{ recipe.course }}
-      </p>
+      <div class="flex items-baseline justify-between">
+        <p v-if="recipe.course">
+          <strong>Course:</strong>
+          {{ recipe.course }}
+        </p>
+        <span v-if="caloriesPerServing" class="ml-auto text-sm">
+          {{ caloriesPerServing }} kcal
+        </span>
+      </div>
       <p v-if="recipe.prepTime">
         <strong>Prep time:</strong>
         {{ recipe.prepTime }}

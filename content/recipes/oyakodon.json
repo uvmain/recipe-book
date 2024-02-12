@@ -1,0 +1,33 @@
+{
+  "slug": "oyakodon",
+  "name": "Oyakodon",
+  "author": "foodie baker",
+  "source": "https://www.foodiebaker.com/oyakodon/",
+  "course": "main",
+  "vegetarian": false,
+  "prepTime": "15 minutes",
+  "cookingTime": "20 minutes",
+  "calories": 1082,
+  "servings": 2,
+  "ingredients": [
+    "500ml bonito dashi",
+    "3 tbsp soy sauce",
+    "3 tbsp mirin",
+    "1 tbsp sake",
+    "0.5 large onion, sliced",
+    "1 cabbage, sliced",
+    "2 large eggs",
+    "spring onion, chopped"
+  ],
+  "instructions": [
+    "Combine chicken thighs with marinade ingredients. Set aside to marinate for at least 15 minutes.",
+    "Heat oil over high heat in a frying pan until very hot. Add in the marinated chicken thighs in one layer and sear until browned. Flip and sear the other side until browned as well. The chicken thighs don't have to be fully cooked as they will cook again later.","Remove the chicken thighs into a bowl.",
+    "Without cleaning the pan, add in the stock, mirin, sake, 1 tablespoon of Japanese soy sauce and dark soy sauce (if using).",
+    "Bring to a boil then lower the heat to medium and add in the onion and cabbage. Cover and simmer for 5 minutes, stirring once.",
+    "Add in the chicken thighs, cover and simmer for another 5 minutes, stirring once.",
+    "Taste and add in the reserved Japanese soy sauce if needed.",
+    "Drizzle the beaten eggs evenly on top - do not stir the mixture. Cover and simmer for another 1 to 2 minutes until the eggs are of desired doneness.",
+    "Scoop the mixture onto Japanese rice and garnish with finely chopped spring onion."
+  ],
+  "image": "/recipe-images/oyakodon.webp"
+}
