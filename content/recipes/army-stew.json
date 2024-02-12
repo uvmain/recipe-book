@@ -1,0 +1,43 @@
+{
+  "slug": "army-stew",
+  "dateAdded": "2024-02-12",
+  "name": "Budae Jjigae (Army Stew)",
+  "author": "My Korean Kitchen`",
+  "source": "https://mykoreankitchen.com/army-stew-budae-jjigae/",
+  "course": "main",
+  "vegetarian": false,
+  "prepTime": "20 minutes",
+  "cookingTime": "10 minutes",
+  "calories": 2612,
+  "servings": 4,
+  "ingredients": [
+    " Main",
+    "1 ltr chicken stock",
+    "200g SPAM thinly sliced",
+    "4 cocktail Frankfurt sausages (150g) thinly & diagonally sliced",
+    "250g tofu sliced (about 1.5cm, 1/2 inch thickness)",
+    "200g enoki mushrooms base stem removed & stems separated,",
+    "200g king oyster mushrooms thinly sliced length ways",
+    "100g shiitake mushroom caps thinly sliced",
+    "1/2 cup aged Kimchi , cut into bite sized pieces",
+    "110g instant ramen noodles",
+    "50g Korean rice cakes for soup soaked in cold water for 15 mins if it was frozen",
+    "30g green onion thinly & diagonally sliced",
+    "1 cheese slice",
+    "",
+    " Sauce (mix in a bowl)",
+    "2 tbsp Korean chili flakes (Gochugaru)",
+    "2 tbsp rice wine (mirin)",
+    "1 tbsp soy sauce",
+    "1 tbsp minced garlic",
+    "0.5 tbsp sugar",
+    "0.5 tbsp Korean chilli paste (Gochujang)",
+    "ground black pepper"
+  ],
+  "instructions": [
+    "Assemble the main ingredients (except for instant ramen noodles, rice cakes, green onion and cheese) in a shallow pot. Add the sauce in the middle. Pour the stock in the corner of the pot. Close the lid and boil it on medium high heat until the stock starts to boil (about 8 mins).",
+    "Add the remaining ingredients – instant ramen noodles, rice cakes, green onion and cheese on top of the pot and boil uncovered until the noodles are cooked (about 2 to 3 mins). Reduce the heat to low (if you’re cooking on a portable burner and sharing the food at the dinning table).",
+    "Start dishing out soup, protein and vegetables onto your own soup bowl. Serve with steamed rice (& with other Korean side dishes)."
+  ],
+  "image": "/recipe-images/army-stew.webp"
+}

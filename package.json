@@ -24,5 +24,8 @@
   "overrides": {
     "mdast-util-to-string": "^4.0.0",
     "unist-util-stringify-position": "^4.0.0"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.10"
   }
 }
