@@ -1,11 +1,20 @@
 {
   "slug": "puttanesca",
   "name": "Delicious Pasta",
+  "course": "main",
+  "vegetarian": true,
+  "prepTime": "5 minutes",
+  "cookingTime": "15 minutes",
   "ingredients": [
     "Pasta",
     "Sauce",
     "Cheese"
   ],
-  "instructions": "Cook pasta, add sauce, sprinkle cheese, enjoy!",
+  "instructions": [
+    "Cook pasta",
+    "add sauce",
+    "sprinkle cheese",
+    "enjoy!"
+  ],
   "image": "/recipe-images/puttanesca.webp"
 }
