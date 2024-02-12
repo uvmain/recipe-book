@@ -6,6 +6,10 @@ const props = defineProps({
 const sourceTag = computed(() => {
   return `${props.recipe.source}`.startsWith('http') ? 'a' : 'p'
 })
+
+const caloriesPerServing = computed(() => {
+  return props.recipe.calories / props.recipe.servings
+})
 </script>
 
 <template>
@@ -21,15 +25,13 @@ const sourceTag = computed(() => {
               <strong>Author:</strong>
               {{ recipe.author }}
             </p>
-            <div v-if="recipe.source">
-              <strong>Source: </strong>
-              <component :is="sourceTag" :href="recipe.source" target="_blank" class="break-all">{{ recipe.source }}</component>
-            </div>
+            <component v-if="recipe.source" :is="sourceTag" :href="recipe.source" target="_blank" class="break-all underline-none"><strong>Source: </strong>{{ recipe.source }}</component>
           </div>
-          <div class="grid grid-rows-3 min-w-30% text-sm text-right">
+          <div class="grid grid-rows-3 text-sm text-right">
             <span v-if="recipe.servings">{{ recipe.servings }} Servings</span>
             <span v-if="recipe.servings">Prep: {{ recipe.prepTime }}</span>
             <span v-if="recipe.servings">Cook: {{ recipe.cookingTime }}</span>
+            <span v-if="recipe.servings">{{ recipe.calories }} kcal, {{ caloriesPerServing }} ea.</span>
           </div>
         </div>
         <img :src="recipe.image" :alt="recipe.name" class="w-full h-auto mb-4 rounded-lg shadow-md">
@@ -40,7 +42,7 @@ const sourceTag = computed(() => {
             Ingredients:
           </h3>
           <ul class="list-disc ml-2">
-            <li v-for="(ingredient, index) in recipe.ingredients" :key="index">
+            <li v-for="(ingredient, index) in recipe.ingredients" :key="index" :class="{ 'opacity-0': ingredient === '', 'list-none': ingredient.startsWith(' ') }">
               {{ ingredient }}
             </li>
           </ul>
@@ -50,7 +52,7 @@ const sourceTag = computed(() => {
             Instructions:
           </h3>
           <ul class="list-disc ml-2">
-            <li v-for="(instruction, index) in recipe.instructions" :key="index">
+            <li v-for="(instruction, index) in recipe.instructions" :key="index" :class="{ 'opacity-0': instruction === '' }">
               {{ instruction }}
             </li>
           </ul>

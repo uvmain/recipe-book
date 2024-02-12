@@ -11,11 +11,15 @@
   "servings": 4,
   "ingredients": [
     "1 tbsp first ingredient",
+    "",
+    " Next section",
     "1 tsp second ingredient"
   ],
   "instructions": [
     "Cook.",
+    "",
+    " Next section",
     "Eat."
   ],
-  "image": "/recipe-images/pigpig.jpg"
+  "image": "/recipe-images/image.webp"
 }

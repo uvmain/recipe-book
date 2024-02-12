@@ -1,0 +1,36 @@
+{
+  "slug": "kai-pad-makauted",
+  "name": "Kai Pad Makauted",
+  "author": "Madhur Jaffrey",
+  "source": "A Taste Of The Far East, pg.25",
+  "course": "main",
+  "vegetarian": true,
+  "prepTime": "10 minutes",
+  "cookingTime": "15 minutes",
+  "calories": 960,
+  "servings": 3,
+  "ingredients": [
+    "2 tbsp vegetable oil",
+    "3 dried red chillies",
+    "2 cloves garlic, chopped",
+    "1 tbsp shrimp paste",
+    "450g boneless chicken thighs, sliced",
+    "1 tsp paprika",
+    "",
+    "200g tomatoes, sliced",
+    "100g mushooms, sliced",
+    "15g basil, sliced",
+    "2 tbsp fish sauce"
+  ],
+  "instructions": [
+    "Heat the oil in a wok or large fying pan over highish heat",
+    "When hot, put in the red chillies and garlic",
+    "Stir once or twice and put in the shrimp paste",
+    "Stir that for 10 seconds, breaking it up, and put in the chicken",
+    "Stir and fry the chicken intil it is lightly browned, put in the paprika and stir",
+    "Add the tomatoes, mushrooms, basil and fish sauce, stir for 1 minute.",
+    "Turn the heat to low and simmer for 10 minutes.",
+    "Serve with rice or on a jacket potato!"
+  ],
+  "image": "/recipe-images/kaipadmakauted.webp"
+}

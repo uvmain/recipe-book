@@ -5,8 +5,8 @@ const recipe = ref()
 const recipeSlug = `${route.params.slug}`
 
 async function getRecipe() {
-  const content = await queryContent('/recipes').where({ slug: { $eq: recipeSlug } }).find()
-  recipe.value = content[0]
+  const content = await queryContent('/recipes').where({ slug: { $eq: recipeSlug } }).findOne()
+  recipe.value = content
 }
 
 useHead({
