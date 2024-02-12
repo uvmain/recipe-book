@@ -10,6 +10,16 @@ function getRouterLink() {
 const caloriesPerServing = computed(() => {
   return props.recipe.calories / props.recipe.servings
 })
+
+const courseIcon = computed(() => {
+  if (props.recipe.course === 'main') return "icon-park-outline:cook"
+  if (props.recipe.course === 'soup') return "lucide:soup"
+  if (props.recipe.course === 'dessert') return "ep:dessert"
+  if (props.recipe.course === 'cocktail') return "la:cocktail"
+  if (props.recipe.course === 'sides') return "mingcute:fries-line"
+  if (props.recipe.course === 'sauces') return "icon-park-outline:bottle-two"
+  else return "icon-park-outline:cook"
+})
 </script>
 
 <template>
@@ -25,8 +35,7 @@ const caloriesPerServing = computed(() => {
         </span>
     </div>
     </div>
-    <img :src="recipe.image" :alt="recipe.name" class="w-full h-32 object-cover rounded mb-2">
-
+    <img :src="recipe.image" :alt="recipe.name" class="w-full h-32 object-cover rounded mb-2" loading="lazy">
     <div>
       <div class="flex items-baseline justify-between">
         <span v-if="recipe.course">
@@ -34,13 +43,10 @@ const caloriesPerServing = computed(() => {
           {{ recipe.course }}
         </span>
         <div class="items-start text-white text-xl">
-          <Icon v-if="recipe.course === 'main'" name="i-cil:dinner" />
-          <Icon v-if="recipe.course === 'soup'" name="lucide:soup" />
-          <Icon v-if="recipe.course === 'dessert'" name="i-ep:dessert" />
-          <Icon v-if="recipe.course === 'cocktail'" name="la:cocktail" />
+          <Icon :name="courseIcon" />
         </div>
       </div>
-      <hr class="bg-gray-600 opacity-30%">
+      <hr class="bg-gray-600 opacity-30">
       <p v-if="recipe.author">
         <strong>Author:</strong>
         {{ recipe.author }}
@@ -61,7 +67,7 @@ const caloriesPerServing = computed(() => {
       <br>
       <span v-if="recipe.calories && recipe.servings" class="text-sm">
         <strong>Calories:</strong>
-        {{ caloriesPerServing }}/{{ recipe.calories }}
+        {{ caloriesPerServing }} ({{ recipe.calories }}/{{ recipe.servings }})
       </span>
     </div>
   </NuxtLink>

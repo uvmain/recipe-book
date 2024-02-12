@@ -14,9 +14,10 @@ const caloriesPerServing = computed(() => {
 
 <template>
   <div>
-    <h2 class="text-3xl font-bold mb-4">
+    <h2 class="text-4xl font-bold mb-4 text-center">
       {{ recipe.name }}
     </h2>
+    <hr class="mb-4 opacity-30">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <div>
         <div class="mb-4 bg-blue-gray-500 p-4 pt-0 rounded-md flex items-baseline justify-between">
@@ -27,7 +28,7 @@ const caloriesPerServing = computed(() => {
             </p>
             <component v-if="recipe.source" :is="sourceTag" :href="recipe.source" target="_blank" class="break-all underline-none"><strong>Source: </strong>{{ recipe.source }}</component>
           </div>
-          <div class="grid grid-rows-3 text-sm text-right min-w-20%">
+          <div class="grid text-sm text-right min-w-20%">
             <span v-if="recipe.servings">{{ recipe.servings }} Servings</span>
             <span v-if="recipe.servings">Prep: {{ recipe.prepTime }}</span>
             <span v-if="recipe.servings">Cook: {{ recipe.cookingTime }}</span>
@@ -42,7 +43,7 @@ const caloriesPerServing = computed(() => {
             Ingredients:
           </h3>
           <ul class="list-disc ml-2">
-            <li v-for="(ingredient, index) in recipe.ingredients" :key="index" :class="{ 'opacity-0': ingredient === '', 'list-none': ingredient.startsWith(' ') }">
+            <li v-for="(ingredient, index) in recipe.ingredients" :key="index" :class="{ 'opacity-0': ingredient === '', 'list-none font-semibold': ingredient.startsWith(' ') }">
               {{ ingredient }}
             </li>
           </ul>
@@ -52,7 +53,7 @@ const caloriesPerServing = computed(() => {
             Instructions:
           </h3>
           <ul class="list-disc ml-2">
-            <li v-for="(instruction, index) in recipe.instructions" :key="index" :class="{ 'opacity-0': instruction === '' }">
+            <li v-for="(instruction, index) in recipe.instructions" :key="index" :class="{ 'opacity-0': instruction === '', 'list-none font-semibold': instruction.startsWith(' ') }">
               {{ instruction }}
             </li>
           </ul>
