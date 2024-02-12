@@ -27,7 +27,7 @@ const caloriesPerServing = computed(() => {
             </p>
             <component v-if="recipe.source" :is="sourceTag" :href="recipe.source" target="_blank" class="break-all underline-none"><strong>Source: </strong>{{ recipe.source }}</component>
           </div>
-          <div class="grid grid-rows-3 text-sm text-right">
+          <div class="grid grid-rows-3 text-sm text-right min-w-20%">
             <span v-if="recipe.servings">{{ recipe.servings }} Servings</span>
             <span v-if="recipe.servings">Prep: {{ recipe.prepTime }}</span>
             <span v-if="recipe.servings">Cook: {{ recipe.cookingTime }}</span>

@@ -20,9 +20,7 @@ getRecipe()
   <div>
     <main class="container mx-auto mt-8">
       <Recipe v-if="recipe" :recipe="recipe" />
-      <div v-else>
-        <p>Loading...</p>
-      </div>
+      <div v-else class="i-svg-spinners:3-dots-move w-1em h-1em" />
     </main>
   </div>
 </template>

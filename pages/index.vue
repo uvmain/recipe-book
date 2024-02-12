@@ -14,7 +14,7 @@ const latestRecipes = computed(() => {
 
 <template>
   <div>
-    <main v-if="recipes" class="w-80% mx-auto mt-8">
+    <main v-if="recipes && latestRecipes" class="w-80% mx-auto mt-8">
       <h2 class="text-3xl font-bold mb-4">
         Latest Recipes
       </h2>
@@ -23,5 +23,6 @@ const latestRecipes = computed(() => {
         <RecipeCard v-for="recipe in latestRecipes" :key="recipe.name" :recipe="recipe" />
       </div>
     </main>
+    <div v-else class="i-svg-spinners:3-dots-move w-1em h-1em" />
   </div>
 </template>

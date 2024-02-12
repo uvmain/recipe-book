@@ -1,0 +1,32 @@
+{
+  "slug": "leek-potato-soup",
+  "name": "Leek and Potato soup",
+  "author": "dayelsford",
+  "source": "A Love For Food, pg.66",
+  "course": "soup",
+  "vegetarian": true,
+  "prepTime": "10 minutes",
+  "cookingTime": "25 minutes",
+  "calories": 1368,
+  "servings": 6,
+  "ingredients": [
+    "80g butter",
+    "2 onions, peeled and chopped",
+    "3 cloves garlic, sliced",
+    "2 tsp fresh thyme",
+    "200g potatoes, peeled and chopped into 1cm cubes",
+    "500g leek, finely sliced",
+    "1.4 ltr vegetable stock",
+    "150 ml double cream",
+    "salt & pepper to season",
+    "A handfull of grated cheddar"
+  ],
+  "instructions": [
+    "Melt the butter in a large pan thta has a lid, over a low heat, then add the onions, garlic and thyme.",
+    "Put the lid on the pan and cook gently for ~5 minutes, until the onions have softened.",
+    "Add the potatoes and cook for another 5 minutes with the lid on, then add the leeks and continue cooking with the lid on until the vegetables have softened.",
+    "Add the stock and cream, bring to a boil and then turn down to a simmer for 10 minutes.",
+    "Add the cheddar, liquidise, and season to taste."
+  ],
+  "image": "/recipe-images/leekpotatosoup.webp"
+}

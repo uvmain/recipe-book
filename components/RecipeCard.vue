@@ -19,32 +19,28 @@ const caloriesPerServing = computed(() => {
         {{ recipe.name }}
       </h3>
       <div class="group flex relative">
-        <Icon v-if="recipe.vegetarian" name="lucide:vegan" class="text-green-500" />
+        <Icon v-if="recipe.vegetarian" name="lucide:vegan" class="text-green-300" />
         <span class="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute left-1/2 -translate-x-1/2 translate-y-full opacity-0 m-4 -ml-10">
           Vegetarian
         </span>
     </div>
     </div>
-    <img :src="recipe.image" :alt="recipe.name" class="w-full h-32 object-cover mb-4 rounded">
+    <img :src="recipe.image" :alt="recipe.name" class="w-full h-32 object-cover rounded mb-2">
 
     <div>
       <div class="flex items-baseline justify-between">
-        <p v-if="recipe.course">
+        <span v-if="recipe.course">
           <strong>Course:</strong>
           {{ recipe.course }}
-        </p>
-        <span v-if="caloriesPerServing" class="ml-auto text-sm">
-          {{ caloriesPerServing }} kcal
         </span>
+        <div class="items-start text-white text-xl">
+          <Icon v-if="recipe.course === 'main'" name="i-cil:dinner" />
+          <Icon v-if="recipe.course === 'soup'" name="lucide:soup" />
+          <Icon v-if="recipe.course === 'dessert'" name="i-ep:dessert" />
+          <Icon v-if="recipe.course === 'cocktail'" name="la:cocktail" />
+        </div>
       </div>
-      <p v-if="recipe.prepTime">
-        <strong>Prep time:</strong>
-        {{ recipe.prepTime }}
-      </p>
-      <p v-if="recipe.cookingTime">
-        <strong>Cooking time:</strong>
-        {{ recipe.cookingTime }}
-      </p>
+      <hr class="bg-gray-600 opacity-30%">
       <p v-if="recipe.author">
         <strong>Author:</strong>
         {{ recipe.author }}
@@ -53,6 +49,20 @@ const caloriesPerServing = computed(() => {
         <strong>Source:</strong>
         {{ recipe.source }}
       </p>
+      <span v-if="recipe.prepTime" class="text-sm">
+        <strong>Prep time:</strong>
+        {{ recipe.prepTime }}
+      </span>
+      <br>
+      <span v-if="recipe.cookingTime" class="text-sm">
+        <strong>Cooking time:</strong>
+        {{ recipe.cookingTime }}
+      </span>
+      <br>
+      <span v-if="recipe.calories && recipe.servings" class="text-sm">
+        <strong>Calories:</strong>
+        {{ caloriesPerServing }}/{{ recipe.calories }}
+      </span>
     </div>
   </NuxtLink>
 </template>
