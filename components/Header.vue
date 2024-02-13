@@ -1,9 +1,11 @@
 <script setup lang="ts">
 const router = useRouter()
 
+const { data: countOfRecipes } = await useAsyncData('recipeCount', () =>
+    queryContent('/recipes').count())
+
 async function navToRandomRecipe() {
-  const countOfRecipes = await queryContent('/recipes').count()
-  const randomIndex = Math.floor(Math.random() * countOfRecipes)
+  const randomIndex = Math.floor(Math.random() * Number(countOfRecipes.value))
   const randomSlugContent = await queryContent('/recipes').skip(randomIndex).limit(1).only('slug').find()
   if (router.currentRoute.value.path === `/recipe/${randomSlugContent[0].slug}`) {
     navToRandomRecipe()
