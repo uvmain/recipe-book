@@ -1,6 +1,6 @@
 <template>
   <footer class="flex flex-col p-10">
-    <div class="my-2 text-xl">
+    <div class="text-xl my-2">
       RecipeBook
     </div>
     <div class="flex gap-2 items-center">
@@ -12,7 +12,7 @@
       </a>
     </div>
     <div>
-      <p class="text-gray text-sm">
+      <p class="text-sm text-gray">
         Copyright © 2024 Ian Baron
       </p>
     </div>

@@ -8,8 +8,8 @@
   "vegetarian": false,
   "prepTime": "30 minutes",
   "cookingTime": "45 minutes",
-  "calories": 600,
-  "servings": 4,
+  "calories": "600",
+  "servings": "4",
   "ingredients": [
     "1 tbsp first ingredient",
     "",

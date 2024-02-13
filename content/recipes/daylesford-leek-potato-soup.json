@@ -8,8 +8,8 @@
   "vegetarian": true,
   "prepTime": "10 minutes",
   "cookingTime": "25 minutes",
-  "calories": 1368,
-  "servings": 6,
+  "calories": "1368",
+  "servings": "6",
   "ingredients": [
     "80g butter",
     "2 onions, peeled and chopped",

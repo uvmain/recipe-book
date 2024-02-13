@@ -8,8 +8,8 @@
   "vegetarian": false,
   "prepTime": "10 minutes",
   "cookingTime": "15 minutes",
-  "calories": 960,
-  "servings": 3,
+  "calories": "960",
+  "servings": "3",
   "ingredients": [
     "2 tbsp vegetable oil",
     "3 dried red chillies",

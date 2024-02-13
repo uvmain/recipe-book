@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 defineProps({
   id: { type: String, required: true },
   label: { type: String, required: true, default: '' },
@@ -15,8 +16,8 @@ function handleInput(e: Event) {
 </script>
 
 <template>
-  <div class="mb-4 pl-5">
-    <label class="mb-2 block text-sm text-dark" :for="id">
+  <div class="pl-5">
+    <label class="m-2 block text-white" :for="id">
       {{ label }}
     </label>
     <input

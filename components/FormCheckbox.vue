@@ -1,0 +1,49 @@
+<script lang="ts" setup>
+const props = defineProps({
+  modelValue: { type: Boolean, default: false },
+  label: { type: String, default: '' },
+  id: { type: String, default: '' },
+})
+
+const emit = defineEmits(['update:modelValue'])
+
+const model = computed({
+  get() {
+    return props.modelValue
+  },
+  set(value) {
+    emit('update:modelValue', value)
+  },
+})
+
+function nextValue(value: boolean) {
+  return Object.is(value, null) ? true : !value
+}
+
+function handleKeyEvent(e: Event) {
+  emit('update:modelValue', nextValue(props.modelValue))
+  e.preventDefault()
+}
+</script>
+
+<template>
+  <div class="pl-5">
+    <label class="m-2 block text-white" :for="id">
+      {{ label }}
+    </label>
+    <input :id="id" v-model="model" type="checkbox" :value="modelValue" class="hidden">
+    <div
+      class="check-box"
+      tabindex="0"
+      role="checkbox"
+      @click="emit('update:modelValue', nextValue(props.modelValue))"
+      @keydown.space="handleKeyEvent"
+    >
+      <span class="text-2xl">
+        <Icon name="ri:checkbox-indeterminate-fill" v-if="Object.is(modelValue, null)" />
+        <Icon name="ri:checkbox-fill" v-else-if="modelValue" />
+        <Icon name="ri:checkbox-blank-line" v-else />
+      </span>
+    </div>
+  </div>
+</template>

@@ -14,7 +14,7 @@ const computedHead = computed(() => {
 })
 
 useHead({
-  titleTemplate: computedHead
+  titleTemplate: computedHead,
 })
 
 getRecipe()
@@ -22,7 +22,7 @@ getRecipe()
 
 <template>
   <div>
-    <main class="container mx-auto mt-8">
+    <main class="mx-auto container mt-8">
       <Recipe v-if="recipe" :recipe="recipe" />
       <div v-else class="i-svg-spinners:3-dots-move w-1em h-1em" />
     </main>

@@ -12,41 +12,47 @@ const caloriesPerServing = computed(() => {
 })
 
 const courseIcon = computed(() => {
-  if (props.recipe.course === 'main') return "icon-park-outline:cook"
-  if (props.recipe.course === 'soup') return "lucide:soup"
-  if (props.recipe.course === 'dessert') return "ep:dessert"
-  if (props.recipe.course === 'cocktail') return "la:cocktail"
-  if (props.recipe.course === 'sides') return "mingcute:fries-line"
-  if (props.recipe.course === 'sauces') return "icon-park-outline:bottle-two"
-  else return "icon-park-outline:cook"
+  if (props.recipe.course === 'main')
+    return 'icon-park-outline:cook'
+  if (props.recipe.course === 'soup')
+    return 'lucide:soup'
+  if (props.recipe.course === 'dessert')
+    return 'ep:dessert'
+  if (props.recipe.course === 'cocktail')
+    return 'la:cocktail'
+  if (props.recipe.course === 'sides')
+    return 'mingcute:fries-line'
+  if (props.recipe.course === 'sauces')
+    return 'icon-park-outline:bottle-two'
+  else return 'icon-park-outline:cook'
 })
 </script>
 
 <template>
-  <NuxtLink :to="getRouterLink()" class="p-4 border rounded shadow-md bg-blue-gray-600 no-underline text-white overflow-auto">
+  <NuxtLink :to="getRouterLink()" class="p-4 border rounded shadow-md text-white bg-blue-gray-600 no-underline overflow-auto">
     <div class="flex items-baseline justify-between">
       <h3 class="text-xl font-bold mb-2">
         {{ recipe.name }}
       </h3>
-      <div class="group flex relative">
+      <div class="flex group relative">
         <Icon v-if="recipe.vegetarian" name="lucide:vegan" class="text-green-300" />
-        <span class="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute left-1/2 -translate-x-1/2 translate-y-full opacity-0 m-4 -ml-10">
+        <span class="text-sm rounded-md group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-gray-100 absolute left-1/2 -translate-x-1/2 translate-y-full opacity-0 m-4 -ml-10">
           Vegetarian
         </span>
+      </div>
     </div>
-    </div>
-    <img :src="recipe.image" :alt="recipe.name" class="w-full h-32 object-cover rounded mb-2" loading="lazy">
+    <img :src="recipe.image" :alt="recipe.name" class="w-full rounded mb-2 h-32 object-cover" loading="lazy">
     <div>
       <div class="flex items-baseline justify-between">
         <span v-if="recipe.course">
           <strong>Course:</strong>
           {{ recipe.course }}
         </span>
-        <div class="items-start text-white text-xl">
+        <div class="text-white text-xl items-start">
           <Icon :name="courseIcon" />
         </div>
       </div>
-      <hr class="bg-gray-600 opacity-30">
+      <hr class="opacity-30 bg-gray-600">
       <p v-if="recipe.author">
         <strong>Author:</strong>
         {{ recipe.author }}
