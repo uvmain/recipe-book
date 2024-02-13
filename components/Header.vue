@@ -15,27 +15,36 @@ async function navToRandomRecipe() {
 </script>
 
 <template>
-  <header class="flex p-4 bg-gray-100">
-    <button
-      type="button"
-      class="text-white bg-blue-gray-500 font-medium rounded-lg text-3xl px-5 py-2.5 text-center me-2 mb-2 "
-      @click="$router.push('/')"
-      >
-      Latest
-    </button>
-    <button
-      type="button"
-      class="text-white bg-blue-gray-500 font-medium rounded-lg text-3xl px-5 py-2.5 text-center me-2 mb-2 "
-      @click="$router.push('/all-recipes')"
-      >
-      All
-    </button>
-    <button
-      type="button"
-      class="text-white bg-blue-gray-500 font-medium rounded-lg text-3xl px-5 py-2.5 text-center me-2 mb-2 "
-      @click="navToRandomRecipe"
-      >
-      Random
-    </button>
-  </header>
+  <div class="flex justify-center w-full bg-gray-100 ">
+    <header class="flex p-4 justify-around md:justify-around w-full md:w-2/3 w-2/3">
+      <button
+        type="button"
+        class="text-white bg-blue-gray-500 font-medium rounded-lg text-xl md:text-3xl px-5 py-2.5 text-center me-2 mb-2 "
+        @click="$router.push('/')"
+        >
+        Latest
+      </button>
+      <button
+        type="button"
+        class="text-white bg-blue-gray-500 font-medium rounded-lg text-xl md:text-3xl px-5 py-2.5 text-center me-2 mb-2 "
+        @click="$router.push('/all-recipes')"
+        >
+        All
+      </button>
+      <button
+        type="button"
+        class="text-white bg-blue-gray-500 font-medium rounded-lg text-xl md:text-3xl px-5 py-2.5 text-center me-2 mb-2 "
+        @click="navToRandomRecipe"
+        >
+        Random
+      </button>
+      <button
+        type="button"
+        class="text-white bg-blue-gray-500 font-medium rounded-lg text-xl md:text-3xl px-5 py-2.5 text-center me-2 mb-2 "
+        @click="$router.push('/add-recipe')"
+        >
+        <Icon name="lucide:plus" class="scale-140"/>
+      </button>
+    </header>
+  </div>
 </template>

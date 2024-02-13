@@ -1,0 +1,31 @@
+<script setup lang="ts">
+defineProps({
+  id: { type: String, required: true },
+  label: { type: String, required: true, default: '' },
+  modelValue: { type: String, default: '' },
+  required: { type: Boolean, default: false },
+  type: { type: String, default: 'text' },
+})
+const emit = defineEmits(['update:modelValue'])
+
+function handleInput(e: Event) {
+  const value = (e.target as HTMLInputElement).value
+  emit('update:modelValue', value)
+}
+</script>
+
+<template>
+  <div class="mb-4 pl-5">
+    <label class="mb-2 block text-sm text-dark" :for="id">
+      {{ label }}
+    </label>
+    <input
+      :id="id"
+      :value="modelValue"
+      class="block w-full px-3 py-3 text-base font-normal text-dark bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 lg:w-1/2"
+      :type="type"
+      :required="required"
+      @input="handleInput"
+    >
+  </div>
+</template>
