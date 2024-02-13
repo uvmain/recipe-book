@@ -1,13 +1,39 @@
 <script setup lang="ts">
-const siteTitle = 'RecipeBook'
+const router = useRouter()
+
+async function navToRandomRecipe() {
+  const countOfRecipes = await queryContent('/recipes').count()
+  const randomIndex = Math.floor(Math.random() * countOfRecipes)
+  const randomSlugContent = await queryContent('/recipes').skip(randomIndex).limit(1).only('slug').find()
+  if (router.currentRoute.value.path === `/recipe/${randomSlugContent[0].slug}`) {
+    navToRandomRecipe()
+  }
+  router.push(`/recipe/${randomSlugContent[0].slug}`)
+}
 </script>
 
 <template>
-  <header class="flex justify-between items-center p-4 bg-gray-100">
-    <NuxtLink to="/" class="no-underline">
-      <h1 class="text-2xl font-bold text-gray px-10">
-        {{ siteTitle }}
-      </h1>
-    </NuxtLink>
+  <header class="flex p-4 bg-gray-100">
+    <button
+      type="button"
+      class="text-white bg-blue-gray-500 font-medium rounded-lg text-3xl px-5 py-2.5 text-center me-2 mb-2 "
+      @click="$router.push('/')"
+      >
+      Latest
+    </button>
+    <button
+      type="button"
+      class="text-white bg-blue-gray-500 font-medium rounded-lg text-3xl px-5 py-2.5 text-center me-2 mb-2 "
+      @click="$router.push('/all-recipes')"
+      >
+      All
+    </button>
+    <button
+      type="button"
+      class="text-white bg-blue-gray-500 font-medium rounded-lg text-3xl px-5 py-2.5 text-center me-2 mb-2 "
+      @click="navToRandomRecipe"
+      >
+      Random
+    </button>
   </header>
 </template>

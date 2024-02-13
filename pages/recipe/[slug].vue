@@ -9,8 +9,12 @@ async function getRecipe() {
   recipe.value = content
 }
 
+const computedHead = computed(() => {
+  return recipe.value ? `RecipeBook: ${recipe.value.name}` : 'RecipeBook'
+})
+
 useHead({
-  titleTemplate: recipe.value ? `RecipeBook: ${recipe.value.name}` : 'RecipeBook'
+  titleTemplate: computedHead
 })
 
 getRecipe()
