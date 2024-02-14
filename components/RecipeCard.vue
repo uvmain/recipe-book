@@ -36,7 +36,7 @@ const courseIcon = computed(() => {
       </h3>
       <div class="flex group relative">
         <Icon v-if="recipe.vegetarian" name="lucide:vegan" class="text-green-300" />
-        <span class="text-sm rounded-md group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-gray-100 absolute left-1/2 -translate-x-1/2 translate-y-full opacity-0 m-4 -ml-10">
+        <span class="text-sm rounded-md group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-gray-100 absolute left-1/2 -translate-x-1/2 translate-y-full opacity-0 -ml-10">
           Vegetarian
         </span>
       </div>
@@ -44,15 +44,15 @@ const courseIcon = computed(() => {
     <img :src="recipe.image" :alt="recipe.name" class="w-full rounded mb-2 h-32 object-cover" loading="lazy">
     <div>
       <div class="flex items-baseline justify-between">
-        <span v-if="recipe.course">
-          <strong>Course:</strong>
-          {{ recipe.course }}
-        </span>
-        <div class="text-white text-xl items-start">
+        <hr class="ml-2 opacity-30 bg-gray-600 grow">
+        <div class="group relative text-white text-xl items-start shrink ml-4 mr-2">
           <Icon :name="courseIcon" />
+          <span class="text-sm rounded-md group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-gray-100 absolute left-1/2 -translate-x-1/2 translate-y-full opacity-0 -ml-10">
+            {{ recipe.course }}
+          </span>
         </div>
       </div>
-      <hr class="opacity-30 bg-gray-600">
+
       <p v-if="recipe.author">
         <strong>Author:</strong>
         {{ recipe.author }}

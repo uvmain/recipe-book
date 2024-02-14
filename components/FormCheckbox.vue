@@ -27,7 +27,7 @@ function handleKeyEvent(e: Event) {
 </script>
 
 <template>
-  <div class="pl-5">
+  <div>
     <label class="m-2 block text-white" :for="id">
       {{ label }}
     </label>
