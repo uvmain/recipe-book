@@ -16,10 +16,10 @@ async function navToRandomRecipe() {
 
 <template>
   <div class="flex w-full justify-center bg-gray-100">
-    <header class="flex w-full p-4 justify-around md:justify-around md:w-2/3 w-2/3">
+    <header class="flex w-full p-4 md:w-2/3 justify-around md:justify-around w-2/3">
       <button
         type="button"
-        class="text-white text-xl bg-blue-gray-500 font-medium rounded-lg md:text-3xl px-5 py-2.5 text-center me-2 mb-2"
+        class="text-white text-xl bg-blue-gray-500 rounded-lg text-center mb-2 font-medium md:text-3xl px-5 py-2.5 me-2"
         @click="$router.push('/')"
       >
         Latest

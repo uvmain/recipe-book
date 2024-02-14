@@ -40,9 +40,9 @@ function handleKeyEvent(e: Event) {
       @keydown.space="handleKeyEvent"
     >
       <span class="text-2xl">
-        <Icon name="ri:checkbox-indeterminate-fill" v-if="Object.is(modelValue, null)" />
-        <Icon name="ri:checkbox-fill" v-else-if="modelValue" />
-        <Icon name="ri:checkbox-blank-line" v-else />
+        <Icon v-if="Object.is(modelValue, null)" name="ri:checkbox-indeterminate-fill" />
+        <Icon v-else-if="modelValue" name="ri:checkbox-fill" />
+        <Icon v-else name="ri:checkbox-blank-line" />
       </span>
     </div>
   </div>

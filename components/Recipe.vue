@@ -4,7 +4,7 @@ const props = defineProps({
 })
 
 const sourceTag = computed(() => {
-  return `${props.recipe.source}`.startsWith('http') ? 'a' : 'p'
+  return `${props.recipe.source}`.startsWith('http') ? 'a' : 'span'
 })
 
 const caloriesPerServing = computed(() => {
@@ -20,17 +20,18 @@ const caloriesPerServing = computed(() => {
     <hr class="mb-4 opacity-30">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <div>
-        <div class="mb-4 bg-blue-gray-500 p-4 flex pt-0 rounded-md items-baseline justify-between">
+        <div class="mb-4 flex bg-blue-gray-500 p-4 pt-0 rounded-md items-baseline justify-between">
           <div class="">
             <p v-if="recipe.author">
               <strong>Author:</strong>
               {{ recipe.author }}
             </p>
-            <component :is="sourceTag" v-if="recipe.source" :href="recipe.source" target="_blank" class="break-all underline-none">
-              <strong>Source: </strong>{{ recipe.source }}
+            <strong>Source: </strong>
+            <component :is="sourceTag" v-if="recipe.source" :href="recipe.source" target="_blank" class="text-white break-all underline-none">
+              {{ recipe.source }}
             </component>
           </div>
-          <div class="grid text-sm text-right min-w-20%">
+          <div class="grid text-sm text-right min-w-20% opacity-80">
             <span v-if="recipe.servings">{{ recipe.servings }} Servings</span>
             <span v-if="recipe.servings">Prep: {{ recipe.prepTime }}</span>
             <span v-if="recipe.servings">Cook: {{ recipe.cookingTime }}</span>
