@@ -19,6 +19,9 @@ export interface Recipe {
 }
 const recipe = ref<Recipe>({} as Recipe)
 
+const ingredients = ref()
+const instructions = ref()
+
 const courseOptions = computed(() => {
   const courses: any[] = []
   allowedCourses.forEach((course) => {
@@ -34,6 +37,9 @@ async function saveRecipe() {
   recipe.value.dateAdded = new Date().toISOString().split('T')[0]
   recipe.value.image = `/recipe-images/{recipe.slug}/.webp`
 
+  recipe.value.ingredients = ingredients.value.split('\n')
+  recipe.value.instructions = instructions.value.split('\n')
+
   const jsonString = JSON.stringify(recipe.value, null, 2)
   const blob = new Blob([jsonString], { type: 'application/json' })
   const url = URL.createObjectURL(blob)
@@ -47,18 +53,20 @@ async function saveRecipe() {
 </script>
 
 <template>
-  <div class="flex w-full">
-    <form class="w-full md:w-2/3 justify-center grid grid-cols-1" @submit.prevent="saveRecipe">
+  <div class="grid gap-4 grid-cols-1 place-items-center mt-4">
+    <form class="w-full md:w-1/3" @submit.prevent="saveRecipe">
       <FormInput id="slug" v-model="recipe.slug" label="Slug" type="text" />
       <FormInput id="name" v-model="recipe.name" label="Recipe Name" type="text" />
       <FormInput id="author" v-model="recipe.author" label="Author" type="text" />
       <FormInput id="source" v-model="recipe.source" label="Source" type="text" />
-      <FormDropdown v-model="recipe.course" label="Course" :options="courseOptions" />
+      <FormDropdown v-model="recipe.course" label="Course" :options="courseOptions" class="w-full md:w-1/2" />
       <FormCheckbox id="vegetarian" v-model="recipe.vegetarian" label="Vegetarian" />
       <FormInput id="prepTime" v-model="recipe.prepTime" label="Prep Time" type="text" />
       <FormInput id="cookingTime" v-model="recipe.cookingTime" label="Cooking Time" type="text" />
       <FormInput id="calories" v-model="recipe.calories" label="Total Calories" type="number" />
       <FormInput id="servings" v-model="recipe.servings" label="Servings" type="number" />
+      <FormTextarea id="ingredients" v-model="ingredients" label="Ingredients" />
+      <FormTextarea id="Ingredients" v-model="instructions" label="Instructions" />
 
       <div class="pl-5 pt-8 w-1/2">
         <button type="submit" class="block w-full px-3 py-3 text-base font-normal text-dark bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 lg:w-1/2">
