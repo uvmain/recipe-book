@@ -38,7 +38,7 @@ const caloriesPerServing = computed(() => {
             <span v-if="recipe.servings">{{ recipe.calories }} kcal, {{ caloriesPerServing }} ea.</span>
           </div>
         </div>
-        <img :src="recipe.image" :alt="recipe.name" class="w-full mb-4 rounded-lg h-auto shadow-md">
+        <img :src="recipe.image" :alt="recipe.name" class="w-full mb-4 rounded-lg h-auto shadow-md" loading="lazy">
       </div>
       <div>
         <div>

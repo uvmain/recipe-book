@@ -35,7 +35,7 @@ const courseOptions = computed(() => {
 
 async function saveRecipe() {
   recipe.value.dateAdded = new Date().toISOString().split('T')[0]
-  recipe.value.image = `/recipe-images/{recipe.slug}/.webp`
+  recipe.value.image = `/recipe-images/${recipe.value.slug}.webp`
 
   recipe.value.ingredients = ingredients.value.split('\n')
   recipe.value.instructions = instructions.value.split('\n')

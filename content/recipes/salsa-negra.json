@@ -1,0 +1,31 @@
+{
+  "source": "https://honest-food.net/salsa-negra/",
+  "author": "Honest Food",
+  "slug": "salsa-negra",
+  "name": "Salsa Negra",
+  "course": "sauces",
+  "servings": "10",
+  "prepTime": "20",
+  "cookingTime": "5",
+  "calories": "1790",
+  "dateAdded": "2024-02-14",
+  "image": "/recipe-images/salsa-negra.webp",
+  "ingredients": [
+    "180ml cup sunflower, canola or vegetable oil",
+    "2 tsp lime juice",
+    "1 tsp smoked salt",
+    "1 tbsp dry roasted peanuts",
+    "1 tbsp coriander seeds, toasted",
+    "1 pasilla or guajillo chile, stemmed and seeded and torn up",
+    "1 ancho chile, stemmed and seeded and torn up",
+    "1 tbsp cumin",
+    "1 tsp chipotle powder",
+    "2 tbsp sesame seeds, toasted",
+    "0.5 tsp garlic powder",
+    "3 cloves black garlic"
+  ],
+  "instructions": [
+    "Puree all the ingredients on high in a blender until smooth.",
+    "Store in an airtight container in the fridge indefinitely."
+  ]
+}
