@@ -53,6 +53,10 @@ function filteredList() {
   searchedSlugs.value = filteredSlugs
   return filteredSlugs
 }
+
+onMounted(() => {
+  filteredList()
+})
 </script>
 
 <template>
