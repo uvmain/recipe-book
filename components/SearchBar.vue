@@ -44,7 +44,7 @@ function filteredList() {
   const filteredSlugs = []
   const filteredRecipeList = slugKeywords.value.filter(recipe =>
     Object.values(recipe)[0].some(value =>
-      typeof value === 'string' && value.includes(input.value.toLowerCase()),
+      typeof value === 'string' && value.toLowerCase().includes(input.value.toLowerCase()),
     ),
   )
   for (const recipe of filteredRecipeList) {

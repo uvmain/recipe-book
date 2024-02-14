@@ -3,7 +3,7 @@ useHead({
   titleTemplate: 'RecipeBook: Search',
 })
 
-const recipes = ref()
+const recipes = await queryContent('/recipes').where({ slug: { $in: searchedSlugs.value } }).find()
 </script>
 
 <template>
