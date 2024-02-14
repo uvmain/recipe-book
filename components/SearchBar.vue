@@ -1,12 +1,6 @@
 <script setup>
 const input = ref('')
 
-function filteredList() {
-  return ['apple', 'banana', 'orange'].filter(fruit =>
-    fruit.toLowerCase().includes(input.value.toLowerCase()),
-  )
-}
-
 const { data: recipes } = await useAsyncData('allrecipes', () =>
   queryContent('/recipes').find())
 
@@ -34,24 +28,45 @@ function onlyUnique(value, index, array) {
 }
 
 const slugKeywords = computed(() => {
+  if (!recipes.value)
+    return []
   const slugKeywords = []
   for (const recipe of recipes.value) {
     const flatRecipe = flattenRecipe(recipe)
-    console.log(flatRecipe)
     slugKeywords.push({
       [recipe.slug]: flatRecipe.join(' ').split(' ').filter(word => word.length > 2).filter(onlyUnique),
     })
   }
   return slugKeywords
 })
+
+function filteredList() {
+  const filteredSlugs = []
+  const filteredRecipeList = slugKeywords.value.filter(recipe =>
+    Object.values(recipe)[0].some(value =>
+      typeof value === 'string' && value.includes(input.value.toLowerCase()),
+    ),
+  )
+  for (const recipe of filteredRecipeList) {
+    filteredSlugs.push(Object.keys(recipe)[0])
+  }
+  searchedSlugs.value = filteredSlugs
+  return filteredSlugs
+}
 </script>
 
 <template>
-  <div v-if="recipes" class="text-black">
-    {{ Object.values(slugKeywords[0]) }}
-  </div>
-  <input v-model="input" type="text" placeholder="Search fruits...">
-  <div v-if="input && !filteredList().length" class="item error">
-    <p>No results found!</p>
+  <div v-if="recipes" class="flex items-center grid grid-cols-2 gap-5 min-w-1/2">
+    <input
+      v-model="input"
+      type="text"
+      placeholder="Search recipes..."
+      class="block w-full px-3 py-3 text-base font-normal text-dark bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0"
+      @click="$router.push('/search')"
+      @input="filteredList"
+    >
+    <div v-if="input && !filteredList().length" class="text-red font-semibold">
+      <span>No results found!</span>
+    </div>
   </div>
 </template>

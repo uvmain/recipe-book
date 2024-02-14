@@ -24,7 +24,7 @@ const targetAdd: string = '/add-recipe'
 
 <template>
   <div class="flex w-full justify-center bg-gray-100">
-    <header class="flex w-full m-4 md:w-2/3 justify-around md:justify-around w-2/3">
+    <header class="flex w-full m-4 md:w-2/3 justify-around md:justify-around">
       <button
         type="button"
         class="text-white text-xl bg-blue-gray-500 rounded-lg text-center font-medium md:text-3xl px-5 py-2.5 me-2 mb-2"
