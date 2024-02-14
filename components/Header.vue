@@ -57,6 +57,8 @@ const targetAdd: string = '/add-recipe'
       >
         <Icon name="lucide:plus" class="scale-140" />
       </button>
+
+      <SearchBar />
     </header>
   </div>
 </template>

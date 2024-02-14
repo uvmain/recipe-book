@@ -3,7 +3,7 @@ useHead({
   titleTemplate: 'RecipeBook: All',
 })
 
-const { data: recipes } = await useAsyncData('recipes', () =>
+const { data: recipes } = await useAsyncData('allrecipes', () =>
   queryContent('/recipes').find())
 </script>
 

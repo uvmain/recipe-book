@@ -5,7 +5,7 @@ useHead({
   titleTemplate: 'RecipeBook: Latest',
 })
 
-const { data: recipes } = await useAsyncData('recipes', () =>
+const { data: recipes } = await useAsyncData('allrecipes', () =>
   queryContent('/recipes').find())
 
 const latestRecipes = computed(() => {
