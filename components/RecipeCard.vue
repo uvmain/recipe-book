@@ -41,7 +41,7 @@ const courseIcon = computed(() => {
         </span>
       </div>
     </div>
-    <img :src="recipe.image" :alt="recipe.name" class="w-full rounded mb-2 h-32 object-cover" loading="lazy">
+    <NuxtImg placeholder="/recipe-images/default.jpeg" :src="recipe.image" :alt="recipe.name" class="w-full rounded mb-2 h-32 object-cover" />
     <div>
       <div class="flex items-baseline justify-between">
         <hr class="ml-2 opacity-30 bg-gray-600 grow">

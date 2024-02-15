@@ -38,7 +38,7 @@ const caloriesPerServing = computed(() => {
             <span v-if="recipe.servings">{{ recipe.calories }} kcal, {{ caloriesPerServing }} ea.</span>
           </div>
         </div>
-        <img :src="recipe.image" :alt="recipe.name" class="w-full mb-4 rounded-lg shadow-md h-auto" loading="lazy">
+        <NuxtImg placeholder="/recipe-images/default.jpeg" :src="recipe.image" :alt="recipe.name" class="w-full mb-4 rounded-lg shadow-md h-auto" />
       </div>
       <div>
         <div>
