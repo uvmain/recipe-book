@@ -11,10 +11,13 @@
         <NuxtLogo class="scale-50 -ml-6" />
       </a>
     </div>
-    <div>
-      <p class="text-sm text-gray">
-        Copyright © 2024 Ian Baron
-      </p>
+    <div class="flex gap-2 items-center -m-6">
+      <a href="https://github.com/uvmain/recipe-book" target="_blank" title="GitHub">
+        <GithubLogo class="scale-20" />
+      </a>
+      <div class="-ml-6 opacity-50 text-sm">
+        https://github.com/uvmain/recipe-book
+      </div>
     </div>
   </footer>
 </template>
