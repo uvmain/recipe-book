@@ -12,13 +12,13 @@ const caloriesPerServing = computed(() => {
 })
 
 const courseIcon = computed(() => {
-  if (props.recipe.course === 'main')
+  if (props.recipe.course === 'mains')
     return 'icon-park-outline:cook'
-  if (props.recipe.course === 'soup')
+  if (props.recipe.course === 'soups')
     return 'lucide:soup'
-  if (props.recipe.course === 'dessert')
+  if (props.recipe.course === 'desserts')
     return 'ep:dessert'
-  if (props.recipe.course === 'cocktail')
+  if (props.recipe.course === 'cocktails')
     return 'la:cocktail'
   if (props.recipe.course === 'sides')
     return 'mingcute:fries-line'

@@ -16,12 +16,12 @@ export interface Recipe {
 }
 
 export const allowedCourses = [
-  'breakfast',
-  'main',
-  'dessert',
+  'breakfasts',
+  'mains',
+  'desserts',
   'sauces',
   'sides',
-  'soup',
-  'snack',
-  'cocktail',
+  'soups',
+  'snacks',
+  'cocktails',
 ]
