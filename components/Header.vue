@@ -24,41 +24,42 @@ const targetAdd: string = '/add-recipe'
 
 <template>
   <div class="flex w-full bg-gray-100 justify-center">
-    <header class="flex flex-auto flex-wrap m-4 justify-center">
-      <button
-        type="button"
-        class="text-white text-xl bg-blue-gray-500 rounded-lg text-center font-medium md:text-3xl px-5 py-2.5 me-2 mb-2"
-        :class="{ 'opacity-50': currentPath !== targetLatest }"
-        @click="$router.push(targetLatest)"
-      >
-        Latest
-      </button>
-      <button
-        type="button"
-        class="text-white text-xl bg-blue-gray-500 rounded-lg text-center font-medium md:text-3xl px-5 py-2.5 me-2 mb-2"
-        :class="{ 'opacity-50': currentPath !== targetAll }"
-        @click="$router.push(targetAll)"
-      >
-        All
-      </button>
-      <button
-        type="button"
-        class="text-white text-xl bg-blue-gray-500 rounded-lg text-center font-medium md:text-3xl px-5 py-2.5 me-2 mb-2"
-        :class="{ 'opacity-50': !currentPath.startsWith('/recipe/') }"
-        @click="navToRandomRecipe"
-      >
-        Random
-      </button>
-      <button
-        type="button"
-        class="text-white text-xl bg-blue-gray-500 rounded-lg text-center font-medium md:text-3xl px-5 py-2.5 me-2 mb-2"
-        :class="{ 'opacity-50': currentPath !== targetAdd }"
-        @click="$router.push(targetAdd)"
-      >
-        <Icon name="lucide:plus" class="scale-140" />
-      </button>
-
-      <SearchBar class="flex-grow max-w-1/2 md:max-w-1/3" />
+    <header class="flex justify-center flex-wrap m-4">
+      <div>
+        <button
+          type="button"
+          class="text-white text-xl bg-blue-gray-500 rounded-lg text-center font-medium md:text-3xl px-5 py-2.5 me-2 mb-2"
+          :class="{ 'opacity-50': currentPath !== targetLatest }"
+          @click="$router.push(targetLatest)"
+        >
+          Latest
+        </button>
+        <button
+          type="button"
+          class="text-white text-xl bg-blue-gray-500 rounded-lg text-center font-medium md:text-3xl px-5 py-2.5 me-2 mb-2"
+          :class="{ 'opacity-50': currentPath !== targetAll }"
+          @click="$router.push(targetAll)"
+        >
+          All
+        </button>
+        <button
+          type="button"
+          class="text-white text-xl bg-blue-gray-500 rounded-lg text-center font-medium md:text-3xl px-5 py-2.5 me-2 mb-2"
+          :class="{ 'opacity-50': !currentPath.startsWith('/recipe/') }"
+          @click="navToRandomRecipe"
+        >
+          Random
+        </button>
+        <button
+          type="button"
+          class="text-white text-xl bg-blue-gray-500 rounded-lg text-center font-medium md:text-3xl px-5 py-2.5 mb-2 md:me-2"
+          :class="{ 'opacity-50': currentPath !== targetAdd }"
+          @click="$router.push(targetAdd)"
+        >
+          <Icon name="lucide:plus" class="scale-140" />
+        </button>
+      </div>
+      <SearchBar class="" />
     </header>
   </div>
 </template>
