@@ -42,14 +42,20 @@ const slugKeywords = computed(() => {
 
 function filteredList() {
   const filteredSlugs = []
+  const inputWords = input.value.toLowerCase().split(' ')
+
   const filteredRecipeList = slugKeywords.value.filter(recipe =>
-    Object.values(recipe)[0].some(value =>
-      typeof value === 'string' && value.toLowerCase().includes(input.value.toLowerCase()),
+    inputWords.every(word =>
+      Object.values(recipe)[0].some(value =>
+        typeof value === 'string' && value.toLowerCase().includes(word),
+      ),
     ),
   )
+
   for (const recipe of filteredRecipeList) {
     filteredSlugs.push(Object.keys(recipe)[0])
   }
+
   searchedSlugs.value = filteredSlugs
   return filteredSlugs
 }

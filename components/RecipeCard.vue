@@ -29,9 +29,9 @@ const courseIcon = computed(() => {
 </script>
 
 <template>
-  <NuxtLink :to="getRouterLink()" class="p-4 border rounded shadow-md text-white bg-blue-gray-600 no-underline overflow-auto">
+  <NuxtLink :to="getRouterLink()" class="border rounded text-white p-4 shadow-md bg-blue-gray-600 no-underline overflow-auto">
     <div class="flex items-baseline justify-between">
-      <h3 class="text-xl font-bold mb-2">
+      <h3 class="text-xl mb-2 font-bold">
         {{ recipe.name }}
       </h3>
       <div class="flex group relative">

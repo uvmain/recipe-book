@@ -14,13 +14,13 @@ const caloriesPerServing = computed(() => {
 
 <template>
   <div>
-    <h2 class="text-center text-4xl font-bold mb-4">
+    <h2 class="text-center font-bold text-4xl mb-4">
       {{ recipe.name }}
     </h2>
     <hr class="mb-4 opacity-30">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <div>
-        <div class="mb-4 flex bg-blue-gray-500 p-4 pt-0 rounded-md items-baseline justify-between">
+        <div class="mb-4 flex bg-blue-gray-500 p-4 rounded-md items-baseline justify-between pt-0">
           <div class="">
             <p v-if="recipe.author">
               <strong>Author:</strong>
@@ -38,14 +38,14 @@ const caloriesPerServing = computed(() => {
             <span v-if="recipe.servings">{{ recipe.calories }} kcal, {{ caloriesPerServing }} ea.</span>
           </div>
         </div>
-        <img :src="recipe.image" :alt="recipe.name" class="w-full mb-4 rounded-lg h-auto shadow-md" loading="lazy">
+        <img :src="recipe.image" :alt="recipe.name" class="w-full mb-4 rounded-lg shadow-md h-auto" loading="lazy">
       </div>
       <div>
         <div>
           <h3 class="text-xl font-bold mb-2">
             Ingredients:
           </h3>
-          <ul class="list-disc ml-2">
+          <ul class="ml-2 list-disc">
             <li v-for="(ingredient, index) in recipe.ingredients" :key="index" :class="{ 'opacity-0': ingredient === '', 'list-none font-semibold': ingredient.startsWith(' ') }">
               {{ ingredient }}
             </li>
