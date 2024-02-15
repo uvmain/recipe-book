@@ -34,6 +34,7 @@ const courseOptions = computed(() => {
 })
 
 async function saveRecipe() {
+  recipe.value.slug = recipe.value.name.toLowerCase().replaceAll(' ', '-')
   recipe.value.dateAdded = new Date().toISOString().split('T')[0]
   recipe.value.image = `/recipe-images/${recipe.value.slug}.webp`
 
@@ -55,7 +56,6 @@ async function saveRecipe() {
 <template>
   <div class="grid gap-4 grid-cols-1 place-items-center mt-4">
     <form class="pl md:pl-5 md:w-1/3 w-3/4" @submit.prevent="saveRecipe">
-      <FormInput id="slug" v-model="recipe.slug" label="Slug" type="text" />
       <FormInput id="name" v-model="recipe.name" label="Recipe Name" type="text" />
       <FormInput id="author" v-model="recipe.author" label="Author" type="text" />
       <FormInput id="source" v-model="recipe.source" label="Source" type="text" />
