@@ -23,8 +23,8 @@ const targetAdd: string = '/add-recipe'
 </script>
 
 <template>
-  <div class="flex w-full justify-center bg-gray-100">
-    <header class="flex w-full m-4 md:w-2/3 justify-around md:justify-around">
+  <div class="flex w-full bg-gray-100 justify-center">
+    <header class="flex flex-auto flex-wrap m-4 justify-center">
       <button
         type="button"
         class="text-white text-xl bg-blue-gray-500 rounded-lg text-center font-medium md:text-3xl px-5 py-2.5 me-2 mb-2"
@@ -58,7 +58,7 @@ const targetAdd: string = '/add-recipe'
         <Icon name="lucide:plus" class="scale-140" />
       </button>
 
-      <SearchBar />
+      <SearchBar class="flex-grow max-w-1/2 md:max-w-1/3" />
     </header>
   </div>
 </template>

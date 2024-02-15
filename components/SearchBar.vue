@@ -1,8 +1,13 @@
 <script setup>
+const router = useRouter()
 const input = ref('')
 
 const { data: recipes } = await useAsyncData('allrecipes', () =>
   queryContent('/recipes').find())
+
+const currentPath = computed(() => {
+  return router.currentRoute.value.path
+})
 
 function flattenRecipe(jsonObj) {
   const result = []
@@ -66,16 +71,17 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="recipes" class="flex items-center grid grid-cols-2 gap-5 min-w-1/2">
+  <div v-if="recipes" class="flex items-center grid grid-cols-2 gap-3 ml-2">
     <input
       v-model="input"
       type="text"
       placeholder="Search recipes..."
-      class="block w-full px-3 py-3 text-base font-normal text-dark bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0"
+      class="text-white text-xl bg-blue-gray-500 rounded-lg font-medium md:text-3xl px-5 py-2.5 me-2 mb-2 placeholder-gray-400"
+      :class="{ 'opacity-50': currentPath !== '/search' }"
       @click="$router.push('/search')"
       @input="filteredList"
     >
-    <div v-if="input && !filteredList().length" class="text-red font-semibold">
+    <div v-if="input && !filteredList().length" class="text-red-500 font-semibold">
       <span>No results found!</span>
     </div>
   </div>
