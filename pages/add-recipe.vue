@@ -65,7 +65,7 @@ async function saveRecipe() {
       <FormTextarea id="Ingredients" v-model="instructions" label="Instructions" />
 
       <div class="flex justify-center pt-8">
-        <button type="submit" class="w-full border rounded block px-3 py-3 text-base font-normal text-dark bg-white bg-clip-padding border-solid border-gray-300 transition ease-in-out m-0 lg:w-1/2">
+        <button type="submit" class="w-full block border rounded px-3 py-3 text-base font-normal text-dark bg-white bg-clip-padding border-solid border-gray-300 transition ease-in-out m-0 lg:w-1/2">
           Save Recipe
         </button>
       </div>

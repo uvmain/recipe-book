@@ -32,20 +32,20 @@ const flagIcon = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-row gap-2">
+  <div class="flex gap-2 flex-row">
     <div id="vegetarianIcon" class="flex relative group/veg">
       <Icon v-if="recipe.vegetarian" name="lucide:vegan" class="text-green-300" />
       <span class="text-sm rounded-md transition-opacity bg-gray-800 px-1 text-gray-100 absolute left-1/2 -translate-x-1/2 translate-y-full opacity-0 -ml-10 group-hover/veg:opacity-100">
         Vegetarian
       </span>
     </div>
-    <div id="countryIcon" class="flex group/country relative">
+    <div id="countryIcon" class="flex relative group/country">
       <Icon :name="flagIcon" />
       <span v-if="recipe.country" class="text-sm rounded-md transition-opacity bg-gray-800 px-1 text-gray-100 absolute left-1/2 -translate-x-1/2 translate-y-full opacity-0 -ml-10 group-hover/country:opacity-100">
         {{ recipe.country }}
       </span>
     </div>
-    <div id="courseIcon" class="flex group/course relative">
+    <div id="courseIcon" class="flex relative group/course">
       <Icon :name="courseIcon" />
       <span class="text-sm rounded-md transition-opacity bg-gray-800 px-1 text-gray-100 absolute left-1/2 -translate-x-1/2 translate-y-full opacity-0 -ml-10 group-hover/course:opacity-100">
         {{ recipe.course }}

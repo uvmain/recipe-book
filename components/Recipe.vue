@@ -14,14 +14,14 @@ const caloriesPerServing = computed(() => {
 
 <template>
   <div class="mr-2 md:mr">
-    <h2 class="text-center font-bold text-4xl mb-4">
+    <h2 class="font-bold text-center text-4xl mb-4">
       {{ recipe.name }}
     </h2>
-    <RecipeIcons :recipe="recipe" class="flex flex-auto justify-center mb-4" />
+    <RecipeIcons :recipe="recipe" class="flex justify-center mb-4 flex-auto" />
     <hr class="mb-4 opacity-30">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <div>
-        <div class="mb-4 flex bg-blue-gray-500 p-4 rounded-md items-baseline justify-between pt-0">
+        <div class="mb-4 flex bg-blue-gray-500 items-baseline justify-between p-4 rounded-md pt-0">
           <div class="">
             <p v-if="recipe.author">
               <strong>Author:</strong>

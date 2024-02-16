@@ -23,7 +23,7 @@ const targetAdd: string = '/add-recipe'
 </script>
 
 <template>
-  <div class="flex w-full bg-gray-100 justify-center">
+  <div class="flex w-full justify-center bg-gray-100">
     <header class="flex justify-center flex-wrap m-4">
       <div>
         <button
