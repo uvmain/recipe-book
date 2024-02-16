@@ -1,22 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-export interface Recipe {
-  slug: string
-  dateAdded: string
-  name: string
-  author: string
-  source: string
-  course: string
-  vegetarian: false
-  prepTime: string
-  cookingTime: string
-  calories: string
-  servings: string
-  ingredients: string[]
-  instructions: string[]
-  image: string
-}
 const recipe = ref<Recipe>({} as Recipe)
 
 const ingredients = ref()
@@ -31,6 +15,17 @@ const courseOptions = computed(() => {
     })
   })
   return courses
+})
+
+const countryOptions = computed(() => {
+  const countries: any[] = []
+  countryFlags.forEach((country) => {
+    countries.push({
+      title: country.name,
+      value: country.name,
+    })
+  })
+  return countries
 })
 
 async function saveRecipe() {
@@ -60,6 +55,7 @@ async function saveRecipe() {
       <FormInput id="author" v-model="recipe.author" label="Author" type="text" />
       <FormInput id="source" v-model="recipe.source" label="Source" type="text" />
       <FormDropdown v-model="recipe.course" label="Course" :options="courseOptions" class="w-full md:w-1/2" />
+      <FormDropdown v-model="recipe.country" label="Country" :options="countryOptions" class="w-full md:w-1/2" />
       <FormCheckbox id="vegetarian" v-model="recipe.vegetarian" label="Vegetarian?" />
       <FormInput id="prepTime" v-model="recipe.prepTime" label="Prep Time" type="text" />
       <FormInput id="cookingTime" v-model="recipe.cookingTime" label="Cooking Time" type="text" />

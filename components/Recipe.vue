@@ -13,10 +13,11 @@ const caloriesPerServing = computed(() => {
 </script>
 
 <template>
-  <div>
+  <div class="mr-2 md:mr">
     <h2 class="text-center font-bold text-4xl mb-4">
       {{ recipe.name }}
     </h2>
+    <RecipeIcons :recipe="recipe" class="flex flex-auto justify-center mb-4" />
     <hr class="mb-4 opacity-30">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <div>
@@ -38,7 +39,7 @@ const caloriesPerServing = computed(() => {
             <span v-if="recipe.servings">{{ recipe.calories }} kcal, {{ caloriesPerServing }} ea.</span>
           </div>
         </div>
-        <NuxtImg placeholder="/recipe-images/default.jpeg" :src="recipe.image" :alt="recipe.name" class="w-full mb-4 rounded-lg shadow-md h-auto" />
+        <NuxtImg placeholder="/recipe-images/default.webp" :src="recipe.image" :alt="recipe.name" class="w-full rounded-lg shadow-md h-auto md:mb-4" />
       </div>
       <div>
         <div>

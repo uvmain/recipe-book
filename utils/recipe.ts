@@ -5,6 +5,7 @@ export interface Recipe {
   author: string
   source: string
   course: string
+  country: string
   vegetarian: false
   prepTime: string
   cookingTime: string

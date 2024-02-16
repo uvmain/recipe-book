@@ -10,47 +10,20 @@ function getRouterLink() {
 const caloriesPerServing = computed(() => {
   return props.recipe.calories / props.recipe.servings
 })
-
-const courseIcon = computed(() => {
-  if (props.recipe.course === 'mains')
-    return 'icon-park-outline:cook'
-  if (props.recipe.course === 'soups')
-    return 'lucide:soup'
-  if (props.recipe.course === 'desserts')
-    return 'ep:dessert'
-  if (props.recipe.course === 'cocktails')
-    return 'la:cocktail'
-  if (props.recipe.course === 'sides')
-    return 'mingcute:fries-line'
-  if (props.recipe.course === 'sauces')
-    return 'icon-park-outline:bottle-two'
-  else return 'icon-park-outline:cook'
-})
 </script>
 
 <template>
-  <NuxtLink :to="getRouterLink()" class="text-white border rounded p-4 shadow-md bg-blue-gray-600 no-underline overflow-auto">
+  <NuxtLink :to="getRouterLink()" class="text-white border rounded px-4 shadow-md bg-blue-gray-600 no-underline overflow-auto pb-4">
     <div class="flex items-baseline justify-between md:min-h-5rem">
       <h3 class="text-xl mb-2 font-bold">
         {{ recipe.name }}
       </h3>
-      <div class="flex group relative">
-        <Icon v-if="recipe.vegetarian" name="lucide:vegan" class="text-green-300" />
-        <span class="text-sm rounded-md group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-gray-100 absolute left-1/2 -translate-x-1/2 translate-y-full opacity-0 -ml-10">
-          Vegetarian
-        </span>
-      </div>
     </div>
-    <NuxtImg placeholder="/recipe-images/default.jpeg" :src="recipe.image" :alt="recipe.name" class="w-full rounded mb-2 h-32 object-cover" />
+    <NuxtImg placeholder="/recipe-images/default.webp" :src="recipe.image" :alt="recipe.name" class="w-full rounded mb-2 h-32 object-cover" />
     <div>
-      <div class="flex items-baseline justify-between">
-        <hr class="ml-2 opacity-30 bg-gray-600 grow">
-        <div class="group relative text-white text-xl items-start shrink ml-4 mr-2">
-          <Icon :name="courseIcon" />
-          <span class="text-sm rounded-md group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-gray-100 absolute left-1/2 -translate-x-1/2 translate-y-full opacity-0 -ml-10">
-            {{ recipe.course }}
-          </span>
-        </div>
+      <div class="flex items-center justify-between gap-3 mx-2">
+        <hr class="opacity-30 bg-gray-600 grow">
+        <RecipeIcons :recipe="recipe" />
       </div>
 
       <p v-if="recipe.author">
