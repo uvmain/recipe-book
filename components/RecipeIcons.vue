@@ -4,6 +4,8 @@ const props = defineProps({
 })
 
 const courseIcon = computed(() => {
+  if (props.recipe.course === 'baking')
+    return 'mingcute:bread-line'
   if (props.recipe.course === 'mains')
     return 'icon-park-outline:cook'
   if (props.recipe.course === 'soups')

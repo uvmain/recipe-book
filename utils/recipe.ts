@@ -17,6 +17,7 @@ export interface Recipe {
 }
 
 export const allowedCourses = [
+  'baking',
   'breakfasts',
   'mains',
   'desserts',
