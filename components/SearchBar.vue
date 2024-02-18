@@ -71,7 +71,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="recipes" class="flex items-center grid ml-2 grid-cols-2 gap-3">
+  <div v-if="recipes" class="flex items-center grid gap-3 ml-2 grid-cols-2">
     <input
       v-model="input"
       type="text"
