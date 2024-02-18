@@ -65,6 +65,7 @@ async function saveRecipe() {
       <client-only>
         <Tiptap id="ingredients" v-model="ingredients" label="Ingredients" />
       </client-only>
+      {{ ingredients }}
 
       <client-only>
         <Tiptap id="instructions" v-model="instructions" label="Instructions" />
