@@ -32,7 +32,7 @@ const caloriesPerServing = computed(() => {
               {{ recipe.source }}
             </component>
           </div>
-          <div class="grid text-sm text-right min-w-20% opacity-80">
+          <div class="grid text-sm text-right opacity-80 min-w-1/5">
             <span v-if="recipe.servings">{{ recipe.servings }} Servings</span>
             <span v-if="recipe.prepTime">Prep: {{ recipe.prepTime }}</span>
             <span v-if="recipe.cookingTime">Cook: {{ recipe.cookingTime }}</span>

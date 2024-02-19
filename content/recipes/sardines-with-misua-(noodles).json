@@ -6,12 +6,13 @@
   "course": "mains",
   "prepTime": "5",
   "cookingTime": "8",
-  "servings": "3",
+  "servings": "5",
+  "calories": "1115",
   "slug": "sardines-with-misua-(noodles)",
   "dateAdded": "2024-02-19",
   "image": "/recipe-images/sardines-with-misua-noodles.webp",
   "ingredients": [
-    "<ul><li><p>1 small can sardines in tomato sauce</p></li><li><p>50g misua (flour vermicelli)</p></li><li><p>1 bunch vegetable greens, trimmed and chopped</p></li><li><p>2 cups water</p></li><li><p>4 cloves garlic, minced</p></li><li><p>1 small onion, finely chopped</p></li><li><p>fish sauce</p></li><li><p>freshly ground black pepper</p></li><li><p>oil</p></li></ul>"
+    "<ul><li><p>2 cans sardines in tomato sauce</p></li><li><p>180g misua (flour vermicelli)</p></li><li><p>1 savoy cabbage, trimmed and chopped</p></li><li><p>2 cups water</p></li><li><p>4 cloves garlic, minced</p></li><li><p>1 small onion, finely chopped</p></li><li><p>1 tbsp fish sauce</p></li><li><p>freshly ground black pepper</p></li><li><p>oil</p></li></ul>"
   ],
   "instructions": [
     "<ul><li><p>In a pot add oil then sauté garlic and onion.</p></li><li><p>Add sardines and water, bring it to a boil and simmer for 2 minutes.</p></li><li><p>Add the misua and vegetable greens, simmer for 3 minutes.</p></li><li><p>Season with fish sauce and freshly ground black pepper.</p></li><li><p>Serve while hot.</p></li></ul>"

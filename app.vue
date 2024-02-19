@@ -25,6 +25,5 @@ html, body, #__nuxt {
   padding: 0;
   background: grey;
   color: white;
-  color-scheme: dark;
 }
 </style>
