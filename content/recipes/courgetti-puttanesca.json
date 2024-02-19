@@ -11,25 +11,7 @@
   "cookingTime": "10 minutes",
   "calories": "500",
   "servings": "2",
-  "ingredients": [
-    "1 tbsp olive oil",
-    "4 anchovies (15g)",
-    "2 cloves garlic, chopped",
-    "1 tbsp capers",
-    "1 tsp chili flakes",
-    "400g tinned chopped tomatoes",
-    "2 tbsp chopped parsley",
-    "650g (~3) courgettes, spiralized",
-    "10g parmesan",
-    "50g pitted olives, sliced"
-  ],
-  "instructions": [
-    "Heat the oil and mix in the anchovies",
-    "Add the garlic for a few minutes",
-    "Add the chili flakes, capers and olives for a few minutes",
-    "Add the tomatoes, bring to a simmer",
-    "Add the courgetti, put a lid on top to steam",
-    "Serve with grated parmesan and the parsley"
-  ],
+  "ingredients": "<ul><li><p>1 tbsp olive oil</p></li><li><p>4 anchovies (15g)</p></li><li><p>2 cloves garlic, chopped</p></li><li><p>1 tbsp capers</p></li><li><p>1 tsp chili flakes</p></li><li><p>400g tinned chopped tomatoes</p></li><li><p>2 tbsp chopped parsley</p></li><li><p>650g (~3) courgettes, spiralized</p></li><li><p>10g parmesan</p></li><li><p>50g pitted olives, sliced</p></li></ul>",
+  "instructions": "<ul><li><p>Heat the oil and mix in the anchovies</p></li><li><p>Add the garlic for a few minutes</p></li><li><p>Add the chili flakes, capers and olives for a few minutes</p></li><li><p>Add the tomatoes, bring to a simmer</p></li><li><p>Add the courgetti, put a lid on top to steam</p></li><li><p>Serve with grated parmesan and the parsley</p></li></ul>",
   "image": "/recipe-images/courgetti-puttanesca.webp"
 }

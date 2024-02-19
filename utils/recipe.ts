@@ -11,8 +11,8 @@ export interface Recipe {
   cookingTime: string
   calories: string
   servings: string
-  ingredients: string[]
-  instructions: string[]
+  ingredients: string
+  instructions: string
   image: string
 }
 

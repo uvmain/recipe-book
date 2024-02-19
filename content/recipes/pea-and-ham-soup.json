@@ -9,25 +9,7 @@
   "prepTime": "10 minutes",
   "cookingTime": "40 minutes",
   "servings": "6",
-  "ingredients": [
-    "45g unsalted butter",
-    "1 medium onion, finely diced",
-    "1 large rib celery, finely diced",
-    "170g cured/smoked ham hock meat",
-    "2 cloves garlic, minced",
-    "450g dried green split peas",
-    "1.5 ltr chicken stock, or water",
-    "2 bay leaves",
-    "Kosher salt and freshly ground black pepper"
-  ],
-  "instructions": [
-    "Melt butter in a pressure cooker over medium heat.",
-    "Add onion, celery, and ham and cook, stirring, until softened but not browned, about 3 minutes.",
-    "Add garlic and cook until aromatic, about 30 seconds.",
-    "",
-    "Add peas, chicken stock or water, and bay leaves. Stir to combine, then cover pot and bring to high pressure.",
-    "Cook for 20 minutes, then pulse release pressure.",
-    "Open pot lid, stir contents until smooth, season to taste with salt and pepper."
-  ],
+  "ingredients": "<ul><li><p>45g unsalted butter</p></li><li><p>1 medium onion, finely diced</p></li><li><p>1 large rib celery, finely diced</p></li><li><p>170g cured/smoked ham hock meat</p></li><li><p>2 cloves garlic, minced</p></li><li><p>450g dried green split peas</p></li><li><p>1.5 ltr chicken stock, or water</p></li><li><p>2 bay leaves</p></li><li><p>Kosher salt and freshly ground black pepper</p></li></ul>",
+  "instructions": "<ul><li><p>Melt butter in a pressure cooker over medium heat.</p></li><li><p>Add onion, celery, and ham and cook, stirring, until softened but not browned, about 3 minutes.</p></li><li><p>Add garlic and cook until aromatic, about 30 seconds. </p></li></ul><p><br></p><ul><li><p>Add peas, chicken stock or water, and bay leaves.</p></li><li><p>Stir to combine, then cover pot and bring to high pressure.</p></li><li><p>Cook for 20 minutes, then pulse release pressure.</p></li><li><p>Open pot lid, stir contents until smooth, season to taste with salt and pepper.</p></li></ul>",
   "image": "/recipe-images/pea-and-ham-soup.webp"
 }

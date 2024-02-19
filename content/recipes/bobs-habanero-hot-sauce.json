@@ -9,25 +9,7 @@
   "prepTime": "15 minutes",
   "cookingTime": "8 hours",
   "servings": "64",
-  "ingredients": [
-    "12 habanero peppers, seeded and chopped",
-    "400g can sliced peaches in heavy syrup",
-    "160g dark molasses",
-    "125 ml yellow mustard",
-    "160g light brown sugar",
-    "250 ml distilled white vinegar",
-    "2 tbsp salt",
-    "2 tbsp paprika",
-    "1 tbsp black pepper",
-    "1 tbsp ground cumin",
-    "0.5 tsp ground coriander",
-    "0.5 tsp ground ginger",
-    "0.5 tsp ground allspice"
-  ],
-  "instructions": [
-    "Place the peppers, peaches, molasses, mustard, brown sugar, and vinegar into the container of a food processor or blender.",
-    "Measure in the salt, paprika, pepper, cumin, coriander, ginger and allspice.",
-    "Blend until liquefied. Pour into clean jars, and refrigerate overnight before using."
-  ],
+  "ingredients": "<ul><li><p>12 habanero peppers, seeded and chopped</p></li><li><p>400g can sliced peaches in heavy syrup</p></li><li><p>160g dark molasses</p></li><li><p>125 ml yellow mustard</p></li><li><p>160g light brown sugar</p></li><li><p>250 ml distilled white vinegar</p></li><li><p>2 tbsp salt</p></li><li><p>2 tbsp paprika</p></li><li><p>1 tbsp black pepper</p></li><li><p>1 tbsp ground cumin</p></li><li><p>0.5 tsp ground coriander</p></li><li><p>0.5 tsp ground ginger</p></li><li><p>0.5 tsp ground allspice</p></li></ul>",
+  "instructions": "<ul><li><p>Place the peppers, peaches, molasses, mustard, brown sugar, and vinegar into the container of a food processor or blender.</p></li><li><p>Measure in the salt, paprika, pepper, cumin, coriander, ginger and allspice.</p></li><li><p>Blend until liquefied. Pour into clean jars, and refrigerate overnight before using.</p></li></ul>",
   "image": "/recipe-images/bobs-hab-hot-sauce.webp"
 }

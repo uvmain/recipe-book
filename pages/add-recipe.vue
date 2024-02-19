@@ -61,12 +61,22 @@ async function saveRecipe() {
       <FormInput id="cookingTime" v-model="recipe.cookingTime" label="Cooking Time" type="text" />
       <FormInput id="calories" v-model="recipe.calories" label="Total Calories" type="number" />
       <FormInput id="servings" v-model="recipe.servings" label="Servings" type="number" />
-      <FormTextarea id="ingredients" v-model="ingredients" label="Ingredients" />
-      <FormTextarea id="Ingredients" v-model="instructions" label="Instructions" />
+
+      <client-only>
+        <Tiptap id="ingredients" v-model="ingredients" label="Ingredients" />
+      </client-only>
+      <br>
+      <div v-if="ingredients" class="rounded-lg bg-blue-gray-600 p-2 w-full" v-html="ingredients" />
+
+      <client-only>
+        <Tiptap id="instructions" v-model="instructions" label="Instructions" />
+      </client-only>
+      <br>
+      <div v-if="instructions" class="rounded-lg bg-gray-600 p-2 w-full" v-html="instructions" />
 
       <div class="flex justify-center pt-8">
         <button type="submit" class="w-full block border rounded px-3 py-3 text-base font-normal text-dark bg-white bg-clip-padding border-solid border-gray-300 transition ease-in-out m-0 lg:w-1/2">
-          Save Recipe
+          Download Recipe
         </button>
       </div>
     </form>

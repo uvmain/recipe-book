@@ -24,10 +24,10 @@ const courseIcon = computed(() => {
 const flagIcon = computed(() => {
   if (props.recipe.country) {
     const countryFlag = countryFlags.find(country => country.name === props.recipe.country)
-    return countryFlag?.icon || 'fxemoji:europeafricaglobe'
+    return countryFlag?.icon
   }
   else
-    return 'fxemoji:europeafricaglobe'
+    return null
 })
 </script>
 
@@ -40,7 +40,7 @@ const flagIcon = computed(() => {
       </span>
     </div>
     <div id="countryIcon" class="flex relative group/country">
-      <Icon :name="flagIcon" />
+      <Icon v-if="flagIcon" :name="flagIcon" />
       <span v-if="recipe.country" class="text-sm rounded-md transition-opacity bg-gray-800 px-1 text-gray-100 absolute left-1/2 -translate-x-1/2 translate-y-full opacity-0 -ml-10 group-hover/country:opacity-100">
         {{ recipe.country }}
       </span>

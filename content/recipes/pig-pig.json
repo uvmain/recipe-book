@@ -11,35 +11,7 @@
   "cookingTime": "45 minutes",
   "calories": "1456",
   "servings": "4",
-  "ingredients": [
-    "700g chicken - chopped into pieces",
-    "1 large onion - sliced",
-    "4 cloves garlic",
-    "1 tbs ginger - grated",
-    "3 star anise",
-    "1 cinnamon stick",
-    "5 whole cloves",
-    "1/4 cup Shaoxing wine",
-    "1 cup (or more) water",
-    "2 medium potatoes - cut into chunks",
-    "",
-    " Seasonings:",
-    "2 tbs oyster sauce",
-    "1 tbs (or more) light soy sauce",
-    "1 tsp dark soy sauce",
-    "1 tsp sugar",
-    "1 tsp white pepper"
-  ],
-  "instructions": [
-    "Mix together chicken pieces and seasonings, leave to marinade for about 30 mins.",
-    "Heat up a bit of oil in a pot. Add onions, fry until soft and translucent.",
-    "Add ginger and garlic, fry until fragrant.",
-    "Mix in star anise cinnamon, cloves, fry until fragrant.",
-    "Add chicken pieces, fry until chicken is slightly browned.",
-    "Pour in Shaoxing wine to deglaze the pot and let boil for awhile.",
-    "Mix in potatoes and just enough water to cover all ingredients. Let it simmer until gravy is thickened (about 30-45 mins).",
-    "Thicken with corn starch slurry (corn starch + water) if the gravy is too runny.",
-    "Season to taste and serve with rice."
-  ],
+  "ingredients": "<ul><li><p>700g chicken - chopped into pieces</p></li><li><p>1 large onion - sliced</p></li><li><p>4 cloves garlic</p></li><li><p>1 tbs ginger - grated</p></li><li><p>3 star anise</p></li><li><p>1 cinnamon stick</p></li><li><p>5 whole cloves</p></li><li><p>1/4 cup Shaoxing wine</p></li><li><p>1 cup (or more) water</p></li><li><p>2 medium potatoes - cut into chunks </p></li></ul><p><br>Seasonings</p><ul><li><p>2 tbs oyster sauce</p></li><li><p>1 tbs (or more) light soy sauce</p></li><li><p>1 tsp dark soy sauce</p></li><li><p>1 tsp sugar</p></li><li><p>1 tsp white pepper</p></li></ul>",
+  "instructions": "<ul><li><p>Mix together chicken pieces and seasonings, leave to marinade for about 30 mins.</p></li><li><p>Heat up a bit of oil in a pot. Add onions, fry until soft and translucent.</p></li><li><p>Add ginger and garlic, fry until fragrant.</p></li><li><p>Mix in star anise cinnamon, cloves, fry until fragrant.</p></li><li><p>Add chicken pieces, fry until chicken is slightly browned.</p></li><li><p>Pour in Shaoxing wine to deglaze the pot and let boil for awhile.</p></li><li><p>Mix in potatoes and just enough water to cover all ingredients. Let it simmer until gravy is </p></li><li><p>thickened (about 30-45 mins).</p></li><li><p>Thicken with corn starch slurry (corn starch + water) if the gravy is too runny.</p></li><li><p>Season to taste and serve with rice.</p></li></ul>",
   "image": "/recipe-images/pig-pig.webp"
 }

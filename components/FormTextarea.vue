@@ -21,7 +21,7 @@ function handleInput(e: Event) {
     <textarea
       :id="id"
       :value="modelValue"
-      class="block w-full px-3 py-3 text-base font-normal text-dark bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0"
+      class="add-form-component"
       :required="required"
       @input="handleInput"
     />

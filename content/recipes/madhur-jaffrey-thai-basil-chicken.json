@@ -11,28 +11,7 @@
   "cookingTime": "15 minutes",
   "calories": "960",
   "servings": "3",
-  "ingredients": [
-    "2 tbsp vegetable oil",
-    "3 dried red chillies",
-    "2 cloves garlic, chopped",
-    "1 tbsp shrimp paste",
-    "450g boneless chicken thighs, sliced",
-    "1 tsp paprika",
-    "",
-    "200g tomatoes, sliced",
-    "100g mushooms, sliced",
-    "15g basil, sliced",
-    "2 tbsp fish sauce"
-  ],
-  "instructions": [
-    "Heat the oil in a wok or large fying pan over highish heat",
-    "When hot, put in the red chillies and garlic",
-    "Stir once or twice and put in the shrimp paste",
-    "Stir that for 10 seconds, breaking it up, and put in the chicken",
-    "Stir and fry the chicken intil it is lightly browned, put in the paprika and stir",
-    "Add the tomatoes, mushrooms, basil and fish sauce, stir for 1 minute.",
-    "Turn the heat to low and simmer for 10 minutes.",
-    "Serve with rice or on a jacket potato!"
-  ],
+  "ingredients": "<ul><li><p>2 tbsp vegetable oil</p></li><li><p>3 dried red chillies</p></li><li><p>2 cloves garlic, chopped</p></li><li><p>1 tbsp shrimp paste</p></li><li><p>450g boneless chicken thighs, sliced</p></li><li><p>1 tsp paprika</p></li></ul><p><br></p><ul><li><p>200g tomatoes, sliced</p></li><li><p>100g mushooms, sliced</p></li><li><p>15g basil, sliced</p></li><li><p>2 tbsp fish sauce</p></li></ul>",
+  "instructions": "<ul><li><p>Heat the oil in a wok or large fying pan over highish heat</p></li><li><p>When hot, put in the red chillies and garlic</p></li><li><p>Stir once or twice and put in the shrimp paste</p></li><li><p>Stir that for 10 seconds, breaking it up, and put in the chicken</p></li><li><p>Stir and fry the chicken intil it is lightly browned, put in the paprika and stir</p></li><li><p>Add the tomatoes, mushrooms, basil and fish sauce, stir for 1 minute.</p></li><li><p>Turn the heat to low and simmer for 10 minutes.</p></li><li><p>Serve with rice or on a jacket potato!</p><pre><code class=\"language-json\"></code></pre></li></ul>",
   "image": "/recipe-images/kai-pad-makauted.webp"
 }
