@@ -34,9 +34,9 @@ const caloriesPerServing = computed(() => {
           </div>
           <div class="grid text-sm text-right min-w-20% opacity-80">
             <span v-if="recipe.servings">{{ recipe.servings }} Servings</span>
-            <span v-if="recipe.servings">Prep: {{ recipe.prepTime }}</span>
-            <span v-if="recipe.servings">Cook: {{ recipe.cookingTime }}</span>
-            <span v-if="recipe.servings">{{ recipe.calories }} kcal, {{ caloriesPerServing }} ea.</span>
+            <span v-if="recipe.prepTime">Prep: {{ recipe.prepTime }}</span>
+            <span v-if="recipe.cookingTime">Cook: {{ recipe.cookingTime }}</span>
+            <span v-if="recipe.servings && recipe.calories">{{ recipe.calories }} kcal, {{ caloriesPerServing }} ea.</span>
           </div>
         </div>
         <NuxtImg placeholder="/recipe-images/default.webp" :src="recipe.image" :alt="recipe.name" class="w-full rounded-lg shadow-md h-auto md:mb-4" />
