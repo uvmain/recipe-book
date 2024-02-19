@@ -65,12 +65,14 @@ async function saveRecipe() {
       <client-only>
         <Tiptap id="ingredients" v-model="ingredients" label="Ingredients" />
       </client-only>
-      {{ ingredients }}
+      <br>
+      <div v-if="ingredients" class="rounded-lg bg-blue-gray-600 p-2 w-full" v-html="ingredients" />
 
       <client-only>
         <Tiptap id="instructions" v-model="instructions" label="Instructions" />
       </client-only>
-      {{ instructions }}
+      <br>
+      <div v-if="instructions" class="rounded-lg bg-gray-600 p-2 w-full" v-html="instructions" />
 
       <div class="flex justify-center pt-8">
         <button type="submit" class="w-full block border rounded px-3 py-3 text-base font-normal text-dark bg-white bg-clip-padding border-solid border-gray-300 transition ease-in-out m-0 lg:w-1/2">

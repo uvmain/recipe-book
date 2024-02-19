@@ -41,9 +41,9 @@ const caloriesPerServing = computed(() => {
         </div>
         <NuxtImg placeholder="/recipe-images/default.webp" :src="recipe.image" :alt="recipe.name" class="w-full rounded-lg shadow-md h-auto md:mb-4" />
       </div>
-      <div class="grid gap-4">
+      <div class="grid grid-cols-1 gap-4 auto-rows-min">
         <div class="rounded-lg bg-blue-gray-600 p-2 pt-1">
-          <h3 class="text-xl font-bold mb-2">
+          <h3 class="font-bold text-xl mb-2">
             Ingredients:
           </h3>
           <div class="pl-2 md:pl-4" v-html="recipe.ingredients" />
