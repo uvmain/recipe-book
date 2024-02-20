@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { MdEditor } from 'md-editor-v3'
+import 'md-editor-v3/lib/style.css'
 
 const recipe = ref<Recipe>({} as Recipe)
 
@@ -62,17 +63,15 @@ async function saveRecipe() {
       <FormInput id="calories" v-model="recipe.calories" label="Total Calories" type="number" />
       <FormInput id="servings" v-model="recipe.servings" label="Servings" type="number" />
 
-      <client-only>
-        <Tiptap id="ingredients" v-model="ingredients" label="Ingredients" />
-      </client-only>
-      <br>
-      <div v-if="ingredients" class="rounded-lg bg-blue-gray-600 p-2 w-full" v-html="ingredients" />
+      <label class="m-2 block text-white">
+        Ingredients
+      </label>
+      <MdEditor v-model="ingredients" editor-id="ingredients" class="add-form-component" language="en-US" />
 
-      <client-only>
-        <Tiptap id="instructions" v-model="instructions" label="Instructions" />
-      </client-only>
-      <br>
-      <div v-if="instructions" class="rounded-lg bg-gray-600 p-2 w-full" v-html="instructions" />
+      <label class="m-2 block text-white">
+        Instructions
+      </label>
+      <MdEditor v-model="instructions" class="add-form-component" language="en-US" editor-id="instructions" />
 
       <div class="flex justify-center pt-8">
         <button type="submit" class="w-full block border rounded px-3 py-3 text-base font-normal text-dark bg-white bg-clip-padding border-solid border-gray-300 transition ease-in-out m-0 lg:w-1/2">

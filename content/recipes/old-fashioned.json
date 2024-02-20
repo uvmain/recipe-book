@@ -7,7 +7,7 @@
   "course": "cocktails",
   "country": "United States",
   "vegetarian": false,
-  "ingredients": "<ul><li><p>1 teaspoon sugar</p></li><li><p>3 dashes Angostura bitters</p></li><li><p>1 teaspoon water</p></li><li><p>2 ounces bourbon (or rye whiskey, if preferred)</p></li><li><p>Garnish: orange twist</p></li></ul>",
-  "instructions": "<ul><li><p>Add the sugar and bitters into a mixing glass, then add the water, and stir until the sugar is nearly dissolved.</p></li><li><p>Fill the mixing glass with ice, add the bourbon, and stir until well-chilled.</p></li><li><p>Strain into a rocks glass over one large ice cube.</p></li><li><p>Express the oil of an orange twist over the glass, then drop into the glass to garnish.</p></li></ul>",
+  "ingredients": "- 1 teaspoon sugar\n- 3 dashes Angostura bitters\n- 1 teaspoon water\n- 2 ounces bourbon (or rye whiskey, if preferred)\n- Garnish: orange twist",
+  "instructions": "- Add the sugar and bitters into a mixing glass, then add the water, and stir until the sugar is nearly dissolved.\n- Fill the mixing glass with ice, add the bourbon, and stir until well-chilled.\n- Strain into a rocks glass over one large ice cube.\n- Express the oil of an orange twist over the glass, then drop into the glass to garnish.",
   "image": "/recipe-images/old-fashioned.webp"
 }

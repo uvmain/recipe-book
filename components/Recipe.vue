@@ -1,7 +1,11 @@
 <script setup lang="ts">
+import markdownit from 'markdown-it'
+
 const props = defineProps({
   recipe: { type: Object, required: true },
 })
+
+const md = markdownit()
 
 const sourceTag = computed(() => {
   return `${props.recipe.source}`.startsWith('http') ? 'a' : 'span'
@@ -46,13 +50,13 @@ const caloriesPerServing = computed(() => {
           <h3 class="font-bold text-xl mb-2">
             Ingredients:
           </h3>
-          <div class="pl-2 md:pl-4" v-html="recipe.ingredients" />
+          <div class="pl-2 md:pl-4 leading-relaxed" v-html="md.render(recipe.ingredients)" />
         </div>
         <div class="rounded-lg p-2 pt-1 bg-gray-600">
           <h3 class="text-xl font-bold">
             Instructions:
           </h3>
-          <div class="pl-2 md:pl-4" v-html="recipe.instructions" />
+          <div class="pl-2 md:pl-4 leading-relaxed" v-html="md.render(recipe.instructions)" />
         </div>
       </div>
     </div>
