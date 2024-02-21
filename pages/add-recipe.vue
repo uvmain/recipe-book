@@ -63,7 +63,7 @@ async function saveRecipe() {
       <FormInput id="calories" v-model="recipe.calories" label="Total Calories" type="number" />
       <FormInput id="servings" v-model="recipe.servings" label="Servings" type="number" />
 
-      <label class="m-2 block text-white">
+      <label class="text-white m-2 block">
         Ingredients
       </label>
       <MdEditor v-model="ingredients" editor-id="ingredients" class="add-form-component" language="en-US" />

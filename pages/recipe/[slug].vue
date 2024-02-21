@@ -22,7 +22,7 @@ getRecipe()
 
 <template>
   <div>
-    <main class="mx-auto container mt-8">
+    <main class="mx-auto max-w-full md:max-w-4/5 mt-8">
       <Recipe v-if="recipe" :recipe="recipe" class="ml-2 md:ml" />
     </main>
   </div>
