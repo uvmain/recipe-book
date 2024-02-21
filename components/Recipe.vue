@@ -5,7 +5,13 @@ const props = defineProps({
   recipe: { type: Object, required: true },
 })
 
-const md = markdownit()
+const md = markdownit({
+  html: true,
+  breaks: true,
+  linkify: true,
+})
+
+const recipesWords = props.recipe.instructions.toLowerCase().split(' ')
 
 const sourceTag = computed(() => {
   return `${props.recipe.source}`.startsWith('http') ? 'a' : 'span'
@@ -13,6 +19,41 @@ const sourceTag = computed(() => {
 
 const caloriesPerServing = computed(() => {
   return props.recipe.calories / props.recipe.servings
+})
+
+const times = computed(() => {
+  return recipesWords.reduce((newArray: any[], word: string, index: any) => {
+    if (word.startsWith('minute') || word.startsWith('hour') || word.startsWith('mins'))
+      newArray.push(index)
+    return newArray
+  }, [])
+})
+
+const fullTimes = computed(() => {
+  const newArray: any[] = []
+  times.value.forEach((element: number) => {
+    let amount = recipesWords[element - 1]
+    if (`${amount}` === 'few') {
+      amount = 3
+    }
+    if (`${amount}`.startsWith('~')) {
+      amount = amount.replace('~', '')
+    }
+    if (`${amount}` === 'of' && recipesWords[element - 2] === 'couple') {
+      amount = 2
+    }
+    if (`${amount}`.includes('-')) {
+      amount = amount.split('-').slice(-1)
+    }
+    if (`${amount}` === 'further') {
+      amount = 1
+    }
+
+    let unit = recipesWords[element].startsWith('min') ? 'minute' : 'hour'
+    unit = amount > 1 ? `${unit}s` : unit
+    newArray.push(`${amount} ${unit}`)
+  })
+  return newArray
 })
 </script>
 
@@ -46,14 +87,17 @@ const caloriesPerServing = computed(() => {
         <NuxtImg placeholder="/recipe-images/default.webp" :src="recipe.image" :alt="recipe.name" class="w-full rounded-lg shadow-md h-auto md:mb-4" />
       </div>
       <div class="grid grid-cols-1 gap-4 auto-rows-min">
+        <div v-if="fullTimes.length" class="text-xl text-green">
+          {{ fullTimes }}
+        </div>
         <div class="rounded-lg bg-blue-gray-600 p-2 pt-1">
-          <h3 class="font-bold text-xl mb-2">
+          <h3 class="font-bold text-xl mb-2 ml-2">
             Ingredients:
           </h3>
           <div class="pl-2 md:pl-4 leading-relaxed" v-html="md.render(recipe.ingredients)" />
         </div>
         <div class="rounded-lg p-2 pt-1 bg-gray-600">
-          <h3 class="text-xl font-bold">
+          <h3 class="text-xl font-bold ml-2">
             Instructions:
           </h3>
           <div class="pl-2 md:pl-4 leading-relaxed" v-html="md.render(recipe.instructions)" />
