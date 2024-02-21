@@ -47,6 +47,19 @@ const label = computed(() => {
   const minutesLabel = minutes > 1 ? `${minutes} minutes` : minutes === 1 ? `${minutes} minute` : ''
   return `${hoursLabel} ${minutesLabel}`
 })
+
+const timerColour = computed(() => {
+  if (counting.value)
+    return 'bg-green-600'
+  else {
+    if (seconds.value === 0)
+      return 'bg-red-800'
+    if (seconds.value === props.minutes * 60)
+      return 'bg-blue-gray-500'
+    else
+      return 'bg-yellow-600'
+  }
+})
 </script>
 
 <template>
@@ -57,7 +70,7 @@ const label = computed(() => {
     <button
       type="button"
       class="text-white text-xl rounded-lg font-medium md:text-3xl px-5 py-2.5 me-2 mb-2 text-center"
-      :class="[counting ? 'bg-green-600' : seconds === 0 ? 'bg-red-800' : 'bg-cyan-800']"
+      :class="timerColour"
       @click="toggleCounting"
     >
       <div>
