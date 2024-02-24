@@ -5,7 +5,7 @@ import '@recogito/annotorious/dist/annotorious.min.css'
 const recognizedParagraphs = ref<string[]>([])
 const anno = ref<typeof import('@recogito/annotorious')>(null)
 
-const temp = ref()
+const imageToRecognise = ref()
 
 async function recognize() {
   recognizedParagraphs.value = []
@@ -14,15 +14,14 @@ async function recognize() {
   await worker.setParameters({
     tessedit_pageseg_mode: PSM.AUTO_OSD,
     preserve_interword_spaces: '1',
+    // tessedit_char_whitelist: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789½¼⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞()[]-_., /:!"',
   })
 
-  const img = document.getElementById('text-img') as HTMLImageElement
-
-  if (img) {
-    const { data: { paragraphs } } = await worker.recognize(img)
+  if (imageToRecognise.value) {
+    const { data: { paragraphs } } = await worker.recognize(imageToRecognise.value)
     paragraphs.forEach((paragraph) => {
-      if (paragraph.text.replaceAll('\n', '').length > 2)
-        recognizedParagraphs.value.push(paragraph.text)
+      for (const newLine of paragraph.text.split('\n'))
+        recognizedParagraphs.value.push(newLine)
     })
   }
 
@@ -33,12 +32,18 @@ onMounted(async () => {
   const Anno = await import('@recogito/annotorious')
   anno.value = new Anno.Annotorious({
     image: document.getElementById('text-img'),
+    allowEmpty: true,
   })
   if (anno.value)
     anno.value.on('createAnnotation', async (annotation: any) => {
       const id = annotation.id
       const snippetObject: { snippet: HTMLCanvasElement } = await anno.value.getImageSnippetById(id)
-      temp.value = snippetObject.snippet.toDataURL()
+      const canvas = document.createElement('canvas')
+      const ctx = canvas.getContext('2d')
+      canvas.width = snippetObject.snippet.width * 2
+      canvas.height = snippetObject.snippet.height * 2
+      ctx?.drawImage(snippetObject.snippet, 0, 0, canvas.width, canvas.height)
+      imageToRecognise.value = canvas.toDataURL()
     })
 })
 </script>
@@ -49,13 +54,12 @@ onMounted(async () => {
       <div class="grid grid-cols-2">
         <img id="text-img" alt="Vue logo" src="/ocr-test.jpg" class="mx-4 max-w-full ml-auto border-solid border-gray-300 max-h-3/4" @mousedown.prevent="null">
         <div class="ml-4 text-left">
-          <img :src="temp">
           <button class="p-2 mb-4" @click="recognize">
             recognize
           </button>
           <div v-if="recognizedParagraphs.length" class="text-white">
             <div v-for="(text, index) in recognizedParagraphs" :key="index">
-              {{ text }}
+              <div v-html="text.length ? `<span>${text}</span>` : '<br>'" />
             </div>
           </div>
         </div>
