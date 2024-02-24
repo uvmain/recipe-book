@@ -3,7 +3,9 @@ import { PSM, createWorker } from 'tesseract.js'
 import '@recogito/annotorious/dist/annotorious.min.css'
 
 const recognizedParagraphs = ref<string[]>([])
-const anno = ref(null)
+const anno = ref<typeof import('@recogito/annotorious')>(null)
+
+const temp = ref()
 
 async function recognize() {
   recognizedParagraphs.value = []
@@ -32,6 +34,12 @@ onMounted(async () => {
   anno.value = new Anno.Annotorious({
     image: document.getElementById('text-img'),
   })
+  if (anno.value)
+    anno.value.on('createAnnotation', async (annotation: any) => {
+      const id = annotation.id
+      const snippetObject: { snippet: HTMLCanvasElement } = await anno.value.getImageSnippetById(id)
+      temp.value = snippetObject.snippet.toDataURL()
+    })
 })
 </script>
 
@@ -41,6 +49,7 @@ onMounted(async () => {
       <div class="grid grid-cols-2">
         <img id="text-img" alt="Vue logo" src="/ocr-test.jpg" class="mx-4 max-w-full ml-auto border-solid border-gray-300 max-h-3/4" @mousedown.prevent="null">
         <div class="ml-4 text-left">
+          <img :src="temp">
           <button class="p-2 mb-4" @click="recognize">
             recognize
           </button>
