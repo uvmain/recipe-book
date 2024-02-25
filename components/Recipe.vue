@@ -26,10 +26,10 @@ const cookingTimes = computed(() => {
 
 <template>
   <div class="mr-2 md:mr">
-    <h2 class="text-center font-bold text-4xl mb-4">
+    <h2 class="text-center mb-4 font-bold text-4xl">
       {{ recipe.name }}
     </h2>
-    <RecipeIcons :recipe="recipe" class="flex justify-center mb-4 flex-auto" />
+    <RecipeIcons :recipe="recipe" class="mb-4 flex justify-center flex-auto" />
     <hr class="mb-4 opacity-30">
     <div class="grid justify-center md:grid-flow-col auto-cols-auto gap-8">
       <div>
@@ -55,7 +55,7 @@ const cookingTimes = computed(() => {
       </div>
       <div>
         <div class="grid grid-cols-1 gap-4 auto-rows-min">
-          <div class="rounded-lg bg-blue-gray-600 p-2 pt-1">
+          <div class="rounded-lg p-2 bg-blue-gray-600 pt-1">
             <h3 class="font-bold text-xl mb-2 ml-2">
               Ingredients:
             </h3>
