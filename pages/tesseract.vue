@@ -7,6 +7,7 @@ import 'md-editor-v3/lib/style.css'
 const recognizedParagraphs = ref<string[]>([])
 const anno = ref<typeof import('@recogito/annotorious')>(null)
 
+const sourceImage = ref()
 const imageToRecognise = ref()
 const source = ref('')
 const author = ref('')
@@ -84,6 +85,19 @@ async function addToInstructions() {
   instructions.value += markdown.replaceAll('\n\n\n', '\n\n')
 }
 
+function handleImageChange(event: Event) {
+  const input = event.target as HTMLInputElement
+  if (input.files && input.files[0]) {
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      if (e.target && typeof e.target.result === 'string') {
+        sourceImage.value = e.target.result
+      }
+    }
+    reader.readAsDataURL(input.files[0])
+  }
+}
+
 onMounted(async () => {
   const Anno = await import('@recogito/annotorious')
   anno.value = new Anno.Annotorious({
@@ -107,8 +121,17 @@ onMounted(async () => {
 <template>
   <ClientOnly>
     <div class="font-sans antialiased text-center text-bluegray-700 mt-10">
-      <div class="flex flex-row">
-        <img id="text-img" alt="Vue logo" src="/ocr-test.jpg" class="mx-4 max-w-full ml-auto border-solid border-gray-300 max-h-3/4" @mousedown.prevent="null">
+      <div class="grid grid-cols-2">
+        <div class="grid grid-cols-1 max-w-full ml-auto gap-4">
+          <input
+            id="addFiles"
+            type="file"
+            accept="image/*"
+            multiple="false"
+            @change="handleImageChange"
+          >
+          <img v-if="sourceImage" id="text-img" alt="Vue logo" :src="sourceImage" class="mx-4 border-solid border-gray-300 max-h-3/4" @mousedown.prevent="null">
+        </div>
         <div class="max-w-1/2">
           <div class="ml-4 text-left mb-4 flex gap-2 items-center">
             <button class="p-2 min-w-25" @click="addToSource">
