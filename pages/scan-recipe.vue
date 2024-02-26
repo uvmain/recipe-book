@@ -6,7 +6,6 @@ import 'md-editor-v3/lib/style.css'
 
 const recognizedParagraphs = ref<string[]>([])
 const anno = ref<typeof import('@recogito/annotorious')>(null)
-
 const sourceImage = ref()
 const imageToRecognise = ref()
 const source = ref('')
@@ -85,7 +84,9 @@ async function addToInstructions() {
   instructions.value += markdown.replaceAll('\n\n\n', '\n\n')
 }
 
-function handleImageChange(event: Event) {
+async function handleImageChange(event: Event) {
+  anno.value?.destroy()
+
   const input = event.target as HTMLInputElement
   if (input.files && input.files[0]) {
     const reader = new FileReader()
@@ -96,33 +97,30 @@ function handleImageChange(event: Event) {
     }
     reader.readAsDataURL(input.files[0])
   }
-}
-
-onMounted(async () => {
   const Anno = await import('@recogito/annotorious')
   anno.value = new Anno.Annotorious({
     image: document.getElementById('text-img'),
     allowEmpty: true,
   })
-  if (anno.value)
-    anno.value.on('createAnnotation', async (annotation: any) => {
-      const id = annotation.id
-      const snippetObject: { snippet: HTMLCanvasElement } = await anno.value.getImageSnippetById(id)
-      const canvas = document.createElement('canvas')
-      const ctx = canvas.getContext('2d')
-      canvas.width = snippetObject.snippet.width * 2
-      canvas.height = snippetObject.snippet.height * 2
-      ctx?.drawImage(snippetObject.snippet, 0, 0, canvas.width, canvas.height)
-      imageToRecognise.value = canvas.toDataURL()
-    })
-})
+
+  anno.value.on('createAnnotation', async (annotation: any) => {
+    const id = annotation.id
+    const snippetObject: { snippet: HTMLCanvasElement } = await anno.value.getImageSnippetById(id)
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')
+    canvas.width = snippetObject.snippet.width * 2
+    canvas.height = snippetObject.snippet.height * 2
+    ctx?.drawImage(snippetObject.snippet, 0, 0, canvas.width, canvas.height)
+    imageToRecognise.value = canvas.toDataURL()
+  })
+}
 </script>
 
 <template>
   <ClientOnly>
     <div class="font-sans antialiased text-center text-bluegray-700 mt-10">
-      <div class="grid grid-cols-2">
-        <div class="grid grid-cols-1 max-w-full ml-auto gap-4">
+      <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 gap-4 ml-4 min-w-4/5">
           <input
             id="addFiles"
             type="file"
@@ -130,9 +128,11 @@ onMounted(async () => {
             multiple="false"
             @change="handleImageChange"
           >
-          <img v-if="sourceImage" id="text-img" alt="Vue logo" :src="sourceImage" class="mx-4 border-solid border-gray-300 max-h-3/4" @mousedown.prevent="null">
+          <div class="border-red border-solid">
+            <img v-if="sourceImage" id="text-img" alt="Vue logo" :src="sourceImage" class="w-full h-full" @mousedown.prevent="null">
+          </div>
         </div>
-        <div class="max-w-1/2">
+        <div class="mr-auto">
           <div class="ml-4 text-left mb-4 flex gap-2 items-center">
             <button class="p-2 min-w-25" @click="addToSource">
               Add to Source
