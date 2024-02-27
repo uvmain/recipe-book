@@ -63,17 +63,17 @@ async function recognize() {
 
 async function addToTitle() {
   await recognize()
-  recipe.value.name = recipe.value.name + (recognizedParagraphs.value).join(' ')
+  recipe.value.name = recipe.value.name ? recipe.value.name + recognizedParagraphs.value.join(' ') : recognizedParagraphs.value.join(' ')
 }
 
 async function addToSource() {
   await recognize()
-  recipe.value.source = recipe.value.source + (recognizedParagraphs.value).join(' ')
+  recipe.value.source = recipe.value.source ? recipe.value.source + recognizedParagraphs.value.join(' ') : recognizedParagraphs.value.join(' ')
 }
 
 async function addToAuthor() {
   await recognize()
-  recipe.value.author = recipe.value.author + (recognizedParagraphs.value).join(' ')
+  recipe.value.author = recipe.value.author ? recipe.value.author + recognizedParagraphs.value.join(' ') : recognizedParagraphs.value.join(' ')
 }
 
 async function addToIngredients() {
@@ -92,7 +92,7 @@ async function addToIngredients() {
       markdown += `- ${text}`
     }
   })
-  recipe.value.ingredients += markdown.replaceAll('\n\n\n', '\n\n')
+  recipe.value.ingredients = recipe.value.ingredients ? recipe.value.ingredients + markdown.replaceAll('\n\n\n', '\n\n') : markdown.replaceAll('\n\n\n', '\n\n')
 }
 
 async function addToInstructions() {
@@ -110,7 +110,7 @@ async function addToInstructions() {
       markdown += text
     }
   })
-  recipe.value.instructions += markdown.replaceAll('\n\n\n', '\n\n')
+  recipe.value.instructions = recipe.value.instructions ? recipe.value.instructions + markdown.replaceAll('\n\n\n', '\n\n') : markdown.replaceAll('\n\n\n', '\n\n')
 }
 
 async function handleImageChange(event: Event) {
@@ -202,7 +202,8 @@ async function saveAsWebP() {
       // Create a download link
       const link = document.createElement('a')
       link.href = URL.createObjectURL(blob)
-      link.download = 'image.webp'
+      const slug = recipe.value.name.toLowerCase().replaceAll(' ', '-')
+      link.download = `${slug}.webp`
       link.click()
     }
   }
