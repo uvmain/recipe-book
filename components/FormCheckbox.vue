@@ -28,7 +28,7 @@ function handleKeyEvent(e: Event) {
 
 <template>
   <div>
-    <label class="text-white m-2 block" :for="id">
+    <label class="text-white m-2 block min-w-1/4" :for="id">
       {{ label }}
     </label>
     <input :id="id" v-model="model" type="checkbox" :value="modelValue" class="hidden">

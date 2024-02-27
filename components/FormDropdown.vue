@@ -16,7 +16,7 @@ const select = ref<HTMLSelectElement>()
 
 <template>
   <div>
-    <label class="block text-white m-2">
+    <label class="block text-white m-2 min-w-1/4">
       {{ label }}
     </label>
     <select

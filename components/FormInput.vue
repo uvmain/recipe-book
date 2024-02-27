@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineProps({
   id: { type: String, required: true },
-  label: { type: String, required: true, default: '' },
+  label: { type: String, required: false },
   modelValue: { type: String, default: '' },
   required: { type: Boolean, default: false },
   type: { type: String, default: 'text' },
@@ -16,7 +16,7 @@ function handleInput(e: Event) {
 
 <template>
   <div>
-    <label class="m-2 block text-white" :for="id">
+    <label v-if="label" class="m-2 block text-white min-w-1/4" :for="id">
       {{ label }}
     </label>
     <input
