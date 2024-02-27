@@ -9,9 +9,10 @@ const anno = ref<typeof import('@recogito/annotorious')>(null)
 const sourceImage = ref()
 const imageToRecognise = ref()
 const recipeImage = ref()
+
 const source = ref('')
 const author = ref('')
-const title = ref<string>('')
+const recipeName = ref('')
 const ingredients = ref('')
 const instructions = ref('')
 
@@ -35,7 +36,7 @@ async function recognize() {
 
 async function addToTitle() {
   await recognize()
-  title.value = title.value + (recognizedParagraphs.value).join(' ')
+  recipeName.value = recipeName.value + (recognizedParagraphs.value).join(' ')
 }
 
 async function addToSource() {
@@ -191,7 +192,7 @@ onBeforeUnmount(() => {
   <ClientOnly>
     <div class="font-sans antialiased text-center text-bluegray-700 mt-10">
       <div class="grid grid-cols-2 gap-4">
-        <div class="grid grid-cols-1 gap-4 ml-4 min-w-4/5">
+        <div class="grid gap-4 ml-4 min-w-4/5">
           <input
             id="addFiles"
             type="file"
@@ -204,89 +205,43 @@ onBeforeUnmount(() => {
           </div>
         </div>
         <div class="mr-auto">
-          <div class="ml-4 text-left mb-4 flex gap-2 items-center">
-            <button class="p-2 min-w-25" @click="addToSource">
-              Add to Source
-            </button>
-            <button class="p-2 min-w-25" @click="source = ''">
-              Reset Source
-            </button>
-            <span class="font-bold text-white text-3xl ml-4">
-              Source:
+          <div class="ml-4 text-left mb-4 flex flex-row gap-4 items-center">
+            <ScanButton @add="addToSource" @reset="() => { source = '' }" />
+            <FormInput id="name" v-model="source" label="Source" type="text" class="grow" />
+          </div>
+          <div class="ml-4 text-left mb-4 flex flex-row gap-4 items-center">
+            <ScanButton @add="addToAuthor" @reset="() => { author = '' }" />
+            <FormInput id="name" v-model="author" label="Author" type="text" class="grow" />
+          </div>
+          <div class="ml-4 text-left mb-4 flex flex-row gap-4 items-center">
+            <ScanButton @add="addToTitle" @reset="() => { recipeName = '' }" />
+            <FormInput id="name" v-model="recipeName" label="Recipe Name" type="text" class="grow" />
+          </div>
+
+          <div class="ml-4 text-left mb-4 flex flex-row gap-4 items-center">
+            <ScanButton @add="addToIngredients" @reset="() => { ingredients = '' }" />
+            <span class="m-2 block text-white">
+              Ingredients:
             </span>
-            <input
-              v-model="source"
-              class="add-form-component"
-            >
           </div>
-          <div class="ml-4 text-left mb-4 flex gap-2 items-center">
-            <button class="p-2 min-w-25" @click="addToAuthor">
-              Add to Author
-            </button>
-            <button class="p-2 min-w-25" @click="author = ''">
-              Reset Author
-            </button>
-            <span class="font-bold text-white text-3xl ml-4">
-              Author:
+          <MdEditor v-model="ingredients" editor-id="ingredients" class="ml-4 mb-4 add-form-component" language="en-US" />
+
+          <div class="ml-4 text-left mb-4 flex flex-row gap-4 items-center">
+            <ScanButton @add="addToInstructions" @reset="() => { instructions = '' }" />
+            <span class="m-2 block text-white">
+              Instructions:
             </span>
-            <input
-              v-model="author"
-              class="add-form-component"
-            >
           </div>
-          <div class="ml-4 text-left mb-4 flex gap-2 items-center">
-            <button class="p-2 min-w-25" @click="addToTitle">
-              Add to Title
-            </button>
-            <button class="p-2 min-w-25" @click="title = ''">
-              Reset Title
-            </button>
-            <span class="font-bold text-white text-3xl ml-4">
-              Title:
+          <MdEditor v-model="instructions" editor-id="instructions" class="ml-4 mb-4 add-form-component" language="en-US" />
+
+          <div class="ml-4 text-left mb-4 flex flex-row gap-4 items-center">
+            <ScanButton @add="saveRecipeImage" @reset="() => { recipeImage = undefined }" />
+            <span class="m-2 block text-white">
+              Recipe Image:
             </span>
-            <input
-              v-model="title"
-              class="add-form-component"
-            >
           </div>
-          <div class="ml-4 text-left mb-4">
-            <div class="mb-2 flex gap-2">
-              <button class="p-2" @click="addToIngredients">
-                Add to ingredients
-              </button>
-              <button class="p-2" @click="ingredients = ''">
-                Reset Ingredients
-              </button>
-              <span v-if="ingredients" class="font-bold text-white text-3xl">
-                Ingredients:
-              </span>
-            </div>
-            <MdEditor v-if="ingredients" v-model="ingredients" editor-id="ingredients" class="add-form-component" language="en-US" />
-          </div>
-          <div class="ml-4 text-left">
-            <div class="mb-2 flex gap-2">
-              <button class="p-2" @click="addToInstructions">
-                Add to Instructions
-              </button>
-              <button class="ml-1 p-2" @click="instructions = ''">
-                Reset Instructions
-              </button>
-              <span v-if="instructions" class="font-bold text-white text-3xl">
-                Instructions:
-              </span>
-            </div>
-            <MdEditor v-if="instructions" v-model="instructions" editor-id="instructions" class="add-form-component" language="en-US" />
-          </div>
-          <div>
-            <button class="p-2 min-w-25" @click="saveRecipeImage">
-              Save recipe image
-            </button>
-            <button class="p-2 min-w-25" @click="saveAsWebP">
-              Download image as .webp
-            </button>
-            <div class="mt-4 max-w-1/4">
-              <img v-if="recipeImage" :src="recipeImage" class="w-full h-full" @mousedown.prevent="null">
-            </div>
+          <div class="ml-4 mt-4 max-w-1/4">
+            <img v-if="recipeImage" :src="recipeImage" class="w-full h-full" @mousedown.prevent="null">
           </div>
         </div>
       </div>
