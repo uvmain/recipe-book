@@ -10,11 +10,29 @@ const sourceImage = ref()
 const imageToRecognise = ref()
 const recipeImage = ref()
 
-const source = ref('')
-const author = ref('')
-const recipeName = ref('')
-const ingredients = ref('')
-const instructions = ref('')
+const recipe = ref<Recipe>({} as Recipe)
+
+const courseOptions = computed(() => {
+  const courses: any[] = []
+  allowedCourses.forEach((course) => {
+    courses.push({
+      title: course,
+      value: course,
+    })
+  })
+  return courses
+})
+
+const countryOptions = computed(() => {
+  const countries: any[] = []
+  countryFlags.forEach((country) => {
+    countries.push({
+      title: country.name,
+      value: country.name,
+    })
+  })
+  return countries
+})
 
 async function recognize() {
   recognizedParagraphs.value = []
@@ -36,17 +54,17 @@ async function recognize() {
 
 async function addToTitle() {
   await recognize()
-  recipeName.value = recipeName.value + (recognizedParagraphs.value).join(' ')
+  recipe.value.name = recipe.value.name + (recognizedParagraphs.value).join(' ')
 }
 
 async function addToSource() {
   await recognize()
-  source.value = source.value + (recognizedParagraphs.value).join(' ')
+  recipe.value.source = recipe.value.source + (recognizedParagraphs.value).join(' ')
 }
 
 async function addToAuthor() {
   await recognize()
-  author.value = author.value + (recognizedParagraphs.value).join(' ')
+  recipe.value.author = recipe.value.author + (recognizedParagraphs.value).join(' ')
 }
 
 async function addToIngredients() {
@@ -65,7 +83,7 @@ async function addToIngredients() {
       markdown += `- ${text}`
     }
   })
-  ingredients.value += markdown.replaceAll('\n\n\n', '\n\n')
+  recipe.value.ingredients += markdown.replaceAll('\n\n\n', '\n\n')
 }
 
 async function addToInstructions() {
@@ -83,7 +101,7 @@ async function addToInstructions() {
       markdown += text
     }
   })
-  instructions.value += markdown.replaceAll('\n\n\n', '\n\n')
+  recipe.value.instructions += markdown.replaceAll('\n\n\n', '\n\n')
 }
 
 async function handleImageChange(event: Event) {
@@ -204,38 +222,47 @@ onBeforeUnmount(() => {
             <img v-if="sourceImage" id="text-img" alt="Vue logo" :src="sourceImage" class="w-full h-full" @mousedown.prevent="null">
           </div>
         </div>
+
         <div class="mr-auto">
           <div class="ml-4 text-left mb-4 flex flex-row gap-4 items-center">
-            <ScanButton @add="addToSource" @reset="() => { source = '' }" />
-            <FormInput id="name" v-model="source" label="Source" type="text" class="grow" />
+            <ScanButton @add="addToTitle" @reset="() => { recipe.name = '' }" />
+            <FormInput id="name" v-model="recipe.name" label="Recipe Name" type="text" class="grow" />
           </div>
           <div class="ml-4 text-left mb-4 flex flex-row gap-4 items-center">
-            <ScanButton @add="addToAuthor" @reset="() => { author = '' }" />
-            <FormInput id="name" v-model="author" label="Author" type="text" class="grow" />
+            <ScanButton @add="addToAuthor" @reset="() => { recipe.author = '' }" />
+            <FormInput id="name" v-model="recipe.author" label="Author" type="text" class="grow" />
           </div>
           <div class="ml-4 text-left mb-4 flex flex-row gap-4 items-center">
-            <ScanButton @add="addToTitle" @reset="() => { recipeName = '' }" />
-            <FormInput id="name" v-model="recipeName" label="Recipe Name" type="text" class="grow" />
+            <ScanButton @add="addToSource" @reset="() => { recipe.source = '' }" />
+            <FormInput id="name" v-model="recipe.source" label="Source" type="text" class="grow" />
           </div>
 
+          <FormDropdown v-model="recipe.course" label="Course" :options="courseOptions" class="text-left w-full md:w-1/2 grid grid-cols-2 grid-rows-1 mb-4" />
+          <FormDropdown v-model="recipe.country" label="Country" :options="countryOptions" class="text-left w-full md:w-1/2 grid grid-cols-2 grid-rows-1 mb-4" />
+          <FormCheckbox id="vegetarian" v-model="recipe.vegetarian" label="Vegetarian?" class="text-left w-full md:w-1/2 grid grid-cols-2 grid-rows-1 mb-4 text-white" />
+          <FormInput id="prepTime" v-model="recipe.prepTime" label="Prep Time" type="text" class="text-left w-full md:w-1/2 grid grid-cols-2 grid-rows-1 mb-4" />
+          <FormInput id="cookingTime" v-model="recipe.cookingTime" label="Cooking Time" type="text" class="text-left w-full md:w-1/2 grid grid-cols-2 grid-rows-1 mb-4" />
+          <FormInput id="calories" v-model="recipe.calories" label="Total Calories" type="number" class="text-left w-full md:w-1/2 grid grid-cols-2 grid-rows-1 mb-4" />
+          <FormInput id="servings" v-model="recipe.servings" label="Servings" type="number" class="text-left w-full md:w-1/2 grid grid-cols-2 grid-rows-1 mb-4" />
+
           <div class="ml-4 text-left mb-4 flex flex-row gap-4 items-center">
-            <ScanButton @add="addToIngredients" @reset="() => { ingredients = '' }" />
+            <ScanButton @add="addToIngredients" @reset="() => { recipe.ingredients = '' }" />
             <span class="m-2 block text-white">
               Ingredients:
             </span>
           </div>
-          <MdEditor v-model="ingredients" editor-id="ingredients" class="ml-4 mb-4 add-form-component" language="en-US" />
+          <MdEditor v-model="recipe.ingredients" editor-id="ingredients" class="ml-4 mb-4 add-form-component" language="en-US" />
 
           <div class="ml-4 text-left mb-4 flex flex-row gap-4 items-center">
-            <ScanButton @add="addToInstructions" @reset="() => { instructions = '' }" />
+            <ScanButton @add="addToInstructions" @reset="() => { recipe.instructions = '' }" />
             <span class="m-2 block text-white">
               Instructions:
             </span>
           </div>
-          <MdEditor v-model="instructions" editor-id="instructions" class="ml-4 mb-4 add-form-component" language="en-US" />
+          <MdEditor v-model="recipe.instructions" editor-id="instructions" class="ml-4 mb-4 add-form-component" language="en-US" />
 
           <div class="ml-4 text-left mb-4 flex flex-row gap-4 items-center">
-            <ScanButton @add="saveRecipeImage" @reset="() => { recipeImage = undefined }" />
+            <ScanButton download @add="saveRecipeImage" @reset="() => { recipeImage = undefined }" @download="saveAsWebP" />
             <span class="m-2 block text-white">
               Recipe Image:
             </span>
