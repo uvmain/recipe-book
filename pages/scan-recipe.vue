@@ -9,6 +9,7 @@ const anno = ref<typeof import('@recogito/annotorious')>(null)
 const sourceImage = ref()
 const imageToRecognise = ref()
 const recipeImage = ref()
+const imageUrl = ref('')
 
 const recipe = ref<Recipe>({} as Recipe)
 
@@ -33,6 +34,14 @@ const countryOptions = computed(() => {
   })
   return countries
 })
+
+function setRecipeImageFromUrl() {
+  if (imageUrl.value.trim() !== '') {
+    recipeImage.value = imageUrl.value.trim()
+    imageToRecognise.value = recipeImage.value
+    imageUrl.value = ''
+  }
+}
 
 async function recognize() {
   recognizedParagraphs.value = []
@@ -210,16 +219,19 @@ onBeforeUnmount(() => {
   <ClientOnly>
     <div class="font-sans antialiased text-center text-bluegray-700 mt-10">
       <div class="grid grid-cols-2 gap-4">
-        <div class="grid gap-4 ml-4 min-w-4/5">
-          <input
-            id="addFiles"
-            type="file"
-            accept="image/*"
-            multiple="false"
-            @change="handleImageChange"
-          >
-          <div>
-            <img v-if="sourceImage" id="text-img" alt="Vue logo" :src="sourceImage" class="w-full h-full" @mousedown.prevent="null">
+        <div class="ml-4 min-w-4/5">
+          <div class="relative h-full flex flex-col justify-start gap-4">
+            <input
+              id="addFiles"
+              type="file"
+              accept="image/*"
+              multiple="false"
+              class="add-form-component w-3/4 justify-center text-center"
+              @change="handleImageChange"
+            >
+            <div>
+              <img v-if="sourceImage" id="text-img" alt="Vue logo" :src="sourceImage" class="w-full h-full" @mousedown.prevent="null">
+            </div>
           </div>
         </div>
 
@@ -251,7 +263,7 @@ onBeforeUnmount(() => {
               Ingredients:
             </span>
           </div>
-          <MdEditor v-model="recipe.ingredients" editor-id="ingredients" class="ml-4 mb-4 add-form-component" language="en-US" />
+          <MdEditor v-model="recipe.ingredients" editor-id="ingredients" class="ml-4 mb-4 add-form-component text-left" language="en-US" />
 
           <div class="ml-4 text-left mb-4 flex flex-row gap-4 items-center">
             <ScanButton @add="addToInstructions" @reset="() => { recipe.instructions = '' }" />
@@ -259,10 +271,14 @@ onBeforeUnmount(() => {
               Instructions:
             </span>
           </div>
-          <MdEditor v-model="recipe.instructions" editor-id="instructions" class="ml-4 mb-4 add-form-component" language="en-US" />
+          <MdEditor v-model="recipe.instructions" editor-id="instructions" class="ml-4 mb-4 add-form-component text-left" language="en-US" />
 
           <div class="ml-4 text-left mb-4 flex flex-row gap-4 items-center">
-            <ScanButton download @add="saveRecipeImage" @reset="() => { recipeImage = undefined }" @download="saveAsWebP" />
+            <ScanButton download @add="saveRecipeImage" @reset="() => { recipeImage = null }" @download="saveAsWebP" />
+            <input id="imageUrl" v-model="imageUrl" type="text" class="p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+            <button class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600" @click="setRecipeImageFromUrl">
+              From URL
+            </button>
             <span class="m-2 block text-white">
               Recipe Image:
             </span>
