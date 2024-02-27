@@ -8,6 +8,7 @@ const recognizedParagraphs = ref<string[]>([])
 const anno = ref<typeof import('@recogito/annotorious')>(null)
 const sourceImage = ref()
 const imageToRecognise = ref()
+const recipeImage = ref()
 const source = ref('')
 const author = ref('')
 const title = ref<string>('')
@@ -128,6 +129,12 @@ function updateImageToReconise(snippetObject: { snippet: HTMLCanvasElement }) {
   canvas.height = snippetObject.snippet.height * 2
   ctx?.drawImage(snippetObject.snippet, 0, 0, canvas.width, canvas.height)
   imageToRecognise.value = canvas.toDataURL()
+}
+
+async function saveRecipeImage() {
+  if (imageToRecognise.value) {
+    recipeImage.value = imageToRecognise.value
+  }
 }
 
 async function saveAsWebP() {
@@ -268,12 +275,18 @@ onBeforeUnmount(() => {
                 Instructions:
               </span>
             </div>
-            <div>
-              <button class="p-2 min-w-25" @click="saveAsWebP">
-                Save image as .webp
-              </button>
-            </div>
             <MdEditor v-if="instructions" v-model="instructions" editor-id="instructions" class="add-form-component" language="en-US" />
+          </div>
+          <div>
+            <button class="p-2 min-w-25" @click="saveRecipeImage">
+              Save recipe image
+            </button>
+            <button class="p-2 min-w-25" @click="saveAsWebP">
+              Download image as .webp
+            </button>
+            <div class="mt-4 max-w-1/4">
+              <img v-if="recipeImage" :src="recipeImage" class="w-full h-full" @mousedown.prevent="null">
+            </div>
           </div>
         </div>
       </div>
