@@ -35,6 +35,19 @@ const countryOptions = computed(() => {
   return countries
 })
 
+const canSave = computed(() => {
+  if (recipe.value.name
+    && recipe.value.author
+    && recipe.value.source
+    && recipe.value.ingredients
+    && recipe.value.instructions
+    && recipe.value.course
+  ) {
+    return true
+  }
+  return false
+})
+
 function setRecipeImageFromUrl() {
   if (imageUrl.value.trim() !== '') {
     recipeImage.value = imageUrl.value.trim()
@@ -165,7 +178,7 @@ async function saveRecipeImage() {
   }
 }
 
-async function saveAsWebP() {
+async function saveRecipeImageAsWebp() {
   if (imageToRecognise.value) {
     const image = new Image()
     image.src = imageToRecognise.value
@@ -209,6 +222,41 @@ async function saveAsWebP() {
   }
 }
 
+async function saveRecipe() {
+  if (!canSave) {
+    return
+  }
+  recipe.value.slug = recipe.value.name.toLowerCase().replaceAll(' ', '-')
+  recipe.value.image = `/recipe-images/${recipe.value.slug}.webp`
+
+  await $fetch('/api/save-recipe', {
+    method: 'POST',
+    body: recipe.value,
+  })
+
+  return recipe.value
+}
+
+async function downloadRecipe() {
+  if (!canSave) {
+    return
+  }
+  saveRecipeImageAsWebp()
+
+  recipe.value.slug = recipe.value.name.toLowerCase().replaceAll(' ', '-')
+  recipe.value.dateAdded = new Date().toISOString().split('T')[0]
+  recipe.value.image = `/recipe-images/${recipe.value.slug}.webp`
+  const jsonString = JSON.stringify(recipe.value, null, 2)
+  const blob = new Blob([jsonString], { type: 'application/json' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = `${recipe.value.slug}.json`
+  document.body.appendChild(a)
+  a.click()
+  window.URL.revokeObjectURL(url)
+}
+
 onBeforeUnmount(() => {
   if (anno.value) {
     anno.value.destroy()
@@ -221,23 +269,23 @@ onBeforeUnmount(() => {
     <div class="font-sans antialiased text-center text-bluegray-700 mt-10">
       <div class="grid grid-cols-2 gap-4">
         <div class="ml-4 min-w-4/5">
-          <div class="relative h-full flex flex-col justify-start gap-4">
+          <div class="gap-4 relative h-full flex flex-col justify-start">
             <input
               id="addFiles"
               type="file"
               accept="image/*"
               multiple="false"
-              class="add-form-component w-3/4 justify-center text-center"
+              class="text-center w-3/4 justify-center add-form-component"
               @change="handleImageChange"
             >
             <div>
-              <img v-if="sourceImage" id="text-img" alt="Vue logo" :src="sourceImage" class="w-full h-full" @mousedown.prevent="null">
+              <img v-if="sourceImage" id="text-img" alt="Vue logo" :src="sourceImage" class="h-full w-full" @mousedown.prevent="null">
             </div>
           </div>
         </div>
 
         <div class="mr-auto">
-          <div class="ml-4 text-left mb-4 flex flex-row gap-4 items-center">
+          <div class="ml-4 flex gap-4 text-left mb-4 flex-row items-center">
             <ScanButton @add="addToTitle" @reset="() => { recipe.name = '' }" />
             <FormInput id="name" v-model="recipe.name" label="Recipe Name" type="text" class="grow" />
           </div>
@@ -250,7 +298,7 @@ onBeforeUnmount(() => {
             <FormInput id="name" v-model="recipe.source" label="Source" type="text" class="grow" />
           </div>
 
-          <FormDropdown v-model="recipe.course" label="Course" :options="courseOptions" class="text-left w-full md:w-1/2 grid grid-cols-2 grid-rows-1 mb-4" />
+          <FormDropdown v-model="recipe.course" label="Course" :options="courseOptions" class="text-left w-full grid grid-cols-2 mb-4 md:w-1/2 grid-rows-1" />
           <FormDropdown v-model="recipe.country" label="Country" :options="countryOptions" class="text-left w-full md:w-1/2 grid grid-cols-2 grid-rows-1 mb-4" />
           <FormCheckbox id="vegetarian" v-model="recipe.vegetarian" label="Vegetarian?" class="text-left w-full md:w-1/2 grid grid-cols-2 grid-rows-1 mb-4 text-white" />
           <FormInput id="prepTime" v-model="recipe.prepTime" label="Prep Time" type="text" class="text-left w-full md:w-1/2 grid grid-cols-2 grid-rows-1 mb-4" />
@@ -260,7 +308,7 @@ onBeforeUnmount(() => {
 
           <div class="ml-4 text-left mb-4 flex flex-row gap-4 items-center">
             <ScanButton @add="addToIngredients" @reset="() => { recipe.ingredients = '' }" />
-            <span class="m-2 block text-white">
+            <span class="text-white m-2 block">
               Ingredients:
             </span>
           </div>
@@ -275,9 +323,9 @@ onBeforeUnmount(() => {
           <MdEditor v-model="recipe.instructions" editor-id="instructions" class="ml-4 mb-4 add-form-component text-left" language="en-US" />
 
           <div class="ml-4 text-left mb-4 flex flex-row gap-4 items-center">
-            <ScanButton download @add="saveRecipeImage" @reset="() => { recipeImage = null }" @download="saveAsWebP" />
+            <ScanButton download @add="saveRecipeImage" @reset="() => { recipeImage = null }" @download="saveRecipeImageAsWebp" />
             <input id="imageUrl" v-model="imageUrl" type="text" class="p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
-            <button class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600" @click="setRecipeImageFromUrl">
+            <button class="text-white rounded-md focus:outline-none px-4 py-2 bg-gray-500 hover:bg-blue-600 focus:bg-blue-600" @click="setRecipeImageFromUrl">
               From URL
             </button>
             <span class="m-2 block text-white">
@@ -286,6 +334,24 @@ onBeforeUnmount(() => {
           </div>
           <div class="ml-4 mt-4 max-w-1/4">
             <img v-if="recipeImage" :src="recipeImage" class="w-full h-full" @mousedown.prevent="null">
+          </div>
+          <div>
+            <div class="flex gap-4 mt-8 justify-center">
+              <button
+                class="text-xl text-white rounded-md focus:outline-none px-4 py-2 bg-gray-500 hover:bg-blue-600 focus:bg-blue-600"
+                :class="{ 'bg-red hover:bg-red focus:bg-red': !(canSave) }"
+                @click="saveRecipe"
+              >
+                Save Recipe
+              </button>
+              <button
+                class="text-xl text-white rounded-md focus:outline-none px-4 py-2 bg-gray-500 hover:bg-blue-600 focus:bg-blue-600"
+                :class="{ 'bg-red hover:bg-red focus:bg-red': !(canSave) }"
+                @click="downloadRecipe"
+              >
+                Download Recipe
+              </button>
+            </div>
           </div>
         </div>
       </div>
