@@ -50,9 +50,23 @@ const canSave = computed(() => {
 
 function setRecipeImageFromUrl() {
   if (imageUrl.value.trim() !== '') {
-    recipeImage.value = imageUrl.value.trim()
-    imageToRecognise.value = recipeImage.value
-    imageUrl.value = ''
+    // Fetch image from URL
+    fetch(imageUrl.value.trim())
+      .then(response => response.blob())
+      .then((blob) => {
+        // Convert image to base64 encoding
+        const reader = new FileReader()
+        reader.onload = () => {
+          // Set recipeImage to base64 encoded image
+          recipeImage.value = reader.result
+          imageToRecognise.value = recipeImage.value
+          imageUrl.value = ''
+        }
+        reader.readAsDataURL(blob)
+      })
+      .catch((error) => {
+        console.error('Error fetching image:', error)
+      })
   }
 }
 
@@ -148,22 +162,22 @@ async function handleImageChange(event: Event) {
   anno.value.on('createSelection', async (annotation: any) => {
     const id = annotation.id
     const snippetObject: { snippet: HTMLCanvasElement } = await anno.value.getImageSnippetById(id)
-    updateImageToReconise(snippetObject)
+    updateImageToRecognise(snippetObject)
   })
   // eslint-disable-next-line unused-imports/no-unused-vars
   anno.value.on('changeSelected', async (selected: any, previous: any) => {
     const id = selected.annotation.id
     const snippetObject: { snippet: HTMLCanvasElement } = await anno.value.getImageSnippetById(id)
-    updateImageToReconise(snippetObject)
+    updateImageToRecognise(snippetObject)
   })
   anno.value.on('changeSelectionTarget', async (annotation: any) => {
     const id = annotation.id
     const snippetObject: { snippet: HTMLCanvasElement } = await anno.value.getImageSnippetById(id)
-    updateImageToReconise(snippetObject)
+    updateImageToRecognise(snippetObject)
   })
 }
 
-function updateImageToReconise(snippetObject: { snippet: HTMLCanvasElement }) {
+function updateImageToRecognise(snippetObject: { snippet: HTMLCanvasElement }) {
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
   canvas.width = snippetObject.snippet.width * 2

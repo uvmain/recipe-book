@@ -17,6 +17,7 @@
     "dayjs": "^1.11.10",
     "markdown-it": "^14.0.0",
     "md-editor-v3": "^4.11.2",
+    "sharp": "^0.33.2",
     "tesseract.js": "^5.0.4"
   },
   "devDependencies": {

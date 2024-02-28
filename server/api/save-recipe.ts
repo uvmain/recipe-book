@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
     const jsonObject = JSON.stringify(body, null, 2)
     const filepath = path.join(process.cwd(), '/content/recipes', `${slug}.json`)
     fs.writeFileSync(filepath, jsonObject)
-    console.log(`saving ${slug}.json`)
+    console.log(`saved ${slug}.json`)
     return 200
   }
   catch (err) {
