@@ -236,29 +236,6 @@ async function saveRecipeImageAsWebp() {
   }
 }
 
-async function saveRecipe() {
-  if (!canSave) {
-    return
-  }
-  try {
-    recipe.value.slug = convertToAlphanumeric(recipe.value.name)
-    recipe.value.image = `/recipe-images/${recipe.value.slug}.webp`
-
-    await $fetch('/api/save-recipe', {
-      method: 'POST',
-      body: recipe.value,
-    })
-
-    await $fetch(`/api/save-image/${recipe.value.slug}.webp`, {
-      method: 'POST',
-      body: recipeImage.value,
-    })
-  }
-  catch (err) {
-    console.error(err)
-  }
-}
-
 async function downloadRecipe() {
   if (!canSave) {
     return
@@ -363,14 +340,7 @@ onBeforeUnmount(() => {
           <div>
             <div class="flex gap-4 ml-4 mt-8">
               <button
-                class="text-white rounded-md focus:outline-none px-4 py-2 bg-gray-500 hover:bg-blue-600 focus:bg-blue-600 text-xl"
-                :class="{ 'bg-red hover:bg-red focus:bg-red': !(canSave) }"
-                @click="saveRecipe"
-              >
-                Save Recipe
-              </button>
-              <button
-                class="text-white rounded-md focus:outline-none px-4 py-2 bg-gray-500 hover:bg-blue-600 focus:bg-blue-600 text-2xl"
+                class="text-white rounded-md focus:outline-none px-4 py-2 bg-gray-500 hover:bg-blue-600 focus:bg-blue-600 text-3xl"
                 :class="{ 'bg-red hover:bg-red focus:bg-red': !(canSave) }"
                 @click="downloadRecipe"
               >
