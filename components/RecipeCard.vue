@@ -8,7 +8,7 @@ function getRouterLink() {
 }
 
 const caloriesPerServing = computed(() => {
-  return props.recipe.calories / props.recipe.servings
+  return Math.floor(props.recipe.calories / props.recipe.servings)
 })
 </script>
 
