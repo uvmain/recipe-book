@@ -48,6 +48,10 @@ const canSave = computed(() => {
   return false
 })
 
+const recipeSlug = computed(() => {
+  return convertToAlphanumeric(recipe.value.name)
+})
+
 function setRecipeImageFromUrl() {
   try {
     if (imageUrl.value.trim() !== '') {
@@ -234,7 +238,7 @@ async function saveRecipeImageAsWebp() {
       // Create a download link
       const link = document.createElement('a')
       link.href = URL.createObjectURL(blob)
-      const slug = recipe.value.name?.toLowerCase().replaceAll(' ', '-') || 'recipeImage'
+      const slug = recipeSlug.value || 'recipeImage'
       link.download = `${slug}.webp`
       link.click()
     }
@@ -247,7 +251,7 @@ async function downloadRecipe() {
   }
   saveRecipeImageAsWebp()
 
-  recipe.value.slug = convertToAlphanumeric(recipe.value.name)
+  recipe.value.slug = recipeSlug.value
   recipe.value.dateAdded = new Date().toISOString().split('T')[0]
   recipe.value.image = `/recipe-images/${recipe.value.slug}.webp`
   const jsonString = JSON.stringify(recipe.value, null, 2)
