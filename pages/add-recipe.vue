@@ -49,24 +49,29 @@ const canSave = computed(() => {
 })
 
 function setRecipeImageFromUrl() {
-  if (imageUrl.value.trim() !== '') {
-    // Fetch image from URL
-    fetch(imageUrl.value.trim())
-      .then(response => response.blob())
-      .then((blob) => {
-        // Convert image to base64 encoding
-        const reader = new FileReader()
-        reader.onload = () => {
-          // Set recipeImage to base64 encoded image
-          recipeImage.value = reader.result
-          imageToRecognise.value = recipeImage.value
-          imageUrl.value = ''
-        }
-        reader.readAsDataURL(blob)
-      })
-      .catch((error) => {
-        console.error('Error fetching image:', error)
-      })
+  try {
+    if (imageUrl.value.trim() !== '') {
+      const image = new Image()
+      image.crossOrigin = 'Anonymous'
+
+      image.onload = function () {
+        const canvas = document.createElement('canvas')
+        const context = canvas.getContext('2d')
+        canvas.width = image.width
+        canvas.height = image.height
+        context?.drawImage(image, 0, 0)
+        const base64 = canvas.toDataURL('image/png')
+        recipeImage.value = base64
+        imageUrl.value = ''
+      }
+      image.onerror = function (error) {
+        console.error('Error loading image:', error)
+      }
+      image.src = imageUrl.value.trim()
+    }
+  }
+  catch (error) {
+    console.error('Error fetching image:', error)
   }
 }
 
