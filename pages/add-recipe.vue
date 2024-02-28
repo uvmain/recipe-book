@@ -297,7 +297,7 @@ onBeforeUnmount(() => {
               type="file"
               accept="image/*"
               multiple="false"
-              class="text-center justify-center add-form-component w-3/4"
+              class="text-center justify-center w-3/4 add-form-component"
               @change="handleImageChange"
             >
             <div>
@@ -323,7 +323,7 @@ onBeforeUnmount(() => {
             <FormInput id="name" v-model="recipe.source" type="text" class="grow" />
           </div>
 
-          <FormDropdown v-model="recipe.course" label="Course" :options="courseOptions" class="text-left w-full flex flex-auto gap-4 mb-4 md:w-1/2 grid-rows-1" />
+          <FormDropdown v-model="recipe.course" label="Course" :options="courseOptions" class="text-left w-full flex gap-4 mb-4 flex-auto md:w-1/2 grid-rows-1" />
           <FormDropdown v-model="recipe.country" label="Country" :options="countryOptions" class="text-left w-full flex flex-auto gap-4 mb-4 md:w-1/2 grid-rows-1" />
           <FormCheckbox id="vegetarian" v-model="recipe.vegetarian" label="Vegetarian?" class="text-left w-full md:w-1/2 grid grid-cols-2 grid-rows-1 mb-4 text-white flex flex-auto" />
           <FormInput id="prepTime" v-model="recipe.prepTime" label="Prep Time" type="text" class="text-left w-full md:w-1/2 grid grid-cols-2 grid-rows-1 mb-4 flex flex-auto" />
@@ -363,14 +363,14 @@ onBeforeUnmount(() => {
           <div>
             <div class="flex gap-4 ml-4 mt-8">
               <button
-                class="text-xl text-white rounded-md focus:outline-none px-4 py-2 bg-gray-500 hover:bg-blue-600 focus:bg-blue-600"
+                class="text-white rounded-md focus:outline-none px-4 py-2 bg-gray-500 hover:bg-blue-600 focus:bg-blue-600 text-xl"
                 :class="{ 'bg-red hover:bg-red focus:bg-red': !(canSave) }"
                 @click="saveRecipe"
               >
                 Save Recipe
               </button>
               <button
-                class="text-2xl text-white rounded-md focus:outline-none px-4 py-2 bg-gray-500 hover:bg-blue-600 focus:bg-blue-600"
+                class="text-white rounded-md focus:outline-none px-4 py-2 bg-gray-500 hover:bg-blue-600 focus:bg-blue-600 text-2xl"
                 :class="{ 'bg-red hover:bg-red focus:bg-red': !(canSave) }"
                 @click="downloadRecipe"
               >
