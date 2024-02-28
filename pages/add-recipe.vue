@@ -288,16 +288,16 @@ onBeforeUnmount(() => {
 
 <template>
   <ClientOnly>
-    <div class="font-sans antialiased text-center text-bluegray-700 mt-10">
+    <div class="font-sans text-center antialiased text-bluegray-700 mt-10">
       <div class="grid grid-cols-2 gap-4">
         <div class="ml-4 min-w-4/5">
-          <div class="gap-4 relative h-full flex flex-col justify-start">
+          <div class="gap-4 relative flex flex-col h-full justify-start">
             <input
               id="addFiles"
               type="file"
               accept="image/*"
               multiple="false"
-              class="text-center w-3/4 justify-center add-form-component"
+              class="text-center justify-center add-form-component w-3/4"
               @change="handleImageChange"
             >
             <div>
@@ -306,7 +306,7 @@ onBeforeUnmount(() => {
           </div>
         </div>
 
-        <div class="mr-auto text-white text-left">
+        <div class="text-white mr-auto text-left">
           <p>Recipe name:</p>
           <div class="flex gap-4 text-left mb-4 flex-row items-center">
             <ScanButton @add="addToTitle" @reset="() => { recipe.name = '' }" />
@@ -352,7 +352,7 @@ onBeforeUnmount(() => {
               Recipe Image:
             </span>
             <ScanButton download @add="saveRecipeImage" @reset="() => { recipeImage = null }" @download="saveRecipeImageAsWebp" />
-            <input id="imageUrl" v-model="imageUrl" type="text" class="p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+            <input id="imageUrl" v-model="imageUrl" type="text" class="p-2 border rounded-md border-gray-300 focus:outline-none focus:border-blue-500">
             <button class="text-white rounded-md focus:outline-none px-4 py-2 bg-gray-500 hover:bg-blue-600 focus:bg-blue-600" @click="setRecipeImageFromUrl">
               From URL
             </button>
@@ -361,7 +361,7 @@ onBeforeUnmount(() => {
             <img v-if="recipeImage" :src="recipeImage" class="w-full h-full" @mousedown.prevent="null">
           </div>
           <div>
-            <div class="flex gap-4 mt-8 ml-4">
+            <div class="flex gap-4 ml-4 mt-8">
               <button
                 class="text-xl text-white rounded-md focus:outline-none px-4 py-2 bg-gray-500 hover:bg-blue-600 focus:bg-blue-600"
                 :class="{ 'bg-red hover:bg-red focus:bg-red': !(canSave) }"

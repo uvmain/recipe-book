@@ -31,7 +31,7 @@ const cookingTimes = computed(() => {
     </h2>
     <RecipeIcons :recipe="recipe" class="mb-4 flex justify-center flex-auto" />
     <hr class="mb-4 opacity-30">
-    <div class="grid justify-center md:grid-flow-col auto-cols-auto gap-8">
+    <div class="justify-center grid md:grid-flow-col auto-cols-auto gap-8">
       <div>
         <div class="mb-4 flex bg-blue-gray-500 items-baseline justify-between rounded-md p-4 pt-0">
           <div>
