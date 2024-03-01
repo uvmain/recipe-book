@@ -1,14 +1,6 @@
 <script setup lang="ts">
-import markdownit from 'markdown-it'
-
 const props = defineProps({
   recipe: { type: Object, required: true },
-})
-
-const md = markdownit({
-  html: true,
-  breaks: true,
-  linkify: true,
 })
 
 const sourceTag = computed(() => {
@@ -55,18 +47,8 @@ const cookingTimes = computed(() => {
       </div>
       <div>
         <div class="grid grid-cols-1 gap-4 auto-rows-min">
-          <div class="rounded-lg p-2 bg-blue-gray-600 pt-1">
-            <h3 class="font-bold text-xl mb-2 ml-2">
-              Ingredients:
-            </h3>
-            <div class="pl-2 md:pl-4 leading-relaxed" v-html="md.render(recipe.ingredients)" />
-          </div>
-          <div class="rounded-lg p-2 pt-1 bg-gray-600">
-            <h3 class="text-xl font-bold ml-2">
-              Instructions:
-            </h3>
-            <div class="pl-2 md:pl-4 leading-relaxed" v-html="md.render(recipe.instructions)" />
-          </div>
+          <MarkdownBlock label="Ingredients" :markdown-string="recipe.ingredients" props-class="bg-blue-gray-600" />
+          <MarkdownBlock label="Instructions" :markdown-string="recipe.instructions" props-class="bg-gray-600" />
         </div>
       </div>
       <div v-if="cookingTimes.length" class="text-xl">

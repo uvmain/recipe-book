@@ -1,3 +1,5 @@
+import Timer from '../components/Timer.vue'
+
 let minutesArray: number[] = []
 
 function clearMinutesArray() {
