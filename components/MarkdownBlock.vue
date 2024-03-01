@@ -26,7 +26,7 @@ function parsedMarkdown(markdownItem: string): parsedMdItem[] {
     }
     else if (arrayItem.startsWith('**')) {
       tag = 'str'
-      step = arrayItem.replace('* ', '')
+      step = arrayItem.replaceAll('*', '')
     }
     else if (arrayItem === '<br>') {
       tag = 'br'
