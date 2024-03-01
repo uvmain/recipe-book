@@ -20,6 +20,10 @@ function parsedMarkdown(markdownItem: string): parsedMdItem[] {
       tag = 'li'
       step = arrayItem.replace('- ', '')
     }
+    else if (arrayItem.startsWith('* * *') || arrayItem.startsWith('***')) {
+      tag = 'br'
+      step = null
+    }
     else if (arrayItem.startsWith('**')) {
       tag = 'str'
       step = arrayItem.replace('* ', '')
@@ -32,11 +36,17 @@ function parsedMarkdown(markdownItem: string): parsedMdItem[] {
       tag = 'p'
       step = null
     }
-    else {
+    else if (arrayItem !== '\\') {
       tag = 'sp'
       step = arrayItem
     }
     parsedMd.push({ tag, step })
+
+    const timer = step ? getTimer(step) : null
+    if (timer) {
+      console.log(timer)
+      parsedMd.push({ tag: 'tm', step: `${timer}` })
+    }
   })
   return parsedMd
 }
@@ -52,13 +62,14 @@ const mdItems = computed(() => {
       {{ label }}
     </h3>
     <div v-for="(mdItem, index) of mdItems" :key="index" class="pl-2 md:pl-4 leading-relaxed">
-      <ul v-if="mdItem.tag === 'li'">
+      <ul v-if="mdItem.tag === 'li'" class="my-2">
         <li v-text="mdItem.step" />
       </ul>
       <strong v-if="mdItem.tag === 'str'" v-text="mdItem.step" />
       <br v-if="mdItem.tag === 'br'">
       <p v-if="mdItem.tag === 'p'" />
       <span v-if="mdItem.tag === 'sp'" v-text="mdItem.step" />
+      <Timer v-if="mdItem.step && mdItem.tag === 'tm'" :minutes="Number(mdItem.step)" class="ml-8 mt-4" />
     </div>
   </div>
 </template>
