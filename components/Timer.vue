@@ -8,6 +8,8 @@ const counting = ref(false)
 
 seconds.value = props.minutes * 60
 
+const alarm = new Audio('/audio/sonnette_reveil.wav')
+
 const interval = setInterval(() => {
   if (seconds.value === 0) {
     clearInterval(interval)
@@ -28,7 +30,15 @@ function toggleCounting() {
 function resetTimer() {
   counting.value = false
   seconds.value = props.minutes * 60
+  alarm.pause()
+  alarm.currentTime = 0
 }
+
+watch(seconds, (newValue, oldValue) => {
+  if (newValue === 0 && oldValue !== 0) {
+    alarm.play()
+  }
+})
 
 const timeLeft = computed(() => {
   if (typeof seconds.value !== 'number' || seconds.value < 0) {
@@ -51,6 +61,10 @@ const timerColour = computed(() => {
     else
       return 'bg-yellow-600'
   }
+})
+
+onUnmounted(() => {
+  clearInterval(interval)
 })
 </script>
 
