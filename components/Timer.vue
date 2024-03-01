@@ -40,14 +40,6 @@ const timeLeft = computed(() => {
   return `${String(hours).padStart(2, '0')} : ${String(minutes).padStart(2, '0')} : ${String(remainingSeconds).padStart(2, '0')}`
 })
 
-const label = computed(() => {
-  const hours = Math.floor(props.minutes / 60)
-  const minutes = Math.floor(props.minutes % 60)
-  const hoursLabel = hours > 1 ? `${hours} hours` : hours === 1 ? `${hours} hour` : ''
-  const minutesLabel = minutes > 1 ? `${minutes} minutes` : minutes === 1 ? `${minutes} minute` : ''
-  return `${hoursLabel} ${minutesLabel}`
-})
-
 const timerColour = computed(() => {
   if (counting.value)
     return 'bg-green-600'
@@ -64,9 +56,6 @@ const timerColour = computed(() => {
 
 <template>
   <div>
-    <label class="text-white m-2 block">
-      {{ label }}
-    </label>
     <button
       type="button"
       class="text-white text-xl rounded-lg font-medium md:text-3xl px-5 py-2.5 me-2 mb-2 text-center"

@@ -1,14 +1,6 @@
 <script setup lang="ts">
-import markdownit from 'markdown-it'
-
 const props = defineProps({
   recipe: { type: Object, required: true },
-})
-
-const md = markdownit({
-  html: true,
-  breaks: true,
-  linkify: true,
 })
 
 const sourceTag = computed(() => {
@@ -17,10 +9,6 @@ const sourceTag = computed(() => {
 
 const caloriesPerServing = computed(() => {
   return Math.floor(props.recipe.calories / props.recipe.servings)
-})
-
-const cookingTimes = computed(() => {
-  return timerParse(props.recipe.instructions)
 })
 </script>
 
@@ -54,23 +42,10 @@ const cookingTimes = computed(() => {
         <NuxtImg placeholder="/recipe-images/default.webp" :src="recipe.image" :alt="recipe.name" class="w-full rounded-lg shadow-md h-auto md:mb-4" />
       </div>
       <div>
-        <div class="grid grid-cols-1 gap-4 auto-rows-min">
-          <div class="rounded-lg p-2 bg-blue-gray-600 pt-1">
-            <h3 class="font-bold text-xl mb-2 ml-2">
-              Ingredients:
-            </h3>
-            <div class="pl-2 md:pl-4 leading-relaxed" v-html="md.render(recipe.ingredients)" />
-          </div>
-          <div class="rounded-lg p-2 pt-1 bg-gray-600">
-            <h3 class="text-xl font-bold ml-2">
-              Instructions:
-            </h3>
-            <div class="pl-2 md:pl-4 leading-relaxed" v-html="md.render(recipe.instructions)" />
-          </div>
+        <div class="grid gap-4">
+          <MarkdownBlock label="Ingredients" :markdown-string="recipe.ingredients" props-class="bg-blue-gray-600" class="min-w-1/2" />
+          <MarkdownBlock label="Instructions" :markdown-string="recipe.instructions" props-class="bg-gray-600" class="min-w-1/2" />
         </div>
-      </div>
-      <div v-if="cookingTimes.length" class="text-xl">
-        <Timer v-for="time in cookingTimes" :key="time" :minutes="time" />
       </div>
     </div>
   </div>
