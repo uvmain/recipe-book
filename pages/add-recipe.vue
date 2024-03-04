@@ -64,7 +64,7 @@ function setRecipeImageFromUrl() {
         canvas.width = image.width
         canvas.height = image.height
         context?.drawImage(image, 0, 0)
-        const base64 = canvas.toDataURL('image/png')
+        const base64 = canvas.toDataURL('image/webp', 0.8)
         recipeImage.value = base64
         imageUrl.value = ''
       }
@@ -192,13 +192,15 @@ function updateImageToRecognise(snippetObject: { snippet: HTMLCanvasElement }) {
   canvas.width = snippetObject.snippet.width * 2
   canvas.height = snippetObject.snippet.height * 2
   ctx?.drawImage(snippetObject.snippet, 0, 0, canvas.width, canvas.height)
-  imageToRecognise.value = canvas.toDataURL()
+  imageToRecognise.value = canvas.toDataURL('image/webp', 0.8)
 }
 
 async function saveRecipeImage() {
   if (imageToRecognise.value) {
     recipeImage.value = imageToRecognise.value
   }
+  else if (sourceImage.value)
+    recipeImage.value = sourceImage.value
 }
 
 async function saveRecipeImageAsWebp() {
