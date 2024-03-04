@@ -285,7 +285,7 @@ onBeforeUnmount(() => {
               type="file"
               accept="image/*"
               multiple="false"
-              class="text-center justify-center w-3/4 add-form-component"
+              class="text-center justify-center add-form-component w-3/4"
               @change="handleImageChange"
             >
             <div>

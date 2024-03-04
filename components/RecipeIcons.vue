@@ -6,18 +6,20 @@ const props = defineProps({
 const courseIcon = computed(() => {
   if (props.recipe.course === 'baking')
     return 'mingcute:bread-line'
-  if (props.recipe.course === 'mains')
+  else if (props.recipe.course === 'mains')
     return 'icon-park-outline:cook'
-  if (props.recipe.course === 'soups')
+  else if (props.recipe.course === 'soups')
     return 'lucide:soup'
-  if (props.recipe.course === 'desserts')
+  else if (props.recipe.course === 'desserts')
     return 'ep:dessert'
-  if (props.recipe.course === 'cocktails')
+  else if (props.recipe.course === 'cocktails')
     return 'la:cocktail'
-  if (props.recipe.course === 'sides')
+  else if (props.recipe.course === 'sides')
     return 'mingcute:fries-line'
-  if (props.recipe.course === 'sauces')
+  else if (props.recipe.course === 'sauces')
     return 'icon-park-outline:bottle-two'
+  else if (props.recipe.course === 'salads')
+    return 'lucide:salad'
   else return 'icon-park-outline:cook'
 })
 
