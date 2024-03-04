@@ -20,6 +20,8 @@ const courseIcon = computed(() => {
     return 'icon-park-outline:bottle-two'
   else if (props.recipe.course === 'salads')
     return 'lucide:salad'
+  else if (props.recipe.course === 'spices')
+    return 'tabler:salt'
   else return 'icon-park-outline:cook'
 })
 
