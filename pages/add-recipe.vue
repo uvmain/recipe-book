@@ -275,6 +275,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
+  <Header />
   <ClientOnly>
     <div class="font-sans text-center antialiased text-bluegray-700 mt-10">
       <div class="grid gap-4 grid-cols-2">

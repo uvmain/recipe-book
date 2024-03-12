@@ -1,4 +1,9 @@
 <script setup lang="ts">
+defineProps({
+  modelValue: { type: String, default: '' },
+})
+const emit = defineEmits(['update:modelValue', 'inputChanged'])
+
 const router = useRouter()
 
 const currentPath = computed(() => {
@@ -17,8 +22,11 @@ async function navToRandomRecipe() {
   router.push(`/recipe/${randomSlugContent[0].slug}`)
 }
 
-const targetLatest: string = '/'
-const targetAdd: string = '/add-recipe'
+function handleInput(e: Event) {
+  const value = (e.target as HTMLInputElement).value
+  emit('update:modelValue', value)
+  emit('inputChanged', value)
+}
 </script>
 
 <template>
@@ -28,8 +36,8 @@ const targetAdd: string = '/add-recipe'
         <button
           type="button"
           class="text-white text-xl bg-blue-gray-500 rounded-lg text-center font-medium md:text-3xl px-5 py-2.5 me-2 mb-2"
-          :class="{ 'opacity-50': currentPath !== targetLatest }"
-          @click="$router.push(targetLatest)"
+          :class="{ 'opacity-50': currentPath !== '/' }"
+          @click="$router.push('/')"
         >
           <Icon name="carbon:home" />
         </button>
@@ -44,13 +52,13 @@ const targetAdd: string = '/add-recipe'
         <button
           type="button"
           class="text-white text-xl bg-blue-gray-500 rounded-lg text-center font-medium md:text-3xl px-5 py-2.5 mb-2 md:me-2"
-          :class="{ 'opacity-50': currentPath !== targetAdd }"
-          @click="$router.push(targetAdd)"
+          :class="{ 'opacity-50': currentPath !== '/add-recipe' }"
+          @click="$router.push('/add-recipe')"
         >
           <Icon name="carbon:add-alt" />
         </button>
+        <input :value="modelValue" placeholder="Search..." class="text-white text-xl rounded-lg text-center font-medium md:text-3xl px-5 py-2.5 mb-2 md:me-2 focus:bg-blue-gray-400 bg-blue-gray-200" @click="$router.push('/')" @input="handleInput">
       </div>
-      <SearchBar class="" />
     </header>
   </div>
 </template>
