@@ -19,10 +19,10 @@ const caloriesPerServing = computed(() => {
         {{ recipe.name }}
       </h3>
     </div>
-    <NuxtImg placeholder="/recipe-images/default.webp" :src="recipe.image" :alt="recipe.name" class="w-full rounded mb-2 h-32 object-cover" />
+    <NuxtImg :src="recipe.image" :alt="recipe.name" class="w-full rounded mb-2 h-32 object-cover" />
     <div>
       <div class="flex items-center gap-3 mx-2">
-        <hr class="opacity-30 bg-gray-600 grow">
+        <hr class="opacity-30 grow bg-gray-600">
         <RecipeIcons :recipe="recipe" class="shrink" />
       </div>
 

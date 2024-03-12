@@ -21,6 +21,7 @@ getRecipe()
 </script>
 
 <template>
+  <Header />
   <div>
     <main class="mx-auto mt-8 max-w-full md:max-w-4/5">
       <Recipe v-if="recipe" :recipe="recipe" class="ml-2 md:ml" />

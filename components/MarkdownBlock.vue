@@ -44,7 +44,6 @@ function parsedMarkdown(markdownItem: string): parsedMdItem[] {
 
     const timer = step ? getTimer(step) : null
     if (timer) {
-      console.log(timer)
       parsedMd.push({ tag: 'tm', step: `${timer}` })
     }
   })

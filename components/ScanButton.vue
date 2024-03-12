@@ -14,7 +14,7 @@ const columns = computed(() => {
 
 <template>
   <div
-    class="grid gap-2 items-baseline"
+    class="gap-2 grid items-baseline"
     :class="columns"
   >
     <button class="add-form-component" @click="$emit('add')">
