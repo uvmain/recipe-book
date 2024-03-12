@@ -19,7 +19,7 @@ const whereClauses = computed(() => {
   const whereClauseArray: any[] = []
   const inputs = input.value.split(' ').filter(word => word.trim().length)
   inputs.forEach((word) => {
-    if (word.toLowerCase().startsWith('vege')) {
+    if (word.toLowerCase() === 'vegetarian') {
       whereClauseArray.push({ vegetarian: true })
     }
     else {
