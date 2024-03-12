@@ -8,5 +8,11 @@ export default defineNuxtConfig({
     'nuxt-icon',
     '@vueuse/nuxt',
   ],
-  content: {},
+  content: {
+    experimental: {
+      search: {
+        indexed: true,
+      },
+    },
+  },
 })

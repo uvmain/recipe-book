@@ -73,6 +73,7 @@ onMounted(() => {
 <template>
   <div v-if="recipes" class="flex items-center grid gap-3 ml-2 grid-cols-2">
     <input
+      id="search-bar"
       v-model="input"
       type="text"
       placeholder="Search recipes..."
