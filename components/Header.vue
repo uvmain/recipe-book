@@ -6,6 +6,8 @@ const emit = defineEmits(['update:modelValue', 'inputChanged'])
 
 const router = useRouter()
 
+const searchInput = ref()
+
 const currentPath = computed(() => {
   return router.currentRoute.value.path
 })
@@ -27,10 +29,20 @@ function handleInput(e: Event) {
   emit('update:modelValue', value)
   emit('inputChanged', value)
 }
+
+function searchClicked() {
+  router.push('/')
+}
+
+function resetClicked() {
+  emit('update:modelValue', '')
+  emit('inputChanged', '')
+}
 </script>
 
 <template>
   <div class="flex w-full justify-center bg-gray-100">
+    <div class="text-dark" />
     <header class="flex justify-center flex-wrap m-4">
       <div>
         <button
@@ -57,7 +69,22 @@ function handleInput(e: Event) {
         >
           <Icon name="carbon:add-alt" />
         </button>
-        <input :value="modelValue" placeholder="Search..." class="text-white text-xl rounded-lg text-center font-medium md:text-3xl px-5 py-2.5 mb-2 md:me-2 focus:bg-blue-gray-400 bg-blue-gray-200" @click="$router.push('/')" @input="handleInput">
+        <input
+          id="search-input"
+          ref="searchInput"
+          :value="modelValue"
+          placeholder="Search..."
+          class="text-white text-xl rounded-lg text-center font-medium md:text-3xl px-5 py-2.5 mb-2 md:me-2 focus:bg-blue-gray-400 bg-blue-gray-200"
+          @click="searchClicked"
+          @input="handleInput"
+        >
+        <button
+          type="button"
+          class="text-white bg-blue-gray-500 rounded-lg text-center md:text-3xl px-5 py-2.5 mb-2 md:me-2 text-base opacity-50"
+          @click="resetClicked"
+        >
+          <Icon name="carbon:skip-back" />
+        </button>
       </div>
     </header>
   </div>

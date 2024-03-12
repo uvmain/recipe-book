@@ -72,7 +72,6 @@ onMounted(async () => {
 <template>
   <Header v-model="input" @input-changed="search" />
   <div>
-    {{ input }}
     <main v-if="latestRecipes.length" class="mx-auto w-19/20 md:w-4/5 mt-3 md:mt-8">
       <div class="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-5 md:gap-8">
         <RecipeCard v-for="recipe in latestRecipes" :key="recipe.name" :recipe="recipe" />
