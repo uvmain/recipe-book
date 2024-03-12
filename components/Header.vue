@@ -80,7 +80,7 @@ function resetClicked() {
         >
         <button
           type="button"
-          class="text-white bg-blue-gray-500 rounded-lg text-center md:text-3xl px-5 py-2.5 mb-2 md:me-2 text-base opacity-50"
+          class="text-white bg-blue-gray-500 rounded-lg text-center md:text-3xl px-5 py-2.5 mb-2 md:me-2 opacity-50 text-base"
           @click="resetClicked"
         >
           <Icon name="carbon:skip-back" />
