@@ -15,22 +15,31 @@ const loaderStatus = ref('idle')
 
 const input = ref<string>('')
 
+const whereClauses = computed(() => {
+  const whereClauseArray: any[] = []
+  const inputs = input.value.split(' ').filter(word => word.trim().length)
+  inputs.forEach((word) => {
+    const wordArray = []
+    if (word.trim().length) {
+      wordArray.push({ slug: { $icontains: word } })
+      wordArray.push({ name: { $icontains: word } })
+      wordArray.push({ author: { $icontains: word } })
+      wordArray.push({ source: { $icontains: word } })
+      wordArray.push({ course: { $icontains: word } })
+      wordArray.push({ country: { $icontains: word } })
+      wordArray.push({ ingredients: { $icontains: word } })
+      wordArray.push({ instructions: { $icontains: word } })
+    }
+    whereClauseArray.push({ $or: wordArray })
+  })
+  return inputs.length === 1 ? whereClauseArray : inputs.length > 1 ? { $and: whereClauseArray } : {}
+})
+
 async function loadData() {
   if (loaderStatus.value === 'idle') {
     loaderStatus.value = 'loading'
     await queryContent('/recipes')
-      .where({
-        $or: [
-          { slug: { $icontains: input.value } },
-          { name: { $icontains: input.value } },
-          { author: { $icontains: input.value } },
-          { source: { $icontains: input.value } },
-          { course: { $icontains: input.value } },
-          { country: { $icontains: input.value } },
-          { ingredients: { $icontains: input.value } },
-          { instructions: { $icontains: input.value } },
-        ],
-      })
+      .where(whereClauses.value as any)
       .sort({ dateAdded: -1 })
       .skip(page.value * limit)
       .limit(limit)
