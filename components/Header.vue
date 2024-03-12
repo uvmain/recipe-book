@@ -18,7 +18,6 @@ async function navToRandomRecipe() {
 }
 
 const targetLatest: string = '/'
-const targetAll: string = '/all-recipes'
 const targetAdd: string = '/add-recipe'
 </script>
 
@@ -32,15 +31,7 @@ const targetAdd: string = '/add-recipe'
           :class="{ 'opacity-50': currentPath !== targetLatest }"
           @click="$router.push(targetLatest)"
         >
-          Latest
-        </button>
-        <button
-          type="button"
-          class="text-white text-xl bg-blue-gray-500 rounded-lg text-center font-medium md:text-3xl px-5 py-2.5 me-2 mb-2"
-          :class="{ 'opacity-50': currentPath !== targetAll }"
-          @click="$router.push(targetAll)"
-        >
-          All
+          <Icon name="carbon:home" />
         </button>
         <button
           type="button"
@@ -48,7 +39,7 @@ const targetAdd: string = '/add-recipe'
           :class="{ 'opacity-50': !currentPath.startsWith('/recipe/') }"
           @click="navToRandomRecipe"
         >
-          Random
+          <Icon name="carbon:shuffle" />
         </button>
         <button
           type="button"
@@ -56,7 +47,7 @@ const targetAdd: string = '/add-recipe'
           :class="{ 'opacity-50': currentPath !== targetAdd }"
           @click="$router.push(targetAdd)"
         >
-          <Icon name="lucide:plus" class="scale-140" />
+          <Icon name="carbon:add-alt" />
         </button>
       </div>
       <SearchBar class="" />

@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     '@nuxt/content',
     '@nuxt/image',
     'nuxt-icon',
+    '@vueuse/nuxt',
   ],
   content: {},
 })

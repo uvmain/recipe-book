@@ -277,7 +277,7 @@ onBeforeUnmount(() => {
 <template>
   <ClientOnly>
     <div class="font-sans text-center antialiased text-bluegray-700 mt-10">
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid gap-4 grid-cols-2">
         <div class="ml-4 min-w-4/5">
           <div class="gap-4 relative flex flex-col h-full justify-start">
             <input
