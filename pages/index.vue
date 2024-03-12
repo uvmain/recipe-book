@@ -51,11 +51,11 @@ onMounted(async () => {
 <template>
   <div>
     <main v-if="latestRecipes.length" class="mx-auto w-19/20 md:w-4/5 mt-3 md:mt-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-5 md:gap-8">
+      <div class="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-5 md:gap-8">
         <RecipeCard v-for="recipe in latestRecipes" :key="recipe.name" :recipe="recipe" />
       </div>
       <div ref="loader">
-        <Icon v-if="latestRecipes.length && loaderStatus !== 'no-more'" name="svg-spinners:3-dots-move" class="scale-400 mt-4 mx-auto w-full" />
+        <Icon v-if="latestRecipes.length && loaderStatus !== 'no-more'" name="svg-spinners:3-dots-move" class="mt-4 mx-auto w-full scale-400" />
       </div>
     </main>
   </div>
