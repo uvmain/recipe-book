@@ -24,5 +24,6 @@ html, body, #__nuxt {
   padding: 0;
   background: grey;
   color: white;
+  border: 0;
 }
 </style>
