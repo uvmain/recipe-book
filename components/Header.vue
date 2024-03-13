@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineProps({
+const props = defineProps({
   modelValue: { type: String, default: '' },
 })
 const emit = defineEmits(['update:modelValue', 'inputChanged'])
@@ -26,7 +26,7 @@ async function navToRandomRecipe() {
 
 async function handleInput(e: Event) {
   const value = (e.target as HTMLInputElement).value
-  if (value.trim().length && router.currentRoute.value.path !== '/') {
+  if (value.trim().length && currentPath.value !== '/') {
     await navigateTo({
       path: '/',
       query: {
@@ -39,7 +39,9 @@ async function handleInput(e: Event) {
 }
 
 onMounted(() => {
-  searchInput.value.focus()
+  if (currentPath.value === '/' && props.modelValue.length) {
+    searchInput.value.focus()
+  }
 })
 </script>
 
