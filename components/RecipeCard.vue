@@ -17,14 +17,24 @@ const parsedSource = computed(() => {
   }
   else return props.recipe.source
 })
+
+const showAuthor = computed(() => {
+  return props.recipe.author && `${props.recipe.author}`.toLowerCase() !== 'unknown'
+})
+
+const showSource = computed(() => {
+  return props.recipe.source && `${props.recipe.source}`.toLowerCase() !== 'unknown'
+})
 </script>
 
 <template>
   <NuxtLink :to="getRouterLink()" class="text-white px-4 bg-blue-gray-500 rounded no-underline overflow-auto pb-4 text-center">
-    <p class="text-xl font-bold mb-2 min-h-3.5rem">
-      {{ recipe.name }}
-    </p>
-    <NuxtImg :src="recipe.image" :alt="recipe.name" class="rounded mb-2 w-full h-32 object-cover" />
+    <div id="card-header" class="h-60 flex flex-col gap-2 mb-2 w-full">
+      <p class="text-xl font-bold mb-2">
+        {{ recipe.name }}
+      </p>
+      <img :src="recipe.image" :alt="recipe.name" class="rounded flex-1 object-cover truncate">
+    </div>
     <div>
       <div class="flex items-center gap-3">
         <hr class="grow border border-solid border-blue-gray-400">
@@ -32,11 +42,11 @@ const parsedSource = computed(() => {
         <hr class="grow border border-solid border-blue-gray-400">
       </div>
       <div class="my-2 flex flex-col gap-2">
-        <span v-if="recipe.author">
+        <span v-if="showAuthor">
           <strong>Author:</strong>
           {{ recipe.author }}
         </span>
-        <span v-if="recipe.source">
+        <span v-if="showSource">
           <strong>Source:</strong>
           {{ parsedSource }}
         </span>

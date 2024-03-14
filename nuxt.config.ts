@@ -4,7 +4,6 @@ export default defineNuxtConfig({
   modules: [
     '@unocss/nuxt',
     '@nuxt/content',
-    '@nuxt/image',
     'nuxt-icon',
     '@vueuse/nuxt',
   ],

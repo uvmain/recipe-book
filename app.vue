@@ -9,10 +9,10 @@ useHead({
 </script>
 
 <template class="">
-  <div id="app" class="flex flex-col min-h-screen bg-primarybg-300">
+  <div id="app" class="bg-primarybg-300 grid min-h-screen m-0 p-0 border-0 grid-cols-1">
     <NuxtLoadingIndicator />
     <Header />
-    <div class="flex-grow font-sans antialiased">
+    <div class="font-sans antialiased">
       <NuxtPage />
     </div>
     <Footer />
@@ -23,6 +23,7 @@ useHead({
 html, body, #__nuxt {
   margin: 0;
   padding: 0;
+  background: rgb(209, 213, 219);
   color: white;
   border: 0;
 }

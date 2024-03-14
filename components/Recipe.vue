@@ -13,14 +13,14 @@ const caloriesPerServing = computed(() => {
 </script>
 
 <template>
-  <div class="mr-2">
+  <div class="w-full">
     <h2 class="font-bold text-center mb-4 text-4xl text-zinc-600">
       {{ recipe.name }}
     </h2>
     <RecipeIcons :recipe="recipe" class="mb-4 flex justify-center flex-auto" />
     <div class="h-0.5 mb-4 mx-auto bg-gradient-to-r via-zinc-500 from-primarybg-300 to-primarybg-300" />
-    <div class="justify-center grid auto-cols-auto md:grid-flow-col gap-4 md:gap-8">
-      <div class="md:min-w-170">
+    <div class="justify-center grid auto-cols-auto gap-4 md:gap-8 lg:grid-flow-col">
+      <div class="">
         <div class="mb-4 flex bg-blue-gray-500 items-baseline rounded-md justify-between p-4 pt-0">
           <div>
             <p v-if="recipe.author">
@@ -39,7 +39,7 @@ const caloriesPerServing = computed(() => {
             <span v-if="recipe.servings && recipe.calories">{{ recipe.calories }} kcal, {{ caloriesPerServing }} ea.</span>
           </div>
         </div>
-        <NuxtImg :src="recipe.image" :alt="recipe.name" class="rounded-lg w-full shadow-md h-auto md:mb-4" />
+        <img :src="recipe.image" :alt="recipe.name" class="rounded-lg w-full shadow-md h-auto md:mb-4">
       </div>
       <div>
         <div class="grid gap-4">
