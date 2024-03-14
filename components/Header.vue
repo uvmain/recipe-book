@@ -1,12 +1,5 @@
 <script setup lang="ts">
-const props = defineProps({
-  modelValue: { type: String, default: '' },
-})
-const emit = defineEmits(['update:modelValue', 'inputChanged'])
-
 const router = useRouter()
-
-const searchInput = ref()
 
 const currentPath = computed(() => {
   return router.currentRoute.value.path
@@ -23,34 +16,14 @@ async function navToRandomRecipe() {
   }
   await navigateTo(`/recipe/${randomSlugContent[0].slug}`)
 }
-
-async function handleInput(e: Event) {
-  const value = (e.target as HTMLInputElement).value
-  if (value.trim().length && currentPath.value !== '/') {
-    await navigateTo({
-      path: '/',
-      query: {
-        searchInput: value,
-      },
-    })
-  }
-  emit('update:modelValue', value)
-  emit('inputChanged', value)
-}
-
-onMounted(() => {
-  if (currentPath.value === '/' && props.modelValue.length) {
-    searchInput.value.focus()
-  }
-})
 </script>
 
 <template>
-  <div class="flex w-full text-white justify-center bg-gray-100">
-    <header class="gap-2 justify-center grid grid-cols-6 m-4">
+  <div class="flex w-full text-white justify-center bg-gray-200">
+    <header class="justify-center gap-2 grid grid-cols-6 m-4">
       <button
         type="button"
-        class="text-white text-xl rounded-lg text-center font-medium md:text-3xl px-5 py-2.5 bg-blue-gray-500"
+        class="text-white text-xl rounded-lg text-center font-medium md:text-3xl bg-blue-gray-500 px-5 py-2.5"
         :class="{ 'opacity-50': currentPath !== '/' }"
         @click="navigateTo('/')"
       >
@@ -70,16 +43,9 @@ onMounted(() => {
         :class="{ 'opacity-50': currentPath !== '/add-recipe' }"
         @click="navigateTo('/add-recipe')"
       >
-        <Icon name="carbon:add-alt" />
+        <Icon name="carbon:document-add" />
       </button>
-      <input
-        id="search-input"
-        ref="searchInput"
-        :value="modelValue"
-        placeholder="Search..."
-        class="text-white text-xl rounded-lg text-center font-medium md:text-3xl px-5 py-2.5 focus:bg-blue-gray-400 bg-blue-gray-200 col-span-3"
-        @input="handleInput"
-      >
+      <SearchBar class="text-white text-xl rounded-lg text-center font-medium md:text-3xl px-5 py-2.5 focus:bg-blue-gray-400 col-span-3 bg-white" />
     </header>
   </div>
 </template>

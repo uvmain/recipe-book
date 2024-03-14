@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { useDebounceFn, useIntersectionObserver } from '@vueuse/core'
 
-const route = useRoute()
-
 useHead({
   titleTemplate: 'RecipeBook: Latest',
 })
@@ -15,7 +13,7 @@ const loader = ref(null)
 const loaderVisbible = ref(false)
 const loaderStatus = ref('idle')
 
-const input = ref<string>(`${route.query.searchInput || ''}`)
+const input = useState<string>('searchInput')
 
 const whereClauses = computed(() => {
   const whereClauseArray: any[] = []
@@ -70,9 +68,9 @@ const search = useDebounceFn(async () => {
   await loadData()
 }, 700)
 
-function scrollToTop() {
-  window.scrollTo(0, 0)
-}
+watch(input, () => {
+  search()
+})
 
 onMounted(async () => {
   await loadData()
@@ -90,9 +88,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <Header v-model="input" @input-changed="search" />
   <div>
-    <main v-if="latestRecipes.length" class="mx-auto w-19/20 md:w-4/5 mt-3 md:mt-8">
+    <main v-if="latestRecipes.length" class="mx-auto w-19/20 md:w-4/5 md:pt-3 pt-2">
       <div class="grid gap-4 md:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
         <RecipeCard v-for="recipe in latestRecipes" :key="recipe.name" :recipe="recipe" />
       </div>
@@ -100,12 +97,6 @@ onMounted(async () => {
         <Icon v-if="latestRecipes.length && loaderStatus !== 'no-more'" name="svg-spinners:3-dots-move" class="mx-auto mt-4 scale-400" />
       </div>
     </main>
-    <button
-      type="button"
-      class="text-white text-center font-medium md:text-3xl text-base bg-blue-gray-400 fixed bottom-2 md:bottom-10 md:right-10 z-10 right-2 rounded-xl border-0"
-      @click="scrollToTop"
-    >
-      <Icon name="carbon:arrow-up" />
-    </button>
+    <FloatingScrollToTop />
   </div>
 </template>
