@@ -36,15 +36,15 @@ const caloriesPerServing = computed(() => {
             <span v-if="recipe.servings">{{ recipe.servings }} Servings</span>
             <span v-if="recipe.prepTime">Prep: {{ recipe.prepTime }}</span>
             <span v-if="recipe.cookingTime">Cook: {{ recipe.cookingTime }}</span>
-            <span v-if="recipe.servings && recipe.calories">{{ recipe.calories }} kcal, {{ caloriesPerServing }} ea.</span>
+            <span v-if="recipe.servings && recipe.calories">{{ caloriesPerServing }} kcal each, {{ recipe.calories }} total</span>
           </div>
         </div>
         <img :src="recipe.image" :alt="recipe.name" class="rounded-lg w-full shadow-md h-auto md:mb-4">
       </div>
       <div>
         <div class="grid gap-4">
-          <MarkdownBlock label="Ingredients" :markdown-string="recipe.ingredients" props-class="bg-blue-gray-600" class="min-w-1/2" />
-          <MarkdownBlock label="Instructions" :markdown-string="recipe.instructions" props-class="bg-gray-600" class="min-w-1/2" />
+          <MarkdownBlock v-if="recipe.ingredients" label="Ingredients" :markdown-string="recipe.ingredients" props-class="bg-blue-gray-600" class="min-w-1/2" />
+          <MarkdownBlock v-if="recipe.instructions" label="Instructions" :markdown-string="recipe.instructions" props-class="bg-gray-600" class="min-w-1/2" />
         </div>
       </div>
     </div>

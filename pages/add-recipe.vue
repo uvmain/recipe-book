@@ -1,17 +1,7 @@
 <script setup lang="ts">
-import { PSM, createWorker } from 'tesseract.js'
-import '@recogito/annotorious/dist/annotorious.min.css'
-import { MdEditor } from 'md-editor-v3'
-import 'md-editor-v3/lib/style.css'
-
-const recognizedParagraphs = ref<string[]>([])
-const anno = ref<typeof import('@recogito/annotorious')>(null)
-const sourceImage = ref()
-const imageToRecognise = ref()
-const recipeImage = ref()
-const imageUrl = ref('')
-
-const recipe = ref<Recipe>({} as Recipe)
+const addFilesInput = ref()
+const recipe = ref < Recipe >({} as Recipe)
+const imageBase64 = ref<string>()
 
 const courseOptions = computed(() => {
   const courses: any[] = []
@@ -49,164 +39,28 @@ const canSave = computed(() => {
 })
 
 const recipeSlug = computed(() => {
-  return convertToAlphanumeric(recipe.value.name)
+  return recipe.value.name.length ? convertToAlphanumeric(recipe.value.name) : ''
 })
 
-function setRecipeImageFromUrl() {
-  try {
-    if (imageUrl.value.trim() !== '') {
-      const image = new Image()
-      image.crossOrigin = 'Anonymous'
+function handleFileChange() {
+  const file = addFilesInput.value.files?.[0]
 
-      image.onload = function () {
-        const canvas = document.createElement('canvas')
-        const context = canvas.getContext('2d')
-        canvas.width = image.width
-        canvas.height = image.height
-        context?.drawImage(image, 0, 0)
-        const base64 = canvas.toDataURL('image/webp', 0.8)
-        recipeImage.value = base64
-        imageUrl.value = ''
-      }
-      image.onerror = function (error) {
-        console.error('Error loading image:', error)
-      }
-      image.src = imageUrl.value.trim()
-    }
-  }
-  catch (error) {
-    console.error('Error fetching image:', error)
-  }
-}
-
-async function recognize() {
-  recognizedParagraphs.value = []
-  const worker = await createWorker('eng')
-
-  await worker.setParameters({
-    tessedit_pageseg_mode: PSM.AUTO_OSD,
-    preserve_interword_spaces: '1',
-  })
-  if (imageToRecognise.value) {
-    const { data: { paragraphs } } = await worker.recognize(imageToRecognise.value)
-    paragraphs.forEach((paragraph) => {
-      for (const newLine of paragraph.text.split('\n'))
-        recognizedParagraphs.value.push(newLine)
-    })
-  }
-  await worker.terminate()
-}
-
-async function addToTitle() {
-  await recognize()
-  recipe.value.name = (recipe.value.name ? recipe.value.name + recognizedParagraphs.value.join(' ') : recognizedParagraphs.value.join(' ')).trim()
-}
-
-async function addToSource() {
-  await recognize()
-  recipe.value.source = recipe.value.source ? recipe.value.source + recognizedParagraphs.value.join(' ') : recognizedParagraphs.value.join(' ')
-}
-
-async function addToAuthor() {
-  await recognize()
-  recipe.value.author = recipe.value.author ? recipe.value.author + recognizedParagraphs.value.join(' ') : recognizedParagraphs.value.join(' ')
-}
-
-async function addToIngredients() {
-  await recognize()
-
-  let markdown = ''
-  const hasNumberRegex = /\d/
-  recognizedParagraphs.value.forEach((text: string) => {
-    if (markdown.length) {
-      markdown += '\n'
-    }
-    if (!hasNumberRegex.test(text) && text.length > 2) {
-      markdown += `**${text}**`
-    }
-    else if (text.length > 2) {
-      markdown += `- ${text}`
-    }
-  })
-  recipe.value.ingredients = recipe.value.ingredients ? recipe.value.ingredients + markdown.replaceAll('\n\n\n', '\n\n') : markdown.replaceAll('\n\n\n', '\n\n')
-}
-
-async function addToInstructions() {
-  await recognize()
-  const startsWithUppercaseOrNumber = /^[A-Z0-9]/
-  let markdown = ''
-  recognizedParagraphs.value.forEach((text: string) => {
-    if (markdown.length && text.length) {
-      markdown += '\n'
-    }
-    if (text.length && startsWithUppercaseOrNumber.test(text)) {
-      markdown += `- ${text}`
-    }
-    else if (text.length) {
-      markdown += text
-    }
-  })
-  recipe.value.instructions = recipe.value.instructions ? recipe.value.instructions + markdown.replaceAll('\n\n\n', '\n\n') : markdown.replaceAll('\n\n\n', '\n\n')
-}
-
-async function handleImageChange(event: Event) {
-  anno.value?.destroy()
-
-  const input = event.target as HTMLInputElement
-  if (input.files && input.files[0]) {
+  if (file) {
     const reader = new FileReader()
-    reader.onload = (e) => {
-      if (e.target && typeof e.target.result === 'string') {
-        sourceImage.value = e.target.result
+    reader.readAsDataURL(file)
+    reader.onload = () => {
+      if (typeof reader.result === 'string') {
+        imageBase64.value = reader.result
+        recipe.value.image = reader.result
       }
     }
-    reader.readAsDataURL(input.files[0])
   }
-  const Anno = await import('@recogito/annotorious')
-  anno.value = new Anno.Annotorious({
-    image: document.getElementById('text-img'),
-    disableEditor: true,
-  })
-
-  anno.value.on('createSelection', async (annotation: any) => {
-    const id = annotation.id
-    const snippetObject: { snippet: HTMLCanvasElement } = await anno.value.getImageSnippetById(id)
-    updateImageToRecognise(snippetObject)
-  })
-  // eslint-disable-next-line unused-imports/no-unused-vars
-  anno.value.on('changeSelected', async (selected: any, previous: any) => {
-    const id = selected.annotation.id
-    const snippetObject: { snippet: HTMLCanvasElement } = await anno.value.getImageSnippetById(id)
-    updateImageToRecognise(snippetObject)
-  })
-  anno.value.on('changeSelectionTarget', async (annotation: any) => {
-    const id = annotation.id
-    const snippetObject: { snippet: HTMLCanvasElement } = await anno.value.getImageSnippetById(id)
-    updateImageToRecognise(snippetObject)
-  })
-}
-
-function updateImageToRecognise(snippetObject: { snippet: HTMLCanvasElement }) {
-  const canvas = document.createElement('canvas')
-  const ctx = canvas.getContext('2d')
-  canvas.width = snippetObject.snippet.width * 2
-  canvas.height = snippetObject.snippet.height * 2
-  ctx?.drawImage(snippetObject.snippet, 0, 0, canvas.width, canvas.height)
-  imageToRecognise.value = canvas.toDataURL('image/webp', 0.8)
-}
-
-async function saveRecipeImage() {
-  if (imageToRecognise.value) {
-    recipeImage.value = imageToRecognise.value
-  }
-  else if (sourceImage.value)
-    recipeImage.value = sourceImage.value
 }
 
 async function saveRecipeImageAsWebp() {
-  if (recipeImage.value) {
+  if (imageBase64.value) {
     const image = new Image()
-    image.src = recipeImage.value
+    image.src = imageBase64.value
 
     image.onload = async function () {
       const canvas = document.createElement('canvas')
@@ -266,102 +120,67 @@ async function downloadRecipe() {
   a.click()
   window.URL.revokeObjectURL(url)
 }
-
-onBeforeUnmount(() => {
-  if (anno.value) {
-    anno.value.destroy()
-  }
-})
 </script>
 
 <template>
-  <ClientOnly>
-    <div class="text-center text-bluegray-700 mt-10">
-      <div class="grid gap-4 grid-cols-2">
-        <div class="ml-4 min-w-4/5">
-          <div class="gap-4 relative flex flex-col h-full justify-start">
-            <input
-              id="addFiles"
-              type="file"
-              accept="image/*"
-              multiple="false"
-              class="text-center justify-center add-form-component w-3/4"
-              @change="handleImageChange"
+  <div class="mt-10">
+    <div class="grid gap-4 grid-cols-3">
+      <div class="mx-auto text-left text-zinc-800">
+        <p>Recipe name:</p>
+        <input id="nameInput" v-model="recipe.name" label="" type="text" class="add-form-component">
+
+        <p>Author:</p>
+        <input id="authorInput" v-model="recipe.author" type="text" class="add-form-component">
+
+        <p>Source:</p>
+        <input id="sourceInput" v-model="recipe.source" type="text" class="add-form-component">
+
+        <FormDropdown id="courseInput" v-model="recipe.course" label="Course" :options="courseOptions" class="text-left w-full flex gap-4 my-4 flex-auto md:w-1/2 grid-rows-1" />
+        <FormDropdown id="countryInput" v-model="recipe.country" label="Country" :options="countryOptions" class="text-left w-full flex flex-auto gap-4 mb-4 md:w-1/2 grid-rows-1" />
+        <FormCheckbox id="vegetarianInput" v-model="recipe.vegetarian" label="Vegetarian?" class="text-left w-full md:w-1/2 grid grid-cols-2 gap-2 grid-rows-1 mb-4 flex flex-auto" />
+
+        <p>Prep Time:</p>
+        <input id="prepTimeInput" v-model="recipe.prepTime" type="text" class="add-form-component">
+
+        <p>Cooking Time:</p>
+        <input id="cookingTimeInput" v-model="recipe.cookingTime" type="text" class="add-form-component">
+
+        <p>Calories:</p>
+        <input id="caloriesInput" v-model="recipe.calories" type="number" class="add-form-component">
+
+        <p>Servings:</p>
+        <input id="servingsInput" v-model="recipe.servings" type="number21" class="add-form-component">
+
+        <p>Ingredients:</p>
+        <textarea id="ingredientsInput" v-model="recipe.ingredients" class="add-form-component h-40" />
+
+        <p>Instructions:</p>
+        <textarea id="instructionsInput" v-model="recipe.instructions" class="add-form-component h-40" />
+
+        <p>Recipe Image:</p>
+        <input
+          id="addFiles"
+          ref="addFilesInput"
+          type="file"
+          accept="image/*"
+          multiple="false"
+          class="add-form-component"
+          @change="handleFileChange"
+        >
+        <div>
+          <div class="flex gap-4 ml-4 mt-8">
+            <button
+              class="text-white rounded-md focus:outline-none px-4 py-2 bg-gray-500 hover:bg-blue-600 focus:bg-blue-600 text-3xl"
+              :class="{ 'bg-red hover:bg-red focus:bg-red': !(canSave) }"
+              @click="downloadRecipe"
             >
-            <div>
-              <img v-if="sourceImage" id="text-img" alt="Vue logo" :src="sourceImage" class="h-full w-full" @mousedown.prevent="null">
-            </div>
-          </div>
-        </div>
-
-        <div class="text-white mr-auto text-left">
-          <p>Recipe name:</p>
-          <div class="flex gap-4 text-left mb-4 flex-row items-center">
-            <ScanButton @add="addToTitle" @reset="() => { recipe.name = '' }" />
-            <FormInput id="name" v-model="recipe.name" label="" type="text" class="grow" />
-          </div>
-          <p>Author:</p>
-          <div class="text-left mb-4 flex flex-row gap-4 items-center">
-            <ScanButton @add="addToAuthor" @reset="() => { recipe.author = '' }" />
-            <FormInput id="author" v-model="recipe.author" type="text" class="grow" />
-          </div>
-          <p>Source:</p>
-          <div class="text-left mb-4 flex flex-row gap-4 items-center">
-            <ScanButton @add="addToSource" @reset="() => { recipe.source = '' }" />
-            <FormInput id="soure" v-model="recipe.source" type="text" class="grow" />
-          </div>
-
-          <FormDropdown id="course" v-model="recipe.course" label="Course" :options="courseOptions" class="text-left w-full flex gap-4 mb-4 flex-auto md:w-1/2 grid-rows-1" />
-          <FormDropdown id="country" v-model="recipe.country" label="Country" :options="countryOptions" class="text-left w-full flex flex-auto gap-4 mb-4 md:w-1/2 grid-rows-1" />
-          <FormCheckbox id="vegetarian" v-model="recipe.vegetarian" label="Vegetarian?" class="text-left w-full md:w-1/2 grid grid-cols-2 grid-rows-1 mb-4 text-white flex flex-auto" />
-          <FormInput id="prepTime" v-model="recipe.prepTime" label="Prep Time" type="text" class="text-left w-full md:w-1/2 grid grid-cols-2 grid-rows-1 mb-4 flex flex-auto" />
-          <FormInput id="cookingTime" v-model="recipe.cookingTime" label="Cooking Time" type="text" class="text-left w-full md:w-1/2 grid grid-cols-2 grid-rows-1 mb-4 flex flex-auto" />
-          <FormInput id="calories" v-model="recipe.calories" label="Total Calories" type="number" class="text-left w-full md:w-1/2 grid grid-cols-2 grid-rows-1 mb-4 flex flex-auto" />
-          <FormInput id="servings" v-model="recipe.servings" label="Servings" type="number" class="text-left w-full md:w-1/2 grid grid-cols-2 grid-rows-1 mb-4 flex flex-auto" />
-
-          <div class="text-left mb-4 flex flex-row gap-4 items-center">
-            <span class="text-white m-2 block">
-              Ingredients:
-            </span>
-            <ScanButton @add="addToIngredients" @reset="() => { recipe.ingredients = '' }" />
-          </div>
-          <MdEditor v-model="recipe.ingredients" editor-id="ingredients" class="ml-4 mb-4 add-form-component text-left" language="en-US" />
-
-          <div class="text-left mb-4 flex flex-row gap-4 items-center">
-            <span class="m-2 block text-white">
-              Instructions:
-            </span>
-            <ScanButton @add="addToInstructions" @reset="() => { recipe.instructions = '' }" />
-          </div>
-          <MdEditor v-model="recipe.instructions" editor-id="instructions" class="ml-4 mb-4 add-form-component text-left" language="en-US" />
-
-          <div class="ml-4 text-left mb-4 flex flex-row gap-4 items-center">
-            <span class="m-2 block text-white">
-              Recipe Image:
-            </span>
-            <ScanButton download @add="saveRecipeImage" @reset="() => { recipeImage = null }" @download="saveRecipeImageAsWebp" />
-            <input id="imageUrl" v-model="imageUrl" type="text" class="p-2 rounded-md border focus:outline-none focus:border-blue-500 border-primarybg-300">
-            <button class="text-white rounded-md focus:outline-none px-4 py-2 bg-gray-500 hover:bg-blue-600 focus:bg-blue-600" @click="setRecipeImageFromUrl">
-              From URL
+              Download Recipe
             </button>
-          </div>
-          <div class="ml-4 mt-4 max-w-1/4">
-            <img v-if="recipeImage" :src="recipeImage" class="w-full h-full" @mousedown.prevent="null">
-          </div>
-          <div>
-            <div class="flex gap-4 ml-4 mt-8">
-              <button
-                class="text-white rounded-md focus:outline-none px-4 py-2 bg-gray-500 hover:bg-blue-600 focus:bg-blue-600 text-3xl"
-                :class="{ 'bg-red hover:bg-red focus:bg-red': !(canSave) }"
-                @click="downloadRecipe"
-              >
-                Download Recipe
-              </button>
-            </div>
           </div>
         </div>
       </div>
+      <Recipe :recipe="recipe" class="col-span-2" />
     </div>
-    <FloatingScrollToTop />
-  </ClientOnly>
+  </div>
+  <FloatingScrollToTop />
 </template>
