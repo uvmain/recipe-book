@@ -14,7 +14,17 @@ async function navToRandomRecipe() {
   if (currentPath.value === `/recipe/${randomSlugContent[0].slug}`) {
     navToRandomRecipe()
   }
+  if (useState<string>('searchInput').value.length) {
+    useState<string>('searchInput').value = ''
+  }
   await navigateTo(`/recipe/${randomSlugContent[0].slug}`)
+}
+
+async function navToHome() {
+  if (useState<string>('searchInput').value.length) {
+    useState<string>('searchInput').value = ''
+  }
+  await navigateTo('/')
 }
 </script>
 
@@ -25,7 +35,7 @@ async function navToRandomRecipe() {
         type="button"
         class="header-button"
         :class="{ 'header-button-selected': currentPath === '/' }"
-        @click="navigateTo('/')"
+        @click="navToHome"
       >
         <Icon name="carbon:home" />
       </button>
