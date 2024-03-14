@@ -13,17 +13,15 @@ const caloriesPerServing = computed(() => {
 </script>
 
 <template>
-  <NuxtLink :to="getRouterLink()" class="text-white shadow-md border px-4 bg-blue-gray-600 rounded no-underline overflow-auto pb-4">
-    <div class="flex items-baseline justify-between md:min-h-5rem">
-      <h3 class="text-xl font-bold mb-2">
-        {{ recipe.name }}
-      </h3>
-    </div>
+  <NuxtLink :to="getRouterLink()" class="text-white border-1 border-zinc-200 border-solid px-4 bg-blue-gray-600 rounded no-underline overflow-auto pb-4">
+    <p class="text-xl font-bold mb-2 min-h-3.5rem align-middle">
+      {{ recipe.name }}
+    </p>
     <NuxtImg :src="recipe.image" :alt="recipe.name" class="rounded mb-2 w-full h-32 object-cover" />
     <div>
       <div class="flex items-center gap-3 mx-2">
         <hr class="opacity-30 grow bg-gray-600">
-        <RecipeIcons :recipe="recipe" class="shrink" />
+        <RecipeIcons :recipe="recipe" class="shrink" colour="text-white" />
       </div>
 
       <p v-if="recipe.author">

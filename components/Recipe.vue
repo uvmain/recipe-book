@@ -13,7 +13,7 @@ const caloriesPerServing = computed(() => {
 </script>
 
 <template>
-  <div class="mr-2 md:mr">
+  <div class="mr-2">
     <h2 class="font-bold text-center mb-4 text-4xl text-zinc-600">
       {{ recipe.name }}
     </h2>

@@ -19,8 +19,8 @@ async function navToRandomRecipe() {
 </script>
 
 <template>
-  <div class="flex w-full text-white justify-center bg-gray-200">
-    <header class="justify-center gap-2 grid grid-cols-6 m-4">
+  <div class="text-white w-full bg-gradient-to-b from-gray-500 to-gray-300">
+    <header class="grid flex justify-center gap-2 grid-cols-6 m-4">
       <button
         type="button"
         class="header-button"
@@ -45,7 +45,7 @@ async function navToRandomRecipe() {
       >
         <Icon name="carbon:document-add" />
       </button>
-      <SearchBar class="text-white text-xl rounded-lg text-center font-medium md:text-3xl px-5 py-2.5 focus:bg-blue-gray-400 col-span-3 bg-white" />
+      <SearchBar class="search-bar" />
     </header>
   </div>
 </template>

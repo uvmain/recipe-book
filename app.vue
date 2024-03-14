@@ -8,8 +8,8 @@ useHead({
 })
 </script>
 
-<template>
-  <div id="app" class="flex flex-col min-h-screen">
+<template class="">
+  <div id="app" class="flex flex-col min-h-screen bg-gray-300">
     <NuxtLoadingIndicator />
     <Header />
     <div class="flex-grow font-sans">
@@ -23,7 +23,6 @@ useHead({
 html, body, #__nuxt {
   margin: 0;
   padding: 0;
-  background: rgb(212, 211, 211);
   color: white;
   border: 0;
 }
