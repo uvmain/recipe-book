@@ -18,7 +18,7 @@ const caloriesPerServing = computed(() => {
       {{ recipe.name }}
     </h2>
     <RecipeIcons :recipe="recipe" class="mb-4 flex justify-center flex-auto" />
-    <div class="h-0.5 mb-4 mx-auto bg-gradient-to-r via-zinc-500 from-primarybg-300 to-primarybg-300" />
+    <div class="mb-4 h-0.5 mx-auto bg-gradient-to-r via-zinc-500 from-primarybg-300 to-primarybg-300" />
     <div class="justify-center grid auto-cols-auto gap-4 md:gap-8 lg:grid-flow-col">
       <div class="">
         <div class="mb-4 flex bg-blue-gray-500 items-baseline rounded-md justify-between p-4 pt-0">

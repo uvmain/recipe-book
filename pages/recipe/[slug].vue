@@ -22,8 +22,8 @@ getRecipe()
 
 <template>
   <div>
-    <main class="mx-auto pt-1 max-w-full md:max-w-4/5">
-      <Recipe v-if="recipe" :recipe="recipe" class="ml-2 md:ml" />
+    <main class="mx-auto pt-1 px-2">
+      <Recipe v-if="recipe" :recipe="recipe" class="" />
     </main>
   </div>
   <FloatingScrollToTop />
