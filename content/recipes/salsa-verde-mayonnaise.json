@@ -1,0 +1,15 @@
+{
+  "course": "sauces",
+  "name": "Salsa Verde Mayonnaise",
+  "image": "/recipe-images/salsa-verde-mayonnaise.webp",
+  "author": "Daylesford",
+  "source": "A Love For Food, pg.382",
+  "country": "France",
+  "vegetarian": false,
+  "prepTime": "20 minutes",
+  "servings": "500ml",
+  "ingredients": "- 40g fresh parsley leaves, roughly chopped\n- 20g fresh mint leaves, roughly chopped\n- 30g rocket leaves, roughly chopped\n- 1 clove garlic, roughly chopped\n- 3 tbsp capers\n- 4 heaped tsp Dijon mustard\n- 160ml olive oil\n- 4 anchovy fillets\n- 160ml mayonnaise",
+  "instructions": "- Mix all the ingredients apart from the mayonnaise in a bowl and leave to stand for 10 minutes to allow the flavours to infuse.\n- Blend to a coarse paste (or use a pestle and mortar).\n- Put the mayonnaise into another bowl and slowly whisk in the blended herb mixture, a little at a time. Do this slowly, to avoid the mayonnaise separating.\n- Chill in the fridge until needed, it will keep for up to a week.",
+  "slug": "salsa-verde-mayonnaise",
+  "dateAdded": "2024-03-14"
+}

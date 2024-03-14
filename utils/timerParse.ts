@@ -12,6 +12,9 @@ export function getTimer(sentence: string): number {
       else if (prevWord === 'of' && recipesWords[index - 2] === 'couple') {
         timerDetails = word.startsWith('h') ? 120 : 2
       }
+      else if (prevWord === 'more' && !Number.isNaN(recipesWords[index - 2])) {
+        timerDetails = word.startsWith('h') ? 60 * Number(recipesWords[index - 2]) : Number(recipesWords[index - 2])
+      }
       else if (prevWord === 'further' && !word.endsWith('s')) {
         timerDetails = word.startsWith('h') ? 60 : 1
       }

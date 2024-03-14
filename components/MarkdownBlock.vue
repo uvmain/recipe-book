@@ -56,18 +56,18 @@ const mdItems = computed(() => {
 </script>
 
 <template>
-  <div class="rounded-lg p-2 pt-1" :class="propsClass">
-    <h3 class="text-xl font-bold ml-2">
+  <div class="rounded-lg pt-1 p-2 pr-4" :class="propsClass">
+    <h3 class="text-xl font-bold pl-2">
       {{ label }}
     </h3>
-    <div v-for="(mdItem, index) of mdItems" :key="index" class="pl-2 md:pl-4 leading-relaxed">
+    <div v-for="(mdItem, index) of mdItems" :key="index" class="leading-5">
       <ul v-if="mdItem.tag === 'li'" class="my-2">
         <li v-text="mdItem.step" />
       </ul>
       <strong v-if="mdItem.tag === 'str'" v-text="mdItem.step" />
       <br v-if="mdItem.tag === 'br'">
       <p v-if="mdItem.tag === 'p'" />
-      <span v-if="mdItem.tag === 'sp'" v-text="mdItem.step" />
+      <span v-if="mdItem.tag === 'sp'" class="ml-4" v-text="mdItem.step" />
       <Timer v-if="mdItem.step && mdItem.tag === 'tm'" :minutes="Number(mdItem.step)" class="ml-8 mt-4" />
     </div>
   </div>

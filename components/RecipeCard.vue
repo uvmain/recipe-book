@@ -29,7 +29,7 @@ const showSource = computed(() => {
 
 <template>
   <NuxtLink :to="getRouterLink()" class="text-white px-4 bg-blue-gray-500 rounded no-underline overflow-auto pb-4 text-center">
-    <div id="card-header" class="h-60 flex flex-col gap-2 mb-2 w-full">
+    <div id="card-header" class="flex mb-2 w-full h-60 flex-col gap-2">
       <p class="text-xl font-bold mb-2">
         {{ recipe.name }}
       </p>

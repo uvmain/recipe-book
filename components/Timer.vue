@@ -72,7 +72,7 @@ onUnmounted(() => {
   <div>
     <button
       type="button"
-      class="text-white text-xl rounded-lg mb-2 font-medium md:text-3xl px-5 py-2.5 text-center me-2"
+      class="text-white text-xl rounded-lg text-center mb-2 font-medium md:text-3xl px-5 py-2.5 me-2"
       :class="timerColour"
       @click="toggleCounting"
     >
