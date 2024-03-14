@@ -28,8 +28,8 @@ const showSource = computed(() => {
 </script>
 
 <template>
-  <NuxtLink :to="getRouterLink()" class="text-white px-4 bg-blue-gray-500 rounded no-underline overflow-auto pb-4 text-center">
-    <div id="card-header" class="flex mb-2 w-full h-60 flex-col gap-2">
+  <NuxtLink :to="getRouterLink()" class="text-white bg-blue-gray-500 text-center px-4 rounded no-underline overflow-auto pb-4">
+    <div id="card-header" class="flex w-full flex-col gap-2 mb-2 h-60">
       <p class="text-xl font-bold mb-2">
         {{ recipe.name }}
       </p>
@@ -37,7 +37,7 @@ const showSource = computed(() => {
     </div>
     <div>
       <div class="flex items-center gap-3">
-        <hr class="grow border border-solid border-blue-gray-400">
+        <hr class="border-solid grow border border-blue-gray-400">
         <RecipeIcons :recipe="recipe" colour="text-white" />
         <hr class="grow border border-solid border-blue-gray-400">
       </div>

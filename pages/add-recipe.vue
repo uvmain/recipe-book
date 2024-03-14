@@ -125,7 +125,7 @@ async function downloadRecipe() {
 <template>
   <div class="mt-10">
     <div class="grid gap-4 grid-cols-3">
-      <div class="mx-auto text-left text-zinc-800">
+      <div class="mx-auto text-zinc-800 text-left">
         <p>Recipe name:</p>
         <input id="nameInput" v-model="recipe.name" label="" type="text" class="add-form-component">
 
@@ -137,7 +137,7 @@ async function downloadRecipe() {
 
         <FormDropdown id="courseInput" v-model="recipe.course" label="Course" :options="courseOptions" class="text-left w-full flex gap-4 my-4 flex-auto md:w-1/2 grid-rows-1" />
         <FormDropdown id="countryInput" v-model="recipe.country" label="Country" :options="countryOptions" class="text-left w-full flex flex-auto gap-4 mb-4 md:w-1/2 grid-rows-1" />
-        <FormCheckbox id="vegetarianInput" v-model="recipe.vegetarian" label="Vegetarian?" class="text-left w-full md:w-1/2 grid grid-cols-2 gap-2 grid-rows-1 mb-4 flex flex-auto" />
+        <FormCheckbox id="vegetarianInput" v-model="recipe.vegetarian" label="Vegetarian?" class="text-left w-full md:w-1/2 grid gap-2 grid-rows-1 mb-4 flex flex-auto grid-cols-2" />
 
         <p>Prep Time:</p>
         <input id="prepTimeInput" v-model="recipe.prepTime" type="text" class="add-form-component">
@@ -170,7 +170,7 @@ async function downloadRecipe() {
         <div>
           <div class="flex gap-4 ml-4 mt-8">
             <button
-              class="text-white rounded-md focus:outline-none px-4 py-2 bg-gray-500 hover:bg-blue-600 focus:bg-blue-600 text-3xl"
+              class="text-white rounded-md px-4 focus:outline-none py-2 bg-gray-500 hover:bg-blue-600 focus:bg-blue-600 text-3xl"
               :class="{ 'bg-red hover:bg-red focus:bg-red': !(canSave) }"
               @click="downloadRecipe"
             >

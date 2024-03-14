@@ -17,10 +17,10 @@ const caloriesPerServing = computed(() => {
     <h2 class="font-bold text-center mb-4 text-4xl text-zinc-600">
       {{ recipe.name }}
     </h2>
-    <div class="flex items-center gap-3 mb-4 md:mb-6 mx-auto md:w-4/5">
+    <div class="flex items-center mb-4 gap-3 md:mb-6 mx-auto md:w-4/5">
       <div class="w-full h-0.5 bg-gradient-to-r to-zinc-500 from-primarybg-300" />
       <RecipeIcons :recipe="recipe" />
-      <div class="w-full h-0.5 bg-gradient-to-l to-zinc-500 from-primarybg-300" />
+      <div class="w-full h-0.5 to-zinc-500 from-primarybg-300 bg-gradient-to-l" />
     </div>
     <div class="justify-center grid auto-cols-auto gap-4 md:gap-8 lg:grid-flow-col">
       <div class="">
@@ -31,7 +31,7 @@ const caloriesPerServing = computed(() => {
               {{ recipe.author }}
             </p>
             <strong>Source: </strong>
-            <component :is="sourceTag" v-if="recipe.source" :href="recipe.source" target="_blank" class="text-white break-all underline-none">
+            <component :is="sourceTag" v-if="recipe.source" :href="recipe.source" target="_blank" class="text-white underline-none break-all">
               {{ recipe.source }}
             </component>
           </div>
