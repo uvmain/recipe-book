@@ -1,6 +1,7 @@
 {
   // Enable the ESlint flat config support
   "eslint.experimental.useFlatConfig": true,
+  "scss.lint.unknownAtRules": "ignore",
   // Disable the default formatter, use eslint instead
   "prettier.enable": false,
   "editor.formatOnSave": true,

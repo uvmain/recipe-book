@@ -303,16 +303,16 @@ onBeforeUnmount(() => {
           <p>Author:</p>
           <div class="text-left mb-4 flex flex-row gap-4 items-center">
             <ScanButton @add="addToAuthor" @reset="() => { recipe.author = '' }" />
-            <FormInput id="name" v-model="recipe.author" type="text" class="grow" />
+            <FormInput id="author" v-model="recipe.author" type="text" class="grow" />
           </div>
           <p>Source:</p>
           <div class="text-left mb-4 flex flex-row gap-4 items-center">
             <ScanButton @add="addToSource" @reset="() => { recipe.source = '' }" />
-            <FormInput id="name" v-model="recipe.source" type="text" class="grow" />
+            <FormInput id="soure" v-model="recipe.source" type="text" class="grow" />
           </div>
 
-          <FormDropdown v-model="recipe.course" label="Course" :options="courseOptions" class="text-left w-full flex gap-4 mb-4 flex-auto md:w-1/2 grid-rows-1" />
-          <FormDropdown v-model="recipe.country" label="Country" :options="countryOptions" class="text-left w-full flex flex-auto gap-4 mb-4 md:w-1/2 grid-rows-1" />
+          <FormDropdown id="course" v-model="recipe.course" label="Course" :options="courseOptions" class="text-left w-full flex gap-4 mb-4 flex-auto md:w-1/2 grid-rows-1" />
+          <FormDropdown id="country" v-model="recipe.country" label="Country" :options="countryOptions" class="text-left w-full flex flex-auto gap-4 mb-4 md:w-1/2 grid-rows-1" />
           <FormCheckbox id="vegetarian" v-model="recipe.vegetarian" label="Vegetarian?" class="text-left w-full md:w-1/2 grid grid-cols-2 grid-rows-1 mb-4 text-white flex flex-auto" />
           <FormInput id="prepTime" v-model="recipe.prepTime" label="Prep Time" type="text" class="text-left w-full md:w-1/2 grid grid-cols-2 grid-rows-1 mb-4 flex flex-auto" />
           <FormInput id="cookingTime" v-model="recipe.cookingTime" label="Cooking Time" type="text" class="text-left w-full md:w-1/2 grid grid-cols-2 grid-rows-1 mb-4 flex flex-auto" />

@@ -23,24 +23,24 @@ async function navToRandomRecipe() {
     <header class="justify-center gap-2 grid grid-cols-6 m-4">
       <button
         type="button"
-        class="text-white text-xl rounded-lg text-center font-medium md:text-3xl bg-blue-gray-500 px-5 py-2.5"
-        :class="{ 'opacity-50': currentPath !== '/' }"
+        class="header-button"
+        :class="{ 'header-button-selected': currentPath === '/' }"
         @click="navigateTo('/')"
       >
         <Icon name="carbon:home" />
       </button>
       <button
         type="button"
-        class="text-white text-xl bg-blue-gray-500 rounded-lg text-center font-medium md:text-3xl px-5 py-2.5"
-        :class="{ 'opacity-50': !currentPath.startsWith('/recipe/') }"
+        class="header-button"
+        :class="{ 'header-button-selected': currentPath.startsWith('/recipe/') }"
         @click="navToRandomRecipe"
       >
         <Icon name="carbon:shuffle" />
       </button>
       <button
         type="button"
-        class="text-white text-xl bg-blue-gray-500 rounded-lg text-center font-medium md:text-3xl px-5 py-2.5"
-        :class="{ 'opacity-50': currentPath !== '/add-recipe' }"
+        class="header-button"
+        :class="{ 'header-button-selected': currentPath === '/add-recipe' }"
         @click="navigateTo('/add-recipe')"
       >
         <Icon name="carbon:document-add" />
