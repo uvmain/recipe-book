@@ -9,10 +9,10 @@ useHead({
 </script>
 
 <template class="">
-  <div id="app" class="flex flex-col min-h-screen bg-gray-300">
+  <div id="app" class="flex flex-col min-h-screen bg-primarybg-300">
     <NuxtLoadingIndicator />
     <Header />
-    <div class="flex-grow font-sans">
+    <div class="flex-grow font-sans antialiased">
       <NuxtPage />
     </div>
     <Footer />

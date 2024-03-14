@@ -276,7 +276,7 @@ onBeforeUnmount(() => {
 
 <template>
   <ClientOnly>
-    <div class="font-sans text-center antialiased text-bluegray-700 mt-10">
+    <div class="text-center text-bluegray-700 mt-10">
       <div class="grid gap-4 grid-cols-2">
         <div class="ml-4 min-w-4/5">
           <div class="gap-4 relative flex flex-col h-full justify-start">
@@ -340,7 +340,7 @@ onBeforeUnmount(() => {
               Recipe Image:
             </span>
             <ScanButton download @add="saveRecipeImage" @reset="() => { recipeImage = null }" @download="saveRecipeImageAsWebp" />
-            <input id="imageUrl" v-model="imageUrl" type="text" class="p-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500">
+            <input id="imageUrl" v-model="imageUrl" type="text" class="p-2 rounded-md border focus:outline-none focus:border-blue-500 border-primarybg-300">
             <button class="text-white rounded-md focus:outline-none px-4 py-2 bg-gray-500 hover:bg-blue-600 focus:bg-blue-600" @click="setRecipeImageFromUrl">
               From URL
             </button>

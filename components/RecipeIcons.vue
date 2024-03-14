@@ -38,15 +38,15 @@ const flagIcon = computed(() => {
 
 <template>
   <div class="flex gap-2 flex-row">
-    <div id="vegetarianIcon" class="flex relative group/veg">
-      <Icon v-if="recipe.vegetarian" name="lucide:vegan" :class="colour" />
+    <div v-if="recipe.vegetarian" id="vegetarianIcon" class="flex relative group/veg">
+      <Icon name="lucide:vegan" :class="colour" />
       <span class="text-sm rounded-md transition-opacity bg-zinc-800 px-1 text-gray-100 absolute left-1/2 -translate-x-1/2 translate-y-full opacity-0 -ml-10 group-hover/veg:opacity-100">
         Vegetarian
       </span>
     </div>
-    <div id="countryIcon" class="flex relative group/country">
+    <div v-if="recipe.country" id="countryIcon" class="flex relative group/country">
       <Icon v-if="flagIcon" :name="flagIcon" />
-      <span v-if="recipe.country" class="text-sm rounded-md transition-opacity px-1 text-gray-100 absolute left-1/2 -translate-x-1/2 translate-y-full opacity-0 -ml-10 group-hover/country:opacity-100">
+      <span class="text-sm rounded-md transition-opacity px-1 text-gray-100 absolute left-1/2 -translate-x-1/2 translate-y-full opacity-0 -ml-10 group-hover/country:opacity-100">
         {{ recipe.country }}
       </span>
     </div>
