@@ -24,13 +24,13 @@ const caloriesPerServing = computed(() => {
     </div>
     <div class="justify-center grid auto-cols-auto gap-4 md:gap-8 lg:grid-flow-col">
       <div class="">
-        <div class="mb-4 flex bg-blue-gray-500 items-baseline rounded-md justify-between p-4 pt-0">
+        <div class="mb-4 flex rounded-md bg-blue-gray-500 items-baseline justify-between p-4 pt-0">
           <div>
             <p v-if="recipe.author">
               <strong>Author:</strong>
               {{ recipe.author }}
             </p>
-            <strong>Source: </strong>
+            <strong v-if="recipe.source">Source: </strong>
             <component :is="sourceTag" v-if="recipe.source" :href="recipe.source" target="_blank" class="text-white underline-none break-all">
               {{ recipe.source }}
             </component>

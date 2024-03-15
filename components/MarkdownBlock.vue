@@ -53,6 +53,20 @@ function parsedMarkdown(markdownItem: string): parsedMdItem[] {
 const mdItems = computed(() => {
   return parsedMarkdown(props.markdownString)
 })
+
+function getStepWithLink(step: string) {
+  // return step.split(/(<)/)
+  const splitStep = step.split('<a href="')
+  const route = splitStep[1].split('"')[0]
+  const linkText = splitStep[1].split('>')[1].split('<')[0]
+  const remainingText = splitStep[1].split('</a>')[1]
+  return {
+    startingText: splitStep[0],
+    route,
+    linkText,
+    remainingText,
+  }
+}
 </script>
 
 <template>
@@ -62,7 +76,10 @@ const mdItems = computed(() => {
     </h3>
     <div v-for="(mdItem, index) of mdItems" :key="index" class="leading-5">
       <ul v-if="mdItem.tag === 'li'" class="my-2">
-        <li v-text="mdItem.step" />
+        <li v-if="mdItem.step?.includes('<a')">
+          {{ getStepWithLink(mdItem.step).startingText }}<a :href="getStepWithLink(mdItem.step).route" class="text-white underline-none">{{ getStepWithLink(mdItem.step).linkText }}</a>{{ getStepWithLink(mdItem.step).remainingText }}
+        </li>
+        <li v-else v-text="mdItem.step" />
       </ul>
       <strong v-if="mdItem.tag === 'str'" v-text="mdItem.step" />
       <br v-if="mdItem.tag === 'br'">

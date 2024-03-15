@@ -57,6 +57,11 @@ function handleFileChange() {
   }
 }
 
+function resetImage() {
+  imageBase64.value = ''
+  recipe.value.image = ''
+}
+
 async function saveRecipeImageAsWebp() {
   if (imageBase64.value) {
     const image = new Image()
@@ -158,15 +163,23 @@ async function downloadRecipe() {
         <textarea id="instructionsInput" v-model="recipe.instructions" class="add-form-component h-40" />
 
         <p>Recipe Image:</p>
-        <input
-          id="addFiles"
-          ref="addFilesInput"
-          type="file"
-          accept="image/*"
-          multiple="false"
-          class="add-form-component"
-          @change="handleFileChange"
-        >
+        <div class="flex flex-row gap-2">
+          <input
+            id="addFiles"
+            ref="addFilesInput"
+            type="file"
+            accept="image/*"
+            multiple="false"
+            class="add-form-component"
+            @change="handleFileChange"
+          >
+          <button
+            class="text-white rounded-md px-4 focus:outline-none py-2 bg-gray-500 hover:bg-blue-600 focus:bg-blue-600 text-3xl"
+            @click="resetImage"
+          >
+            <Icon name="carbon:reset" />
+          </button>
+        </div>
         <div>
           <div class="flex gap-4 ml-4 mt-8">
             <button
