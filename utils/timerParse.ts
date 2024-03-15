@@ -22,7 +22,10 @@ export function getTimer(sentence: string): number[] {
       else if (prevWord === 'more' && !Number.isNaN(recipesWords[index - 2])) {
         timerDetails.push(word.startsWith('h') ? 60 * Number(recipesWords[index - 2]) : Number(recipesWords[index - 2]))
       }
-      else if (prevWord === 'further' && !word.endsWith('s')) {
+      else if (prevWord && !word.endsWith('s')) {
+        timerDetails.push(word.startsWith('h') ? 60 : 1)
+      }
+      else if (prevWord === 'an' || prevWord === 'a') {
         timerDetails.push(word.startsWith('h') ? 60 : 1)
       }
       else if (!Number.isNaN(prevWord)) {

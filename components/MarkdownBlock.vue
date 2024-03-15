@@ -14,6 +14,8 @@ function parsedMarkdown(markdownItem: string): parsedMdItem[] {
   const parsedMd: parsedMdItem[] = []
   const initialArray: string[] = markdownItem.replaceAll('\n\n', '\n<br>\n').split('\n')
   initialArray.forEach((arrayItem: string) => {
+    arrayItem = arrayItem.replaceAll('1/4', '¼').replaceAll('1/3', '⅓').replaceAll('1/2', '½').replaceAll('2/3', '⅔').replaceAll('3/4', '¾')
+
     let tag = ''
     let step: string | null = null
     if (arrayItem.startsWith('- ')) {
@@ -43,7 +45,6 @@ function parsedMarkdown(markdownItem: string): parsedMdItem[] {
     parsedMd.push({ tag, step })
 
     const timers = step ? getTimer(step) : []
-    console.log(timers)
     for (const timer of timers) {
       parsedMd.push({ tag: 'tm', step: `${timer}` })
     }
@@ -85,7 +86,9 @@ function getStepWithLink(step: string) {
       <strong v-if="mdItem.tag === 'str'" v-text="mdItem.step" />
       <br v-if="mdItem.tag === 'br'">
       <p v-if="mdItem.tag === 'p'" />
-      <span v-if="mdItem.tag === 'sp'" class="ml-4" v-text="mdItem.step" />
+      <div v-if="mdItem.tag === 'sp'" class="ml-4">
+        <span v-text="mdItem.step" />
+      </div>
       <Timer v-if="mdItem.step && mdItem.tag === 'tm'" :minutes="Number(mdItem.step)" class="ml-8 mt-4" />
     </div>
   </div>
