@@ -42,8 +42,9 @@ function parsedMarkdown(markdownItem: string): parsedMdItem[] {
     }
     parsedMd.push({ tag, step })
 
-    const timer = step ? getTimer(step) : null
-    if (timer) {
+    const timers = step ? getTimer(step) : []
+    console.log(timers)
+    for (const timer of timers) {
       parsedMd.push({ tag: 'tm', step: `${timer}` })
     }
   })
