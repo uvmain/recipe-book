@@ -22,10 +22,6 @@ function parsedMarkdown(markdownItem: string): parsedMdItem[] {
       tag = 'li'
       step = arrayItem.replace('- ', '')
     }
-    else if (arrayItem.startsWith('* * *') || arrayItem.startsWith('***')) {
-      tag = 'br'
-      step = null
-    }
     else if (arrayItem.startsWith('**')) {
       tag = 'str'
       step = arrayItem.replaceAll('*', '')

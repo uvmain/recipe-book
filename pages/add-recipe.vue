@@ -156,10 +156,26 @@ async function downloadRecipe() {
         <p>Servings:</p>
         <input id="servingsInput" v-model="recipe.servings" type="number21" class="add-form-component">
 
-        <p>Ingredients:</p>
+        <div class="flex flex-row items-baseline mt-2">
+          Ingredients:
+          <div class="m-1 px-2 py-1 rounded bg-gray-200 text-sm">
+            '** ' = <Icon name="carbon:text-bold" />
+          </div>
+          <div class="m-1 px-2 py-1 rounded bg-gray-200 text-sm">
+            '- ' = <Icon name="tabler:point-filled" />
+          </div>
+        </div>
         <textarea id="ingredientsInput" v-model="recipe.ingredients" class="add-form-component h-40" />
 
-        <p>Instructions:</p>
+        <div class="flex flex-row items-baseline mt-2">
+          Instructions:
+          <div class="m-1 px-2 py-1 rounded bg-gray-200 text-sm">
+            '** ' = <Icon name="carbon:text-bold" />
+          </div>
+          <div class="m-1 px-2 py-1 rounded bg-gray-200 text-sm">
+            '- ' = <Icon name="tabler:point-filled" />
+          </div>
+        </div>
         <textarea id="instructionsInput" v-model="recipe.instructions" class="add-form-component h-40" />
 
         <p>Recipe Image:</p>

@@ -29,8 +29,8 @@ async function navToHome() {
 </script>
 
 <template>
-  <div class="text-white w-full bg-gradient-to-b from-gray-500 to-primarybg-300">
-    <header class="grid flex gap-2 justify-center grid-cols-6 m-4">
+  <div class="text-white w-full bg-gradient-to-b from-gray-500 to-primarybg-300 ">
+    <header class="grid flex gap-2 justify-center grid-cols-6 p-4">
       <button
         type="button"
         class="header-button"
