@@ -28,7 +28,7 @@ const showSource = computed(() => {
 </script>
 
 <template>
-  <NuxtLink :to="getRouterLink()" class="text-white bg-blue-gray-500 text-center px-4 rounded no-underline overflow-auto pb-4">
+  <NuxtLink :to="getRouterLink()" class="text-white text-center bg-blue-gray-500 px-4 rounded no-underline overflow-auto pb-4">
     <div id="card-header" class="flex w-full flex-col gap-2 mb-2 h-60">
       <p class="text-xl font-bold mb-2">
         {{ recipe.name }}

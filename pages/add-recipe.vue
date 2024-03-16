@@ -158,7 +158,7 @@ async function downloadRecipe() {
 
         <div class="flex flex-row items-baseline mt-2">
           Ingredients:
-          <div class="m-1 px-2 py-1 rounded bg-gray-200 text-sm">
+          <div class="px-2 py-1 rounded text-sm m-1 bg-gray-200">
             '** ' = <Icon name="carbon:text-bold" />
           </div>
           <div class="m-1 px-2 py-1 rounded bg-gray-200 text-sm">

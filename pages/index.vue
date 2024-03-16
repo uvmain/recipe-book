@@ -88,13 +88,13 @@ onMounted(async () => {
 </script>
 
 <template>
-    <main v-if="latestRecipes.length" class="mx-auto w-19/20">
-      <div class="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-5 md:gap-5">
-        <RecipeCard v-for="recipe in latestRecipes" :key="recipe.name" :recipe="recipe" />
-      </div>
-      <div ref="loader">
-        <Icon v-if="latestRecipes.length && loaderStatus !== 'no-more'" name="svg-spinners:3-dots-move" class="mx-auto mt-4 scale-400" />
-      </div>
-      <FloatingScrollToTop />
-    </main>
+  <main v-if="latestRecipes.length" class="mx-auto w-19/20">
+    <div class="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-5 md:gap-5">
+      <RecipeCard v-for="recipe in latestRecipes" :key="recipe.name" :recipe="recipe" />
+    </div>
+    <div ref="loader">
+      <Icon v-if="latestRecipes.length && loaderStatus !== 'no-more'" name="svg-spinners:3-dots-move" class="mx-auto mt-4 scale-400" />
+    </div>
+    <FloatingScrollToTop />
+  </main>
 </template>
