@@ -8,7 +8,11 @@ function getRouterLink() {
 }
 
 const caloriesPerServing = computed(() => {
-  return Math.floor(props.recipe.calories / props.recipe.servings)
+  if (Number.isInteger(Number(props.recipe.servings)) && Number(props.recipe.servings) > 1 && Number.isInteger(Number(props.recipe.calories)))
+    return `${Math.floor(props.recipe.calories / props.recipe.servings)} per serving (${props.recipe.calories}/${props.recipe.servings})`
+  else if (Number.isInteger(Number(props.recipe.calories)))
+    return `${props.recipe.calories} total`
+  else return null
 })
 
 const parsedSource = computed(() => {
@@ -56,15 +60,15 @@ const showSource = computed(() => {
           <strong>Prep time:</strong>
           {{ recipe.prepTime }}
         </span>
-        <br>
+        <br v-if="recipe.prepTime">
         <span v-if="recipe.cookingTime" class="text-sm">
           <strong>Cooking time:</strong>
           {{ recipe.cookingTime }}
         </span>
-        <br>
-        <span v-if="recipe.calories && recipe.servings" class="text-sm">
+        <br v-if="recipe.cookingTime">
+        <span v-if="caloriesPerServing" class="text-sm">
           <strong>Calories:</strong>
-          {{ caloriesPerServing }} ({{ recipe.calories }}/{{ recipe.servings }})
+          {{ caloriesPerServing }}
         </span>
       </div>
     </div>
