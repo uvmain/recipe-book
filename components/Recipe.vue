@@ -8,7 +8,22 @@ const sourceTag = computed(() => {
 })
 
 const caloriesPerServing = computed(() => {
-  return Math.floor(props.recipe.calories / props.recipe.servings)
+  if (Number.isInteger(Number(props.recipe.servings)) && props.recipe.calories) {
+    if (Number(props.recipe.servings) === 1) {
+      return `${props.recipe.calories} kcal each`
+    }
+    else {
+      const caloriesEach = Math.floor(props.recipe.calories / props.recipe.servings)
+      return props.recipe.servings > 0 ? `${caloriesEach} kcal each, ${props.recipe.calories} total` : `${props.recipe.calories} kcal total`
+    }
+  }
+  else if (!Number.isInteger(Number(props.recipe.servings)) && props.recipe.calories) {
+    if (!props.recipe.servings)
+      return `${props.recipe.calories} kcal each`
+    else
+      return `${props.recipe.calories} kcal total`
+  }
+  else return null
 })
 </script>
 
@@ -26,7 +41,7 @@ const caloriesPerServing = computed(() => {
     <div class="justify-center flex flex-col md:flex-row gap-4">
       <div class="min-w-1/3 lg:max-w-1/2">
         <div class="mb-4 flex flex-col md:flex-row gap-4 p-4 bg-blue-gray-500 rounded-md items-baseline justify-between pt-0">
-          <div class="text-center mx-auto md:text-left md:mx-0">
+          <div class="text-center mx-auto md:text-left md:mx-0 md:max-w-3/4">
             <p v-if="recipe.author">
               <strong>Author:</strong>
               {{ recipe.author }}
@@ -36,11 +51,11 @@ const caloriesPerServing = computed(() => {
               {{ recipe.source }}
             </component>
           </div>
-          <div class="grid text-sm text-center mx-auto md:text-right opacity-80 min-w-1/5 lg:mx-0">
-            <span v-if="recipe.servings">{{ recipe.servings }} Servings</span>
+          <div class="text-center mx-auto grid text-sm md:text-right opacity-80 min-w-1/5 lg:mx-0">
+            <span v-if="recipe.servings">Servings: {{ recipe.servings }}</span>
             <span v-if="recipe.prepTime">Prep: {{ recipe.prepTime }}</span>
             <span v-if="recipe.cookingTime">Cook: {{ recipe.cookingTime }}</span>
-            <span v-if="recipe.servings && recipe.calories">{{ caloriesPerServing }} kcal each, {{ recipe.calories }} total</span>
+            <span v-if="caloriesPerServing">{{ caloriesPerServing }}</span>
           </div>
         </div>
         <img :src="recipe.image" :alt="recipe.name" class="w-full rounded-lg shadow-md h-auto md:mb-4">
