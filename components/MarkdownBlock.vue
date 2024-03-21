@@ -69,20 +69,24 @@ function getStepWithLink(step: string) {
 
 <template>
   <div class="rounded-lg pt-1 p-2 pr-4" :class="propsClass">
-    <h3 class="text-xl font-bold pl-2">
+    <h3 class="font-bold text-xl pl-2">
       {{ label }}
     </h3>
-    <div v-for="(mdItem, index) of mdItems" :key="index" class="leading-5">
+    <div v-for="(mdItem, index) of mdItems" :key="index" class="leading-5 ml-4">
       <ul v-if="mdItem.tag === 'li'" class="my-2">
         <li v-if="mdItem.step?.includes('<a')">
-          {{ getStepWithLink(mdItem.step).startingText }}<a :href="getStepWithLink(mdItem.step).route" class="text-white underline-none">{{ getStepWithLink(mdItem.step).linkText }}</a>{{ getStepWithLink(mdItem.step).remainingText }}
+          {{ getStepWithLink(mdItem.step).startingText }}<a
+            :href="getStepWithLink(mdItem.step).route"
+            class="text-white underline-none"
+          >{{ getStepWithLink(mdItem.step).linkText }}</a>{{
+            getStepWithLink(mdItem.step).remainingText }}
         </li>
         <li v-else v-text="mdItem.step" />
       </ul>
       <strong v-if="mdItem.tag === 'str'" v-text="mdItem.step" />
       <br v-if="mdItem.tag === 'br'">
       <p v-if="mdItem.tag === 'p'" />
-      <div v-if="mdItem.tag === 'sp'" class="ml-4">
+      <div v-if="mdItem.tag === 'sp'">
         <span v-text="mdItem.step" />
       </div>
       <Timer v-if="mdItem.step && mdItem.tag === 'tm'" :minutes="Number(mdItem.step)" class="ml-8 mt-4" />

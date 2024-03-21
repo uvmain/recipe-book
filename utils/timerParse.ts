@@ -9,7 +9,7 @@ export function getTimer(sentence: string): number[] {
       if (prevWord === 'few') {
         timerDetails.push(word.startsWith('h') ? 180 : 3)
       }
-      else if (prevWord === 'of' && recipesWords[index - 2] === 'couple') {
+      else if (prevWord === 'of' && recipesWords[index - 2] === 'couple' && word.endsWith('s')) {
         timerDetails.push(word.startsWith('h') ? 120 : 2)
       }
       else if (Number(prevWord) === 5 && Number(recipesWords[index - 2])) {
@@ -22,19 +22,19 @@ export function getTimer(sentence: string): number[] {
       else if (prevWord === 'more' && !Number.isNaN(recipesWords[index - 2])) {
         timerDetails.push(word.startsWith('h') ? 60 * Number(recipesWords[index - 2]) : Number(recipesWords[index - 2]))
       }
-      else if (prevWord && !word.endsWith('s')) {
+      else if (Number.isInteger(Number(prevWord)) && !word.endsWith('s')) {
         timerDetails.push(word.startsWith('h') ? 60 : 1)
       }
       else if (prevWord === 'an' || prevWord === 'a') {
         timerDetails.push(word.startsWith('h') ? 60 : 1)
       }
-      else if (!Number.isNaN(prevWord)) {
+      else if (Number.isInteger(Number(prevWord))) {
         timerDetails.push(word.startsWith('h') ? Number(prevWord) * 60 : Number(prevWord))
       }
     }
   })
 
   return timerDetails.filter((time) => {
-    return !Number.isNaN(time)
+    return Number.isInteger(Number(time))
   })
 }
