@@ -110,20 +110,45 @@ async function downloadRecipe() {
   if (!canSave.value) {
     return
   }
-  saveRecipeImageAsWebp()
 
   recipe.value.slug = recipeSlug.value
   recipe.value.dateAdded = new Date().toISOString().split('T')[0]
   recipe.value.image = `/recipe-images/${recipe.value.slug}.webp`
   const jsonString = JSON.stringify(recipe.value, null, 2)
-  const blob = new Blob([jsonString], { type: 'application/json' })
-  const url = URL.createObjectURL(blob)
-  const a = document.createElement('a')
-  a.href = url
-  a.download = `${recipe.value.slug}.json`
-  document.body.appendChild(a)
-  a.click()
-  window.URL.revokeObjectURL(url)
+
+  if (process.env.NODE_ENV !== 'production') {
+    await submit(jsonString)
+    await navigateTo(`/recipe/${recipeSlug.value}`)
+  }
+  else {
+    saveRecipeImageAsWebp()
+
+    const blob = new Blob([jsonString], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `${recipe.value.slug}.json`
+    document.body.appendChild(a)
+    a.click()
+    window.URL.revokeObjectURL(url)
+  }
+}
+
+async function submit(jsonString: string) {
+  await $fetch('/api/save-image', {
+    method: 'post',
+    body: {
+      fileName: `${recipeSlug.value}.webp`,
+      imageString: imageBase64.value,
+    },
+  })
+  await $fetch('/api/save-recipe-json', {
+    method: 'post',
+    body: {
+      fileName: `${recipeSlug.value}.json`,
+      fileContent: jsonString,
+    },
+  })
 }
 </script>
 
@@ -199,7 +224,7 @@ async function downloadRecipe() {
         <div>
           <div class="flex gap-4 ml-4 mt-8">
             <button
-              class="text-white rounded-md px-4 focus:outline-none py-2 bg-gray-500 hover:bg-blue-600 focus:bg-blue-600 text-3xl"
+              class="text-white rounded-md px-4 focus:outline-none py-2 bg-green-600 hover:bg-blue-600 focus:bg-blue-600 text-3xl"
               :class="{ 'bg-red hover:bg-red focus:bg-red': !(canSave) }"
               @click="downloadRecipe"
             >
