@@ -1,4 +1,8 @@
 <script setup lang="ts">
+const props = defineProps({
+  recipeCount: { type: Number, default: 0 },
+})
+
 const router = useRouter()
 
 const inputText = useState<string>('searchInput', () => '')
@@ -13,6 +17,10 @@ const debouncedNav = useDebounceFn(async () => {
   await navigateHomeIfNeeded()
 }, 700)
 
+const placeHolder = computed(() => {
+  return props.recipeCount > 0 ? `Search ${props.recipeCount} recipes..` : 'Search..'
+})
+
 watch(inputText, () => {
   debouncedNav()
 })
@@ -22,6 +30,6 @@ watch(inputText, () => {
   <input
     id="search-input"
     v-model="inputText"
-    placeholder="Search..."
+    :placeholder="placeHolder"
   >
 </template>

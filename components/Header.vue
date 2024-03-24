@@ -55,7 +55,7 @@ async function navToHome() {
       >
         <Icon name="carbon:document-add" />
       </button>
-      <SearchBar class="search-bar" />
+      <SearchBar class="search-bar" :recipe-count="countOfRecipes" />
     </header>
   </div>
 </template>

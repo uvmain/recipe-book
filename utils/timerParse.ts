@@ -5,7 +5,7 @@ export function getTimer(sentence: string): number[] {
 
   recipesWords.forEach((word: string, index) => {
     if (word.includes('min') || word.includes('hour')) {
-      const prevWord = `${recipesWords[index - 1]}`.replaceAll('½', '.5').replaceAll('¾', '.75')
+      const prevWord = recipesWords[index - 1]
       if (prevWord === 'few') {
         timerDetails.push(word.startsWith('h') ? 180 : 3)
       }
