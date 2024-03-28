@@ -30,7 +30,7 @@ async function navToHome() {
 
 <template>
   <div class="text-white w-full bg-gradient-to-b from-gray-500 to-primarybg-300">
-    <header class="flex gap-2 grid justify-center grid-cols-6 p-4">
+    <header class="flex flex-wrap gap-2 justify-center p-4">
       <button
         type="button"
         class="header-button"
@@ -55,7 +55,7 @@ async function navToHome() {
       >
         <Icon name="carbon:document-add" />
       </button>
-      <SearchBar class="search-bar" :recipe-count="countOfRecipes" />
+      <SearchBar class="search-bar" :recipe-count="countOfRecipes ?? 0" />
     </header>
   </div>
 </template>
