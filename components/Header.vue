@@ -29,7 +29,7 @@ async function navToHome() {
 </script>
 
 <template>
-  <div class="text-white w-full bg-gradient-to-b from-gray-500 to-primarybg-300">
+  <div class="text-white w-full bg-gradient-to-b to-primarybg-300 from-zinc-400">
     <header class="flex flex-wrap gap-2 justify-center p-4">
       <button
         type="button"
@@ -42,7 +42,6 @@ async function navToHome() {
       <button
         type="button"
         class="header-button"
-        :class="{ 'header-button-selected': currentPath.startsWith('/recipe/') }"
         @click="navToRandomRecipe"
       >
         <Icon name="carbon:shuffle" />

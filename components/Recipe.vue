@@ -29,14 +29,14 @@ const caloriesPerServing = computed(() => {
 
     <div class="justify-center flex flex-col md:flex-row gap-4">
       <div class="min-w-1/3 lg:max-w-1/2">
-        <div class="mb-4 flex flex-col md:flex-row gap-4 p-4 bg-blue-gray-500 rounded-md items-baseline justify-between pt-0">
+        <div class="mb-4 flex flex-col md:flex-row gap-4 p-4 bg-blue-gray-100 text-dark rounded-md items-baseline justify-between pt-0 border-1 border-solid border-gray-400">
           <div class="text-center mx-auto md:text-left md:mx-0 md:max-w-3/4">
             <p v-if="recipe.author">
               <strong>Author:</strong>
               {{ recipe.author }}
             </p>
             <strong v-if="recipe.source">Source: </strong>
-            <component :is="sourceTag" v-if="recipe.source" :href="recipe.source" target="_blank" class="text-white underline-none break-all">
+            <component :is="sourceTag" v-if="recipe.source" :href="recipe.source" target="_blank" class="text-dark underline-none break-all">
               {{ recipe.source }}
             </component>
           </div>
@@ -47,12 +47,12 @@ const caloriesPerServing = computed(() => {
             <span v-if="caloriesPerServing">Calories: {{ caloriesPerServing }}</span>
           </div>
         </div>
-        <img :src="recipe.image" :alt="recipe.name" class="w-full rounded-lg shadow-md h-auto md:mb-4">
+        <img :src="recipe.image" :alt="recipe.name" class="w-full rounded-lg h-auto md:mb-4 border-1 border-solid border-gray-400">
       </div>
       <div class="lg:max-w-5/9">
         <div class="grid gap-4">
-          <MarkdownBlock v-if="recipe.ingredients" label="Ingredients" :markdown-string="recipe.ingredients" props-class="bg-blue-gray-600" class="min-w-1/2" />
-          <MarkdownBlock v-if="recipe.instructions" label="Instructions" :markdown-string="recipe.instructions" props-class="bg-gray-600" class="min-w-1/2" />
+          <MarkdownBlock v-if="recipe.ingredients" label="Ingredients" :markdown-string="recipe.ingredients" props-class="bg-blue-gray-200 text-dark border-1 border-solid border-gray-400" class="min-w-1/2" />
+          <MarkdownBlock v-if="recipe.instructions" label="Instructions" :markdown-string="recipe.instructions" props-class="bg-blue-gray-300 text-dark border-1 border-solid border-gray-400" class="min-w-1/2" />
         </div>
       </div>
     </div>

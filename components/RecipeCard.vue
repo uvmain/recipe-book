@@ -32,18 +32,18 @@ const showSource = computed(() => {
 </script>
 
 <template>
-  <NuxtLink :to="getRouterLink()" class="text-white text-center bg-blue-gray-500 px-4 rounded no-underline overflow-auto pb-4">
-    <div id="card-header" class="flex w-full flex-col gap-2 mb-2 h-60">
-      <p class="text-xl font-bold mb-2">
+  <NuxtLink :to="getRouterLink()" class="text-dark-2 text-center bg-blue-gray-100 rounded no-underline overflow-auto p-3 border-gray-400 border-1 border-solid">
+    <div id="card-header" class="flex w-full flex-col h-60 gap-2 mb-2">
+      <span class="text-xl font-bold">
         {{ recipe.name }}
-      </p>
-      <img :src="recipe.image" :alt="recipe.name" class="rounded flex-1 object-cover truncate">
+      </span>
+      <img :src="recipe.image" :alt="recipe.name" class="rounded flex-1 object-cover truncate shadow-md">
     </div>
     <div>
       <div class="flex items-center gap-3">
-        <hr class="border-solid grow border border-blue-gray-400">
-        <RecipeIcons :recipe="recipe" colour="text-white" />
-        <hr class="grow border border-solid border-blue-gray-400">
+        <hr class="border-solid grow border border-gray-400">
+        <RecipeIcons :recipe="recipe" colour="text-dark" />
+        <hr class="grow border border-solid border-gray-400">
       </div>
       <div class="my-2 flex flex-col gap-2">
         <span v-if="showAuthor">
@@ -55,7 +55,7 @@ const showSource = computed(() => {
           {{ parsedSource }}
         </span>
       </div>
-      <div class="text-gray-100">
+      <div class="text-dark">
         <span v-if="recipe.prepTime" class="text-sm">
           <strong>Prep time:</strong>
           {{ recipe.prepTime }}

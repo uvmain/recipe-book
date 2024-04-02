@@ -89,8 +89,8 @@ onMounted(async () => {
 
 <template>
   <main v-if="latestRecipes.length" class="mx-auto w-19/20">
-    <div class="flex justify-evenly gap-2 flex-wrap">
-      <RecipeCard v-for="recipe in latestRecipes" :key="recipe.name" :recipe="recipe" class="grow md:max-w-200px" />
+    <div class="grid gap-3 grid-cols-1 md:grid-cols-3 lg:grid-cols-6">
+      <RecipeCard v-for="recipe in latestRecipes" :key="recipe.name" :recipe="recipe" class="flex-1" />
     </div>
     <div ref="loader">
       <Icon v-if="latestRecipes.length && loaderStatus !== 'no-more'" name="svg-spinners:3-dots-move" class="mx-auto mt-4 scale-400" />
