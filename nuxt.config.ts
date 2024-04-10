@@ -6,6 +6,10 @@ export default defineNuxtConfig({
     '@nuxt/content',
     'nuxt-icon',
     '@vueuse/nuxt',
+    '@nuxthub/core',
   ],
   content: {},
+  hub: {
+    remote: true,
+  },
 })
