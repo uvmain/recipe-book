@@ -52,14 +52,14 @@ const timeLeft = computed(() => {
 
 const timerColour = computed(() => {
   if (counting.value)
-    return 'bg-green-600'
+    return 'bg-emerald-600'
   else {
     if (seconds.value === 0)
       return 'bg-red-800'
     if (seconds.value === props.minutes * 60)
-      return 'bg-blue-gray-500'
+      return 'bg-neutral-400'
     else
-      return 'bg-yellow-600'
+      return 'bg-orange-400'
   }
 })
 
@@ -82,7 +82,7 @@ onUnmounted(() => {
     </button>
     <button
       type="button"
-      class="text-white text-xl rounded-lg font-medium md:text-3xl px-5 py-2.5 me-2 mb-2 text-center bg-teal-800"
+      class="text-white text-xl rounded-lg font-medium md:text-3xl px-5 py-2.5 me-2 mb-2 text-center bg-zinc-500"
       @click="resetTimer"
     >
       <Icon name="material-symbols:device-reset" />
