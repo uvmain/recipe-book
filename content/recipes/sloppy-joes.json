@@ -1,0 +1,16 @@
+{
+  "prepTime": "10 minutes",
+  "cookingTime": "25 minutes",
+  "image": "/recipe-images/sloppy-joes.webp",
+  "name": "Sloppy Joes",
+  "author": "Pinch of Nom",
+  "source": "Pinch of Nom Cookbook, pg.167",
+  "calories": 1072,
+  "servings": "4",
+  "course": "snacks",
+  "country": "United States",
+  "ingredients": "- 1 onion, finely diced\n- 2 garlic cloves, finely chopped\n- 1 green pepper, deseeded and finely diced\n- 1 red pepper, halved lengthways and de-seeded\n- 1 yellow pepper, halved lengthways and de-seeded\n- 400g 5%-fat minced beef\n- 1 tsp mustard powder\n- 3 tbsp worcestershire sauce\n- 3 tbsp tomato puree\n- 1 tbsp red wine vinegar\n- 120ml water\n- salt and black pepper\n- 40g cheddar cheese, grated",
+  "instructions": "- Preheat the oven to 180c.\n- Heat a little oil in a large pan over a medium heat. Add the onion , garlic and diced green pepper and cook for 4-5 until they start to soften.\n- Add the minced beef, turn the heat up to high and cook for 5 minutes, stirring continuously and breaking up the mince with a wooden spoon.\n- Add the mustard powder, worcestershire sauce, tomato puree, vinegar and water. Turn the heat down to low and cook for another 3-4 minutes. Season to taste with salt and pepper.\n- Divide the beef mixture evenly among the four pepper halves. Scatter the cheese over each pepper and place on a baking tray in the oven for 10 minutes, until the cheese is golden brown and the peppers are just cooked, but still have a bit of crunch.",
+  "slug": "sloppy-joes",
+  "dateAdded": "2024-04-18"
+}
