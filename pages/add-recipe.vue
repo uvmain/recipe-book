@@ -165,7 +165,7 @@ async function submit(jsonString: string) {
         <p>Source:</p>
         <input id="sourceInput" v-model="recipe.source" type="text" class="add-form-component">
 
-        <FormDropdown id="courseInput" v-model="recipe.course" label="Course" :options="courseOptions" class="text-left w-full flex gap-4 my-4 flex-auto md:w-1/2 grid-rows-1" />
+        <FormDropdown id="courseInput" v-model="recipe.course" label="Course" :options="courseOptions" class="text-left gap-4 w-full flex my-4 flex-auto md:w-1/2 grid-rows-1" />
         <FormDropdown id="countryInput" v-model="recipe.country" label="Country" :options="countryOptions" class="text-left w-full flex flex-auto gap-4 mb-4 md:w-1/2 grid-rows-1" />
         <FormCheckbox id="vegetarianInput" v-model="recipe.vegetarian" label="Vegetarian?" class="text-left w-full md:w-1/2 grid gap-2 grid-rows-1 mb-4 flex flex-auto grid-cols-2" />
 
