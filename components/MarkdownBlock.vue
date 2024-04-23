@@ -15,8 +15,9 @@ function parsedMarkdown(markdownItem: string): parsedMdItem[] {
   const initialArray: string[] = markdownItem.replaceAll('\n\n', '\n<br>\n').split('\n')
   initialArray.forEach((arrayItem: string) => {
     arrayItem = arrayItem.replaceAll('1/5', '⅕').replaceAll('1/4', '¼').replaceAll('1/3', '⅓').replaceAll('1/2', '½').replaceAll('2/3', '⅔').replaceAll('3/4', '¾')
-    arrayItem = arrayItem.replaceAll('puree', 'purée')
-    arrayItem = arrayItem.replaceAll('saute', 'sauté')
+    arrayItem = arrayItem.replaceAll('puree', 'purée').replaceAll('Puree', 'Purée')
+    arrayItem = arrayItem.replaceAll('saute', 'sauté').replaceAll('Saute', 'Sauté')
+    arrayItem = arrayItem.replaceAll('bechamel', 'béchamel').replaceAll('Bechamel', 'Béchamel')
     arrayItem = arrayItem.replace(/\b(\d+)c\b/gi, '$1°C')
 
     let tag = ''
