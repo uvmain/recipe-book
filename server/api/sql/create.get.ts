@@ -19,11 +19,12 @@ const createTableSql = `CREATE TABLE recipes (
 );`
 
 export default defineEventHandler(async () => {
-  const db = new sqlite3.Database('../../recipes.db', (err) => {
+  const db = new sqlite3.Database('./public/database/db.sqlite', (err) => {
     if (err) {
       console.error(err.message)
     }
-    console.info('Connected to the recipes database.')
+    else
+      console.info('Connected to the recipes database.')
   })
 
   db.all(createTableSql, [], (err) => {

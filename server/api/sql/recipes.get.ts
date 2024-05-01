@@ -1,22 +1,18 @@
 import sqlite3 from 'sqlite3'
 import type { Recipe } from '~/utils/recipe'
 
-interface RecipesResponse {
-  recipes?: Recipe[]
-  error?: string
-}
-
-export default defineEventHandler(async (): Promise<RecipesResponse> => {
+export default defineEventHandler(async (): Promise<Recipe[]> => {
   const sql = 'SELECT * FROM recipes'
 
   const getRecipes = () => {
     return new Promise<Recipe[]>((resolve, reject) => {
-      const db = new sqlite3.Database('../../recipes.db', (err) => {
+      const db = new sqlite3.Database('./public/database/db.sqlite', (err) => {
         if (err) {
           console.error(err.message)
           reject(err)
         }
-        console.debug('Connected to the recipes database.')
+        else
+          console.debug('Connected to the recipes database.')
       })
 
       db.all(sql, [], (err, rows: Recipe[]) => {
@@ -36,10 +32,11 @@ export default defineEventHandler(async (): Promise<RecipesResponse> => {
 
   try {
     const recipes = await getRecipes()
-    return { recipes }
+    return recipes
   }
   catch (error) {
     const typedError = error as Error
-    return { error: typedError.message }
+    console.error(typedError.message)
+    return []
   }
 })

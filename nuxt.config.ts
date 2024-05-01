@@ -9,8 +9,11 @@ export default defineNuxtConfig({
   ],
   content: {},
   nitro: {
-    prerender: {
-      autoSubfolderIndex: false,
+    database: {
+      default: {
+        connector: 'sqlite',
+        options: { name: 'db' },
+      },
     },
   },
 })
