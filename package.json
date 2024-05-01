@@ -11,6 +11,9 @@
     "lint": "eslint \"**/*.{vue,ts,js,json}\"",
     "lint:fix": "eslint \"**/*.{vue,ts,js,json}\" --fix"
   },
+  "dependencies": {
+    "sqlite3": "^5.1.7"
+  },
   "devDependencies": {
     "@antfu/eslint-config": "^2.8.1",
     "@nuxt/content": "^2.12.1",

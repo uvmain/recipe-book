@@ -8,4 +8,9 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
   ],
   content: {},
+  nitro: {
+    prerender: {
+      autoSubfolderIndex: false,
+    },
+  },
 })
