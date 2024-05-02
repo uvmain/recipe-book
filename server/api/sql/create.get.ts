@@ -19,7 +19,7 @@ const createTableSql = `CREATE TABLE recipes (
 );`
 
 export default defineEventHandler(async () => {
-  const db = new sqlite3.Database('./public/database/db.sqlite', (err) => {
+  const db = new sqlite3.Database('./server/database/db.sqlite', (err) => {
     if (err) {
       console.error(err.message)
     }

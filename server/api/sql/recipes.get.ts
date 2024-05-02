@@ -6,7 +6,7 @@ export default defineEventHandler(async (): Promise<Recipe[]> => {
 
   const getRecipes = () => {
     return new Promise<Recipe[]>((resolve, reject) => {
-      const db = new sqlite3.Database('./public/database/db.sqlite', (err) => {
+      const db = new sqlite3.Database('./server/database/db.sqlite', (err) => {
         if (err) {
           console.error(err.message)
           reject(err)

@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
+    "postbuild": "cp -r ./server/database .output/server/database",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
