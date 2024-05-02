@@ -20,7 +20,7 @@ export default defineEventHandler(async () => {
     "/recipe-images/salsa-negra.webp"
   );`
 
-  const db = new sqlite3.Database('./server/database/db.sqlite', (err) => {
+  const db = new sqlite3.Database('./database/db.sqlite', (err) => {
     if (err) {
       console.error(err.message)
     }

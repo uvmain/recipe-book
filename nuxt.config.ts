@@ -8,12 +8,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
   ],
   content: {},
-  nitro: {
-    database: {
-      default: {
-        connector: 'sqlite',
-        options: { name: 'db' },
-      },
-    },
+  alias: {
+    database: '/<srcDir>/database',
   },
 })
