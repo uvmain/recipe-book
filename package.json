@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "postbuild": "cp -r ./server/database .output/server/database",
+    "postbuild": "cp -r ./server/database .nuxt/dist/server/database",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
+    "prepreview": "cp -r ./server/database .output/server/database",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint \"**/*.{vue,ts,js,json}\"",
