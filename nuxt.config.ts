@@ -9,6 +9,6 @@ export default defineNuxtConfig({
   ],
   content: {},
   alias: {
-    database: '/<srcDir>/database',
+    database: '/<srcDir>/public/database',
   },
 })

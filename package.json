@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "postbuild": "node ./database/copydb.js",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
