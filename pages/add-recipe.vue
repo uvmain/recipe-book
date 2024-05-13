@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const addFilesInput = ref()
 const recipe = ref < Recipe >({} as Recipe)
+const manualSlug = ref()
 const imageBase64 = ref<string>()
 
 const courseOptions = computed(() => {
@@ -39,7 +40,7 @@ const canSave = computed(() => {
 })
 
 const recipeSlug = computed(() => {
-  return recipe.value.name.length ? convertToAlphanumeric(recipe.value.name) : ''
+  return (manualSlug.value && manualSlug.value.length > 0) ? convertToAlphanumeric(manualSlug.value) : convertToAlphanumeric(recipe.value.name || '')
 })
 
 function handleFileChange() {
@@ -158,6 +159,11 @@ async function submit(jsonString: string) {
       <div class="mx-auto text-zinc-800 text-left">
         <p>Recipe name:</p>
         <input id="nameInput" v-model="recipe.name" label="" type="text" class="add-form-component">
+
+        <div v-if="manualSlug.length || recipeSlug.length >= 100">
+          <p>&lt;100 char Slug:</p>
+          <input id="manualSlug" v-model="manualSlug" type="text" class="add-form-component">
+        </div>
 
         <p>Author:</p>
         <input id="authorInput" v-model="recipe.author" type="text" class="add-form-component">
