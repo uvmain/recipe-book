@@ -160,7 +160,7 @@ async function submit(jsonString: string) {
         <p>Recipe name:</p>
         <input id="nameInput" v-model="recipe.name" label="" type="text" class="add-form-component">
 
-        <div v-if="manualSlug.length || recipeSlug.length >= 100">
+        <div v-if="recipeSlug.length >= 100">
           <p>&lt;100 char Slug:</p>
           <input id="manualSlug" v-model="manualSlug" type="text" class="add-form-component">
         </div>

@@ -81,7 +81,6 @@ function getStepWithLink(step: string) {
         <li v-if="mdItem.step?.includes('<a')">
           {{ getStepWithLink(mdItem.step).startingText }}<a
             :href="getStepWithLink(mdItem.step).route"
-            class="text-white underline-none"
           >{{ getStepWithLink(mdItem.step).linkText }}</a>{{
             getStepWithLink(mdItem.step).remainingText }}
         </li>
