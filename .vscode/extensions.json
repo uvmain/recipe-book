@@ -3,6 +3,7 @@
     "vue.volar",
     "antfu.iconify",
     "antfu.unocss",
-    "dbaeumer.vscode-eslint"
+    "dbaeumer.vscode-eslint",
+    "streetsidesoftware.code-spell-checker"
   ]
 }
