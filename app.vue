@@ -9,7 +9,7 @@ useHead({
 </script>
 
 <template class="">
-  <div id="app" class="bg-primarybg-300 min-h-screen">
+  <div id="app" class="bg-primary_bg-300 min-h-screen">
     <NuxtLoadingIndicator />
     <Header />
     <div class="font-sans antialiased">

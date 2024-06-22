@@ -29,7 +29,7 @@ async function navToHome() {
 </script>
 
 <template>
-  <div class="text-white w-full bg-gradient-to-b to-primarybg-300 from-zinc-400">
+  <div class="text-white w-full bg-gradient-to-b to-primary_bg-300 from-zinc-400">
     <header class="flex flex-wrap gap-2 justify-center p-4">
       <button
         type="button"

@@ -17,14 +17,29 @@ useHead({
   titleTemplate: computedHead,
 })
 
-getRecipe()
+const insert = computed(() => {
+  return (recipe.value) ? `insert into Recipe (stub, name, author, source)
+  values (
+  '${encodeURIComponent(recipe.value.name)}'
+  '${recipe.value.name}',
+  '${recipe.value.author}'
+  '${recipe.value.source}'
+  );` : null
+})
+
+onBeforeMount(() => {
+  getRecipe()
+})
 </script>
 
 <template>
   <div>
-    <main class="mx-auto pt-1 px-2">
-      <Recipe v-if="recipe" :recipe="recipe" class="lg:mx-auto lg:max-w-18/20" />
-    </main>
+    <div class="text-black">
+      {{ insert }}
+      <main class="mx-auto pt-1 px-2">
+        <Recipe v-if="recipe" :recipe="recipe" class="lg:mx-auto lg:max-w-18/20" />
+      </main>
+    </div>
+    <FloatingScrollToTop />
   </div>
-  <FloatingScrollToTop />
 </template>

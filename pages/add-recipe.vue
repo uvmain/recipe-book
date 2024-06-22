@@ -4,8 +4,13 @@ const recipe = ref < Recipe >({} as Recipe)
 const manualSlug = ref()
 const imageBase64 = ref<string>()
 
+interface KV {
+  title: string
+  value: string
+}
+
 const courseOptions = computed(() => {
-  const courses: any[] = []
+  const courses: KV[] = []
   allowedCourses.forEach((course) => {
     courses.push({
       title: course,
@@ -16,7 +21,7 @@ const courseOptions = computed(() => {
 })
 
 const countryOptions = computed(() => {
-  const countries: any[] = []
+  const countries: KV[] = []
   countryFlags.forEach((country) => {
     countries.push({
       title: country.name,
@@ -154,93 +159,95 @@ async function submit(jsonString: string) {
 </script>
 
 <template>
-  <div class="mt-10">
-    <div class="grid gap-4 grid-cols-3">
-      <div class="mx-auto text-zinc-800 text-left">
-        <p>Recipe name:</p>
-        <input id="nameInput" v-model="recipe.name" label="" type="text" class="add-form-component">
+  <div>
+    <div class="mt-10">
+      <div class="grid gap-4 grid-cols-3">
+        <div class="mx-auto text-zinc-800 text-left">
+          <p>Recipe name:</p>
+          <input id="nameInput" v-model="recipe.name" label="" type="text" class="add-form-component">
 
-        <div v-if="recipeSlug.length >= 100">
-          <p>&lt;100 char Slug:</p>
-          <input id="manualSlug" v-model="manualSlug" type="text" class="add-form-component">
-        </div>
-
-        <p>Author:</p>
-        <input id="authorInput" v-model="recipe.author" type="text" class="add-form-component">
-
-        <p>Source:</p>
-        <input id="sourceInput" v-model="recipe.source" type="text" class="add-form-component">
-
-        <FormDropdown id="courseInput" v-model="recipe.course" label="Course" :options="courseOptions" class="text-left gap-4 w-full flex my-4 flex-auto md:w-1/2 grid-rows-1" />
-        <FormDropdown id="countryInput" v-model="recipe.country" label="Country" :options="countryOptions" class="text-left w-full flex flex-auto gap-4 mb-4 md:w-1/2 grid-rows-1" />
-        <FormCheckbox id="vegetarianInput" v-model="recipe.vegetarian" label="Vegetarian?" class="text-left w-full md:w-1/2 grid gap-2 grid-rows-1 mb-4 flex flex-auto grid-cols-2" />
-
-        <p>Prep Time:</p>
-        <input id="prepTimeInput" v-model="recipe.prepTime" type="text" class="add-form-component">
-
-        <p>Cooking Time:</p>
-        <input id="cookingTimeInput" v-model="recipe.cookingTime" type="text" class="add-form-component">
-
-        <p>Calories:</p>
-        <input id="caloriesInput" v-model="recipe.calories" type="number" class="add-form-component">
-
-        <p>Servings:</p>
-        <input id="servingsInput" v-model="recipe.servings" type="number21" class="add-form-component">
-
-        <div class="flex flex-row items-baseline mt-2">
-          Ingredients:
-          <div class="px-2 py-1 rounded text-sm m-1 bg-gray-200">
-            '** ' = <Icon name="carbon:text-bold" />
+          <div v-if="recipeSlug.length >= 100">
+            <p>&lt;100 char Slug:</p>
+            <input id="manualSlug" v-model="manualSlug" type="text" class="add-form-component">
           </div>
-          <div class="m-1 px-2 py-1 rounded bg-gray-200 text-sm">
-            '- ' = <Icon name="tabler:point-filled" />
-          </div>
-        </div>
-        <textarea id="ingredientsInput" v-model="recipe.ingredients" class="add-form-component h-40" />
 
-        <div class="flex flex-row items-baseline mt-2">
-          Instructions:
-          <div class="m-1 px-2 py-1 rounded bg-gray-200 text-sm">
-            '** ' = <Icon name="carbon:text-bold" />
-          </div>
-          <div class="m-1 px-2 py-1 rounded bg-gray-200 text-sm">
-            '- ' = <Icon name="tabler:point-filled" />
-          </div>
-        </div>
-        <textarea id="instructionsInput" v-model="recipe.instructions" class="add-form-component h-40" />
+          <p>Author:</p>
+          <input id="authorInput" v-model="recipe.author" type="text" class="add-form-component">
 
-        <p>Recipe Image:</p>
-        <div class="flex flex-row gap-2">
-          <input
-            id="addFiles"
-            ref="addFilesInput"
-            type="file"
-            accept="image/*"
-            multiple="false"
-            class="add-form-component"
-            @change="handleFileChange"
-          >
-          <button
-            class="text-white rounded-md px-4 focus:outline-none py-2 bg-gray-500 hover:bg-blue-600 focus:bg-blue-600 text-3xl"
-            @click="resetImage"
-          >
-            <Icon name="carbon:reset" />
-          </button>
-        </div>
-        <div>
-          <div class="flex gap-4 ml-4 mt-8">
-            <button
-              class="text-white rounded-md px-4 focus:outline-none py-2 bg-green-600 hover:bg-blue-600 focus:bg-blue-600 text-3xl"
-              :class="{ 'bg-red hover:bg-red focus:bg-red': !(canSave) }"
-              @click="downloadRecipe"
+          <p>Source:</p>
+          <input id="sourceInput" v-model="recipe.source" type="text" class="add-form-component">
+
+          <FormDropdown id="courseInput" v-model="recipe.course" label="Course" :options="courseOptions" class="text-left gap-4 w-full flex my-4 flex-auto md:w-1/2 grid-rows-1" />
+          <FormDropdown id="countryInput" v-model="recipe.country" label="Country" :options="countryOptions" class="text-left w-full flex flex-auto gap-4 mb-4 md:w-1/2 grid-rows-1" />
+          <FormCheckbox id="vegetarianInput" v-model="recipe.vegetarian" label="Vegetarian?" class="text-left w-full md:w-1/2 grid gap-2 grid-rows-1 mb-4 flex flex-auto grid-cols-2" />
+
+          <p>Prep Time:</p>
+          <input id="prepTimeInput" v-model="recipe.prepTime" type="text" class="add-form-component">
+
+          <p>Cooking Time:</p>
+          <input id="cookingTimeInput" v-model="recipe.cookingTime" type="text" class="add-form-component">
+
+          <p>Calories:</p>
+          <input id="caloriesInput" v-model="recipe.calories" type="number" class="add-form-component">
+
+          <p>Servings:</p>
+          <input id="servingsInput" v-model="recipe.servings" type="number21" class="add-form-component">
+
+          <div class="flex flex-row items-baseline mt-2">
+            Ingredients:
+            <div class="px-2 py-1 rounded text-sm m-1 bg-gray-200">
+              '** ' = <Icon name="carbon:text-bold" />
+            </div>
+            <div class="m-1 px-2 py-1 rounded bg-gray-200 text-sm">
+              '- ' = <Icon name="tabler:point-filled" />
+            </div>
+          </div>
+          <textarea id="ingredientsInput" v-model="recipe.ingredients" class="add-form-component h-40" />
+
+          <div class="flex flex-row items-baseline mt-2">
+            Instructions:
+            <div class="m-1 px-2 py-1 rounded bg-gray-200 text-sm">
+              '** ' = <Icon name="carbon:text-bold" />
+            </div>
+            <div class="m-1 px-2 py-1 rounded bg-gray-200 text-sm">
+              '- ' = <Icon name="tabler:point-filled" />
+            </div>
+          </div>
+          <textarea id="instructionsInput" v-model="recipe.instructions" class="add-form-component h-40" />
+
+          <p>Recipe Image:</p>
+          <div class="flex flex-row gap-2">
+            <input
+              id="addFiles"
+              ref="addFilesInput"
+              type="file"
+              accept="image/*"
+              multiple="false"
+              class="add-form-component"
+              @change="handleFileChange"
             >
-              Download Recipe
+            <button
+              class="text-white rounded-md px-4 focus:outline-none py-2 bg-gray-500 hover:bg-blue-600 focus:bg-blue-600 text-3xl"
+              @click="resetImage"
+            >
+              <Icon name="carbon:reset" />
             </button>
           </div>
+          <div>
+            <div class="flex gap-4 ml-4 mt-8">
+              <button
+                class="text-white rounded-md px-4 focus:outline-none py-2 bg-green-600 hover:bg-blue-600 focus:bg-blue-600 text-3xl"
+                :class="{ 'bg-red hover:bg-red focus:bg-red': !(canSave) }"
+                @click="downloadRecipe"
+              >
+                Download Recipe
+              </button>
+            </div>
+          </div>
         </div>
+        <Recipe :recipe="recipe" class="col-span-2" />
       </div>
-      <Recipe :recipe="recipe" class="col-span-2" />
     </div>
+    <FloatingScrollToTop />
   </div>
-  <FloatingScrollToTop />
 </template>

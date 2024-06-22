@@ -7,7 +7,7 @@ useHead({
 
 const page = ref(0)
 const limit = 5
-const latestRecipes = ref<any[]>([])
+const latestRecipes = ref<Record<string, any>[]>([])
 
 const loader = ref(null)
 const loaderVisbible = ref(false)
@@ -16,7 +16,7 @@ const loaderStatus = ref('idle')
 const input = useState<string>('searchInput')
 
 const whereClauses = computed(() => {
-  const whereClauseArray: any[] = []
+  const whereClauseArray: unknown[] = []
   const inputs = input.value.split(' ').filter(word => word.trim().length)
   inputs.forEach((word) => {
     if (word.toLowerCase() === 'vegetarian') {
@@ -44,12 +44,12 @@ async function loadData() {
   if (loaderStatus.value === 'idle') {
     loaderStatus.value = 'loading'
     await queryContent('/recipes')
-      .where(whereClauses.value as any)
+      .where(whereClauses.value)
       .sort({ dateAdded: -1 })
       .skip(page.value * limit)
       .limit(limit)
       .find()
-      .then((results) => {
+      .then((results: any) => {
         latestRecipes.value = latestRecipes.value.concat(results)
         page.value++
         loaderStatus.value = results.length < limit ? 'no-more' : 'idle'
@@ -77,7 +77,6 @@ onMounted(async () => {
 
   useIntersectionObserver(
     loader,
-    // eslint-disable-next-line unused-imports/no-unused-vars
     ([{ isIntersecting }], observerElement) => {
       loaderVisbible.value = isIntersecting
       if (isIntersecting)

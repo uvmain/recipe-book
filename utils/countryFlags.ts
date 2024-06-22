@@ -1,3 +1,4 @@
+/* cspell:disable */
 export const countryFlags = [
   { name: 'Afghanistan', icon: 'flag:af-4x3' },
   { name: 'Åland Islands', icon: 'flag:ax-4x3' },

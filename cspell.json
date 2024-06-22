@@ -11,7 +11,9 @@
   "minWordLength": 4,
   "words": [
     "antfu",
+    "icontains",
     "nuxt",
+    "stroustrup",
     "vueuse"
   ],
   "ignoreWords": [],
