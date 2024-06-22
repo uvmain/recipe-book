@@ -8,9 +8,9 @@ function getRouterLink() {
 }
 
 const caloriesPerServing = computed(() => {
-  if (Number.isInteger(Number(props.recipe.servings)) && Number(props.recipe.servings) > 1 && Number.isInteger(Number(props.recipe.calories)))
+  if (parseInt(props.recipe.servings) > 0 && parseInt(props.recipe.calories) > 1)
     return `${Math.floor(props.recipe.calories / props.recipe.servings)} per serving (${props.recipe.calories}/${props.recipe.servings})`
-  else if (Number.isInteger(Number(props.recipe.calories)))
+  else if (parseInt(props.recipe.calories) > 1)
     return `${props.recipe.calories} total`
   else return null
 })
@@ -29,6 +29,10 @@ const showAuthor = computed(() => {
 const showSource = computed(() => {
   return props.recipe.source && `${props.recipe.source}`.toLowerCase() !== 'unknown'
 })
+
+const imageAddress = computed(() => {
+  return `/api/thumbnail/${props.recipe.image}`
+})
 </script>
 
 <template>
@@ -37,7 +41,7 @@ const showSource = computed(() => {
       <span class="text-xl font-bold">
         {{ recipe.name }}
       </span>
-      <img :src="recipe.image" :alt="recipe.name" class="rounded flex-1 object-cover truncate shadow-md">
+      <img :src="imageAddress" :alt="recipe.name" class="rounded flex-1 object-cover truncate shadow-md">
     </div>
     <div>
       <div class="flex items-center gap-3">

@@ -14,6 +14,10 @@ const caloriesPerServing = computed(() => {
     return `${props.recipe.calories} total`
   else return null
 })
+
+const imageAddress = computed(() => {
+  return `/api/images/${props.recipe.image}`
+})
 </script>
 
 <template>
@@ -47,7 +51,7 @@ const caloriesPerServing = computed(() => {
             <span v-if="caloriesPerServing">Calories: {{ caloriesPerServing }}</span>
           </div>
         </div>
-        <img :src="recipe.image" :alt="recipe.name" class="w-full rounded-lg h-auto md:mb-4 border-1 border-solid border-gray-400">
+        <img :src="imageAddress" :alt="recipe.name" class="w-full rounded-lg h-auto md:mb-4 border-1 border-solid border-gray-400">
       </div>
       <div class="lg:max-w-5/9">
         <div class="grid gap-4">

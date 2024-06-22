@@ -5,8 +5,21 @@ const recipe = ref()
 const recipeSlug = `${route.params.slug}`
 
 async function getRecipe() {
-  const content = await queryContent('/recipes').where({ slug: { $eq: recipeSlug } }).findOne()
-  recipe.value = content
+  try {
+    const response = await fetch(`/api/recipes/${recipeSlug}`)
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch recipes')
+    }
+
+    const data = await response.json()
+    
+    recipe.value = data
+  }
+  catch (error) {
+    console.error('Failed to fetch recipes:', error)
+  }
+
 }
 
 const computedHead = computed(() => {
@@ -17,16 +30,6 @@ useHead({
   titleTemplate: computedHead,
 })
 
-const insert = computed(() => {
-  return (recipe.value) ? `insert into Recipe (stub, name, author, source)
-  values (
-  '${encodeURIComponent(recipe.value.name)}'
-  '${recipe.value.name}',
-  '${recipe.value.author}'
-  '${recipe.value.source}'
-  );` : null
-})
-
 onBeforeMount(() => {
   getRecipe()
 })
@@ -35,7 +38,6 @@ onBeforeMount(() => {
 <template>
   <div>
     <div class="text-black">
-      {{ insert }}
       <main class="mx-auto pt-1 px-2">
         <Recipe v-if="recipe" :recipe="recipe" class="lg:mx-auto lg:max-w-18/20" />
       </main>
