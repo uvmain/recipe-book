@@ -6,15 +6,13 @@ const recipeSlug = `${route.params.slug}`
 
 async function getRecipe() {
   try {
-    const response = await fetch(`/api/recipes/${recipeSlug}`)
+    const response = await $fetch((`/api/recipes/${recipeSlug}`))
+    .catch((error) => {
+      console.error(`Failed to fetch data: ${JSON.stringify(error.data)}`)
+    });
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch recipes')
-    }
-
-    const data = await response.json()
     
-    recipe.value = data
+    recipe.value = response.data
   }
   catch (error) {
     console.error('Failed to fetch recipes:', error)

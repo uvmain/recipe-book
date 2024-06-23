@@ -35,16 +35,14 @@ const input = useState<string>('searchInput')
 // })
 
 async function loadData() {
+  const url = input.value ? `/api/recipes?filter=${input.value}` : '/api/recipes'
   try {
-    const response = await fetch('/api/recipes')
+    const response = await $fetch(url)
+    .catch((error) => {
+      console.error(`Failed to fetch data: ${JSON.stringify(error.data)}`)
+    });
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch recipes')
-    }
-
-    const data = await response.json()
-    
-    allRecipes.value = data
+    allRecipes.value = response.data
   }
   catch (error) {
     console.error('Failed to fetch recipes:', error)

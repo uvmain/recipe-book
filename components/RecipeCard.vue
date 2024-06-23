@@ -31,7 +31,7 @@ const showSource = computed(() => {
 })
 
 const imageAddress = computed(() => {
-  return `/api/thumbnail/${props.recipe.image}`
+  return props.recipe.image ? `/api/thumbnail/${props.recipe.image}` : '/default.webp'
 })
 </script>
 
@@ -41,7 +41,7 @@ const imageAddress = computed(() => {
       <span class="text-xl font-bold">
         {{ recipe.name }}
       </span>
-      <img :src="imageAddress" :alt="recipe.name" class="rounded flex-1 object-cover truncate shadow-md">
+      <img :src="imageAddress" :alt="recipe.name" class="rounded flex-1 object-cover truncate shadow-md" :onerror="imageError = true">
     </div>
     <div>
       <div class="flex items-center gap-3">
