@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import markdownit from 'markdown-it'
+import { calculateCaloriesPerServing } from './caloriesParse'
+
+const md = markdownit()
+
 const props = defineProps({
   recipe: { type: Object, required: true },
 })
@@ -8,15 +13,23 @@ const sourceTag = computed(() => {
 })
 
 const caloriesPerServing = computed(() => {
-  if (Number.isInteger(Number(props.recipe.servings)) && Number(props.recipe.servings) > 1 && Number.isInteger(Number(props.recipe.calories)))
-    return `${Math.floor(props.recipe.calories / props.recipe.servings)} per serving (${props.recipe.calories}/${props.recipe.servings})`
-  else if (Number.isInteger(Number(props.recipe.calories)))
-    return `${props.recipe.calories} total`
-  else return null
+  return calculateCaloriesPerServing(props.recipe.calories, props.recipe.servings)
 })
 
 const imageAddress = computed(() => {
-  return `/api/images/${props.recipe.image}`
+  return props.recipe.image ? `/api/images/${props.recipe.image}` : '/default.webp'
+})
+
+const ingredientsMarkdown = computed(() => {
+  return md.render(props.recipe.ingredients);
+})
+
+const instructionsMarkdown = computed(() => {
+  return md.render(props.recipe.instructions);
+})
+
+const timers = computed(() => {
+  return getTimers(props.recipe.instructions)
 })
 </script>
 
@@ -55,9 +68,24 @@ const imageAddress = computed(() => {
       </div>
       <div class="lg:max-w-5/9">
         <div class="grid gap-4">
-          <MarkdownBlock v-if="recipe.ingredients" label="Ingredients" :markdown-string="recipe.ingredients" props-class="bg-blue-gray-200 text-dark border-1 border-solid border-gray-400" class="min-w-1/2" />
-          <MarkdownBlock v-if="recipe.instructions" label="Instructions" :markdown-string="recipe.instructions" props-class="bg-blue-gray-300 text-dark border-1 border-solid border-gray-400" class="min-w-1/2" />
+          <!-- ingredients -->
+          <div class="rounded-lg pt-1 p-2 pr-4 bg-blue-gray-200 text-dark border-1 border-solid border-gray-400">
+            <h3 class="font-bold text-xl pl-2">
+              Ingredients
+            </h3>
+            <div v-html="ingredientsMarkdown" />
+          </div>
+          <!-- instructions -->
+          <div class="rounded-lg pt-1 p-2 pr-4 bg-blue-gray-300 text-dark border-1 border-solid border-gray-400">
+            <h3 class="font-bold text-xl pl-2">
+              Instructions
+            </h3>
+            <div v-html="instructionsMarkdown" />
+          </div>
         </div>
+      </div>
+      <div v-if="timers.length" class="min-w-80 flex flex-col" >
+        <Timer v-for="(timer, index) of timers" :key="index" :minutes="timer" class="ml-8 mt-4" />
       </div>
     </div>
   </div>

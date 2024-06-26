@@ -7,21 +7,21 @@ const props = defineProps({
 const courseIcon = computed(() => {
   if (props.recipe.course === 'baking')
     return 'mingcute:bread-line'
-  else if (props.recipe.course === 'mains')
-    return 'icon-park-outline:cook'
-  else if (props.recipe.course === 'soups')
-    return 'lucide:soup'
-  else if (props.recipe.course === 'desserts')
-    return 'ep:dessert'
   else if (props.recipe.course === 'cocktails')
     return 'la:cocktail'
-  else if (props.recipe.course === 'sides')
-    return 'mingcute:fries-line'
-  else if (props.recipe.course === 'sauces')
-    return 'icon-park-outline:bottle-two'
+  else if (props.recipe.course === 'desserts')
+    return 'ep:dessert'
+  else if (props.recipe.course === 'mains')
+    return 'icon-park-outline:cook'
   else if (props.recipe.course === 'salads')
     return 'lucide:salad'
-  else if (props.recipe.course === 'spices')
+  else if (props.recipe.course === 'sauces')
+    return 'icon-park-outline:bottle-two'
+  else if (props.recipe.course === 'sides')
+    return 'mingcute:fries-line'
+  else if (props.recipe.course in ['soups', 'stews'])
+    return 'lucide:soup'
+  else if (props.recipe.course === 'seasonings')
     return 'tabler:salt'
   else return 'icon-park-outline:cook'
 })

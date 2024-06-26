@@ -29,3 +29,7 @@ export const allowedCourses = [
   'snacks',
   'spices',
 ]
+
+export interface RecipesApiResponse {
+  data: Recipe[]
+}

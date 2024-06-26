@@ -5,19 +5,27 @@ const currentPath = computed(() => {
   return router.currentRoute.value.path
 })
 
-const { data: countOfRecipes } = await useAsyncData('recipeCount', () =>
-  queryContent('/recipes').count())
+const countOfRecipes = ref(0)
+
+async function getRecipeCount() {
+  const response = await $fetch<RecipesApiResponse>('/api/recipes')
+  countOfRecipes.value =  await response.data.length
+}
 
 async function navToRandomRecipe() {
   const randomIndex = Math.floor(Math.random() * Number(countOfRecipes.value))
-  const randomSlugContent = await queryContent('/recipes').skip(randomIndex).limit(1).only('slug').find()
-  if (currentPath.value === `/recipe/${randomSlugContent[0].slug}`) {
+  
+  const response = await $fetch('/api/recipes') as { data : Recipe[]}
+  const randomRecipe = response.data[randomIndex]
+  console.warn(randomRecipe.slug)
+
+  if (currentPath.value === `/recipe/${randomRecipe.slug}`) {
     navToRandomRecipe()
   }
   if (useState<string>('searchInput').value.length) {
     useState<string>('searchInput').value = ''
   }
-  await navigateTo(`/recipe/${randomSlugContent[0].slug}`)
+  await navigateTo(`/recipe/${randomRecipe.slug}`)
 }
 
 async function navToHome() {
@@ -26,6 +34,10 @@ async function navToHome() {
   }
   await navigateTo('/')
 }
+
+onBeforeMount(() => {
+  getRecipeCount()
+})
 </script>
 
 <template>
@@ -45,14 +57,6 @@ async function navToHome() {
         @click="navToRandomRecipe"
       >
         <Icon name="carbon:shuffle" />
-      </button>
-      <button
-        type="button"
-        class="header-button"
-        :class="{ 'header-button-selected': currentPath === '/add-recipe' }"
-        @click="navigateTo('/add-recipe')"
-      >
-        <Icon name="carbon:document-add" />
       </button>
       <SearchBar class="search-bar" :recipe-count="countOfRecipes ?? 0" />
     </header>

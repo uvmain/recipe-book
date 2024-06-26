@@ -1,7 +1,7 @@
-export function getTimer(sentence: string): number[] {
+export function getTimers(paragraph: string): number[] {
   const timerDetails: number[] = []
 
-  const recipesWords = convertToAlphanumeric(sentence).split('-')
+  const recipesWords = convertToAlphanumeric(paragraph).split('-')
 
   recipesWords.forEach((word: string, index) => {
     if (word.includes('min') || word.includes('hour')) {

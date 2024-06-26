@@ -37,12 +37,12 @@ const input = useState<string>('searchInput')
 async function loadData() {
   const url = input.value ? `/api/recipes?filter=${input.value}` : '/api/recipes'
   try {
-    const response = await $fetch(url)
+    const response = await $fetch<RecipesApiResponse>(url)
     .catch((error) => {
       console.error(`Failed to fetch data: ${JSON.stringify(error.data)}`)
     });
 
-    allRecipes.value = response.data
+    allRecipes.value = response ? response.data : []
   }
   catch (error) {
     console.error('Failed to fetch recipes:', error)
