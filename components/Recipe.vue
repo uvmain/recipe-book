@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import markdownit from 'markdown-it'
-import { calculateCaloriesPerServing } from './caloriesParse'
 
 const md = markdownit()
 

@@ -5,6 +5,24 @@ interface Query {
   filter?: string
 }
 
+export interface Recipe {
+  slug: string
+  date_created: string
+  name: string
+  author: string
+  source: string
+  course: string
+  vegetarian: boolean
+  prep_time: string
+  cooking_time: string
+  calories: string
+  servings: string
+  ingredients: string
+  instructions: string
+  image: string
+  country: string
+}
+
 function generateFilter(query: Query) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const _and: any[] = []
@@ -25,17 +43,25 @@ function generateFilter(query: Query) {
 }
 
 export default defineEventHandler(async (event) => {
+  if (baseUrl.length < 1 || token.length < 1) {
+    return {
+      error: 'CMS connection variables are not defined'
+    }
+  }
+  
   const url = `${baseUrl}/items/Recipe`
   const unparsedQuery = getQuery(event)
   try {
-    const response = await $fetch(url, {
+    const options = {
       headers: {
         Authorization: `Bearer ${token}`
       },
       query: {
-        filter: generateFilter(unparsedQuery)
-      }
-    })
+        filter: generateFilter(unparsedQuery),
+        sort: '-date_created',
+      },
+    }
+    const response = await $fetch<{ data: Recipe[]}>(url, options)
     .catch((error) => {
       throw new Error(`Failed to fetch data: ${JSON.stringify(error.data)}`)
     });

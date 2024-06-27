@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { calculateCaloriesPerServing } from './caloriesParse'
-
 const props = defineProps({
   recipe: { type: Object, required: true },
 })
