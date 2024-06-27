@@ -2,7 +2,8 @@
   "version": "0.2",
   "ignorePaths": [
     ".output/**",
-    ".nuxt**"
+    ".nuxt**",
+    "node_modules"
   ],
   "dictionaryDefinitions": [],
   "dictionaries": [],
@@ -11,7 +12,9 @@
   "minWordLength": 4,
   "words": [
     "antfu",
+    "icontains",
     "nuxt",
+    "stroustrup",
     "vueuse"
   ],
   "ignoreWords": [],

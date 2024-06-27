@@ -1,19 +1,19 @@
 export interface Recipe {
   slug: string
-  dateAdded: string
+  date_created: string
   name: string
   author: string
   source: string
   course: string
-  country: string
-  vegetarian: false
-  prepTime: string
-  cookingTime: string
+  vegetarian: boolean
+  prep_time: string
+  cooking_time: string
   calories: string
   servings: string
   ingredients: string
   instructions: string
   image: string
+  country: string
 }
 
 export const allowedCourses = [
@@ -29,3 +29,7 @@ export const allowedCourses = [
   'snacks',
   'spices',
 ]
+
+export interface RecipesApiResponse {
+  data: Recipe[]
+}

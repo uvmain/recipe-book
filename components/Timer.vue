@@ -69,7 +69,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div>
+  <div class="flex flex-row">
     <button
       type="button"
       class="text-white text-xl rounded-lg text-center mb-2 font-medium md:text-3xl px-5 py-2.5 me-2"

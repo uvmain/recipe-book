@@ -3,9 +3,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     '@unocss/nuxt',
-    '@nuxt/content',
     'nuxt-icon',
     '@vueuse/nuxt',
+    '@nuxt/eslint'
   ],
-  content: {},
 })
