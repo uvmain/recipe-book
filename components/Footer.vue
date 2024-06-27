@@ -13,7 +13,7 @@
     </div>
     <div class="">
       <a href="https://github.com/uvmain/recipe-book" target="_blank" title="GitHub" class="flex flex-row items-center gap-2 text-zinc-700 underline-none">
-        <GithubLogo class="w-8 h-8 bg-zinc-700 rounded-2xl p-1" />
+        <GithubLogo class="w-8 h-8 bg-zinc-700 rounded-3xl p-1" />
         <div class="text-sm">
           https://github.com/uvmain/recipe-book
         </div>
