@@ -9,31 +9,6 @@ const allRecipes = ref<Recipe[]>([])
 
 const input = useState<string>('searchInput')
 
-// const whereClauses = computed(() => {
-//   const whereClauseArray: unknown[] = []
-//   const inputs = input.value.split(' ').filter(word => word.trim().length)
-//   inputs.forEach((word) => {
-//     if (word.toLowerCase() === 'vegetarian') {
-//       whereClauseArray.push({ vegetarian: true })
-//     }
-//     else {
-//       const wordArray = []
-//       if (word.trim().length) {
-//         wordArray.push({ slug: { $icontains: word } })
-//         wordArray.push({ name: { $icontains: word } })
-//         wordArray.push({ author: { $icontains: word } })
-//         wordArray.push({ source: { $icontains: word } })
-//         wordArray.push({ course: { $icontains: word } })
-//         wordArray.push({ country: { $icontains: word } })
-//         wordArray.push({ ingredients: { $icontains: word } })
-//         wordArray.push({ instructions: { $icontains: word } })
-//       }
-//       whereClauseArray.push({ $or: wordArray })
-//     }
-//   })
-//   return inputs.length === 1 ? whereClauseArray : inputs.length > 1 ? { $and: whereClauseArray } : {}
-// })
-
 async function loadData() {
   const url = input.value ? `/api/recipes?filter=${input.value}` : '/api/recipes'
   try {

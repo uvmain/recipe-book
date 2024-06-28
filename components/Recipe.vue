@@ -83,8 +83,8 @@ const timers = computed(() => {
           </div>
         </div>
       </div>
-      <div v-if="timers.length" class="min-w-80 flex flex-col" >
-        <Timer v-for="(timer, index) of timers" :key="index" :minutes="timer" class="ml-8 mt-4" />
+      <div v-if="timers.length" class="flex flex-col" >
+        <Timer v-for="(timer, index) of timers" :key="index" :minutes="timer" />
       </div>
     </div>
   </div>

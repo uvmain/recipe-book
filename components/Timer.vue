@@ -52,14 +52,14 @@ const timeLeft = computed(() => {
 
 const timerColour = computed(() => {
   if (counting.value)
-    return 'bg-emerald-600'
+    return 'border-emerald-600 border-2'
   else {
     if (seconds.value === 0)
-      return 'bg-red-800'
+      return 'border-red-800 border-2'
     if (seconds.value === props.minutes * 60)
-      return 'bg-neutral-400'
+      return 'border-neutral-400'
     else
-      return 'bg-orange-400'
+      return 'border-orange-400 border-2'
   }
 })
 
@@ -72,7 +72,7 @@ onUnmounted(() => {
   <div class="flex flex-row">
     <button
       type="button"
-      class="text-white text-xl rounded-lg text-center mb-2 font-medium md:text-3xl px-5 py-2.5 me-2"
+      class="text-lg rounded-lg text-center mb-2 px-5 py-2.5 me-2 border-1 border-solid bg-blue-gray-200 text-dark whitespace-nowrap"
       :class="timerColour"
       @click="toggleCounting"
     >
@@ -82,10 +82,9 @@ onUnmounted(() => {
     </button>
     <button
       type="button"
-      class="text-white text-xl rounded-lg font-medium md:text-3xl px-5 py-2.5 me-2 mb-2 text-center bg-zinc-500"
+      class="text-lg rounded-lg px-5 py-2.5 me-2 mb-2 text-center border-1 border-solid bg-blue-gray-300 text-dark"
       @click="resetTimer"
     >
-      <Icon name="material-symbols:device-reset" />
-    </button>
+      <Icon name="material-symbols:device-reset" class="pb-1"/></button>
   </div>
 </template>
