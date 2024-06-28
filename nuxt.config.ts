@@ -7,4 +7,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@nuxt/eslint'
   ],
+  devServer: {
+    port: 3001,
+  },
 })

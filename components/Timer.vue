@@ -69,10 +69,10 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-row">
+  <div class="flex flex-row gap-1">
     <button
       type="button"
-      class="text-lg rounded-lg text-center mb-2 px-5 py-2.5 me-2 border-1 border-solid bg-blue-gray-200 text-dark whitespace-nowrap"
+      class="text-lg rounded-lg text-center mb-2 px-5 border-1 border-solid bg-blue-gray-200 text-dark whitespace-nowrap"
       :class="timerColour"
       @click="toggleCounting"
     >
@@ -82,7 +82,7 @@ onUnmounted(() => {
     </button>
     <button
       type="button"
-      class="text-lg rounded-lg px-5 py-2.5 me-2 mb-2 text-center border-1 border-solid bg-blue-gray-300 text-dark"
+      class="text-lg rounded-lg px-5 py-2.5 mb-2 text-center border-1 border-solid border-gray-400 bg-blue-gray-300 text-dark"
       @click="resetTimer"
     >
       <Icon name="material-symbols:device-reset" class="pb-1"/></button>

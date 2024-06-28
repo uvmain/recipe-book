@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import markdownit from 'markdown-it'
+import { useWindowSize } from '@vueuse/core'
+const { width } = useWindowSize()
 
 const md = markdownit()
 
@@ -28,8 +30,32 @@ const instructionsMarkdown = computed(() => {
 })
 
 const timers = computed(() => {
-  return getTimers(props.recipe.instructions)
+  const fetchedTimers = getTimers(props.recipe.instructions)
+  return [... new Set(fetchedTimers)]
 })
+
+const details = ref<HTMLDivElement>()
+const image = ref<HTMLDivElement>()
+const ingredients = ref<HTMLDivElement>()
+const instructions = ref<HTMLDivElement>()
+const placement = ref()
+
+const left = ref()
+const right = ref()
+
+async function setTimerPlacement() {
+  if (details.value && image.value && ingredients.value && instructions.value) {
+    if (width.value < 1024) {
+      placement.value = 'right'  
+    }
+    else {
+      left.value = (details.value.offsetHeight + image.value.offsetHeight)
+      right.value = (ingredients.value.offsetHeight + instructions.value.offsetHeight)
+      placement.value = (left.value + 40) <= right.value ? 'left' : 'right'
+    }
+  }
+  else placement.value = 'right'
+}
 </script>
 
 <template>
@@ -42,11 +68,10 @@ const timers = computed(() => {
       <RecipeIcons :recipe="recipe" />
       <div class="w-full h-0.5 to-zinc-500 from-primary_bg-300 bg-gradient-to-l" />
     </div>
-
-    <div class="justify-center flex flex-col md:flex-row gap-4">
+    <div class="justify-center flex flex-col md:flex-row gap-4">      
       <div class="min-w-1/3 lg:max-w-1/2">
         <div class="mb-4 flex flex-col md:flex-row gap-4 p-4 bg-blue-gray-100 text-dark rounded-md items-baseline justify-between pt-0 border-1 border-solid border-gray-400">
-          <div class="text-center mx-auto md:text-left md:mx-0 md:max-w-3/4">
+          <div ref="details" class="text-center mx-auto md:text-left md:mx-0 md:max-w-3/4">
             <p v-if="recipe.author">
               <strong>Author:</strong>
               {{ recipe.author }}
@@ -63,28 +88,33 @@ const timers = computed(() => {
             <span v-if="caloriesPerServing">Calories: {{ caloriesPerServing }}</span>
           </div>
         </div>
-        <img :src="imageAddress" :alt="recipe.name" class="w-full rounded-lg h-auto md:mb-4 border-1 border-solid border-gray-400">
+        <div ref="image">
+          <img :src="imageAddress" :alt="recipe.name" class="w-full rounded-lg h-auto md:mb-4 border-1 border-solid border-gray-400" @load="setTimerPlacement">
+        </div>
+        <div v-if="timers.length && placement === 'left'" class="flex flex-wrap gap-x-4 justify-end sm:mt-4 md:mt-0" >
+            <Timer v-for="(timer, index) of timers" :key="index" :minutes="timer" />
+        </div>
       </div>
-      <div class="lg:max-w-5/9">
+      <div ref="secondaryDiv" class="lg:max-w-5/9">
         <div class="grid gap-4">
           <!-- ingredients -->
-          <div class="rounded-lg pt-1 p-2 pr-4 bg-blue-gray-200 text-dark border-1 border-solid border-gray-400">
+          <div ref="ingredients" class="rounded-lg pt-1 p-2 pr-4 bg-blue-gray-200 text-dark border-1 border-solid border-gray-400">
             <h3 class="font-bold text-xl pl-2">
               Ingredients
             </h3>
             <div v-html="ingredientsMarkdown" />
           </div>
           <!-- instructions -->
-          <div class="rounded-lg pt-1 p-2 pr-4 bg-blue-gray-300 text-dark border-1 border-solid border-gray-400">
+          <div ref="instructions" class="rounded-lg pt-1 p-2 pr-4 bg-blue-gray-300 text-dark border-1 border-solid border-gray-400">
             <h3 class="font-bold text-xl pl-2">
               Instructions
             </h3>
             <div v-html="instructionsMarkdown" />
           </div>
+          <div v-if="timers.length && placement === 'right'" class="flex flex-wrap gap-4" >
+            <Timer v-for="(timer, index) of timers" :key="index" :minutes="timer" />
+          </div>
         </div>
-      </div>
-      <div v-if="timers.length" class="flex flex-col" >
-        <Timer v-for="(timer, index) of timers" :key="index" :minutes="timer" />
       </div>
     </div>
   </div>
