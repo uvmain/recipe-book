@@ -88,8 +88,8 @@ async function setTimerPlacement() {
             <span v-if="caloriesPerServing">Calories: {{ caloriesPerServing }}</span>
           </div>
         </div>
-        <div ref="image">
-          <img :src="imageAddress" :alt="recipe.name" class="w-full rounded-lg h-auto md:mb-4 border-1 border-solid border-gray-400" @load="setTimerPlacement">
+        <div ref="image" class="flex">
+          <img :src="imageAddress" :alt="recipe.name" class="object-cover w-full max-h-200 rounded-lg md:mb-4 border-1 border-solid border-gray-400" @load="setTimerPlacement">
         </div>
         <div v-if="timers.length && placement === 'left'" class="flex flex-wrap gap-x-4 justify-end sm:mt-4 md:mt-0" >
             <Timer v-for="(timer, index) of timers" :key="index" :minutes="timer" />
