@@ -56,16 +56,16 @@ const imageAddress = computed(() => {
         </span>
       </div>
       <div class="text-dark">
-        <span v-if="recipe.prepTime" class="text-sm">
+        <span v-if="recipe.prep_time" class="text-sm">
           <strong>Prep time:</strong>
-          {{ recipe.prepTime }}
+          {{ recipe.prep_time }}
         </span>
-        <br v-if="recipe.prepTime">
-        <span v-if="recipe.cookingTime" class="text-sm">
+        <br v-if="recipe.prep_time">
+        <span v-if="recipe.cooking_time" class="text-sm">
           <strong>Cooking time:</strong>
-          {{ recipe.cookingTime }}
+          {{ recipe.cooking_time }}
         </span>
-        <br v-if="recipe.cookingTime">
+        <br v-if="recipe.cooking_time">
         <span v-if="caloriesPerServing" class="text-sm">
           <strong>Calories:</strong>
           {{ caloriesPerServing }}
