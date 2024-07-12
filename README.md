@@ -31,10 +31,13 @@ npm run build
 
 Build a docker image:
 ```bash
-git rev-parse HEAD | xargs -I % docker build -t recipebook:% .
+docker build -t recipebook:latest .
 ```
 
 Run a docker image:
 ```bash
-git rev-parse HEAD | xargs -I % docker run --publish "0.0.0.0:3000:3000" recipebook:% .
+docker run --publish "0.0.0.0:3000:3000" recipebook:latest .
+```
+```bash
+docker compose up -d
 ```
