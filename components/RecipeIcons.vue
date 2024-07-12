@@ -11,6 +11,8 @@ const courseIcon = computed(() => {
     return 'la:cocktail'
   else if (props.recipe.course === 'desserts')
     return 'ep:dessert'
+  else if (props.recipe.course === 'fish')
+    return 'ph:fish'
   else if (props.recipe.course === 'mains')
     return 'icon-park-outline:cook'
   else if (props.recipe.course === 'salads')
