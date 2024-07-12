@@ -32,45 +32,40 @@ const imageAddress = computed(() => {
 </script>
 
 <template>
-  <NuxtLink :to="getRouterLink()" class="text-dark-2 text-center bg-blue-gray-100 rounded no-underline overflow-auto p-3 border-gray-400 border-1 border-solid">
-    <div id="card-header" class="flex w-full flex-col h-60 gap-2 mb-2">
-      <span class="text-xl font-bold">
-        {{ recipe.name }}
-      </span>
-      <img :src="imageAddress" :alt="recipe.name" class="rounded flex-1 object-cover truncate shadow-md">
+  <NuxtLink :to="getRouterLink()" class="no-underline text-center block bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border-1 border-solid border-gray-200">
+    <div id="card-header" class="flex flex-col h-60">
+      <img :src="imageAddress" :alt="recipe.name" class="h-full w-full object-cover">
     </div>
-    <div>
-      <div class="flex items-center gap-3">
-        <hr class="border-solid grow border border-gray-400">
+    <div class="">
+      <h2 class="text-xl font-bold text-gray-800 mx-1">
+        {{ recipe.name }}
+      </h2>
+      <div class="flex items-center gap-3 mb-4">
+        <hr class="flex-grow border-gray-300">
         <RecipeIcons :recipe="recipe" colour="text-dark" />
-        <hr class="grow border border-solid border-gray-400">
+        <hr class="flex-grow border-gray-300">
       </div>
-      <div class="my-2 flex flex-col gap-2">
-        <span v-if="showAuthor">
-          <strong>Author:</strong>
-          {{ recipe.author }}
-        </span>
-        <span v-if="showSource">
-          <strong>Source:</strong>
-          {{ parsedSource }}
-        </span>
+      <div class="mb-0">
+        <p v-if="showAuthor" class="text-sm text-gray-600">
+          <strong>Author:</strong> {{ recipe.author }}
+        </p>
+        <p v-if="showSource" class="text-sm text-gray-600">
+          <strong>Source:</strong> {{ parsedSource }}
+        </p>
       </div>
-      <div class="text-dark">
-        <span v-if="recipe.prep_time" class="text-sm">
-          <strong>Prep time:</strong>
-          {{ recipe.prep_time }}
-        </span>
-        <br v-if="recipe.prep_time">
-        <span v-if="recipe.cooking_time" class="text-sm">
-          <strong>Cooking time:</strong>
-          {{ recipe.cooking_time }}
-        </span>
-        <br v-if="recipe.cooking_time">
-        <span v-if="caloriesPerServing" class="text-sm">
-          <strong>Calories:</strong>
-          {{ caloriesPerServing }}
-        </span>
+      <div class="text-sm text-gray-600">
+        <p v-if="recipe.prep_time">
+          <strong>Prep time:</strong> {{ recipe.prep_time }}
+        </p>
+        <p v-if="recipe.cooking_time">
+          <strong>Cooking time:</strong> {{ recipe.cooking_time }}
+        </p>
+        <p v-if="caloriesPerServing">
+          <strong>Calories:</strong> {{ caloriesPerServing }}
+        </p>
       </div>
     </div>
   </NuxtLink>
 </template>
+
+

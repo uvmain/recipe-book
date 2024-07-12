@@ -40,8 +40,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main v-if="allRecipes" class="mx-auto w-19/20">
-    <div class="grid gap-3 grid-cols-1 md:grid-cols-3 lg:grid-cols-6">
+  <main v-if="allRecipes" class="mx-auto w-11/12 p-4">
+    <div class="grid gap-6 md:gap-10 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
       <RecipeCard v-for="recipe in allRecipes" :key="recipe.name" :recipe="recipe" class="flex-1" />
     </div>
     <FloatingScrollToTop />

@@ -64,9 +64,9 @@ async function setTimerPlacement() {
       {{ recipe.name }}
     </h2>
     <div class="mb-4 flex items-center gap-3 md:mb-6 mx-auto md:w-4/5">
-      <div class="w-full h-0.5 bg-gradient-to-r to-zinc-500 from-primary_bg-300" />
+      <div class="w-full h-0.5 bg-gradient-to-r to-zinc-500 from-gray-400" />
       <RecipeIcons :recipe="recipe" />
-      <div class="w-full h-0.5 to-zinc-500 from-primary_bg-300 bg-gradient-to-l" />
+      <div class="w-full h-0.5 to-zinc-500 from-gray-400 bg-gradient-to-l" />
     </div>
     <div class="justify-center flex flex-col md:flex-row gap-4">      
       <div class="min-w-1/3 lg:max-w-1/2">
