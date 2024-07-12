@@ -5,9 +5,15 @@ export default defineNuxtConfig({
     '@unocss/nuxt',
     'nuxt-icon',
     '@vueuse/nuxt',
-    '@nuxt/eslint'
+    '@nuxt/eslint',
+    "@nuxtjs/google-fonts"
   ],
   devServer: {
     port: 3001,
   },
+  googleFonts: {
+    families: {
+      Poppins: true,
+    }
+  }
 })

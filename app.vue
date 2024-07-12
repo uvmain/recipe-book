@@ -12,7 +12,7 @@ useHead({
   <div id="app" class="bg-gray-400 min-h-screen">
     <NuxtLoadingIndicator />
     <Header />
-    <div class="font-sans antialiased">
+    <div class="antialiased">
       <NuxtPage />
     </div>
     <Footer />
@@ -24,5 +24,6 @@ html, body, #__nuxt {
   margin: 0;
   padding: 0;
   border: 0;
+  font-family: 'Poppins', sans-serif;
 }
 </style>
