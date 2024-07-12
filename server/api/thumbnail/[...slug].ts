@@ -1,13 +1,18 @@
 const baseUrl = process.env.DIRECTUS_URL as string;
 const token = process.env.DIRECTUS_TOKEN as string;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const cache: { [key: string]: any } = {};
+let cache: { [key: string]: any } = {};
 
 export default defineEventHandler(async (event) => {
   const slug = event.context.params?.slug;
 
   if (!slug) {
     return { error: 'Slug is undefined' };
+  }
+
+  if (slug === 'cacheclear') {
+    cache = {};
+    return { warning: 'Thumbnail cache cleared' };
   }
 
   const cacheKey = Array.isArray(slug) ? slug.join('/') : slug;

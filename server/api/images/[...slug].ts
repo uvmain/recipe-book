@@ -1,12 +1,17 @@
 const baseUrl = process.env.DIRECTUS_URL as string;
 const token = process.env.DIRECTUS_TOKEN as string;
-const cache: { [key: string]: any } = {};
+let cache: { [key: string]: any } = {};
 
 export default defineEventHandler(async (event) => {
   const slug = event.context.params?.slug;
 
   if (!slug) {
     return { error: 'Slug is undefined' };
+  }
+
+  if (slug === 'cacheclear') {
+    cache = {};
+    return { warning: 'Recipe Image cache cleared' };
   }
 
   const cacheKey = Array.isArray(slug) ? slug.join('/') : slug;
