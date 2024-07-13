@@ -3,10 +3,10 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     '@unocss/nuxt',
-    'nuxt-icon',
     '@vueuse/nuxt',
     '@nuxt/eslint',
-    "@nuxtjs/google-fonts"
+    "@nuxtjs/google-fonts",
+    "@nuxt/icon"
   ],
   devServer: {
     port: 3001,

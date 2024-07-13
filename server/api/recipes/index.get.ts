@@ -5,6 +5,8 @@ const token = process.env.DIRECTUS_TOKEN as string;
 
 interface Query {
   filter?: string;
+  limit?: string;
+  offset?: string;
 }
 
 export interface Recipe {
@@ -83,9 +85,11 @@ export default defineEventHandler(async (event) => {
       query: {
         filter: generateFilter(unparsedQuery),
         sort: '-date_created',
+        limit: unparsedQuery.limit,
+        offset: unparsedQuery.offset,
       },
     };
-
+    console.log(`fetching offset ${unparsedQuery.offset}, limit ${unparsedQuery.limit}`)
     const response = await $fetch<{ data: Recipe[] }>(url, options).catch((error) => {
       throw new Error(`Failed to fetch data: ${JSON.stringify(error.data)}`);
     });

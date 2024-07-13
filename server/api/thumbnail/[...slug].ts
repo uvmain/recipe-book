@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
         Authorization: `Bearer ${token}`,
       },
     }).catch((error) => {
-      throw new Error(`Failed to fetch data: ${JSON.stringify(error.data)}`);
+      console.error(`Failed to fetch data: ${JSON.stringify(error.data)}`);
     });
 
     cache[cacheKey] = response;
@@ -36,6 +36,6 @@ export default defineEventHandler(async (event) => {
     return response;
   }
  catch (error) {
-    return { error: `Failed to fetch data from CMS: ${error}` };
+    console.error(`Failed to fetch data from CMS: ${error}`);
   }
 });

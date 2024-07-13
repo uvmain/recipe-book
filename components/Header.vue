@@ -17,7 +17,6 @@ async function navToRandomRecipe() {
   
   const response = await $fetch('/api/recipes') as { data : Recipe[]}
   const randomRecipe = response.data[randomIndex]
-  console.warn(randomRecipe.slug)
 
   if (currentPath.value === `/recipe/${randomRecipe.slug}`) {
     navToRandomRecipe()
