@@ -8,15 +8,15 @@ const currentPath = computed(() => {
 const countOfRecipes = ref(0)
 
 async function getRecipeCount() {
-  const response = await $fetch<RecipesApiResponse>('/api/recipes')
-  countOfRecipes.value =  await response.data.length
+  const response = await $fetch<{ count: number }>('/api/recipes/count')
+  countOfRecipes.value = response.count
 }
 
 async function navToRandomRecipe() {
   const randomIndex = Math.floor(Math.random() * Number(countOfRecipes.value))
   
-  const response = await $fetch('/api/recipes') as { data : Recipe[]}
-  const randomRecipe = response.data[randomIndex]
+  const response = await $fetch(`/api/recipes?offset=${randomIndex}&limit=1`) as { data : Recipe[]}
+  const randomRecipe = response.data[0]
 
   if (currentPath.value === `/recipe/${randomRecipe.slug}`) {
     navToRandomRecipe()

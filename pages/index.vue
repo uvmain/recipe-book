@@ -69,7 +69,7 @@ useInfiniteScroll(scrollContainer, loadData, {
 </script>
 
 <template>
-  <main ref="scrollContainer" class="mx-auto w-11/12 p-4 overflow-y-auto h-75vh scroll-smooth">
+  <main ref="scrollContainer" class="mx-auto w-11/12 p-2 overflow-y-auto h-80vh scroll-smooth">
     <div class="grid gap-6 md:gap-10 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
       <RecipeCard v-for="recipe in allRecipes" :key="recipe.name" :recipe="recipe" class="flex-1" />
     </div>

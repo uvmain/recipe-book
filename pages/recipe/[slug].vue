@@ -36,7 +36,7 @@ onBeforeMount(() => {
 <template>
   <div>
     <div class="text-black">
-      <main class="mx-auto pt-1 px-2">
+      <main class="mx-auto px-2">
         <Recipe v-if="recipe" :recipe="recipe" class="lg:mx-auto lg:max-w-18/20" />
       </main>
     </div>

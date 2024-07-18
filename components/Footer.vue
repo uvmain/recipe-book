@@ -1,6 +1,6 @@
 <template>
   <footer class="flex flex-col py-10 pl-8 text-zinc-700">
-    <div class="my-2 text-base">
+    <div class="text-base">
       RecipeBook
     </div>
     <div class="flex flex-row items-center gap-2">

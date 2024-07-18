@@ -12,10 +12,13 @@
   "minWordLength": 4,
   "words": [
     "antfu",
+    "iconify",
     "icontains",
+    "lucide",
     "nuxt",
     "nuxtjs",
     "stroustrup",
+    "tabler",
     "vueuse"
   ],
   "ignoreWords": [],

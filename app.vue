@@ -15,7 +15,7 @@ useHead({
     <div class="antialiased">
       <NuxtPage />
     </div>
-    <Footer />
+    <Footer class=" md:bottom-0 md:left-0"/>
   </div>
 </template>
 

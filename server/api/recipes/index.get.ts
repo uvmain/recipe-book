@@ -89,7 +89,6 @@ export default defineEventHandler(async (event) => {
         offset: unparsedQuery.offset,
       },
     };
-    console.log(`fetching offset ${unparsedQuery.offset}, limit ${unparsedQuery.limit}`)
     const response = await $fetch<{ data: Recipe[] }>(url, options).catch((error) => {
       throw new Error(`Failed to fetch data: ${JSON.stringify(error.data)}`);
     });
