@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useDebounceFn, useInfiniteScroll } from '@vueuse/core'
+import { useDebounceFn, useIntersectionObserver } from '@vueuse/core'
 
 useHead({
   titleTemplate: 'RecipeBook: Latest',
@@ -10,8 +10,8 @@ const input = useState<string>('searchInput')
 const loading = ref(false)
 const page = ref(1)
 const hasMore = ref(true)
-
-const limit = ref(20)
+const observerTarget = ref(null)
+const limit = ref(10)
 
 const offset = computed(() => {
   return (page.value * 10) - 10
@@ -43,6 +43,14 @@ async function loadData() {
   }
   finally {
     loading.value = false
+    useIntersectionObserver(
+      observerTarget,
+      ([{ isIntersecting }]) => {
+        if (isIntersecting) {
+          loadData()
+        }
+      },
+    )
   }
 }
 
@@ -67,18 +75,11 @@ watch(useState('selectedCourses'), () => {
 onMounted(async () => {
   await loadData()
 })
-
-const scrollContainer = ref<HTMLElement | null>(null)
-
-useInfiniteScroll(scrollContainer, loadData, {
-  distance: 200, // Adjust the distance to trigger loading more items
-})
 </script>
 
 <template>
-  <div>
-    <div class="grid gap-6 md:gap-10 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-2 md:p-4 lg:p-6">
-      <RecipeCard v-for="recipe in allRecipes" :key="recipe.name" :recipe="recipe" class="flex-1" />
-    </div>
-   </div>
+  <div class="grid gap-6 md:gap-10 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-2 md:p-4 lg:p-6">
+    <RecipeCard v-for="recipe in allRecipes" :key="recipe.name" :recipe="recipe" class="flex-1" />
+    <div ref="observerTarget" />
+  </div>
 </template>

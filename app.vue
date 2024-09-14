@@ -20,7 +20,7 @@ const leftMargin = computed(() => {
     <NuxtLoadingIndicator />
     <Sidebar />
     <SidebarToggle />
-    <NuxtPage :class="{ 'ml-68 md:ml-70 lg:ml-72' : leftMargin }" />
+    <NuxtPage :class="{ 'ml-68 md:ml-72 lg:ml-74' : leftMargin }" />
   </div>
 </template>
 
