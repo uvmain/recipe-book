@@ -7,6 +7,7 @@ interface Query {
   filter?: string;
   limit?: string;
   offset?: string;
+  courses?: string;
 }
 
 export interface Recipe {
@@ -40,7 +41,7 @@ function clearCache() {
 function generateFilter(query: Query) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const _and: any[] = [];
-
+  
   query.filter?.split(' ').forEach(filterString => {
     const _or = [];
     _or.push({ "slug": { "_icontains": filterString }});
@@ -53,6 +54,11 @@ function generateFilter(query: Query) {
     _or.push({ "instructions": { "_icontains": filterString }});
     _and.push({ _or });
   });
+
+  if (query.courses?.length) {
+    _and.push({ "course": { "_in": query.courses.split(",") }});
+  }
+  
   return { _and };
 }
 
@@ -96,6 +102,7 @@ export default defineEventHandler(async (event) => {
     cache[cacheKey] = response;
 
     return response;
+    // return generateFilter(unparsedQuery);
   }
  catch (error) {
     return { error: `Failed to fetch data from CMS: ${error}` };

@@ -21,7 +21,10 @@ async function loadData() {
   if (loading.value || !hasMore.value) return
   loading.value = true
 
-  const url = input.value ? `/api/recipes?filter=${input.value}&limit=${limit.value}&offset=${offset.value}` : `/api/recipes?limit=${limit.value}&offset=${offset.value}`
+  let url = input.value ? `/api/recipes?filter=${input.value}&limit=${limit.value}&offset=${offset.value}` : `/api/recipes?limit=${limit.value}&offset=${offset.value}`
+  if (useState<string[]>('selectedCourses').value) {
+    url = `${url}&courses=${useState('selectedCourses').value}`
+  }
   try {
     const response = await $fetch<RecipesApiResponse>(url)
     .catch((error) => {
@@ -43,6 +46,7 @@ async function loadData() {
   }
   finally {
     loading.value = false
+    console.log(url)
     useIntersectionObserver(
       observerTarget,
       ([{ isIntersecting }]) => {
