@@ -1,4 +1,6 @@
 <script setup>
+import { isSidebarOpen } from './utils/sidebar'
+
 useHead({
   htmlAttrs: {
     lang: 'en',
@@ -7,25 +9,18 @@ useHead({
   title: 'RecipeBook',
 })
 
-const isSidebarOpen = computed(() => {
-  return useState('sidebarOpen').value
+const leftMargin = computed(() => {
+  return isSidebarOpen.value
 })
 
-const isSmallScreen = computed(() => {
-  return window.innerWidth < 800
-})
 </script>
 
 <template>
   <div id="app" class="bg-blue-gray-100 min-h-screen flex">
     <NuxtLoadingIndicator />
-    <Sidebar :class="{'w-64': isSidebarOpen, 'w-0': !isSidebarOpen }"/>
-    <div
-      class="flex-1 antialiased"
-      :class="{'pl-64 ml-4 md:ml-6 lg:ml-8': !isSmallScreen && isSidebarOpen, 'pl-0': isSmallScreen || !isSidebarOpen }"
-    >
-      <NuxtPage />
-    </div>
+    <Sidebar />
+    <SidebarToggle />
+    <NuxtPage :class="{ 'ml-68 md:ml-70 lg:ml-72' : leftMargin }" />
   </div>
 </template>
 

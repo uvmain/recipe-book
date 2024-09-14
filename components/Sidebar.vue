@@ -1,18 +1,12 @@
 <script setup lang="ts">
 const router = useRouter()
-const sidebarOpen = useState('sidebarOpen')
 
 const currentPath = computed(() => {
   return router.currentRoute.value.path
 })
 
 const countOfRecipes = ref(0)
-
-const links = [
-  "one",
-  "two",
-  "three"
-]
+const selectedCourses = ref<string[]>([])
 
 async function getRecipeCount() {
   const response = await $fetch<{ count: number }>('/api/recipes/count')
@@ -29,39 +23,33 @@ async function navToRandomRecipe() {
     navToRandomRecipe()
   }
   useState<string>('searchInput').value = ''
+  setSidebarStatus()
   await navigateTo(`/recipe/${randomRecipe.slug}`)
 }
 
 async function navToHome() {
   useState<string>('searchInput').value = ''
+  setSidebarStatus()
   await navigateTo('/')
-}
-
-function toggleSidebar() {
-  if (sidebarOpen.value == false ) {
-    sidebarOpen.value = true
-  }
-  else {
-    sidebarOpen.value = false
-  }
 }
 
 function scrollToTop() {
   window.scrollTo(0, 0)
+  setSidebarStatus()
 }
-
-const isSidebarOpen = computed(() => {
-  return sidebarOpen.value
-})
 
 function setSidebarStatus() {
   if (window.innerWidth > 800) {
-    sidebarOpen.value = true
+    isSidebarOpen.value = true
   }
   else {
-    sidebarOpen.value = false
+    isSidebarOpen.value = false
   }
 }
+
+watch(selectedCourses, () => {
+  useState('selectedCourses').value = selectedCourses.value
+})
 
 onBeforeMount(() => {
   getRecipeCount()
@@ -70,64 +58,56 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <div class="fixed top-0 left-0 h-screen p-4 md:p-6 lg:p-8 bg-blue-gray-100 z-10">
-    <div
-      v-if="isSidebarOpen"
-      class="flex flex-col gap-4"
+  <div
+    v-if="isSidebarOpen"
+    class="flex flex-col gap-4 fixed top-0 left-0 h-screen p-4 md:p-6 lg:p-8 bg-blue-gray-100 z-10 w-full lg:w-64"
+  >
+    <button
+      type="button"
+      class="w-auto flex gap-4 justify-center items-center h-12 text-center bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-100 border border-solid border-gray-200 mr-8 md:mr-0"
+      @click="navToHome()"
     >
-      <button
-        type="button"
-        class="w-full flex gap-4 justify-center items-center h-12 text-center bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-100 border border-solid border-gray-200"
-        @click="navToHome()"
-      >
-        <Icon name="carbon:home" class="size-6" />
-        <span class="text-xl">Home</span>
-      </button>
-      <button
-        type="button"
-        class="w-full flex gap-4 justify-center items-center h-12 text-center bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-100 border border-solid border-gray-200"
-        @click="navToRandomRecipe()"
-      >
-        <Icon name="carbon:shuffle" class="size-6" />
-        <span class="text-xl">Random</span>
-      </button>
-      <button
-        type="button"
-        class="w-full flex gap-4 justify-center items-center h-12 text-center bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-100 border border-solid border-gray-200"
-        @click="scrollToTop"
-      >
-        <Icon name="carbon:arrow-up" class="size-6" />
-        <span class="text-xl">Scroll to top</span>
-      </button>
-      <SearchBar
-        class="w-full p-0 flex gap-4 justify-center items-center h-12 text-center bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-100 border border-solid border-gray-200 outline-none text-xl placeholder-dark"
-        :recipe-count="countOfRecipes ?? 0"
-      />
-      
-      <hr class="w-80% my-4 border-gray-300 border-1 border-solid">
-      
-      <ul>
-        <li v-for="(link, index) in links" :key="index">
-          {{ link }}
-        </li>
-      </ul>
-
-      <hr class="w-80% my-4 border-gray-300 border-1 border-solid">
-      
-      <Footer class="bottom-0 left-0"/>
+      <Icon name="carbon:home" class="size-6" />
+      <span class="text-xl">Home</span>
+    </button>
+    <button
+      type="button"
+      class="w-auto flex gap-4 justify-center items-center h-12 text-center bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-100 border border-solid border-gray-200 mr-8 md:mr-0"
+      @click="navToRandomRecipe()"
+    >
+      <Icon name="carbon:shuffle" class="size-6" />
+      <span class="text-xl">Random</span>
+    </button>
+    <button
+      type="button"
+      class="w-auto flex gap-4 justify-center items-center h-12 text-center bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-100 border border-solid border-gray-200 mr-8 md:mr-0"
+      @click="scrollToTop"
+    >
+      <Icon name="carbon:arrow-up" class="size-6" />
+      <span class="text-xl">Scroll to top</span>
+    </button>
+    <SearchBar
+      class="w-auto p-0 flex gap-4 justify-center items-center h-12 text-center bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-100 border border-solid border-gray-200 outline-none text-xl placeholder-dark mr-8 md:mr-0"
+      :recipe-count="countOfRecipes ?? 0"
+    />
+    
+    <hr class="w-80% my-4 border-gray-300 border-1 border-solid">
+    
+    <div class="grid grid-cols-2 gap-1">
+      <div v-for="(course, index) in allowedCourses" :key="index" class="flex gap-1">
+        <input
+          v-model="selectedCourses"
+          type="checkbox"
+          :value="course"
+        >
+        <label class="font-light">
+          {{ course }}
+        </label>
+      </div>
     </div>
 
-    <div>
-      <div class="fixed bottom-20 left-0">
-      <button
-        type="button"
-        class="items-center h-12 text-center bg-white rounded-r-lg rounded-l-none shadow-md hover:shadow-xl transition-shadow duration-100 border border-solid border-gray-400"
-        @click="toggleSidebar()"
-      >
-        <Icon v-if="isSidebarOpen" name="gg:chevron-double-left" class="size-6"/>
-        <Icon v-if="!isSidebarOpen" name="gg:chevron-double-right" class="size-6"/>
-      </button>
-    </div>
-    </div>
+    <hr class="w-80% my-4 border-gray-300 border-1 border-solid">
+    
+    <Footer class="bottom-0 left-0"/>
   </div>
 </template>

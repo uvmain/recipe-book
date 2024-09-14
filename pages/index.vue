@@ -52,11 +52,15 @@ const search = useDebounceFn(async () => {
   hasMore.value = true
   await loadData()
   if (window.innerWidth < 800) {
-    useState('sidebarOpen').value = false
+    isSidebarOpen.value = false
   }
 }, 700)
 
 watch(input, () => {
+  search()
+})
+
+watch(useState('selectedCourses'), () => {
   search()
 })
 
@@ -73,7 +77,7 @@ useInfiniteScroll(scrollContainer, loadData, {
 
 <template>
   <div>
-    <div class="grid gap-6 md:gap-10 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-8">
+    <div class="grid gap-6 md:gap-10 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-2 md:p-4 lg:p-6">
       <RecipeCard v-for="recipe in allRecipes" :key="recipe.name" :recipe="recipe" class="flex-1" />
     </div>
    </div>

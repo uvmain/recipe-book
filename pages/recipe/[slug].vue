@@ -34,12 +34,7 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <div>
-    <div class="text-black">
-      <main class="mx-auto px-2">
-        <Recipe v-if="recipe" :recipe="recipe" class="lg:mx-auto lg:max-w-18/20" />
-      </main>
-    </div>
-    <FloatingScrollToTop />
+  <div class="text-black mx-auto md:max-w-18/19">
+    <Recipe v-if="recipe" :recipe="recipe"/>
   </div>
 </template>

@@ -1,0 +1,1 @@
+export const isSidebarOpen = ref<boolean>(true)
