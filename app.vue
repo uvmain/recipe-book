@@ -10,6 +10,10 @@ useHead({
 const isSidebarOpen = computed(() => {
   return useState('sidebarOpen').value
 })
+
+const isSmallScreen = computed(() => {
+  return window.innerWidth < 800
+})
 </script>
 
 <template>
@@ -18,7 +22,7 @@ const isSidebarOpen = computed(() => {
     <Sidebar :class="{'w-64': isSidebarOpen, 'w-0': !isSidebarOpen }"/>
     <div
       class="flex-1 antialiased"
-      :class="{'pl-64 ml-4 md:ml-6 lg:ml-8': isSidebarOpen, 'pl-0': !isSidebarOpen }"
+      :class="{'pl-64 ml-4 md:ml-6 lg:ml-8': !isSmallScreen && isSidebarOpen, 'pl-0': isSmallScreen || !isSidebarOpen }"
     >
       <NuxtPage />
     </div>

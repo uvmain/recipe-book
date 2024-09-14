@@ -70,7 +70,7 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <div class="fixed top-0 left-0 h-screen p-4 md:p-6 lg:p-8">
+  <div class="fixed top-0 left-0 h-screen p-4 md:p-6 lg:p-8 bg-blue-gray-100 z-10">
     <div
       v-if="isSidebarOpen"
       class="flex flex-col gap-4"
