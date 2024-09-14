@@ -6,16 +6,22 @@ useHead({
   charset: 'utf-8',
   title: 'RecipeBook',
 })
+
+const isSidebarOpen = computed(() => {
+  return useState('sidebarOpen').value
+})
 </script>
 
-<template class="">
-  <div id="app" class="bg-gray-400 min-h-screen">
-    <NuxtLoadingIndicator />
-    <Header />
-    <div class="antialiased">
+<template>
+  <div id="app" class="bg-blue-gray-100 min-h-screen flex">
+    <Sidebar :class="{'w-64': isSidebarOpen, 'w-0': !isSidebarOpen }"/>
+    <div
+      class="flex-1 antialiased"
+      :class="{'pl-64 ml-4 md:ml-6 lg:ml-8': isSidebarOpen, 'pl-0': !isSidebarOpen }"
+    >
+      <NuxtLoadingIndicator />
       <NuxtPage />
     </div>
-    <Footer class=" md:bottom-0 md:left-0"/>
   </div>
 </template>
 

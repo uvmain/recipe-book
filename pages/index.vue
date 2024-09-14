@@ -11,7 +11,7 @@ const loading = ref(false)
 const page = ref(1)
 const hasMore = ref(true)
 
-const limit = ref(10)
+const limit = ref(20)
 
 const offset = computed(() => {
   return (page.value * 10) - 10
@@ -69,39 +69,9 @@ useInfiniteScroll(scrollContainer, loadData, {
 </script>
 
 <template>
-  <main ref="scrollContainer" class="mx-auto w-11/12 p-2 overflow-y-auto h-80vh scroll-smooth">
-    <div class="grid gap-6 md:gap-10 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+  <div>
+    <div class="grid gap-6 md:gap-10 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-8">
       <RecipeCard v-for="recipe in allRecipes" :key="recipe.name" :recipe="recipe" class="flex-1" />
     </div>
-    <FloatingScrollToTop />
-  </main>
+   </div>
 </template>
-
-<style>
-body, html {
-  height: 100%;
-  margin: 0;
-  /* overflow: hidden; /* Prevent scrolling on body */
-}
-
-::-webkit-scrollbar {
-    width: 10px;
-}
- 
-/* Track */
-::-webkit-scrollbar-track {
-    background: #c0c0c0;
-    border-radius: 5px;
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #ffffff;
-    border-radius: 5px;
-}
- 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
-</style>

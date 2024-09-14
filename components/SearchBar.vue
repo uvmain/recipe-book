@@ -31,5 +31,7 @@ watch(inputText, () => {
     id="search-input"
     v-model="inputText"
     :placeholder="placeHolder"
+    type="text"
+    class="focus:placeholder-op-0"
   >
 </template>
