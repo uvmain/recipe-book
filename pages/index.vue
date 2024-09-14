@@ -51,6 +51,9 @@ const search = useDebounceFn(async () => {
   page.value = 1
   hasMore.value = true
   await loadData()
+  if (window.innerWidth < 800) {
+    useState('sidebarOpen').value = false
+  }
 }, 700)
 
 watch(input, () => {

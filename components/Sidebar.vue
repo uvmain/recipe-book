@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const router = useRouter()
+const sidebarOpen = useState('sidebarOpen')
 
 const currentPath = computed(() => {
   return router.currentRoute.value.path
@@ -37,11 +38,11 @@ async function navToHome() {
 }
 
 function toggleSidebar() {
-  if (useState('sidebarOpen').value == false ) {
-    useState('sidebarOpen').value = true
+  if (sidebarOpen.value == false ) {
+    sidebarOpen.value = true
   }
   else {
-    useState('sidebarOpen').value = false
+    sidebarOpen.value = false
   }
 }
 
@@ -50,11 +51,21 @@ function scrollToTop() {
 }
 
 const isSidebarOpen = computed(() => {
-  return useState('sidebarOpen').value
+  return sidebarOpen.value
 })
+
+function setSidebarStatus() {
+  if (window.innerWidth > 800) {
+    sidebarOpen.value = true
+  }
+  else {
+    sidebarOpen.value = false
+  }
+}
 
 onBeforeMount(() => {
   getRecipeCount()
+  setSidebarStatus()
 })
 </script>
 
