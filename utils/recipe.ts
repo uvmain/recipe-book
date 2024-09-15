@@ -27,7 +27,7 @@ export const allowedCourses = [
   'sides',
   'soups',
   'snacks',
-  'spices',
+  'seasonings',
 ]
 
 export interface RecipesApiResponse {
