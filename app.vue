@@ -10,7 +10,7 @@ useHead({
 })
 
 const leftMargin = computed(() => {
-  return isSidebarOpen.value
+  return isSidebarOpen.value || false
 })
 
 </script>
@@ -20,7 +20,7 @@ const leftMargin = computed(() => {
     <NuxtLoadingIndicator />
     <Sidebar />
     <SidebarToggle />
-    <NuxtPage :class="{ 'ml-68 md:ml-72 lg:ml-74' : leftMargin }" />
+    <NuxtPage class="ml-0" :class="{ 'md:ml-72 lg:ml-74' : leftMargin }" />
   </div>
 </template>
 
