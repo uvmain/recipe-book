@@ -1,4 +1,6 @@
 <script setup>
+import { isSidebarOpen } from './utils/sidebar'
+
 useHead({
   htmlAttrs: {
     lang: 'en',
@@ -6,16 +8,19 @@ useHead({
   charset: 'utf-8',
   title: 'RecipeBook',
 })
+
+const leftMargin = computed(() => {
+  return isSidebarOpen.value
+})
+
 </script>
 
-<template class="">
-  <div id="app" class="bg-gray-400 min-h-screen">
+<template>
+  <div id="app" class="bg-blue-gray-100 min-h-screen flex">
     <NuxtLoadingIndicator />
-    <Header />
-    <div class="antialiased">
-      <NuxtPage />
-    </div>
-    <Footer class=" md:bottom-0 md:left-0"/>
+    <Sidebar />
+    <SidebarToggle />
+    <NuxtPage :class="{ 'ml-68 md:ml-72 lg:ml-74' : leftMargin }" />
   </div>
 </template>
 

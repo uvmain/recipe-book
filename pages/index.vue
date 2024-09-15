@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useDebounceFn, useInfiniteScroll } from '@vueuse/core'
+import { useDebounceFn, useIntersectionObserver } from '@vueuse/core'
 
 useHead({
   titleTemplate: 'RecipeBook: Latest',
@@ -10,7 +10,7 @@ const input = useState<string>('searchInput')
 const loading = ref(false)
 const page = ref(1)
 const hasMore = ref(true)
-
+const observerTarget = ref(null)
 const limit = ref(10)
 
 const offset = computed(() => {
@@ -21,7 +21,22 @@ async function loadData() {
   if (loading.value || !hasMore.value) return
   loading.value = true
 
-  const url = input.value ? `/api/recipes?filter=${input.value}&limit=${limit.value}&offset=${offset.value}` : `/api/recipes?limit=${limit.value}&offset=${offset.value}`
+  let url = input.value ? `/api/recipes?filter=${input.value}&limit=${limit.value}&offset=${offset.value}` : `/api/recipes?limit=${limit.value}&offset=${offset.value}`
+  
+  if (useState<string[]>('selectedCourses').value?.length) {
+    url = `${url}&courses=${useState('selectedCourses').value}`
+  }
+
+  if (useState<boolean>('selectedVegetarian').value == true) {
+    url = `${url}&vegetarian=true`
+  }
+
+  if (useState<string>('selectedCountry').value?.length > 0) {
+    url = `${url}&country=${useState('selectedCountry').value}`
+  }
+
+  useState('selectedCountry').value
+  
   try {
     const response = await $fetch<RecipesApiResponse>(url)
     .catch((error) => {
@@ -30,7 +45,10 @@ async function loadData() {
 
     if (response) {
       if (response.data.length > 0) {
-        allRecipes.value.push(...response.data)
+        allRecipes.value.push(...response.data.filter((recipe) => {
+          const calories = useState<number>('selectedCalories').value || 1000
+          return calories == 1000 || (parseInt(recipe.calories) / parseInt(recipe.servings)) < calories
+        }))
         page.value++
       }
       else {
@@ -43,6 +61,15 @@ async function loadData() {
   }
   finally {
     loading.value = false
+    console.log(url)
+    useIntersectionObserver(
+      observerTarget,
+      ([{ isIntersecting }]) => {
+        if (isIntersecting) {
+          loadData()
+        }
+      },
+    )
   }
 }
 
@@ -51,57 +78,39 @@ const search = useDebounceFn(async () => {
   page.value = 1
   hasMore.value = true
   await loadData()
+  if (window.innerWidth < 800) {
+    isSidebarOpen.value = false
+  }
 }, 700)
 
 watch(input, () => {
   search()
 })
 
-onMounted(async () => {
-  await loadData()
+watch(useState('selectedCourses'), () => {
+  search()
 })
 
-const scrollContainer = ref<HTMLElement | null>(null)
+watch(useState('selectedVegetarian'), () => {
+  search()
+})
 
-useInfiniteScroll(scrollContainer, loadData, {
-  distance: 200, // Adjust the distance to trigger loading more items
+watch(useState('selectedCalories'), () => {
+  search()
+})
+
+watch(useState('selectedCountry'), () => {
+  search()
+})
+
+onMounted(async () => {
+  await loadData()
 })
 </script>
 
 <template>
-  <main ref="scrollContainer" class="mx-auto w-11/12 p-2 overflow-y-auto h-80vh scroll-smooth">
-    <div class="grid gap-6 md:gap-10 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-      <RecipeCard v-for="recipe in allRecipes" :key="recipe.name" :recipe="recipe" class="flex-1" />
-    </div>
-    <FloatingScrollToTop />
-  </main>
+  <div class="grid gap-6 md:gap-10 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-2 md:p-4 lg:p-6 grid-rows-2">
+    <RecipeCard v-for="recipe in allRecipes" :key="recipe.name" :recipe="recipe" class="flex-1" />
+    <div ref="observerTarget" />
+  </div>
 </template>
-
-<style>
-body, html {
-  height: 100%;
-  margin: 0;
-  /* overflow: hidden; /* Prevent scrolling on body */
-}
-
-::-webkit-scrollbar {
-    width: 10px;
-}
- 
-/* Track */
-::-webkit-scrollbar-track {
-    background: #c0c0c0;
-    border-radius: 5px;
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #ffffff;
-    border-radius: 5px;
-}
- 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
-</style>

@@ -7,6 +7,9 @@ interface Query {
   filter?: string;
   limit?: string;
   offset?: string;
+  courses?: string;
+  vegetarian?: string;
+  country?: string;
 }
 
 export interface Recipe {
@@ -40,7 +43,7 @@ function clearCache() {
 function generateFilter(query: Query) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const _and: any[] = [];
-
+  
   query.filter?.split(' ').forEach(filterString => {
     const _or = [];
     _or.push({ "slug": { "_icontains": filterString }});
@@ -53,6 +56,19 @@ function generateFilter(query: Query) {
     _or.push({ "instructions": { "_icontains": filterString }});
     _and.push({ _or });
   });
+
+  if (query.courses?.length) {
+    _and.push({ "course": { "_in": query.courses.split(",") }});
+  }
+
+  if (query.vegetarian?.length) {
+    _and.push({ "vegetarian": { "_eq": "true" }});
+  }
+
+  if (query.country?.length) {
+    _and.push({ "country": { "_eq": query.country }});
+  }
+  
   return { _and };
 }
 

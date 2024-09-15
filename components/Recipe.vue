@@ -59,7 +59,7 @@ async function setTimerPlacement() {
 </script>
 
 <template>
-  <div class="w-full">
+  <div class="mx-2">
     <h2 class="text-center mb-4 text-4xl text-gray-800">
       {{ recipe.name }}
     </h2>
