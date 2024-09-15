@@ -1,0 +1,1 @@
+git pull && docker build -t recipebook:latest . && docker compose up -d
