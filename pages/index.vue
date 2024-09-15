@@ -22,9 +22,21 @@ async function loadData() {
   loading.value = true
 
   let url = input.value ? `/api/recipes?filter=${input.value}&limit=${limit.value}&offset=${offset.value}` : `/api/recipes?limit=${limit.value}&offset=${offset.value}`
-  if (useState<string[]>('selectedCourses').value) {
+  
+  if (useState<string[]>('selectedCourses').value?.length) {
     url = `${url}&courses=${useState('selectedCourses').value}`
   }
+
+  if (useState<boolean>('selectedVegetarian').value == true) {
+    url = `${url}&vegetarian=true`
+  }
+
+  if (useState<string>('selectedCountry').value?.length > 0) {
+    url = `${url}&country=${useState('selectedCountry').value}`
+  }
+
+  useState('selectedCountry').value
+  
   try {
     const response = await $fetch<RecipesApiResponse>(url)
     .catch((error) => {
@@ -33,7 +45,10 @@ async function loadData() {
 
     if (response) {
       if (response.data.length > 0) {
-        allRecipes.value.push(...response.data)
+        allRecipes.value.push(...response.data.filter((recipe) => {
+          const calories = useState<number>('selectedCalories').value || 1000
+          return calories == 1000 || (parseInt(recipe.calories) / parseInt(recipe.servings)) < calories
+        }))
         page.value++
       }
       else {
@@ -76,13 +91,25 @@ watch(useState('selectedCourses'), () => {
   search()
 })
 
+watch(useState('selectedVegetarian'), () => {
+  search()
+})
+
+watch(useState('selectedCalories'), () => {
+  search()
+})
+
+watch(useState('selectedCountry'), () => {
+  search()
+})
+
 onMounted(async () => {
   await loadData()
 })
 </script>
 
 <template>
-  <div class="grid gap-6 md:gap-10 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-2 md:p-4 lg:p-6">
+  <div class="grid gap-6 md:gap-10 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-2 md:p-4 lg:p-6 grid-rows-2">
     <RecipeCard v-for="recipe in allRecipes" :key="recipe.name" :recipe="recipe" class="flex-1" />
     <div ref="observerTarget" />
   </div>

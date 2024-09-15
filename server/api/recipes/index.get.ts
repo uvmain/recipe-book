@@ -8,6 +8,8 @@ interface Query {
   limit?: string;
   offset?: string;
   courses?: string;
+  vegetarian?: string;
+  country?: string;
 }
 
 export interface Recipe {
@@ -58,6 +60,14 @@ function generateFilter(query: Query) {
   if (query.courses?.length) {
     _and.push({ "course": { "_in": query.courses.split(",") }});
   }
+
+  if (query.vegetarian?.length) {
+    _and.push({ "vegetarian": { "_eq": "true" }});
+  }
+
+  if (query.country?.length) {
+    _and.push({ "country": { "_eq": query.country }});
+  }
   
   return { _and };
 }
@@ -102,7 +112,6 @@ export default defineEventHandler(async (event) => {
     cache[cacheKey] = response;
 
     return response;
-    // return generateFilter(unparsedQuery);
   }
  catch (error) {
     return { error: `Failed to fetch data from CMS: ${error}` };
