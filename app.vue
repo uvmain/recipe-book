@@ -1,5 +1,15 @@
 <script setup>
-import { isSidebarOpen } from './utils/sidebar'
+const router = useRouter()
+
+const currentPath = computed(() => {
+  return router.currentRoute.value.path
+})
+
+const showFilters = useState('showFilters') || false
+
+const showFiltersComponent = computed(() => {
+  return currentPath.value === '/' && showFilters.value
+})
 
 useHead({
   htmlAttrs: {
@@ -9,18 +19,14 @@ useHead({
   title: 'RecipeBook',
 })
 
-const leftMargin = computed(() => {
-  return isSidebarOpen.value || false
-})
-
 </script>
 
 <template>
-  <div id="app" class="bg-blue-gray-100 min-h-screen flex">
+  <div id="app" class="bg-blue-gray-100 min-h-screen flex flex-col">
     <NuxtLoadingIndicator />
-    <Sidebar />
-    <SidebarToggle />
-    <NuxtPage class="ml-0" :class="{ 'md:ml-72 lg:ml-74' : leftMargin }" />
+    <Header />
+    <Filters v-if="showFiltersComponent" />
+    <NuxtPage />
   </div>
 </template>
 

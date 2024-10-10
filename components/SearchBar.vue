@@ -5,7 +5,7 @@ const props = defineProps({
 
 const router = useRouter()
 
-const inputText = useState<string>('searchInput', () => '')
+const inputText = useState<string>('searchInput')
 
 async function navigateHomeIfNeeded() {
   if (inputText.value.length && router.currentRoute.value.path !== '/') {
@@ -32,6 +32,5 @@ watch(inputText, () => {
     v-model="inputText"
     :placeholder="placeHolder"
     type="text"
-    class="focus:placeholder-op-0"
   >
 </template>

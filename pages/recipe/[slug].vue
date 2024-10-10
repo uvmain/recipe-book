@@ -9,7 +9,7 @@ async function getRecipe() {
     const response = await $fetch<RecipesApiResponse>((`/api/recipes/${recipeSlug}`))
     .catch((error) => {
       console.error(`Failed to fetch data: ${JSON.stringify(error.data)}`)
-    });
+    })
 
     
     recipe.value = response ? response.data : []

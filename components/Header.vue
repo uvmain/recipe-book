@@ -6,6 +6,7 @@ const currentPath = computed(() => {
 })
 
 const countOfRecipes = ref(0)
+const showFilters = useState('showFilters') || false
 
 async function getRecipeCount() {
   const response = await $fetch<{ count: number }>('/api/recipes/count')
@@ -21,18 +22,23 @@ async function navToRandomRecipe() {
   if (currentPath.value === `/recipe/${randomRecipe.slug}`) {
     navToRandomRecipe()
   }
-  if (useState<string>('searchInput').value.length) {
-    useState<string>('searchInput').value = ''
-  }
+  resetSearch()
   await navigateTo(`/recipe/${randomRecipe.slug}`)
 }
 
 async function navToHome() {
-  if (useState<string>('searchInput').value.length) {
-    useState<string>('searchInput').value = ''
-  }
+  resetSearch()
+  resetFilters()
   await navigateTo('/')
 }
+
+function toggleFilters() {
+  showFilters.value = !showFilters.value
+}
+
+const showFiltersButton = computed(() => {
+  return currentPath.value === '/'
+})
 
 onBeforeMount(() => {
   getRecipeCount()
@@ -40,23 +46,31 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <div class="bg-gray-400 w-full">
-    <header class="flex flex-row gap-1 md:gap-4 justify-center items-center p-6">
+  <div class="bg-blue-gray-100 w-full h-18 lg:h-20">
+    <header class="flex flex-row gap-1 lg:gap-4 justify-center items-center p-4 lg:p-6">
       <button
         type="button"
-        class="flex justify-center items-center h-12 text-zinc-600 text-xl hover:text-white hover:bg-zinc-500 rounded-lg text-center font-medium md:text-3xl px-5 border-1 border-solid border-zinc-500 bg-blue-gray-100"
-        @click="navToHome"
+        class="size-12 bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border-1 border-solid border-gray-200 active:bg-blue-gray-300"
+        @click="navToHome()"
       >
-        <Icon name="carbon:home" class="w-6 h-6" />
+        <Icon name="lucide:home" class="text-2xl align-middle text-center text-gray-800" />
       </button>
       <button
         type="button"
-        class="flex justify-center items-center h-12 text-zinc-600 text-xl hover:text-white hover:bg-zinc-500 rounded-lg text-center font-medium md:text-3xl px-5 border-1 border-solid border-zinc-500 bg-blue-gray-100"
-        @click="navToRandomRecipe"
+        class="size-12 bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border-1 border-solid border-gray-200 active:bg-blue-gray-300"
+        @click="navToRandomRecipe()"
       >
-        <Icon name="carbon:shuffle" class="w-6 h-6" />
+        <Icon name="lucide:shuffle" class="text-2xl align-middle text-center text-gray-800" />
       </button>
-      <SearchBar class="h-12 text-zinc-600 text-xl bg-blue-gray-100 hover:bg-zinc-300 focus:bg-zinc-200 rounded-lg text-center font-medium md:text-2xl px-5 border-1 border-solid border-zinc-500 outline-none w-1/2 md:w-1/5" :recipe-count="countOfRecipes ?? 0" />
+      <SearchBar class="h-11 text-gray-800 text-xl focus:placeholder-op-0 border-gray-200 focus:bg-blue-gray-300 rounded-lg text-center shadow-md hover:shadow-lg transition-shadow duration-300 md:text-2xl px-2 border-1 border-solid outline-none w-1/2 md:w-1/4" :recipe-count="countOfRecipes ?? 0" />
+      <button
+        v-if="showFiltersButton"
+        type="button"
+        class="size-12 bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border-1 border-solid border-gray-200 active:bg-blue-gray-300"
+        @click="toggleFilters"
+      >
+        <Icon name="lucide:filter" class="text-2xl align-middle text-center text-gray-800" />
+      </button>
     </header>
   </div>
 </template>

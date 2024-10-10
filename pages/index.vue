@@ -35,13 +35,13 @@ async function loadData() {
     url = `${url}&country=${useState('selectedCountry').value}`
   }
 
-  useState('selectedCountry').value
+  // useState('selectedCountry').value
   
   try {
     const response = await $fetch<RecipesApiResponse>(url)
     .catch((error) => {
       console.error(`Failed to fetch data: ${JSON.stringify(error.data)}`)
-    });
+    })
 
     if (response) {
       if (response.data.length > 0) {
@@ -78,10 +78,9 @@ const search = useDebounceFn(async () => {
   page.value = 1
   hasMore.value = true
   await loadData()
-  if (window.innerWidth < 800) {
-    isSidebarOpen.value = false
-  }
-}, 700)
+  },
+  700
+)
 
 watch(input, () => {
   search()
@@ -109,7 +108,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="grid gap-6 md:gap-10 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-2 md:p-4 lg:p-6 grid-rows-2">
+  <div class="grid gap-4 md:gap-6 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-4 lg:p-6 grid-rows-2">
     <RecipeCard v-for="recipe in allRecipes" :key="recipe.name" :recipe="recipe" class="flex-1" />
     <div ref="observerTarget" />
   </div>

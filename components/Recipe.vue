@@ -22,11 +22,11 @@ const imageAddress = computed(() => {
 })
 
 const ingredientsMarkdown = computed(() => {
-  return md.render(props.recipe.ingredients);
+  return md.render(props.recipe.ingredients)
 })
 
 const instructionsMarkdown = computed(() => {
-  return md.render(props.recipe.instructions);
+  return md.render(props.recipe.instructions)
 })
 
 const timers = computed(() => {
@@ -111,7 +111,7 @@ async function setTimerPlacement() {
             </h3>
             <div v-html="instructionsMarkdown" />
           </div>
-          <div v-if="timers.length && placement === 'right'" class="flex flex-wrap gap-4" >
+          <div v-if="timers.length && placement === 'right'" class="flex flex-auto gap-x-2 lg:gap-x-4" >
             <Timer v-for="(timer, index) of timers" :key="index" :minutes="timer" />
           </div>
         </div>

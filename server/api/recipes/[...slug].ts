@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
     })
     .catch((error) => {
       throw new Error(`Failed to fetch data: ${JSON.stringify(error.data)}`)
-    });
+    })
 
     return response
   }
