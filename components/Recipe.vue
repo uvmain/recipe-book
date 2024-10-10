@@ -95,7 +95,7 @@ async function setTimerPlacement() {
             <Timer v-for="(timer, index) of timers" :key="index" :minutes="timer" />
         </div>
       </div>
-      <div ref="secondaryDiv" class="lg:max-w-5/9">
+      <div class="lg:max-w-5/9">
         <div class="grid gap-4 mb-4">
           <!-- ingredients -->
           <div ref="ingredients" class="rounded-lg pt-1 px-4 bg-blue-gray-200 text-dark border-1 border-solid border-gray-400">
@@ -111,7 +111,7 @@ async function setTimerPlacement() {
             </h3>
             <div v-html="instructionsMarkdown" />
           </div>
-          <div v-if="timers.length && placement === 'right'" class="flex flex-auto gap-x-2 lg:gap-x-4" >
+          <div v-if="timers.length && placement === 'right'" class="flex flex-wrap gap-2 lg:gap-x-4" >
             <Timer v-for="(timer, index) of timers" :key="index" :minutes="timer" />
           </div>
         </div>

@@ -82,9 +82,9 @@ onUnmounted(() => {
     </button>
     <button
       type="button"
-      class="text-lg rounded-lg px-5 py-2.5 mb-2 text-center border-1 border-solid border-gray-400 bg-blue-gray-300 text-dark"
+      class="text-lg rounded-lg px-5 py-2.5 mb-2 text-center border-1 border-solid border-gray-400 bg-blue-gray-300 text-dark flex items-center"
       @click="resetTimer"
     >
-      <Icon name="lucide:rotate-ccw" class="pb-1"/></button>
+      <Icon name="lucide:rotate-ccw" class="text-lg"/></button>
   </div>
 </template>

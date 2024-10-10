@@ -34,8 +34,6 @@ async function loadData() {
   if (useState<string>('selectedCountry').value?.length > 0) {
     url = `${url}&country=${useState('selectedCountry').value}`
   }
-
-  // useState('selectedCountry').value
   
   try {
     const response = await $fetch<RecipesApiResponse>(url)
