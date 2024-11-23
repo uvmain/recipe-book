@@ -34,7 +34,7 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <div class="text-black lg:mx-auto lg:max-w-18/19">
+  <div class="mx-auto lg:max-w-18/19">
     <Recipe v-if="recipe" :recipe="recipe"/>
   </div>
 </template>

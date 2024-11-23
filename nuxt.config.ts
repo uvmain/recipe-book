@@ -13,7 +13,7 @@ export default defineNuxtConfig({
   },
   googleFonts: {
     families: {
-      Poppins: true,
+      Poppins: true
     }
   },
   compatibilityDate: '2024-07-18'

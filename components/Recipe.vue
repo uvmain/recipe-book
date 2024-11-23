@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import markdownit from 'markdown-it'
-import { useWindowSize } from '@vueuse/core'
+import { useMediaQuery, useWindowSize } from '@vueuse/core'
+
 const { width } = useWindowSize()
+const isLargeScreen = useMediaQuery('(min-width: 1201px)')
 
 const md = markdownit()
 
@@ -43,6 +45,14 @@ const placement = ref()
 const left = ref()
 const right = ref()
 
+const flexClass = computed(() => {
+  return isLargeScreen.value ? 'flex-row' : 'flex-col'
+})
+
+const widthClass = computed(() => {
+  return isLargeScreen.value ? 'max-w-1/2' : ''
+}) 
+
 async function setTimerPlacement() {
   if (details.value && image.value && ingredients.value && instructions.value) {
     if (width.value < 1024) {
@@ -68,8 +78,8 @@ async function setTimerPlacement() {
       <RecipeIcons :recipe="recipe" />
       <div class="w-full h-0.5 to-zinc-500 from-gray-400 bg-gradient-to-l" />
     </div>
-    <div class="justify-center flex flex-col md:flex-row gap-4">      
-      <div class="min-w-1/3 lg:max-w-1/2 flex flex-col gap-4">
+    <div class="justify-center flex gap-4" :class="flexClass">
+      <div class="min-w-1/3 flex flex-col gap-4" :class="widthClass">
         <div class="flex flex-col md:flex-row gap-4 p-4 bg-blue-gray-100 text-dark rounded-md justify-between border-1 border-solid border-gray-400">
           <div ref="details" class="text-center mx-auto md:text-left md:mx-0 md:max-w-3/4">
             <div v-if="recipe.author">
@@ -95,7 +105,7 @@ async function setTimerPlacement() {
             <Timer v-for="(timer, index) of timers" :key="index" :minutes="timer" />
         </div>
       </div>
-      <div class="lg:max-w-5/9">
+      <div class="" :class="widthClass">
         <div class="grid gap-4 mb-4">
           <!-- ingredients -->
           <div ref="ingredients" class="rounded-lg pt-1 px-4 bg-blue-gray-200 text-dark border-1 border-solid border-gray-400">
