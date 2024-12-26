@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { useDark, useToggle } from '@vueuse/core'
+
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
 const router = useRouter()
 
 const currentPath = computed(() => {
@@ -46,33 +50,40 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <div class="bg-blue-gray-100 w-full h-18 lg:h-20">
+  <div class="background w-full h-18 lg:h-20">
     <header class="flex flex-row gap-1 lg:gap-4 justify-center items-center p-4 lg:p-6">
       <button
         type="button"
-        class="size-12 bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border-1 border-solid border-gray-200 active:bg-blue-gray-300"
+        class="headerButton"
         @click="navToHome()"
       >
-        <Icon name="lucide:home" class="text-2xl align-middle text-center text-gray-800" />
+        <Icon name="lucide:home" class="headerButtonIcon" />
       </button>
       <button
         type="button"
-        class="size-12 bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border-1 border-solid border-gray-200 active:bg-blue-gray-300"
+        class="headerButton"
         @click="navToRandomRecipe()"
       >
-        <Icon name="lucide:shuffle" class="text-2xl align-middle text-center text-gray-800" />
+        <Icon name="lucide:shuffle" class="headerButtonIcon" />
       </button>
-      <SearchBar class="h-11 text-gray-800 text-xl focus:placeholder-op-0 border-gray-200 focus:bg-blue-gray-300 rounded-lg text-center shadow-md hover:shadow-lg transition-shadow duration-300 md:text-2xl px-2 border-1 border-solid outline-none w-1/2 md:w-1/4" :recipe-count="countOfRecipes ?? 0" />
+      <SearchBar class="headerButton headerSearch" :recipe-count="countOfRecipes ?? 0" />
       <button
         v-if="showFiltersButton"
         type="button"
-        class="size-12 bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border-1 border-solid border-gray-200 active:bg-blue-gray-300"
+        class="headerButton"
         @click="toggleFilters"
       >
-        <Icon name="lucide:filter" class="text-2xl align-middle text-center text-gray-800" />
+        <Icon name="lucide:filter" class="headerButtonIcon" />
+      </button>
+      <button
+        type="button"
+        class="headerButton"
+        @click="toggleDark()"
+      >
+        <Icon v-if="isDark" name="lucide:sun" class="headerButtonIcon" />
+        <Icon v-else name="lucide:sun-moon" class="headerButtonIcon" />
       </button>
     </header>
   </div>
 </template>
-
 

@@ -107,7 +107,7 @@ onMounted(async () => {
 
 <template>
   <div class="grid gap-4 md:gap-6 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 p-4 lg:p-6 grid-rows-2">
-    <RecipeCard v-for="recipe in allRecipes" :key="recipe.name" :recipe="recipe" class="flex-1" />
+    <RecipeCard v-for="recipe in allRecipes" :key="recipe.name" :recipe="recipe" class="flex-1 recipeCardBackground" />
     <div ref="observerTarget" />
   </div>
 </template>

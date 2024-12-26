@@ -11,7 +11,7 @@ function closeFilters() {
 </script>
 
 <template>
-  <div class="flex flex-col w-full md:w-2/3 lg:w-1/2 mx-auto p-2 md:p-4 lg:p-6">
+  <div class="flex flex-col w-full md:w-2/3 lg:w-1/2 mx-auto p-2 md:p-4 lg:p-6 text">
     <div class="mx-8 grid grid-cols-2 gap-1">
       <div v-for="(course, index) in allowedCourses" :key="index" class="flex gap-1">
         <input
@@ -19,7 +19,7 @@ function closeFilters() {
           v-model="selectedCourses"
           type="checkbox"
           :value="course"
-          class="accent-gray-600"
+          class="accent-gray-600 dark:accent-gray-400"
         >
         <label :for="course" class="font-light">
           {{ course }}
@@ -27,7 +27,7 @@ function closeFilters() {
       </div>
     </div>
 
-    <hr class="w-80% my-2 border-gray-300 border-1 border-solid">
+    <hr class="filterHr">
 
     <div class="mx-8 grid grid-cols-2">
       <div class="flex flex-row gap-x-1 items-center">
@@ -35,7 +35,7 @@ function closeFilters() {
           id="vegetarian"
           v-model="selectedVegetarian"
           type="checkbox"
-          class="accent-gray-600"
+          class="accent-gray-600 dark:accent-gray-400"
         >
         <Icon name="lucide:leafy-green" class="text-lg text-green-600"/>
         <label for="vegetarian" class="font-light">
@@ -44,7 +44,7 @@ function closeFilters() {
       </div>
     </div>
 
-    <hr class="w-80% my-2 border-gray-300 border-1 border-solid">
+    <hr class="filterHr">
 
     <div class="mx-8 flex flex-col gap-1">
       <label for="calories">
@@ -56,11 +56,11 @@ function closeFilters() {
         type="range"
         min="100"
         max="1000"
-        class="w-full accent-gray-600"
+        class="w-full accent-gray-400 dark:accent-gray-400"
       >
     </div>
 
-    <hr class="w-80% my-2 border-gray-300 border-1 border-solid">
+    <hr class="filterHr">
 
     <div class="mx-8  flex flex-col gap-1">
       <label for="country" class="flex justify-between">
@@ -69,13 +69,13 @@ function closeFilters() {
         </div>
         <button
           type="button"
-          class="justify-center items-center size-8 bg-white rounded-lg border border-solid border-gray-200 active:bg-blue-gray-300 flex items-center"
+          class="justify-center items-center size-8 recipeCardBackground border border-solid border-gray-200 active:bg-blue-gray-300 flex items-center"
           @click="selectedCountry = undefined"
         >
-          <Icon name="lucide:eraser" class="text-lg text-gray-600" />
+          <Icon name="lucide:eraser" class="text-lg headerButtonIcon" />
         </button>
       </label>
-      <select id="country" v-model="selectedCountry" class="bg-white rounded-lg h-8 border-solid border border-gray-200 text-base text-gray-600">
+      <select id="country" v-model="selectedCountry" class="h-8 border text-base text recipeCardBackground">
         <option disabled value="">Please select one</option>
         <option v-for="(country, index) in countryFlags" :key=index>
           {{ country.name }}
@@ -83,25 +83,25 @@ function closeFilters() {
       </select>
     </div>
 
-    <hr class="w-80% mt-2 mb-4 border-gray-300 border-1 border-solid">
+    <hr class="filterHr">
 
     <div class="flex flex-row gap-2 mx-auto">
       <button
         type="button"
-        class="h-12 bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border-1 border-solid border-gray-200 active:bg-blue-gray-300 flex flex-row items-center gap-x-2 text-lg px-2"
+        class="headerButton w-auto flex flex-row gap-2 items-center p-4"
         @click="resetFilters()"
       >
-        <Icon name="lucide:eraser" class="text-2xl align-middle text-center text-gray-800" />
-        <p>Reset filters</p>
+        <Icon name="lucide:eraser" class="headerButtonIcon" />
+        <p class="text text-lg">Reset filters</p>
       </button>
 
       <button
         type="button"
-        class="h-12 bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border-1 border-solid border-gray-200 active:bg-blue-gray-300 flex flex-row items-center gap-x-2 text-lg px-2"
+        class="headerButton w-auto flex flex-row gap-2 items-center p-4"
         @click="closeFilters()"
       >
-        <Icon name="lucide:save" class="text-2xl align-middle text-center text-gray-800" />
-        <p>Close filters</p>
+        <Icon name="lucide:save" class="headerButtonIcon" />
+        <p class="text text-lg">Close filters</p>
       </button>
     </div>
   </div>

@@ -32,28 +32,28 @@ const imageAddress = computed(() => {
 </script>
 
 <template>
-  <NuxtLink :to="getRouterLink()" class="no-underline text-center block bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border-1 border-solid border-gray-200">
+  <NuxtLink :to="getRouterLink()" class="no-underline text-center block overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-100 dark:hover:shadow-gray-600 border text rounded">
     <div id="card-header" class="flex flex-col h-60">
       <img :src="imageAddress" :alt="recipe.name" class="h-full w-full object-cover">
     </div>
     <div class="">
-      <h2 class="text-xl font-bold text-gray-800 mx-1">
+      <h2 class="text-xl font-bold mx-1 titleText">
         {{ recipe.name }}
       </h2>
       <div class="flex items-center gap-3 mb-4">
         <hr class="flex-grow border-gray-300">
-        <RecipeIcons :recipe="recipe" colour="text-dark" />
+        <RecipeIcons :recipe="recipe" colour="text" />
         <hr class="flex-grow border-gray-300">
       </div>
       <div class="mb-0">
-        <p v-if="showAuthor" class="text-sm text-gray-600">
+        <p v-if="showAuthor" class="text-sm recipeCardText">
           <strong>Author:</strong> {{ recipe.author }}
         </p>
-        <p v-if="showSource" class="text-sm text-gray-600">
+        <p v-if="showSource" class="text-sm recipeCardText">
           <strong>Source:</strong> {{ parsedSource }}
         </p>
       </div>
-      <div class="text-sm text-gray-600">
+      <div class="text-sm recipeCardText">
         <p v-if="recipe.prep_time">
           <strong>Prep time:</strong> {{ recipe.prep_time }}
         </p>

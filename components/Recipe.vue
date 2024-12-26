@@ -70,24 +70,24 @@ async function setTimerPlacement() {
 
 <template>
   <div class="mx-2">
-    <h2 class="text-center mb-4 text-4xl text-gray-800">
+    <h2 class="text-center mb-4 text-4xl titleText">
       {{ recipe.name }}
     </h2>
     <div class="mb-4 flex items-center gap-3 md:mb-6 mx-auto md:w-4/5">
-      <div class="w-full h-0.5 bg-gradient-to-r to-zinc-500 from-gray-400" />
+      <div class="w-full h-0.5 bg-gradient-to-r to-zinc-500 from-gray-400 dark:from-zinc-500 dark:to-gray-400" />
       <RecipeIcons :recipe="recipe" />
-      <div class="w-full h-0.5 to-zinc-500 from-gray-400 bg-gradient-to-l" />
+      <div class="w-full h-0.5 to-zinc-500 from-gray-400 bg-gradient-to-l dark:from-zinc-500 dark:to-gray-400" />
     </div>
     <div class="justify-center flex gap-4" :class="flexClass">
       <div class="min-w-1/3 flex flex-col gap-4" :class="widthClass">
-        <div class="flex flex-col md:flex-row gap-4 p-4 bg-blue-gray-100 text-dark rounded-md justify-between border-1 border-solid border-gray-400">
+        <div class="flex flex-col md:flex-row gap-4 p-4 recipeCardBackground text justify-between border-1 border-solid border-gray-400 rounded">
           <div ref="details" class="text-center mx-auto md:text-left md:mx-0 md:max-w-3/4">
             <div v-if="recipe.author">
               <strong>Author:</strong>
               {{ recipe.author }}
             </div>
             <strong v-if="recipe.source">Source: </strong>
-            <component :is="sourceTag" v-if="recipe.source" :href="recipe.source" target="_blank" class="text-dark underline-none break-all">
+            <component :is="sourceTag" v-if="recipe.source" :href="recipe.source" target="_blank" class="text underline-none break-all">
               {{ recipe.source }}
             </component>
           </div>
@@ -99,7 +99,7 @@ async function setTimerPlacement() {
           </div>
         </div>
         <div ref="image" class="flex">
-          <img :src="imageAddress" :alt="recipe.name" class="object-cover w-full max-h-200 rounded-lg md:mb-4 border-1 border-solid border-gray-400" @load="setTimerPlacement">
+          <img :src="imageAddress" :alt="recipe.name" class="object-cover w-full max-h-200 md:mb-4 border-1 border-solid border-gray-400" @load="setTimerPlacement">
         </div>
         <div v-if="timers.length && placement === 'left'" class="flex flex-wrap gap-2 md:gap-4 justify-end sm:mt-4 md:-mt-4" >
             <Timer v-for="(timer, index) of timers" :key="index" :minutes="timer" />
@@ -108,14 +108,14 @@ async function setTimerPlacement() {
       <div class="" :class="widthClass">
         <div class="grid gap-4 mb-4">
           <!-- ingredients -->
-          <div ref="ingredients" class="rounded-lg pt-1 px-4 bg-blue-gray-200 text-dark border-1 border-solid border-gray-400">
+          <div ref="ingredients" class="pt-1 px-4 recipeCardBackground text border-1 border-solid border-gray-400 rounded">
             <h3 class="font-bold text-xl pl-2">
               Ingredients
             </h3>
             <div v-html="ingredientsMarkdown" />
           </div>
           <!-- instructions -->
-          <div ref="instructions" class="rounded-lg pt-1 px-4 bg-blue-gray-300 text-dark border-1 border-solid border-gray-400">
+          <div ref="instructions" class="pt-1 px-4 recipeCardBackground text border-1 border-solid border-gray-400 rounded">
             <h3 class="font-bold text-xl pl-2">
               Instructions
             </h3>
