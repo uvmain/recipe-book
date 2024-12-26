@@ -80,7 +80,7 @@ async function setTimerPlacement() {
     </div>
     <div class="justify-center flex gap-4" :class="flexClass">
       <div class="min-w-1/3 flex flex-col gap-4" :class="widthClass">
-        <div class="flex flex-col md:flex-row gap-4 p-4 recipeCardBackground text rounded-md justify-between border-1 border-solid border-gray-400">
+        <div class="flex flex-col md:flex-row gap-4 p-4 recipeCardBackground text justify-between border-1 border-solid border-gray-400 rounded">
           <div ref="details" class="text-center mx-auto md:text-left md:mx-0 md:max-w-3/4">
             <div v-if="recipe.author">
               <strong>Author:</strong>
@@ -99,7 +99,7 @@ async function setTimerPlacement() {
           </div>
         </div>
         <div ref="image" class="flex">
-          <img :src="imageAddress" :alt="recipe.name" class="object-cover w-full max-h-200 rounded-lg md:mb-4 border-1 border-solid border-gray-400" @load="setTimerPlacement">
+          <img :src="imageAddress" :alt="recipe.name" class="object-cover w-full max-h-200 md:mb-4 border-1 border-solid border-gray-400" @load="setTimerPlacement">
         </div>
         <div v-if="timers.length && placement === 'left'" class="flex flex-wrap gap-2 md:gap-4 justify-end sm:mt-4 md:-mt-4" >
             <Timer v-for="(timer, index) of timers" :key="index" :minutes="timer" />
@@ -108,14 +108,14 @@ async function setTimerPlacement() {
       <div class="" :class="widthClass">
         <div class="grid gap-4 mb-4">
           <!-- ingredients -->
-          <div ref="ingredients" class="rounded-lg pt-1 px-4 recipeCardBackground text border-1 border-solid border-gray-400">
+          <div ref="ingredients" class="pt-1 px-4 recipeCardBackground text border-1 border-solid border-gray-400 rounded">
             <h3 class="font-bold text-xl pl-2">
               Ingredients
             </h3>
             <div v-html="ingredientsMarkdown" />
           </div>
           <!-- instructions -->
-          <div ref="instructions" class="rounded-lg pt-1 px-4 recipeCardBackground text border-1 border-solid border-gray-400">
+          <div ref="instructions" class="pt-1 px-4 recipeCardBackground text border-1 border-solid border-gray-400 rounded">
             <h3 class="font-bold text-xl pl-2">
               Instructions
             </h3>

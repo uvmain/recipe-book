@@ -32,7 +32,7 @@ const imageAddress = computed(() => {
 </script>
 
 <template>
-  <NuxtLink :to="getRouterLink()" class="no-underline text-center block rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border text">
+  <NuxtLink :to="getRouterLink()" class="no-underline text-center block overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-100 dark:hover:shadow-gray-600 border text rounded">
     <div id="card-header" class="flex flex-col h-60">
       <img :src="imageAddress" :alt="recipe.name" class="h-full w-full object-cover">
     </div>

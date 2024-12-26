@@ -69,7 +69,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-row gap-1">
+  <div class="flex flex-row gap-2">
     <button
       type="button"
       class="text-lg headerButton whitespace-nowrap w-auto"
