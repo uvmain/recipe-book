@@ -22,7 +22,7 @@ useHead({
 </script>
 
 <template>
-  <div id="app" class="bg-blue-gray-100 min-h-screen flex flex-col">
+  <div id="app" class="background min-h-screen flex flex-col">
     <NuxtLoadingIndicator />
     <Header />
     <Filters v-if="showFiltersComponent" />

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps({
   recipe: { type: Object, required: true },
-  colour: { type: String, default: 'text-dark' },
+  colour: { type: String, default: 'text' },
 })
 
 const courseIcon = computed(() => {

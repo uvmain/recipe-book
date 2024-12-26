@@ -57,7 +57,7 @@ const timerColour = computed(() => {
     if (seconds.value === 0)
       return 'border-red-800 border-2'
     if (seconds.value === props.minutes * 60)
-      return 'border-neutral-400'
+      return ''
     else
       return 'border-orange-400 border-2'
   }
@@ -72,19 +72,19 @@ onUnmounted(() => {
   <div class="flex flex-row gap-1">
     <button
       type="button"
-      class="text-lg rounded-lg text-center mb-2 px-5 border-1 border-solid bg-blue-gray-200 text-dark whitespace-nowrap"
+      class="text-lg headerButton whitespace-nowrap w-auto"
       :class="timerColour"
       @click="toggleCounting"
     >
-      <div>
+      <div class="text px-2">
         {{ timeLeft }}
       </div>
     </button>
     <button
       type="button"
-      class="text-lg rounded-lg px-5 py-2.5 mb-2 text-center border-1 border-solid border-gray-400 bg-blue-gray-300 text-dark flex items-center"
+      class="headerButton"
       @click="resetTimer"
     >
-      <Icon name="lucide:rotate-ccw" class="text-lg"/></button>
+      <Icon name="lucide:rotate-ccw" class="headerButtonIcon"/></button>
   </div>
 </template>
