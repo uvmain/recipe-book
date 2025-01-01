@@ -5,14 +5,24 @@ const selectedVegetarian = useState<boolean>('selectedVegetarian')
 const selectedCalories = useState<number>('selectedCalories', () => 1000)
 const selectedCountry = useState('selectedCountry')
 
+const filtered = useState('filtered', () => false)
+
+const computedFiltered = computed(() => {
+  return selectedCourses.value.length > 0 || selectedVegetarian.value === true || selectedCalories.value < 1000 || selectedCountry.value !== undefined
+})
+
+watch(computedFiltered, () => {
+  filtered.value = computedFiltered.value
+})
+
 function closeFilters() {
   showFilters.value = false
 }
 </script>
 
 <template>
-  <div class="flex flex-col w-full md:w-2/3 lg:w-1/2 mx-auto p-2 md:p-4 lg:p-6 text">
-    <div class="mx-8 grid grid-cols-2 gap-1">
+  <div class="flex flex-col  mx-auto p-2 md:p-4 lg:p-6 text">
+    <div class="mx-auto grid grid-cols-2 lg:grid-cols-3 gap-y-1 gap-x-3">
       <div v-for="(course, index) in allowedCourses" :key="index" class="flex gap-1">
         <input
           :id="course"
@@ -25,11 +35,6 @@ function closeFilters() {
           {{ course }}
         </label>
       </div>
-    </div>
-
-    <hr class="filterHr">
-
-    <div class="mx-8 grid grid-cols-2">
       <div class="flex flex-row gap-x-1 items-center">
         <input
           id="vegetarian"
@@ -46,7 +51,7 @@ function closeFilters() {
 
     <hr class="filterHr">
 
-    <div class="mx-8 flex flex-col gap-1">
+    <div class="mx-auto flex flex-col gap-1">
       <label for="calories">
         Calories per serving: {{ selectedCalories == 1000 ? "Unlimited" : selectedCalories }}
       </label>

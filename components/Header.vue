@@ -5,6 +5,8 @@ const isDark = useDark()
 const toggleDark = useToggle(isDark)
 const router = useRouter()
 
+const filtered = useState('filtered', () => false)
+
 const currentPath = computed(() => {
   return router.currentRoute.value.path
 })
@@ -44,6 +46,10 @@ const showFiltersButton = computed(() => {
   return currentPath.value === '/'
 })
 
+const filterBorderClass = computed(() => {
+  return filtered.value ? 'border-green dark:border-green' : ''
+})
+
 onBeforeMount(() => {
   getRecipeCount()
 })
@@ -66,11 +72,12 @@ onBeforeMount(() => {
       >
         <Icon name="lucide:shuffle" class="headerButtonIcon" />
       </button>
-      <SearchBar class="headerButton headerSearch" :recipe-count="countOfRecipes ?? 0" />
+      <SearchBar :recipe-count="countOfRecipes ?? 0" />
       <button
         v-if="showFiltersButton"
         type="button"
         class="headerButton"
+        :class="filterBorderClass"
         @click="toggleFilters"
       >
         <Icon name="lucide:filter" class="headerButtonIcon" />

@@ -11,7 +11,7 @@ export default defineConfig({
     headerSearch: "h-11 text-xl focus:placeholder-op-0 focus:bg-stone-300 text-center md:text-2xl px-2  outline-none w-1/2 md:w-1/4 dark:placeholder-stone-300",
     headerButtonIcon: "text-2xl align-middle text-center text",
     titleText: "text-dark dark:text-white",
-    filterHr: "w-80% my-2 border-stone-300 dark:border-stone-500 border-1 border-solid"
+    filterHr: "w-80% my-4 border-stone-300 dark:border-stone-500 border-1 border-solid"
   },
   theme: {
     colors: {},

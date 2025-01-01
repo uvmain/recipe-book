@@ -27,10 +27,20 @@ watch(inputText, () => {
 </script>
 
 <template>
-  <input
-    id="search-input"
-    v-model="inputText"
-    :placeholder="placeHolder"
-    type="text"
-  >
+  <div class="flex shadow-md hover:shadow-lg">
+    <input
+      id="search-input"
+      v-model="inputText"
+      :placeholder="placeHolder"
+      type="text"
+      class="headerButton headerSearch border-r-none rounded-r-none grow shadow-none"
+    >
+    <button
+      type="button"
+      class="headerButton border-l-none rounded-l-none shadow-none"
+      @click="inputText = ''"
+    >
+      <Icon name="lucide:eraser" class="headerButtonIcon" />
+    </button>
+  </div>
 </template>
