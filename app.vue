@@ -17,6 +17,9 @@ useHead({
   },
   charset: 'utf-8',
   title: 'RecipeBook',
+  meta: [
+    { name: 'description', content: 'Personal Recipe Book' }
+  ],
 })
 
 </script>
