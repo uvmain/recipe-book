@@ -60,6 +60,7 @@ onBeforeMount(() => {
     <header class="flex flex-row gap-1 lg:gap-4 justify-center items-center p-4 lg:p-6">
       <button
         type="button"
+        aria-label="navigate to homepage"
         class="headerButton"
         @click="navToHome()"
       >
@@ -67,6 +68,7 @@ onBeforeMount(() => {
       </button>
       <button
         type="button"
+        aria-label="navigate to random recipe"
         class="headerButton"
         @click="navToRandomRecipe()"
       >
@@ -76,6 +78,7 @@ onBeforeMount(() => {
       <button
         v-if="showFiltersButton"
         type="button"
+        aria-label="toggle filters"
         class="headerButton"
         :class="filterBorderClass"
         @click="toggleFilters"
@@ -84,6 +87,7 @@ onBeforeMount(() => {
       </button>
       <button
         type="button"
+        aria-label="toggle dark mode"
         class="headerButton"
         @click="toggleDark()"
       >

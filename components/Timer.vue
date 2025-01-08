@@ -72,6 +72,7 @@ onUnmounted(() => {
   <div class="flex flex-row gap-2">
     <button
       type="button"
+      :aria-label="counting ? 'pause timer' : 'start timer'"
       class="text-lg headerButton whitespace-nowrap w-auto"
       :class="timerColour"
       @click="toggleCounting"
@@ -82,6 +83,7 @@ onUnmounted(() => {
     </button>
     <button
       type="button"
+      aria-label="reset timer"
       class="headerButton"
       @click="resetTimer"
     >

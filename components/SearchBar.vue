@@ -37,6 +37,7 @@ watch(inputText, () => {
     >
     <button
       type="button"
+      aria-label="clear search"
       class="headerButton border-l-none rounded-l-none shadow-none"
       @click="inputText = ''"
     >

@@ -74,6 +74,7 @@ function closeFilters() {
         </div>
         <button
           type="button"
+          aria-label="select country"
           class="justify-center items-center size-8 recipeCardBackground border border-solid border-gray-200 active:bg-blue-gray-300 flex items-center"
           @click="selectedCountry = undefined"
         >
@@ -93,6 +94,7 @@ function closeFilters() {
     <div class="flex flex-row gap-2 mx-auto">
       <button
         type="button"
+        aria-label="reset filters"
         class="headerButton w-auto flex flex-row gap-2 items-center p-4"
         @click="resetFilters()"
       >
@@ -102,6 +104,7 @@ function closeFilters() {
 
       <button
         type="button"
+        aria-label="close filters"
         class="headerButton w-auto flex flex-row gap-2 items-center p-4"
         @click="closeFilters()"
       >
