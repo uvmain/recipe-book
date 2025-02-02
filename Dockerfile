@@ -1,14 +1,25 @@
-FROM node:20-alpine
+FROM node:20-alpine AS frontend-build
+
+WORKDIR /frontend
+
+COPY frontend/package*.json ./
+RUN npm install
+
+COPY frontend/ ./
+RUN npm run build
+
+FROM golang:1.23 AS backend-build
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY api/ .
+RUN CGO_ENABLED=0 go build -o server .
 
-RUN npm install
+FROM gcr.io/distroless/static-debian12
 
-COPY . .
+COPY --from=backend-build /app/server .
+COPY --from=frontend-build /frontend/dist ./dist
 
-EXPOSE 3000
+EXPOSE 8080
 
-RUN npm run build
-CMD [ "npm", "run", "start" ]
+CMD ["./server"]
