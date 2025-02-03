@@ -43,6 +43,7 @@ func StartServer() {
 	router.HandleFunc("GET /api/check-session", auth.CheckSessionHandler)
 
 	// standard routes
+	router.HandleFunc("GET /api/recipe-count", handleGetRecipeCount)
 	router.HandleFunc("GET /api/recipes", handleGetRecipesOrderedByDateCreated)
 	router.HandleFunc("GET /api/recipes/{slug}", handleGetRecipeBySlug)
 	router.HandleFunc("GET /api/recipecards", handleGetRecipeCardsOrderedByDateCreated)
@@ -67,6 +68,14 @@ func StartServer() {
 	}
 
 	http.ListenAndServe(serverAddress, handler)
+}
+
+func handleGetRecipeCount(w http.ResponseWriter, r *http.Request) {
+	count, _ := database.GetRecipeCount()
+	w.Header().Set("Content-Type", "application/json")
+	if err := json.NewEncoder(w).Encode(count); err != nil {
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+	}
 }
 
 func handleGetRecipesOrderedByDateCreated(w http.ResponseWriter, r *http.Request) {

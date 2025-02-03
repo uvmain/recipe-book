@@ -6,6 +6,17 @@ import (
 	"recipebook/types"
 )
 
+func GetRecipeCount() (int, error) {
+	var count int
+	query := "select count(*) from recipes;"
+
+	err := Database.QueryRow(query).Scan(&count)
+	if err != nil {
+		return 0, err
+	}
+	return count, nil
+}
+
 func DeleteRecipeBySlug(slug string) error {
 	deleteStatement := `DELETE FROM recipes where slug = ?;`
 	_, err := Database.Exec(deleteStatement, slug)

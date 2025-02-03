@@ -19,9 +19,9 @@ const currentPath = computed(() => {
 const countOfRecipes = ref(0)
 
 async function getRecipeCount() {
-  const response = await backendFetchRequest('recipes/count')
-  const json = await response.json() as { count: number }
-  countOfRecipes.value = json.count
+  const response = await backendFetchRequest('recipe-count')
+  const count = await response.json() as number
+  countOfRecipes.value = count
 }
 
 async function navToRandomRecipe() {

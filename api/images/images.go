@@ -36,12 +36,12 @@ func GetImageByFilename(filename string) ([]byte, error) {
 	filePath, _ := filepath.Abs(filepath.Join(logic.ImagesDirectory, filename))
 
 	if _, err := os.Stat(filePath); os.IsNotExist(err) {
-		log.Printf("Original file does not exist: %s:  %s", filePath, err)
+		log.Printf("Image file does not exist: %s:  %s", filePath, err)
 		return nil, err
 	}
 	blob, err := os.ReadFile(filePath)
 	if err != nil {
-		log.Printf("Error reading original image for filename %s: %s", filename, err)
+		log.Printf("Error reading image for filename %s: %s", filename, err)
 		return nil, err
 	}
 	return blob, nil
