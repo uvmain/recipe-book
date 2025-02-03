@@ -62,3 +62,7 @@ type Filters struct {
 	Country    string
 	Vegetarian bool
 }
+
+type SessionCheck struct {
+	LoggedIn bool `json:"loggedIn"`
+}

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { SessionCheck } from '../types/auth'
 import { onClickOutside, useSessionStorage } from '@vueuse/core'
 import { backendFetchRequest } from '../composables/fetchFromBackend'
 
@@ -10,9 +11,8 @@ const emits = defineEmits(['modalClose'])
 
 const username = ref('')
 const password = ref('')
-const isLoggedIn = ref(false)
 const target = ref(null)
-const userLoginState = useSessionStorage('login-state', isLoggedIn.value)
+const userLoginState = useSessionStorage('login-state', false)
 
 async function login() {
   const formData = new FormData()
@@ -23,8 +23,8 @@ async function login() {
     body: formData,
     method: 'POST',
   })
-  isLoggedIn.value = (response.status !== 401)
-  userLoginState.value = (response.status !== 401)
+  const jsonData = await response.json() as SessionCheck
+  userLoginState.value = jsonData.loggedIn
   emits('modalClose')
 }
 
@@ -33,12 +33,11 @@ function cancel() {
 }
 
 async function logout() {
-  const response = await backendFetchRequest('logout', {
+  await backendFetchRequest('logout', {
     method: 'GET',
     credentials: 'include',
   })
-  isLoggedIn.value = (response.status !== 401)
-  userLoginState.value = (response.status !== 401)
+  userLoginState.value = false
   emits('modalClose')
 }
 
@@ -48,15 +47,10 @@ async function checkIfLoggedIn() {
       method: 'GET',
       credentials: 'include',
     })
-    if (response.status === 401) {
-      isLoggedIn.value = false
-      userLoginState.value = false
-    }
-    isLoggedIn.value = response.ok
-    userLoginState.value = response.ok
+    const jsonData = await response.json() as SessionCheck
+    userLoginState.value = jsonData.loggedIn
   }
   catch {
-    isLoggedIn.value = false
     userLoginState.value = false
   }
 }
@@ -70,7 +64,7 @@ onClickOutside(target, () => emits('modalClose'))
 
 <template>
   <div v-if="isOpen" class="top-0 text fixed left-0 z-999 size-full backdrop-blur-xl">
-    <div v-if="!isLoggedIn" @keydown.escape="cancel">
+    <div v-if="!userLoginState" @keydown.escape="cancel">
       <div ref="target" class="mx-auto mb-auto mt-150px w-300px px-30px pb-30px pt-20px modal">
         <div class="flex flex-col w-300 gap-4 p-6">
           <form class="flex flex-col gap-2">

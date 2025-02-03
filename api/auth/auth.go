@@ -3,9 +3,11 @@ package auth
 import (
 	"crypto/rand"
 	"encoding/base64"
+	"encoding/json"
 	"log"
 	"net/http"
 	"os"
+	"recipebook/types"
 )
 
 var sessionToken = make(map[string]bool)
@@ -35,7 +37,15 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 			MaxAge:   604800,
 		})
 		log.Println("Login successful")
-		w.Write([]byte("Login successful"))
+
+		sessionCheck := types.SessionCheck{
+			LoggedIn: true,
+		}
+		w.Header().Set("Content-Type", "application/json")
+		if err := json.NewEncoder(w).Encode(sessionCheck); err != nil {
+			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+		}
+
 	} else {
 		log.Println("Login unsuccessful, invalid credentials")
 		http.Error(w, "Invalid credentials", http.StatusUnauthorized)
@@ -66,15 +76,28 @@ func LogoutHandler(w http.ResponseWriter, r *http.Request) {
 			Path:   "/",
 		})
 	}
-	w.WriteHeader(http.StatusUnauthorized)
-	w.Write([]byte("Logged out"))
+	sessionCheck := types.SessionCheck{
+		LoggedIn: false,
+	}
+	w.Header().Set("Content-Type", "application/json")
+	if err := json.NewEncoder(w).Encode(sessionCheck); err != nil {
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+	}
 }
 
 func CheckSessionHandler(w http.ResponseWriter, r *http.Request) {
-	cookie, err := r.Cookie("appSession")
-	if err != nil || !sessionToken[cookie.Value] {
-		http.Error(w, "Unauthorized", http.StatusUnauthorized)
-		return
+	sessionCheck := types.SessionCheck{
+		LoggedIn: false,
 	}
-	w.WriteHeader(http.StatusOK)
+	cookie, err := r.Cookie("appSession")
+	if err == nil {
+		if sessionToken[cookie.Value] {
+			sessionCheck.LoggedIn = true
+		}
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	if err := json.NewEncoder(w).Encode(sessionCheck); err != nil {
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+	}
 }

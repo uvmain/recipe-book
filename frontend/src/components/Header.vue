@@ -11,6 +11,7 @@ const router = useRouter()
 
 const filtered = useSessionStorage<boolean>('filtered', false)
 const showFilters = useSessionStorage<boolean>('showFilters', false)
+const userLoginState = useSessionStorage('login-state', false)
 
 const currentPath = computed(() => {
   return router.currentRoute.value.path
@@ -114,6 +115,9 @@ onBeforeMount(() => {
         <icon-lucide-user class="headerButtonIcon" />
       </button>
       <LoginModal :is-open="isModalOpened" @modal-close="closeModal" />
+      <div>
+        {{ userLoginState }}
+      </div>
     </header>
   </div>
 </template>
