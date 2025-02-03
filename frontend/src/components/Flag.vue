@@ -86,7 +86,7 @@ defineProps({
   <icon-flagpack-ga v-else-if="country === 'Gabon'" />
   <icon-flagpack-gb v-else-if="country === 'England'" />
   <icon-flagpack-gb-sct v-else-if="country === 'Scotland'" />
-  <icon-flagpack-gb-ukm v-else-if="country === 'United Kingdom of Great Britain'" />
+  <icon-flagpack-gb-ukm v-else-if="country === 'United Kingdom'" />
   <icon-flagpack-gb-wls v-else-if="country === 'Wales'" />
   <icon-flagpack-gd v-else-if="country === 'Grenada'" />
   <icon-flagpack-ge v-else-if="country === 'Georgia'" />
