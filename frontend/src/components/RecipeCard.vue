@@ -33,7 +33,7 @@ const showSource = computed(() => {
 })
 
 const imageAddress = computed(() => {
-  return props.recipeCard.imageFilename ? `api/images/${props.recipeCard.imageFilename}` : '/default.webp'
+  return props.recipeCard.imageFilename ? `/api/images/${props.recipeCard.imageFilename}` : '/default.webp'
 })
 </script>
 

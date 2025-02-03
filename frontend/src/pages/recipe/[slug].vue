@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import type { RecipesApiResponse } from '../../types/recipes'
+import type { Recipe } from '../../types/recipes'
 import { useHead } from '@vueuse/head'
 import { backendFetchRequest } from '../../composables/fetchFromBackend'
 
 const route = useRoute()
 const recipe = ref()
 
-const recipeSlug = `${route.params.slug}`
+const recipeSlug = computed(() => `${route.params.slug}`)
 
 async function getRecipe() {
   try {
-    const response = await backendFetchRequest(`recipes/${recipeSlug}`)
-    const json = await response.json() as RecipesApiResponse
-    recipe.value = json ? json.data : []
+    const response = await backendFetchRequest(`recipes/${recipeSlug.value}`)
+    const jsonData = await response.json() as Recipe
+    recipe.value = jsonData
   }
   catch (error) {
-    console.error('Failed to fetch recipes:', error)
+    console.error('Failed to fetch recipe:', error)
   }
 }
 
@@ -25,6 +25,10 @@ const computedHead = computed(() => {
 
 useHead({
   titleTemplate: computedHead,
+})
+
+watch(recipeSlug, () => {
+  getRecipe()
 })
 
 onBeforeMount(() => {

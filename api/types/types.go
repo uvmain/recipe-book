@@ -30,10 +30,10 @@ type Recipe struct {
 	CookingTime   NullString `json:"cookingTime"`
 	Calories      NullString `json:"calories"`
 	Servings      NullString `json:"servings"`
-	Ingredients   NullString `json:"Ingredients"`
+	Ingredients   NullString `json:"ingredients"`
 	Instructions  NullString `json:"instructions"`
 	ImageFilename NullString `json:"imageFilename"`
-	ImageWidth    int        `json:"ImageWidth"`
+	ImageWidth    int        `json:"imageWidth"`
 	ImageHeight   int        `json:"imageHeight"`
 }
 
@@ -51,6 +51,14 @@ type RecipeCard struct {
 	Calories      NullString `json:"calories"`
 	Servings      NullString `json:"servings"`
 	ImageFilename NullString `json:"imageFilename"`
-	ImageWidth    int        `json:"ImageWidth"`
+	ImageWidth    int        `json:"imageWidth"`
 	ImageHeight   int        `json:"imageHeight"`
+}
+
+type Filters struct {
+	Search     []string
+	Calories   int
+	Courses    []string
+	Country    string
+	Vegetarian bool
 }

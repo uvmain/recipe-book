@@ -9,6 +9,8 @@ import (
 	"recipebook/images"
 	"recipebook/logic"
 	"recipebook/types"
+	"strconv"
+	"strings"
 	"time"
 
 	"github.com/rs/cors"
@@ -96,7 +98,21 @@ func handleGetRecipeBySlug(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleGetRecipeCardsOrderedByDateCreated(w http.ResponseWriter, r *http.Request) {
-	recipeCards, _ := database.GetRecipeCardsOrderedByDateCreated()
+	searchParam := r.URL.Query().Get("filter")
+	caloriesParam := r.URL.Query().Get("calories")
+	coursesParam := r.URL.Query().Get("courses")
+	countryParam := r.URL.Query().Get("country")
+	vegetarianParam := r.URL.Query().Get("vegetarian")
+
+	var filters types.Filters
+
+	filters.Search = strings.Split(searchParam, ",")
+	filters.Calories, _ = strconv.Atoi(caloriesParam)
+	filters.Courses = strings.Split(coursesParam, ",")
+	filters.Country = countryParam
+	filters.Vegetarian, _ = strconv.ParseBool(vegetarianParam)
+
+	recipeCards, _ := database.GetRecipeCardsOrderedByDateCreated(filters)
 	w.Header().Set("Content-Type", "application/json")
 	if err := json.NewEncoder(w).Encode(recipeCards); err != nil {
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)

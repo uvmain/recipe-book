@@ -136,7 +136,7 @@ func UpdateRecipeBySlug(slug string, updates map[string]interface{}) error {
 	return err
 }
 
-func GetRecipeCardsOrderedByDateCreated() ([]types.RecipeCard, error) {
+func GetRecipeCardsOrderedByDateCreated(filters types.Filters) ([]types.RecipeCard, error) {
 	var recipeCards []types.RecipeCard
 
 	query := `SELECT slug, dateCreated, name, author, source, course, country, vegetarian, prepTime, cookingTime, calories, servings, imageFilename, imageWidth, imageHeight FROM recipes ORDER BY dateCreated DESC;`

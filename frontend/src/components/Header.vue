@@ -26,13 +26,13 @@ async function getRecipeCount() {
 
 async function navToRandomRecipe() {
   const response = await backendFetchRequest('random-recipe')
-  const randomRecipe = await response.json() as { data: Recipe }
+  const randomRecipe = await response.json() as Recipe
 
-  if (currentPath.value === `/recipe/${randomRecipe.data.slug}`) {
+  if (currentPath.value === `/recipe/${randomRecipe.slug}`) {
     navToRandomRecipe()
   }
   resetSearch()
-  await router.push(`/recipe/${randomRecipe.data.slug}`)
+  await router.push(`/recipe/${randomRecipe.slug}`)
 }
 
 async function navToHome() {

@@ -7,9 +7,9 @@ import { getTimers } from '../composables/timerParse'
 const props = defineProps({
   recipe: { type: Object, required: true },
 })
+
 const { width } = useWindowSize()
 const isLargeScreen = useMediaQuery('(min-width: 1201px)')
-
 const md = markdownit()
 
 const sourceTag = computed(() => {
@@ -21,7 +21,7 @@ const caloriesPerServing = computed(() => {
 })
 
 const imageAddress = computed(() => {
-  return props.recipe.image ? `http://localhost:3001/api/images/${props.recipe.image}` : '/default.webp'
+  return props.recipe.imageFilename ? `/api/images/${props.recipe.imageFilename}` : '/default.webp'
 })
 
 const ingredientsMarkdown = computed(() => {
