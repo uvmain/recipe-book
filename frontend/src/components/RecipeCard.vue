@@ -40,7 +40,7 @@ const imageAddress = computed(() => {
 <template>
   <div class="text-center border text rounded no-underline block overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-100 dark:hover:shadow-gray-600" @click="navigateToRecipe()">
     <div id="card-header" class="flex flex-col h-60">
-      <img :src="imageAddress" :alt="recipeCard.name" loading="lazy" class="w-full object-cover h-full">
+      <img :src="imageAddress" :alt="recipeCard.name" loading="lazy" :width="recipeCard.imageWidth" :height="recipeCard.imageHeight" class="w-full object-cover h-full">
     </div>
     <div>
       <h2 class="text-xl font-bold titleText mx-1">

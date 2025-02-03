@@ -112,7 +112,7 @@ func handleGetRecipeCardsOrderedByDateCreated(w http.ResponseWriter, r *http.Req
 	filters.Country = countryParam
 	filters.Vegetarian, _ = strconv.ParseBool(vegetarianParam)
 
-	recipeCards, _ := database.GetRecipeCardsOrderedByDateCreated(filters)
+	recipeCards, _ := database.GetRecipeCardsFilteredAndOrderedByDateCreated(filters)
 	w.Header().Set("Content-Type", "application/json")
 	if err := json.NewEncoder(w).Encode(recipeCards); err != nil {
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)

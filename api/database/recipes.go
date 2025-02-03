@@ -3,7 +3,9 @@ package database
 import (
 	"fmt"
 	"log"
+	"recipebook/logic"
 	"recipebook/types"
+	"strings"
 )
 
 func GetRecipeCount() (int, error) {
@@ -136,10 +138,11 @@ func UpdateRecipeBySlug(slug string, updates map[string]interface{}) error {
 	return err
 }
 
-func GetRecipeCardsOrderedByDateCreated(filters types.Filters) ([]types.RecipeCard, error) {
+func GetRecipeCardsFilteredAndOrderedByDateCreated(filters types.Filters) ([]types.RecipeCard, error) {
+	var recipes []types.Recipe
 	var recipeCards []types.RecipeCard
 
-	query := `SELECT slug, dateCreated, name, author, source, course, country, vegetarian, prepTime, cookingTime, calories, servings, imageFilename, imageWidth, imageHeight FROM recipes ORDER BY dateCreated DESC;`
+	query := `SELECT slug, dateCreated, name, author, source, course, country, vegetarian, prepTime, cookingTime, calories, servings, ingredients, instructions, imageFilename, imageWidth, imageHeight FROM recipes ORDER BY dateCreated DESC;`
 	rows, err := Database.Query(query)
 	if err != nil {
 		log.Printf("Query failed: %v", err)
@@ -148,14 +151,56 @@ func GetRecipeCardsOrderedByDateCreated(filters types.Filters) ([]types.RecipeCa
 	defer rows.Close()
 
 	for rows.Next() {
-		var recipe types.RecipeCard
+		var recipe types.Recipe
+		var filterOut = false
 		if err := rows.Scan(&recipe.Slug, &recipe.DateCreated, &recipe.Name, &recipe.Author, &recipe.Source, &recipe.Course,
 			&recipe.Country, &recipe.Vegetarian, &recipe.PrepTime, &recipe.CookingTime, &recipe.Calories, &recipe.Servings,
-			&recipe.ImageFilename, &recipe.ImageWidth, &recipe.ImageHeight); err != nil {
+			&recipe.Ingredients, &recipe.Instructions, &recipe.ImageFilename, &recipe.ImageWidth, &recipe.ImageHeight); err != nil {
 			log.Printf("Failed to scan row: %v", err)
 			return nil, err
 		}
-		recipeCards = append(recipeCards, recipe)
+
+		if filters.Calories > 0 {
+			recipeCalories, _ := logic.ConvertNullStringToInt(recipe.Calories)
+			recipeServings, _ := logic.ConvertNullStringToInt(recipe.Servings)
+			if recipeCalories > 0 && recipeServings > 0 {
+				if (recipeCalories / recipeServings) > filters.Calories {
+					filterOut = true
+				}
+			} else {
+				filterOut = true
+			}
+		}
+
+		if filters.Country != "" && filters.Country != recipe.Country.String {
+			filterOut = true
+		}
+
+		if filters.Vegetarian && filters.Vegetarian != recipe.Vegetarian {
+			filterOut = true
+		}
+
+		if logic.FilteredSliceIsNotEmpty(filters.Courses) {
+			filterIn := false
+			for _, course := range logic.FilterEmptyStringsFromSlice(filters.Courses) {
+				if course == recipe.Course.String {
+					filterIn = true
+				}
+			}
+			if !filterIn {
+				filterOut = true
+			}
+		}
+
+		if logic.FilteredSliceIsNotEmpty(filters.Search) {
+			if !recipeContainsStrings(recipe, logic.FilterEmptyStringsFromSlice(filters.Search)) {
+				filterOut = true
+			}
+		}
+
+		if !filterOut {
+			recipes = append(recipes, recipe)
+		}
 	}
 
 	if err := rows.Err(); err != nil {
@@ -163,5 +208,57 @@ func GetRecipeCardsOrderedByDateCreated(filters types.Filters) ([]types.RecipeCa
 		return recipeCards, err
 	}
 
+	for _, recipe := range recipes {
+		var recipeCard types.RecipeCard
+
+		recipeCard.Author = recipe.Author
+		recipeCard.Calories = recipe.Calories
+		recipeCard.CookingTime = recipe.CookingTime
+		recipeCard.Country = recipe.Country
+		recipeCard.Course = recipe.Course
+		recipeCard.DateCreated = recipe.DateCreated
+		recipeCard.ImageFilename = recipe.ImageFilename
+		recipeCard.ImageHeight = recipe.ImageHeight
+		recipeCard.ImageWidth = recipe.ImageWidth
+		recipeCard.Name = recipe.Name
+		recipeCard.PrepTime = recipe.PrepTime
+		recipeCard.Servings = recipe.Servings
+		recipeCard.Slug = recipe.Slug
+		recipeCard.Source = recipe.Source
+		recipeCard.Vegetarian = recipe.Vegetarian
+
+		recipeCards = append(recipeCards, recipeCard)
+	}
+
 	return recipeCards, nil
+}
+
+func recipeContainsStrings(recipe types.Recipe, searchStrings []string) bool {
+	recipeStrings := []string{
+		recipe.Name.String,
+		recipe.Author.String,
+		recipe.Source.String,
+		recipe.Course.String,
+		recipe.Country.String,
+		recipe.ImageFilename.String,
+	}
+
+	recipeStrings = append(recipeStrings, strings.Split(recipe.Slug, "-")...)
+	recipeStrings = append(recipeStrings, strings.Split(recipe.Ingredients.String, " ")...)
+	recipeStrings = append(recipeStrings, strings.Split(recipe.Instructions.String, " ")...)
+
+	if recipe.Vegetarian {
+		recipeStrings = append(recipeStrings, "vegetarian")
+	}
+
+	recipeStrings = logic.StringArraySortUniqueLowercase(recipeStrings)
+
+	for _, searchString := range searchStrings {
+		for _, recipeString := range recipeStrings {
+			if strings.Contains(recipeString, strings.ToLower(searchString)) {
+				return true
+			}
+		}
+	}
+	return false
 }

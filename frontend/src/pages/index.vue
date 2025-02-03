@@ -17,7 +17,7 @@ const selectedCountry = useSessionStorage<string>('selectedCountry', '')
 const selectedCalories = useSessionStorage<number>('selectedCalories', 1000)
 
 async function getRecipes() {
-  let url = searchInput.value || selectedCourses.value?.length || selectedVegetarian.value === true || selectedCountry.value?.length > 0 ? 'recipecards?' : 'recipecards'
+  let url = searchInput.value || selectedCourses.value?.length || selectedVegetarian.value === true || selectedCountry.value?.length > 0 || selectedCalories.value !== 1000 ? 'recipecards?' : 'recipecards'
   url = searchInput.value ? `${url}&filter=${searchInput.value.split(' ')}` : url
   url = selectedCourses.value?.length ? `${url}&courses=${selectedCourses.value}` : url
   url = selectedVegetarian.value === true ? `${url}&vegetarian=true` : url

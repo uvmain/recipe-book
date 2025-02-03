@@ -102,7 +102,7 @@ async function setTimerPlacement() {
           </div>
         </div>
         <div ref="image" class="flex">
-          <img :src="imageAddress" :alt="recipe.name" class="w-full border-1 border-solid border-gray-400 rounded object-cover max-h-200 md:mb-4" @load="setTimerPlacement">
+          <img :src="imageAddress" :alt="recipe.name" loading="lazy" :width="recipe.imageWidth" :height="recipe.imageHeight" class="w-full border-1 border-solid border-gray-400 rounded object-cover max-h-200 md:mb-4" @load="setTimerPlacement">
         </div>
         <div v-if="timers.length && placement === 'left'" class="flex gap-2 flex-wrap md:gap-4 justify-end sm:mt-4 md:-mt-4">
           <Timer v-for="(timer, index) of timers" :key="index" :minutes="timer" />
