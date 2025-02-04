@@ -6,6 +6,7 @@ import (
 	"recipebook/logic"
 	"recipebook/types"
 	"strings"
+	"time"
 )
 
 func GetRecipeCount() (int, error) {
@@ -40,7 +41,7 @@ func InsertRecipe(recipe types.RecipeInsert) error {
 	defer stmt.Close()
 
 	_, err = stmt.Exec(
-		recipe.Slug, recipe.DateCreated, recipe.Name, recipe.Author, recipe.Source, recipe.Course,
+		recipe.Slug, time.Now(), recipe.Name, recipe.Author, recipe.Source, recipe.Course,
 		recipe.Country, recipe.Vegetarian, recipe.PrepTime, recipe.CookingTime, recipe.Calories,
 		recipe.Servings, recipe.Ingredients, recipe.Instructions, recipe.ImageFilename, recipe.ImageWidth, recipe.ImageHeight,
 	)

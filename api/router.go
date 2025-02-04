@@ -184,20 +184,21 @@ func handleGetRandomRecipe(w http.ResponseWriter, r *http.Request) {
 }
 
 func handlePostNewImage(w http.ResponseWriter, r *http.Request) {
-	file, fileHeader, err := r.FormFile("file")
+	file, _, err := r.FormFile("file")
 	if err != nil {
 		http.Error(w, "Failed to read file: "+err.Error(), http.StatusBadRequest)
 		return
 	}
+	filename := r.FormValue("filename")
 	defer file.Close()
 
-	err = images.UploadImage(file, fileHeader)
+	err = images.UploadImage(file, filename)
 	if err != nil {
 		http.Error(w, "Failed to upload image", http.StatusInternalServerError)
 		return
 	}
 
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("tag rows inserted successfully"))
+	w.Write([]byte("Image uploaded successfully"))
 
 }

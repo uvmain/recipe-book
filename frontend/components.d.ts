@@ -289,6 +289,8 @@ declare module 'vue' {
     IconLucideSun: typeof import('~icons/lucide/sun')['default']
     IconLucideSunMoon: typeof import('~icons/lucide/sun-moon')['default']
     IconLucideUser: typeof import('~icons/lucide/user')['default']
+    ImageSelector: typeof import('./src/components/ImageSelector.vue')['default']
+    ImageUploader: typeof import('./src/components/ImageSelector.vue')['default']
     LoginModal: typeof import('./src/components/LoginModal.vue')['default']
     Recipe: typeof import('./src/components/Recipe.vue')['default']
     RecipeCard: typeof import('./src/components/RecipeCard.vue')['default']

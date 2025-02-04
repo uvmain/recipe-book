@@ -9,12 +9,10 @@ import (
 	"recipebook/logic"
 )
 
-func UploadImage(file multipart.File, fileHeader *multipart.FileHeader) error {
-	fileName := fileHeader.Filename
+func UploadImage(file multipart.File, filename string) error {
+	log.Printf("Uploading: %s", filename)
 
-	log.Printf("Uploading: %s", fileName)
-
-	filePath := filepath.Join(logic.ImagesDirectory, fileName)
+	filePath := filepath.Join(logic.ImagesDirectory, filename)
 	outFile, err := os.Create(filePath)
 	if err != nil {
 		log.Printf("failed to parse uploaded file: %v", err)
