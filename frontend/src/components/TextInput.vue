@@ -16,12 +16,21 @@ function handleInput(event: any) {
   <div class="w-full flex flex-row gap-4">
     <label :for="label">{{ label }}</label>
     <input
+      v-if="type === 'text'"
       :id="label"
       :placeholder="modelValue"
       :value="modelValue"
       :type="type"
       class="w-full border-1 border-white border-dashed p-1"
       @input="handleInput"
-    >
+    />
+    <textarea
+      v-if="type === 'textarea'"
+      :id="label"
+      :placeholder="modelValue"
+      :value="modelValue"
+      class="w-full border-1 border-white border-dashed p-1 min-h-40"
+      @input="handleInput"
+    />
   </div>
 </template>

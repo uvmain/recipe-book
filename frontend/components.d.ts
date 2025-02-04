@@ -7,7 +7,9 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    copy: typeof import('./src/components/Recipe copy.vue')['default']
+    Checkbox: typeof import('./src/components/Checkbox.vue')['default']
+    copy: typeof import('./src/components/TextInput copy.vue')['default']
+    Dropdown: typeof import('./src/components/Dropdown.vue')['default']
     EditRecipe: typeof import('./src/components/EditRecipe.vue')['default']
     Filters: typeof import('./src/components/Filters.vue')['default']
     Flag: typeof import('./src/components/Flag.vue')['default']
