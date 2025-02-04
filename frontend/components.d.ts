@@ -7,6 +7,8 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    copy: typeof import('./src/components/Recipe copy.vue')['default']
+    EditRecipe: typeof import('./src/components/EditRecipe.vue')['default']
     Filters: typeof import('./src/components/Filters.vue')['default']
     Flag: typeof import('./src/components/Flag.vue')['default']
     Header: typeof import('./src/components/Header.vue')['default']
@@ -268,6 +270,7 @@ declare module 'vue' {
     IconLucideCookingPot: typeof import('~icons/lucide/cooking-pot')['default']
     IconLucideCroissant: typeof import('~icons/lucide/croissant')['default']
     IconLucideDessert: typeof import('~icons/lucide/dessert')['default']
+    IconLucideEdit: typeof import('~icons/lucide/edit')['default']
     IconLucideEraser: typeof import('~icons/lucide/eraser')['default']
     IconLucideFilter: typeof import('~icons/lucide/filter')['default']
     IconLucideFishSymbol: typeof import('~icons/lucide/fish-symbol')['default']
@@ -280,6 +283,7 @@ declare module 'vue' {
     IconLucideSave: typeof import('~icons/lucide/save')['default']
     IconLucideShuffle: typeof import('~icons/lucide/shuffle')['default']
     IconLucideSoup: typeof import('~icons/lucide/soup')['default']
+    IconLucideSquarePlus: typeof import('~icons/lucide/square-plus')['default']
     IconLucideSun: typeof import('~icons/lucide/sun')['default']
     IconLucideSunMoon: typeof import('~icons/lucide/sun-moon')['default']
     IconLucideUser: typeof import('~icons/lucide/user')['default']

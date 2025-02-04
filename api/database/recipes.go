@@ -30,7 +30,7 @@ func DeleteRecipeBySlug(slug string) error {
 	return nil
 }
 
-func InsertRecipe(recipe types.Recipe) error {
+func InsertRecipe(recipe types.RecipeInsert) error {
 	stmt, err := Database.Prepare(`INSERT INTO recipes (
 		slug, dateCreated, name, author, source, course, country, vegetarian, prepTime, cookingTime, calories, servings, ingredients, instructions, imageFilename, imageWidth, imageHeight
 	) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`)

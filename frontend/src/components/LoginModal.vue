@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { SessionCheck } from '../types/auth'
 import { onClickOutside, useSessionStorage } from '@vueuse/core'
+import { checkIfLoggedIn } from '../composables/auth'
 import { backendFetchRequest } from '../composables/fetchFromBackend'
 
 defineProps({
@@ -12,7 +13,7 @@ const emits = defineEmits(['modalClose'])
 const username = ref('')
 const password = ref('')
 const target = ref(null)
-const userLoginState = useSessionStorage('login-state', false)
+const userLoginState = useSessionStorage('untrustedLoginState', false)
 
 async function login() {
   const formData = new FormData()
@@ -39,20 +40,6 @@ async function logout() {
   })
   userLoginState.value = false
   emits('modalClose')
-}
-
-async function checkIfLoggedIn() {
-  try {
-    const response = await backendFetchRequest('check-session', {
-      method: 'GET',
-      credentials: 'include',
-    })
-    const jsonData = await response.json() as SessionCheck
-    userLoginState.value = jsonData.loggedIn
-  }
-  catch {
-    userLoginState.value = false
-  }
 }
 
 onBeforeMount(() => {

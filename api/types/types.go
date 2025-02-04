@@ -37,6 +37,26 @@ type Recipe struct {
 	ImageHeight   int        `json:"imageHeight"`
 }
 
+type RecipeInsert struct {
+	Slug          string    `json:"slug"`
+	DateCreated   time.Time `json:"dateCreated"`
+	Name          string    `json:"name"`
+	Author        string    `json:"author"`
+	Source        string    `json:"source"`
+	Course        string    `json:"course"`
+	Country       string    `json:"country"`
+	Vegetarian    bool      `json:"vegetarian"`
+	PrepTime      string    `json:"prepTime"`
+	CookingTime   string    `json:"cookingTime"`
+	Calories      string    `json:"calories"`
+	Servings      string    `json:"servings"`
+	Ingredients   string    `json:"ingredients"`
+	Instructions  string    `json:"instructions"`
+	ImageFilename string    `json:"imageFilename"`
+	ImageWidth    int       `json:"imageWidth"`
+	ImageHeight   int       `json:"imageHeight"`
+}
+
 type RecipeCard struct {
 	Slug          string     `json:"slug"`
 	DateCreated   time.Time  `json:"dateCreated"`

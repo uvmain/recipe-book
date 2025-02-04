@@ -3,7 +3,7 @@ import { convertToAlphanumeric } from './alphaNumeric'
 export function getTimers(paragraph: string): number[] {
   const timerDetails: number[] = []
 
-  const recipesWords = convertToAlphanumeric(paragraph).split('-')
+  const recipesWords = paragraph && paragraph.length > 0 ? convertToAlphanumeric(paragraph).split('-') : []
 
   recipesWords.forEach((word: string, index) => {
     if (word.includes('min') || word.includes('hour')) {

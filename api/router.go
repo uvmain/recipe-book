@@ -151,8 +151,9 @@ func handlePatchRecipeBySlug(w http.ResponseWriter, r *http.Request) {
 }
 
 func handlePostRecipe(w http.ResponseWriter, r *http.Request) {
-	var updates types.Recipe
+	var updates types.RecipeInsert
 	if err := json.NewDecoder(r.Body).Decode(&updates); err != nil {
+		log.Printf("Invalid JSON: %s", err)
 		http.Error(w, "Invalid JSON", http.StatusBadRequest)
 		return
 	}

@@ -7,11 +7,13 @@ import { resetFilters, resetSearch } from '../composables/resets'
 const isDark = useDark()
 const toggleDark = useToggle(isDark)
 const isModalOpened = ref(false)
+const route = useRoute()
 const router = useRouter()
 
 const filtered = useSessionStorage<boolean>('filtered', false)
 const showFilters = useSessionStorage<boolean>('showFilters', false)
-const userLoginState = useSessionStorage('login-state', false)
+const userLoginState = useSessionStorage('untrustedLoginState', false)
+const inEditingMode = useSessionStorage('inEditingMode', false)
 
 const currentPath = computed(() => {
   return router.currentRoute.value.path
@@ -42,6 +44,10 @@ async function navToHome() {
   await router.push('/')
 }
 
+async function navToNew() {
+  await router.push('/new')
+}
+
 function toggleFilters() {
   showFilters.value = !showFilters.value
 }
@@ -62,6 +68,10 @@ function closeModal() {
   isModalOpened.value = false
 }
 
+function toggleInEditingMode() {
+  inEditingMode.value = !inEditingMode.value
+}
+
 onBeforeMount(() => {
   getRecipeCount()
 })
@@ -70,14 +80,19 @@ onBeforeMount(() => {
 <template>
   <div class="background w-full h-18 lg:h-20">
     <header class="flex flex-row gap-1 justify-center items-center p-4 lg:p-6 lg:gap-4">
-      <button
-        type="button"
-        aria-label="navigate to homepage"
-        class="headerButton"
-        @click="navToHome()"
-      >
-        <icon-lucide-home class="headerButtonIcon" />
-      </button>
+      <div class="group">
+        <button
+          type="button"
+          aria-label="navigate to homepage"
+          class="headerButton"
+          @click="navToHome()"
+        >
+          <icon-lucide-home class="headerButtonIcon" />
+        </button>
+        <span class="group-hover:opacity-90 dark:border-neutral-200 border-neutral-800 border-1 border-solid rounded px-2 py-1 text-sm text background invisible absolute group-hover:visible ml-2">
+          Home
+        </span>
+      </div>
       <button
         type="button"
         aria-label="navigate to random recipe"
@@ -98,6 +113,24 @@ onBeforeMount(() => {
         <icon-lucide-filter class="headerButtonIcon" />
       </button>
       <button
+        v-if="userLoginState && route.path.startsWith('/recipe/')"
+        type="button"
+        aria-label="enable editing mode"
+        class="headerButton"
+        @click="toggleInEditingMode()"
+      >
+        <icon-lucide-edit class="headerButtonIcon" />
+      </button>
+      <button
+        v-if="userLoginState"
+        type="button"
+        aria-label="toggle dark mode"
+        class="headerButton"
+        @click="navToNew()"
+      >
+        <icon-lucide-square-plus class="headerButtonIcon" />
+      </button>
+      <button
         type="button"
         aria-label="toggle dark mode"
         class="headerButton"
@@ -115,9 +148,14 @@ onBeforeMount(() => {
         <icon-lucide-user class="headerButtonIcon" />
       </button>
       <LoginModal :is-open="isModalOpened" @modal-close="closeModal" />
-      <div>
-        {{ userLoginState }}
-      </div>
     </header>
   </div>
 </template>
+
+<style>
+@keyframes emptyanim {}
+
+.fade:hover {
+    animation:emptyanim;
+}
+</style>

@@ -25,11 +25,11 @@ const imageAddress = computed(() => {
 })
 
 const ingredientsMarkdown = computed(() => {
-  return md.render(props.recipe.ingredients)
+  return md.render(props.recipe.ingredients || '')
 })
 
 const instructionsMarkdown = computed(() => {
-  return md.render(props.recipe.instructions)
+  return md.render(props.recipe.instructions || '')
 })
 
 const timers = computed(() => {
