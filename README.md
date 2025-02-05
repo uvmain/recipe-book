@@ -1,15 +1,12 @@
 # recipebook Web Application
 
-This is a **recipebook Web Application** built with a **Go REST API backend** and a **Vite/Vue frontend**. The application uses **SQLite** to store image metadata and features image thumbnail generation, EXIF data retrieval, and album organization. It is designed to be served on a local or hosted server with a reverse proxy for routing.
+This is a **recipebook Web Application** built with a **Go REST API backend** and a **Vite/Vue frontend**. The application uses **SQLite** to store recipes and is designed to be served on a local or hosted server with a reverse proxy for routing.
 
 ## Features
 
 - Go REST API backend
 - Vue.js frontend built with Vite
-- SQLite database for image metadata storage
-- Automatic thumbnail generation
-- EXIF metadata retrieval
-- Basic single-user authentication with cookies
+- SQLite database for image metadata storage and auth session storage
 - SSL/TLS certificate generation for local development
 
 ## Project Structure
@@ -40,7 +37,6 @@ This command downloads the npm dependencies for the local dev and frontend compo
 3. **Set up environment variables:**
 Update the following environment variables in the /package.json (for local dev) and in the docker_compose.yml (or sibling .env file):
 ```plaintext
-IMAGE_PATH=path/to/your/images
 ADMIN_USER=your_admin_name
 ADMIN_PASSWORD=your_admin_password
 ```
@@ -68,6 +64,7 @@ Open [recipebook.localhost](https://[recipebook.localhost) in your browser
 - `npm run dev` - Starts Caddy and concurrently runs the frontend and backend.
 - `npm run build` - Builds both the backend and frontend for production.
 - `npm run create-cert` - Generates and installs certificates for local SSL.
+- `npm run preview` - Runs the built distributable with Caddy for SSL and routing.
 
 ## Deployment
 
