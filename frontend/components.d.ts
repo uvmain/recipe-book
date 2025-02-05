@@ -8,9 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Checkbox: typeof import('./src/components/Checkbox.vue')['default']
-    copy: typeof import('./src/components/TextInput copy.vue')['default']
     Dropdown: typeof import('./src/components/Dropdown.vue')['default']
-    EditRecipe: typeof import('./src/components/EditRecipe.vue')['default']
     Filters: typeof import('./src/components/Filters.vue')['default']
     Flag: typeof import('./src/components/Flag.vue')['default']
     Header: typeof import('./src/components/Header.vue')['default']
@@ -290,7 +288,6 @@ declare module 'vue' {
     IconLucideSunMoon: typeof import('~icons/lucide/sun-moon')['default']
     IconLucideUser: typeof import('~icons/lucide/user')['default']
     ImageSelector: typeof import('./src/components/ImageSelector.vue')['default']
-    ImageUploader: typeof import('./src/components/ImageSelector.vue')['default']
     LoginModal: typeof import('./src/components/LoginModal.vue')['default']
     Recipe: typeof import('./src/components/Recipe.vue')['default']
     RecipeCard: typeof import('./src/components/RecipeCard.vue')['default']
@@ -302,6 +299,5 @@ declare module 'vue' {
     TextInput: typeof import('./src/components/TextInput.vue')['default']
     Timer: typeof import('./src/components/Timer.vue')['default']
     TooltipIcon: typeof import('./src/components/TooltipIcon.vue')['default']
-    ZoomableImage: typeof import('./src/components/ZoomableImage.vue')['default']
   }
 }
