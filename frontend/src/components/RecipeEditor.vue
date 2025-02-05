@@ -42,7 +42,9 @@ function cancel() {
 }
 
 function save() {
-  emit('save', localRecipe.value, resizedImage.value)
+  if (localRecipe.value.slug && localRecipe.value.slug.length > 0) {
+    emit('save', localRecipe.value, resizedImage.value)
+  }
 }
 
 useHead({

@@ -24,37 +24,48 @@ async function getRecipe() {
 
 async function handleSave(recipe: Recipe, imageBase64?: string) {
   const imageFilename = `${recipe.slug}.webp`
+  const originalFilename = recipe.imageFilename
   if (imageBase64 && imageBase64.length > 0) {
     recipe.imageFilename = imageFilename
-    await postImage(imageBase64, imageFilename)
+    console.log(imageFilename)
+    await patchImage(imageBase64, originalFilename, imageFilename)
   }
 
-  const response = await backendFetchRequest('recipes', {
+  const response = await backendFetchRequest(`recipes/${recipeSlug.value}`, {
     body: JSON.stringify(recipe),
-    method: 'POST',
+    method: 'PATCH',
   })
   await response.body
-  router.push(`/recipe/${recipe.slug}`)
+  // router.push(`/recipe/${recipe.slug}`)
 }
 
-async function postImage(imageBase64: string, imageFilename: string) {
-  const imageBlob = await base64ToBlob(imageBase64)
-  const formData = new FormData()
-  formData.append('file', imageBlob)
-  formData.append('filename', imageFilename)
+async function patchImage(imageBase64: string, originalFilename: string, imageFilename: string) {
   try {
-    const response = await backendFetchRequest('images', {
+    let response = await backendFetchRequest(`images/${originalFilename}`, {
+      method: 'DELETE',
+    })
+    if (!response.ok) {
+      const errorText = await response.body
+      console.error(`Image delete failed: ${errorText}`)
+    }
+
+    const imageBlob = await base64ToBlob(imageBase64)
+    const formData = new FormData()
+    formData.append('file', imageBlob)
+    formData.append('filename', imageFilename)
+
+    response = await backendFetchRequest('images', {
       body: formData,
       method: 'POST',
     })
 
     if (!response.ok) {
       const errorText = await response.body
-      console.error(`Upload failed: ${errorText}`)
+      console.error(`Image post failed: ${errorText}`)
     }
   }
   catch (error) {
-    console.error(`Upload failed: ${error}`)
+    console.error(`Image patch failed: ${error}`)
   }
 }
 
@@ -86,6 +97,10 @@ onBeforeMount(async () => {
 <template>
   <div>
     <RecipeForm v-if="recipe" :can-delete="true" :recipe="recipe" @cancel="handleCancel" @click-delete="toggleDeleting()" @save="handleSave" />
+    <div class="text text-2xl">
+      {{recipe.slug}}.webp
+
+    </div>
     <div v-if="deleting" class="flex justify-center gap-4 lg:w-2/3 mx-auto mb-8">
       <button aria-label="cancel" class="w-full textButton" @click="toggleDeleting">
         Cancel

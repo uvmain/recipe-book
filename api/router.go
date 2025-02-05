@@ -217,8 +217,6 @@ func handlePatchImageByFilename(w http.ResponseWriter, r *http.Request) {
 	// Delete the existing image
 	if err := images.DeleteImageByFilename(r.PathValue("filename")); err != nil {
 		log.Printf("Failed to delete image: %s", err)
-		http.Error(w, "Failed to delete image", http.StatusInternalServerError)
-		return
 	}
 	// Create the new image
 	file, _, err := r.FormFile("file")

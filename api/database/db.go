@@ -62,7 +62,7 @@ func Initialise() *sql.DB {
 
 func createRecipesTable() {
 	query := `CREATE TABLE IF NOT EXISTS recipes (
-		slug TEXT PRIMARY KEY,
+		slug TEXT PRIMARY KEY NOT NULL,
 		dateCreated DATETIME,
 		name TEXT,
 		author TEXT,
