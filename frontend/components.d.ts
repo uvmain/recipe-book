@@ -294,6 +294,7 @@ declare module 'vue' {
     LoginModal: typeof import('./src/components/LoginModal.vue')['default']
     Recipe: typeof import('./src/components/Recipe.vue')['default']
     RecipeCard: typeof import('./src/components/RecipeCard.vue')['default']
+    RecipeEditor: typeof import('./src/components/RecipeEditor.vue')['default']
     RecipeIcons: typeof import('./src/components/RecipeIcons.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
