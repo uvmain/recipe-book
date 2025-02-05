@@ -7,15 +7,17 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"recipebook/database"
 	"recipebook/types"
+	"time"
 )
 
-var sessionToken = make(map[string]bool)
-
-func generateToken() string {
+func generateToken() (string, error) {
 	b := make([]byte, 32)
-	rand.Read(b)
-	return base64.URLEncoding.EncodeToString(b)
+	if _, err := rand.Read(b); err != nil {
+		return "", err
+	}
+	return base64.URLEncoding.EncodeToString(b), nil
 }
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
@@ -25,8 +27,13 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	passedPassword := r.FormValue("password")
 	log.Println("User logging in")
 	if passedUsername == username && passedPassword == password {
-		token := generateToken()
-		sessionToken[token] = true
+		token, err := generateToken()
+		if err != nil {
+			log.Println("Error generating token:", err)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+		database.SaveSessionToken(token, time.Hour*24*7)
 		http.SetCookie(w, &http.Cookie{
 			Name:     "appSession",
 			Value:    token,
@@ -55,7 +62,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 func AuthMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("appSession")
-		if err != nil || !sessionToken[cookie.Value] {
+		if err != nil || !database.IsSessionValid(cookie.Value) {
 			log.Println("Unauthorized access attempt")
 			http.Error(w, "Unauthorized", http.StatusUnauthorized)
 			return
@@ -68,7 +75,7 @@ func LogoutHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("User logging out")
 	cookie, err := r.Cookie("appSession")
 	if err == nil {
-		delete(sessionToken, cookie.Value)
+		database.DeleteSessionToken(cookie.Value)
 		http.SetCookie(w, &http.Cookie{
 			Name:   "appSession",
 			Value:  "",
@@ -91,7 +98,7 @@ func CheckSessionHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	cookie, err := r.Cookie("appSession")
 	if err == nil {
-		if sessionToken[cookie.Value] {
+		if database.IsSessionValid(cookie.Value) {
 			sessionCheck.LoggedIn = true
 		}
 	}

@@ -53,10 +53,11 @@ func StartServer() {
 	router.HandleFunc("GET /api/images/{filename}", handleGetImageByFilename)
 
 	// authenticated routes
+	router.Handle("POST /api/recipes", auth.AuthMiddleware(http.HandlerFunc(handlePostRecipe)))
 	router.Handle("PATCH /api/recipes/{slug}", auth.AuthMiddleware(http.HandlerFunc(handlePatchRecipeBySlug)))
 	router.Handle("DELETE /api/recipes/{slug}", auth.AuthMiddleware(http.HandlerFunc(handleDeleteRecipeBySlug)))
-	router.Handle("POST /api/recipes", auth.AuthMiddleware(http.HandlerFunc(handlePostRecipe)))
 	router.Handle("POST /api/images", auth.AuthMiddleware(http.HandlerFunc(handlePostNewImage)))
+	router.Handle("PATCH /api/images/{filename}", auth.AuthMiddleware(http.HandlerFunc(handlePatchImageByFilename)))
 	router.Handle("DELETE /api/images/{filename}", auth.AuthMiddleware(http.HandlerFunc(handleDeleteImageByFilename)))
 
 	handler := cors.AllowAll().Handler(router)
@@ -210,4 +211,27 @@ func handleDeleteImageByFilename(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("Image deleted successfully"))
+}
+
+func handlePatchImageByFilename(w http.ResponseWriter, r *http.Request) {
+	// Delete the existing image
+	if err := images.DeleteImageByFilename(r.PathValue("filename")); err != nil {
+		log.Printf("Failed to delete image: %s", err)
+		http.Error(w, "Failed to delete image", http.StatusInternalServerError)
+		return
+	}
+	// Create the new image
+	file, _, err := r.FormFile("file")
+	if err != nil {
+		http.Error(w, "Failed to read file: "+err.Error(), http.StatusBadRequest)
+		return
+	}
+	defer file.Close()
+	filename := r.FormValue("filename")
+	if err := images.UploadImage(file, filename); err != nil {
+		http.Error(w, "Failed to upload image", http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("Image replaced successfully"))
 }

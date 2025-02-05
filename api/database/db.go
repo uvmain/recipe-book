@@ -54,11 +54,13 @@ func Initialise() *sql.DB {
 		log.Println("Database is in WAL mode")
 	}
 
-	createRecipesTable(db)
+	createRecipesTable()
+	CreateSessionsTable()
+	StartSessionCleanupRoutine()
 	return db
 }
 
-func createRecipesTable(db *sql.DB) {
+func createRecipesTable() {
 	query := `CREATE TABLE IF NOT EXISTS recipes (
 		slug TEXT PRIMARY KEY,
 		dateCreated DATETIME,
@@ -80,13 +82,12 @@ func createRecipesTable(db *sql.DB) {
 	);`
 
 	checkQuery := "SELECT name FROM sqlite_master WHERE type='table' AND name='recipes'"
-	var name string
-	checkError := db.QueryRow(checkQuery).Scan(&name)
+	checkError := Database.QueryRow(checkQuery).Scan()
 
 	if checkError == nil {
 		log.Println("recipes table already exists")
 	} else {
-		_, err := db.Exec(query)
+		_, err := Database.Exec(query)
 		if err != nil {
 			log.Printf("Error creating recipes table: %s", err)
 		} else {
