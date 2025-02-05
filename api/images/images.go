@@ -44,3 +44,16 @@ func GetImageByFilename(filename string) ([]byte, error) {
 	}
 	return blob, nil
 }
+
+func DeleteImageByFilename(filename string) error {
+	filePath, _ := filepath.Abs(filepath.Join(logic.ImagesDirectory, filename))
+	if _, err := os.Stat(filePath); os.IsNotExist(err) {
+		log.Printf("Image file does not exist: %s:  %s", filePath, err)
+		return err
+	}
+	err := os.Remove(filePath)
+	if err != nil {
+		return err
+	}
+	return nil
+}

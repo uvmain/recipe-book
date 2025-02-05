@@ -4,6 +4,7 @@ const props = defineProps({
   resizedImageWidth: { type: Number, required: true },
   resizedImageHeight: { type: Number, required: true },
   label: { type: String, required: true },
+  recipe: { type: Object, required: true },
 })
 
 const emit = defineEmits(['update:modelValue', 'update:resizedImage', 'update:resizedImageWidth', 'update:resizedImageHeight'])
@@ -114,6 +115,10 @@ function resizeAndConvertImage(base64Image: string) {
   }
 }
 
+const fallbackImageAddress = computed(() => {
+  return props.recipe.imageFilename ? `/api/images/${props.recipe.imageFilename}` : '/default.webp'
+})
+
 watch(model, () => {
   resizeAndConvertImage(model.value)
 })
@@ -155,6 +160,13 @@ watch(model, () => {
       <div v-if="model" class="mt-4">
         <img
           :src="model"
+          alt="Uploaded Image"
+          class="rounded-lg shadow-md w-28rem object-contain"
+        />
+      </div>
+      <div v-else-if="recipe.imageFilename" class="mt-4">
+        <img
+          :src="fallbackImageAddress"
           alt="Uploaded Image"
           class="rounded-lg shadow-md w-28rem object-contain"
         />

@@ -13,7 +13,6 @@ const router = useRouter()
 const filtered = useSessionStorage<boolean>('filtered', false)
 const showFilters = useSessionStorage<boolean>('showFilters', false)
 const userLoginState = useSessionStorage('untrustedLoginState', false)
-const inEditingMode = useSessionStorage('inEditingMode', false)
 
 const currentPath = computed(() => {
   return router.currentRoute.value.path
@@ -48,6 +47,10 @@ async function navToNew() {
   await router.push('/new')
 }
 
+async function navToEdit() {
+  await router.push(`/edit/${route.params.slug}`)
+}
+
 function toggleFilters() {
   showFilters.value = !showFilters.value
 }
@@ -66,10 +69,6 @@ function openModal() {
 
 function closeModal() {
   isModalOpened.value = false
-}
-
-function toggleInEditingMode() {
-  inEditingMode.value = !inEditingMode.value
 }
 
 onBeforeMount(() => {
@@ -117,14 +116,14 @@ onBeforeMount(() => {
         type="button"
         aria-label="enable editing mode"
         class="headerButton"
-        @click="toggleInEditingMode()"
+        @click="navToEdit()"
       >
         <icon-lucide-edit class="headerButtonIcon" />
       </button>
       <button
         v-if="userLoginState"
         type="button"
-        aria-label="toggle dark mode"
+        aria-label="create new recipe"
         class="headerButton"
         @click="navToNew()"
       >

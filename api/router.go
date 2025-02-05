@@ -57,6 +57,7 @@ func StartServer() {
 	router.Handle("DELETE /api/recipes/{slug}", auth.AuthMiddleware(http.HandlerFunc(handleDeleteRecipeBySlug)))
 	router.Handle("POST /api/recipes", auth.AuthMiddleware(http.HandlerFunc(handlePostRecipe)))
 	router.Handle("POST /api/images", auth.AuthMiddleware(http.HandlerFunc(handlePostNewImage)))
+	router.Handle("DELETE /api/images/{filename}", auth.AuthMiddleware(http.HandlerFunc(handleDeleteImageByFilename)))
 
 	handler := cors.AllowAll().Handler(router)
 
@@ -191,14 +192,22 @@ func handlePostNewImage(w http.ResponseWriter, r *http.Request) {
 	}
 	filename := r.FormValue("filename")
 	defer file.Close()
-
 	err = images.UploadImage(file, filename)
 	if err != nil {
 		http.Error(w, "Failed to upload image", http.StatusInternalServerError)
 		return
 	}
-
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("Image uploaded successfully"))
+}
 
+func handleDeleteImageByFilename(w http.ResponseWriter, r *http.Request) {
+	filename := r.PathValue("filename")
+	if err := images.DeleteImageByFilename(filename); err != nil {
+		log.Printf("Failed to delete image: %s", err)
+		http.Error(w, "Failed to delete image", http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("Image deleted successfully"))
 }

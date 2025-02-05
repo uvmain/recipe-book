@@ -3,8 +3,11 @@ import type { Recipe } from '../types/recipes'
 import { ref } from 'vue'
 import RecipeForm from '../components/RecipeEditor.vue'
 
+import { backendFetchRequest } from '../composables/fetchFromBackend'
+import { base64ToBlob } from '../composables/imaging'
+
 const router = useRouter()
-const initialRecipe = ref<Recipe>({
+const newRecipe = ref<Recipe>({
   slug: '',
   date_created: '',
   name: '',
@@ -24,15 +27,47 @@ const initialRecipe = ref<Recipe>({
   imageHeight: 0,
 })
 
-function handleCancel() {
-  router.push('/')
+async function handleSave(recipe: Recipe, imageBase64?: string) {
+  const imageFilename = `${recipe.slug}.webp`
+  if (imageBase64 && imageBase64.length > 0) {
+    recipe.imageFilename = imageFilename
+    await postImage(imageBase64, imageFilename)
+  }
+
+  const response = await backendFetchRequest('recipes', {
+    body: JSON.stringify(recipe),
+    method: 'POST',
+  })
+  await response.body
+  router.push(`/recipe/${recipe.slug}`)
 }
 
-function handleSave(recipe: Recipe) {
-  router.push(`/recipe/${recipe.slug}`)
+async function postImage(imageBase64: string, imageFilename: string) {
+  const imageBlob = await base64ToBlob(imageBase64)
+  const formData = new FormData()
+  formData.append('file', imageBlob)
+  formData.append('filename', imageFilename)
+  try {
+    const response = await backendFetchRequest('images', {
+      body: formData,
+      method: 'POST',
+    })
+
+    if (!response.ok) {
+      const errorText = await response.body
+      console.error(`Upload failed: ${errorText}`)
+    }
+  }
+  catch (error) {
+    console.error(`Upload failed: ${error}`)
+  }
+}
+
+function handleCancel() {
+  router.push('/')
 }
 </script>
 
 <template>
-  <RecipeForm :recipe="initialRecipe" @cancel="handleCancel" @save="handleSave" />
+  <RecipeForm :can-delete="false" :recipe="newRecipe" @cancel="handleCancel" @save="handleSave" />
 </template>
