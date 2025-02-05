@@ -1,37 +1,38 @@
 {
-  "name": "nuxt-app",
   "type": "module",
   "private": true,
+  "name": "recipebook",
+  "workspaces": [
+    "frontend"
+  ],
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "start": "node .output/server/index.mjs",
-    "postinstall": "nuxt prepare",
-    "lint": "eslint \"**/*.{vue,ts,js,json}\"",
-    "lint:fix": "eslint \"**/*.{vue,ts,js,json}\" --fix",
-    "cspell": "cspell \"**/*.{ts,js}\""
+    "postinstall": "npm run create-cert && cd api && go mod download",
+    "clean": "rimraf -v -I api/server api/server.exe api/dist/* frontend/dist",
+    "clean:full": "rimraf -v -I api/server api/server.exe api/data api/dist/* frontend/dist frontend/node_modules node_modules recipebook.localhost.pem recipebook.localhost-key.pem",
+    "dev:backend": "cd api && cross-env LOCAL_DEV_ENV=true ADMIN_USER=admin ADMIN_PASSWORD=password go run .",
+    "dev:frontend": "npm run dev --workspace frontend",
+    "dev": "concurrently npm:caddy npm:dev:backend npm:dev:frontend",
+    "build:backend": "cd api && go build -o server . && cpy server . --rename=server.exe",
+    "build:frontend": "npm run build --workspace frontend",
+    "build:dist": "cpy dist ../../ --cwd=frontend",
+    "build": "cross-env CGO_ENABLED=0 npm run build:frontend && npm run build:dist && npm run build:backend",
+    "preview": "concurrently npm:caddy:preview npm:preview:go",
+    "preview:go": "cd api && cross-env LOCAL_DEV_ENV=true ADMIN_USER=admin ADMIN_PASSWORD=password server.exe",
+    "create-cert": "mkcert recipebook.localhost && mkcert --install",
+    "caddy": "caddy run --config Caddyfile",
+    "caddy:preview": "caddy run --config Caddyfile.preview",
+    "cspell": "cspell \"**/*.{go,ts,js,vue}\"",
+    "lint": "npm run lint --workspace frontend",
+    "lint:fix": "npm run lint:fix --workspace frontend"
   },
   "devDependencies": {
-    "@iconify-json/flag": "^1.1.53",
-    "@iconify-json/lucide": "^1.1.200",
-    "@iconify-json/lucide-lab": "^1.2.1",
-    "@nuxt/eslint": "^0.3.13",
-    "@nuxt/icon": "^1.0.0",
-    "@nuxtjs/google-fonts": "^3.2.0",
-    "@types/markdown-it": "^14.1.1",
-    "@unocss/nuxt": "^0.61.3",
-    "@vueuse/core": "^10.9.0",
-    "@vueuse/nuxt": "^10.9.0",
-    "cspell": "^8.8.3",
-    "eslint": "^9.7.0",
-    "markdown-it": "^14.1.0",
-    "nuxt": "^3.13.2",
-    "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
-  },
-  "overrides": {
-    "eslint": "^9.7.0"
+    "caddy-baron": "^2.0.1",
+    "concurrently": "^9.0.1",
+    "cpy-cli": "^5.0.0",
+    "cross-env": "^7.0.3",
+    "cspell": "^8.15.4",
+    "env-cmd": "^10.1.0",
+    "node-mkcert-binary": "^2.1.9",
+    "rimraf": "^6.0.1"
   }
 }

@@ -1,0 +1,9 @@
+recipebook.localhost {
+	tls recipebook.localhost.pem recipebook.localhost-key.pem
+	handle /api/* {
+		reverse_proxy localhost:8080
+	}
+	handle {
+		reverse_proxy localhost:5173
+	}
+}

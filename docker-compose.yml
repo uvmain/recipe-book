@@ -2,7 +2,9 @@ services:
   recipebook:
     image: recipebook:latest
     container_name: recipebook
-    ports:
-      - "3000:3000"
     env_file:
       - .env
+    volumes:
+      - /mnt/main/docker/recipebook:/data
+    ports:
+      - "3000:8080"
