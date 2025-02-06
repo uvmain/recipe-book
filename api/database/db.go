@@ -42,7 +42,7 @@ func Initialise() *sql.DB {
 		log.Printf("Error opening database file: %s", err)
 		return nil
 	} else {
-		log.Println("Database file opened")
+		log.Printf("Database file opened: %s", dbPath)
 	}
 
 	Database = db

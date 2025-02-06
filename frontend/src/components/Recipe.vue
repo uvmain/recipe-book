@@ -82,7 +82,7 @@ async function setTimerPlacement() {
       <div class="w-full h-0.5 to-zinc-500 from-gray-400 dark:from-zinc-500 dark:to-gray-400 bg-gradient-to-l" />
     </div>
     <div class="justify-center flex gap-4" :class="flexClass">
-      <div class="flex flex-col gap-4 min-w-1/3" :class="widthClass">
+      <div class="flex flex-col gap-4" :class="widthClass">
         <div class="flex flex-col gap-4 p-4 recipeCardBackground text justify-between border-solid md:flex-row border-1 border-gray-400 rounded">
           <div ref="details" class="text-center mx-auto md:text-left md:mx-0 md:max-w-3/4">
             <div v-if="recipe.author">
