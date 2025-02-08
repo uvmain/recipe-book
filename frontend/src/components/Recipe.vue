@@ -72,8 +72,8 @@ const parsedSource = computed(() => {
       </div>
       <div class="text-center mx-auto grid text-sm md:text-right opacity-80 min-w-1/5 lg:mx-0">
         <span v-if="recipe.servings">Servings: {{ recipe.servings }}</span>
-        <span v-if="recipe.prep_time">Prep: {{ recipe.prep_time }}</span>
-        <span v-if="recipe.cooking_time">Cook: {{ recipe.cooking_time }}</span>
+        <span v-if="recipe.prepTime">Prep: {{ recipe.prepTime }}</span>
+        <span v-if="recipe.cookingTime">Cook: {{ recipe.cookingTime }}</span>
         <span v-if="caloriesPerServing">Calories: {{ caloriesPerServing }}</span>
       </div>
     </div>

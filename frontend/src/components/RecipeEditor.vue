@@ -68,8 +68,8 @@ onBeforeMount(async () => {
     <Dropdown v-model="localRecipe.course" type="select" label="Course" :options="allowedCourses" placeholder="Select a course" />
     <Dropdown v-model="localRecipe.country" type="select" label="Country" :options="countries" placeholder="Select a country" />
     <Checkbox v-model="localRecipe.vegetarian" label="Vegetarian?" name="vegetarian" />
-    <TextInput v-model="localRecipe.prep_time" type="text" label="PrepTime" />
-    <TextInput v-model="localRecipe.cooking_time" type="text" label="CookingTime" />
+    <TextInput v-model="localRecipe.prepTime" type="text" label="PrepTime" />
+    <TextInput v-model="localRecipe.cookingTime" type="text" label="CookingTime" />
     <TextInput v-model="localRecipe.calories" type="text" label="Calories" />
     <TextInput v-model="localRecipe.servings" type="text" label="Servings" />
     <TextInput v-model="localRecipe.ingredients" type="textarea" label="Ingredients" />

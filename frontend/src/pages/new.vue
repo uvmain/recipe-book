@@ -9,15 +9,15 @@ import { base64ToBlob } from '../composables/imaging'
 const router = useRouter()
 const newRecipe = ref<Recipe>({
   slug: '',
-  date_created: '',
+  dateCreated: '',
   name: '',
   author: '',
   source: '',
   course: '',
   country: '',
   vegetarian: false,
-  prep_time: '',
-  cooking_time: '',
+  prepTime: '',
+  cookingTime: '',
   calories: '',
   servings: '',
   ingredients: '',

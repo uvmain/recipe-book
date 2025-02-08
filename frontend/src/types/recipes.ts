@@ -1,14 +1,14 @@
 export interface Recipe {
   slug: string
-  date_created: string
+  dateCreated: string
   name: string
   author: string
   source: string
   course: string
   country: string
   vegetarian: boolean
-  prep_time: string
-  cooking_time: string
+  prepTime: string
+  cookingTime: string
   calories: string
   servings: string
   ingredients: string
@@ -20,15 +20,15 @@ export interface Recipe {
 
 export interface RecipeCard {
   slug: string
-  date_created: string
+  dateCreated: string
   name: string
   author: string
   source: string
   course: string
   country: string
   vegetarian: boolean
-  prep_time: string
-  cooking_time: string
+  prepTime: string
+  cookingTime: string
   calories: string
   servings: string
   imageFilename: string

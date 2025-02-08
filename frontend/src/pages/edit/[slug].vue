@@ -36,7 +36,7 @@ async function handleSave(recipe: Recipe, imageBase64?: string) {
     method: 'PATCH',
   })
   await response.body
-  // router.push(`/recipe/${recipe.slug}`)
+  router.push(`/recipe/${recipe.slug}`)
 }
 
 async function patchImage(imageBase64: string, originalFilename: string, imageFilename: string) {
@@ -97,10 +97,6 @@ onBeforeMount(async () => {
 <template>
   <div>
     <RecipeForm v-if="recipe" :can-delete="true" :recipe="recipe" @cancel="handleCancel" @click-delete="toggleDeleting()" @save="handleSave" />
-    <div class="text text-2xl">
-      {{recipe.slug}}.webp
-
-    </div>
     <div v-if="deleting" class="flex justify-center gap-4 lg:w-2/3 mx-auto mb-8">
       <button aria-label="cancel" class="w-full textButton" @click="toggleDeleting">
         Cancel

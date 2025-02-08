@@ -60,11 +60,11 @@ const imageAddress = computed(() => {
         </p>
       </div>
       <div class="text-sm recipeCardText">
-        <p v-if="recipeCard.prep_time">
-          <strong>Prep time:</strong> {{ recipeCard.prep_time }}
+        <p v-if="recipeCard.prepTime">
+          <strong>Prep time:</strong> {{ recipeCard.prepTime }}
         </p>
-        <p v-if="recipeCard.cooking_time">
-          <strong>Cooking time:</strong> {{ recipeCard.cooking_time }}
+        <p v-if="recipeCard.cookingTime">
+          <strong>Cooking time:</strong> {{ recipeCard.cookingTime }}
         </p>
         <p v-if="caloriesPerServing">
           <strong>Calories:</strong> {{ caloriesPerServing }}
