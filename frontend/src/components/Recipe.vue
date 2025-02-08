@@ -50,7 +50,7 @@ const parsedSource = computed(() => {
 </script>
 
 <template>
-  <div class="mx-2 flex gap-4 lg:gap-6 flex-col sm:max-w-90vw sm:max-w-60vw lg:max-w-40vw">
+  <div class="mx-2 flex gap-4 lg:gap-6 flex-col sm:max-w-90vw sm:max-w-60vw lg:max-w-200 tracking-wider">
     <h2 class="text-center mb-4 text-4xl titleText">
       {{ recipe.name }}
     </h2>
@@ -66,7 +66,7 @@ const parsedSource = computed(() => {
           {{ recipe.author }}
         </div>
         <strong v-if="recipe.source">Source: </strong>
-        <component :is="sourceTag" v-if="recipe.source" :href="recipe.source" target="_blank" class="text underline-none break-all text-wrap">
+        <component :is="sourceTag" v-if="recipe.source" :href="recipe.source" target="_blank" class="text underline-none text-wrap">
           {{ parsedSource }}
         </component>
       </div>

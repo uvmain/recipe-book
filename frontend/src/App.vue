@@ -35,7 +35,7 @@ html, body, #app {
   margin: 0;
   padding: 0;
   border: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   min-height: 100%;
   @apply standard;
 }
