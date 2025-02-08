@@ -255,11 +255,16 @@ func recipeContainsStrings(recipe types.Recipe, searchStrings []string) bool {
 	recipeStrings = logic.StringArraySortUniqueLowercase(recipeStrings)
 
 	for _, searchString := range searchStrings {
+		found := false
 		for _, recipeString := range recipeStrings {
 			if strings.Contains(recipeString, strings.ToLower(searchString)) {
-				return true
+				found = true
+				break
 			}
 		}
+		if !found {
+			return false
+		}
 	}
-	return false
+	return true
 }

@@ -35,12 +35,12 @@ watch(inputText, () => {
       v-model="inputText"
       :placeholder="placeHolder"
       type="text"
-      class="headerButton border-r-none rounded-r-none grow shadow-none headerSearch"
+      class="headerButton border-r-none rounded-r-none grow headerSearch"
     >
     <button
       type="button"
       aria-label="clear search"
-      class="headerButton shadow-none border-l-none rounded-l-none"
+      class="headerButton border-l-none rounded-l-none"
       @click="inputText = ''"
     >
       <icon-lucide-eraser class="headerButtonIcon" />

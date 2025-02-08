@@ -79,7 +79,7 @@ onBeforeMount(() => {
 <template>
   <div class="background w-full h-18 lg:h-20">
     <header class="flex flex-row gap-1 justify-center items-center p-4 lg:p-6 lg:gap-4">
-      <div class="group">
+      <div>
         <button
           type="button"
           aria-label="navigate to homepage"
@@ -88,64 +88,70 @@ onBeforeMount(() => {
         >
           <icon-lucide-home class="headerButtonIcon" />
         </button>
-        <span class="group-hover:opacity-90 dark:border-neutral-200 border-neutral-800 border-1 border-solid rounded px-2 py-1 text-sm text background invisible absolute group-hover:visible ml-2">
-          Home
-        </span>
       </div>
-      <button
-        type="button"
-        aria-label="navigate to random recipe"
-        class="headerButton"
-        @click="navToRandomRecipe()"
-      >
-        <icon-lucide-shuffle class="headerButtonIcon" />
-      </button>
+      <div>
+        <button
+          type="button"
+          aria-label="navigate to random recipe"
+          class="headerButton"
+          @click="navToRandomRecipe()"
+        >
+          <icon-lucide-shuffle class="headerButtonIcon" />
+        </button>
+      </div>
       <SearchBar :recipe-count="countOfRecipes ?? 0" />
-      <button
-        v-if="showFiltersButton"
-        type="button"
-        aria-label="toggle filters"
-        class="headerButton"
-        :class="filterBorderClass"
-        @click="toggleFilters"
-      >
-        <icon-lucide-filter class="headerButtonIcon" />
-      </button>
-      <button
-        v-if="userLoginState && route.path.startsWith('/recipe/')"
-        type="button"
-        aria-label="enable editing mode"
-        class="headerButton"
-        @click="navToEdit()"
-      >
-        <icon-lucide-edit class="headerButtonIcon" />
-      </button>
-      <button
-        v-if="userLoginState"
-        type="button"
-        aria-label="create new recipe"
-        class="headerButton"
-        @click="navToNew()"
-      >
-        <icon-lucide-square-plus class="headerButtonIcon" />
-      </button>
-      <button
-        type="button"
-        aria-label="toggle dark mode"
-        class="headerButton"
-        @click="toggleDark()"
-      >
-        <icon-lucide-sun v-if="isDark" class="headerButtonIcon" />
-        <icon-lucide-sun-moon v-else class="headerButtonIcon" />
-      </button>
-      <button
-        type="button"
-        aria-label="toggle dark mode"
-        class="headerButton"
-        @click="openModal()"
-      >
-        <icon-lucide-user class="headerButtonIcon" />
-      </button>
+      <div v-if="showFiltersButton">
+        <button
+          type="button"
+          aria-label="toggle filters"
+          class="headerButton"
+          :class="filterBorderClass"
+          @click="toggleFilters"
+        >
+          <icon-lucide-filter class="headerButtonIcon" />
+        </button>
+      </div>
+      <div v-if="userLoginState && route.path.startsWith('/recipe/')">
+        <button
+          type="button"
+          aria-label="enable editing mode"
+          class="headerButton"
+          @click="navToEdit()"
+        >
+          <icon-lucide-edit class="headerButtonIcon" />
+        </button>
+      </div>
+      <div v-if="userLoginState">
+        <button
+          type="button"
+          aria-label="create new recipe"
+          class="headerButton"
+          @click="navToNew()"
+        >
+          <icon-lucide-square-plus class="headerButtonIcon" />
+        </button>
+      </div>
+      <div>
+        <button
+          type="button"
+          aria-label="toggle dark mode"
+          class="headerButton"
+          @click="toggleDark()"
+        >
+          <icon-lucide-sun v-if="isDark" class="headerButtonIcon" />
+          <icon-lucide-sun-moon v-else class="headerButtonIcon" />
+        </button>
+      </div>
+      <div>
+        <button
+          type="button"
+          aria-label="toggle dark mode"
+          class="headerButton"
+          @click="openModal()"
+        >
+          <icon-lucide-user class="headerButtonIcon" />
+        </button>
+      </div>
       <LoginModal :is-open="isModalOpened" @modal-close="closeModal" />
     </header>
   </div>
