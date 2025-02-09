@@ -83,8 +83,8 @@ function resizeAndConvertImage(base64Image: string) {
       return
     }
 
-    const maxWidth = 1000
-    const maxHeight = 1000
+    const maxWidth = 1200
+    const maxHeight = 1200
     let width = img.width
     let height = img.height
 
