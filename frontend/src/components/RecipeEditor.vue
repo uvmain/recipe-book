@@ -60,7 +60,7 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div class="background text min-h-screen min-w-1/3 flex flex-col gap-4 mx-auto lg:max-w-18/19 mb-8">
+  <div class="background text min-h-screen min-w-1/3 flex flex-col gap-4 mx-auto lg:max-w-200 my-8">
     <TextInput v-model="localRecipe.slug" type="text" label="Slug" />
     <TextInput v-model="localRecipe.name" type="text" label="Name" />
     <TextInput v-model="localRecipe.author" type="text" label="Author" />

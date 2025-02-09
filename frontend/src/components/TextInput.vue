@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineProps({
+const props = defineProps({
   modelValue: { type: String, required: true },
   label: { type: String, required: true },
   type: { type: String, required: false, default: 'text' },
@@ -7,30 +7,54 @@ defineProps({
 
 const emits = defineEmits(['update:modelValue'])
 
+const model = computed({
+  get() {
+    return props.modelValue
+  },
+  set(value) {
+    emits('update:modelValue', value)
+  },
+})
+
+function markdownText() {
+  model.value = `- ${model.value}`.replaceAll('\n', '\n- ')
+}
+
 function handleInput(event: any) {
-  emits('update:modelValue', event.target.value)
+  model.value = event.target.value
 }
 </script>
 
 <template>
-  <div class="w-full flex flex-row gap-4">
-    <label :for="label">{{ label }}</label>
-    <input
-      v-if="type === 'text'"
-      :id="label"
-      :placeholder="modelValue"
-      :value="modelValue"
-      :type="type"
-      class="w-full border-1 border-white border-dashed p-1"
-      @input="handleInput"
-    />
-    <textarea
-      v-if="type === 'textarea'"
-      :id="label"
-      :placeholder="modelValue"
-      :value="modelValue"
-      class="w-full border-1 border-white border-dashed p-1 min-h-40"
-      @input="handleInput"
-    />
+  <div class="relative">
+    <div class="w-full flex flex-col gap-2">
+      <label :for="label">{{ label }}</label>
+      <input
+        v-if="type === 'text'"
+        :id="label"
+        :placeholder="model"
+        :value="model"
+        :type="type"
+        class="w-full border-1 border-white border-dashed p-2 rounded"
+        @input="handleInput"
+      />
+      <textarea
+        v-if="type === 'textarea'"
+        :id="label"
+        :placeholder="model"
+        :value="model"
+        class="w-full border-1 border-white border-dashed p-2 min-h-40 rounded"
+        @input="handleInput"
+      />
+    </div>
+    <div v-if="type === 'textarea'" class="absolute right-0 top-2">
+      <button
+        id="markdownList"
+        class="textButton w-auto"
+        @click="markdownText()"
+      >
+        Markdown List
+      </button>
+    </div>
   </div>
 </template>

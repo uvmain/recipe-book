@@ -11,11 +11,11 @@ const select = ref<HTMLSelectElement>()
 </script>
 
 <template>
-  <div class="w-full flex flex-row gap-4">
+  <div class="w-full flex flex-col gap-2">
     <label :for="label">{{ label }}</label>
     <select
       ref="select"
-      class="mb-6 max-w-xs w-full border-1 p-2 focus:ring-3"
+      class="max-w-xs w-full border-1 p-2 focus:ring-3 rounded"
       @change="$emit('update:modelValue', select?.value)"
     >
       <option
