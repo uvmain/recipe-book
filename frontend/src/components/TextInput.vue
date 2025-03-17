@@ -47,7 +47,7 @@ function handleInput(event: any) {
         @input="handleInput"
       />
     </div>
-    <div v-if="type === 'textarea'" class="absolute right-0 top-2">
+    <div v-if="type === 'textarea'" class="absolute -right-38 top-2 flex flex-col gap-2">
       <button
         id="markdownList"
         class="textButton w-auto"
@@ -55,6 +55,7 @@ function handleInput(event: any) {
       >
         Markdown List
       </button>
+      <Vulgars />
     </div>
   </div>
 </template>

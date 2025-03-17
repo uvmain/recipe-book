@@ -300,5 +300,6 @@ declare module 'vue' {
     TextInput: typeof import('./src/components/TextInput.vue')['default']
     Timer: typeof import('./src/components/Timer.vue')['default']
     TooltipIcon: typeof import('./src/components/TooltipIcon.vue')['default']
+    Vulgars: typeof import('./src/components/Vulgars.vue')['default']
   }
 }
