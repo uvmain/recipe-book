@@ -1,4 +1,5 @@
 import { convertToAlphanumeric } from './alphaNumeric'
+import { convertWordToNum } from './wordsToNumber'
 
 export function getTimers(paragraph: string): number[] {
   const timerDetails: number[] = []
@@ -32,6 +33,13 @@ export function getTimers(paragraph: string): number[] {
       }
       else if (Number.isInteger(Number(prevWord))) {
         timerDetails.push(word.startsWith('h') ? Number(prevWord) * 60 : Number(prevWord))
+      }
+      else {
+        const newNumber = convertWordToNum(recipesWords[index - 1])
+        console.log(newNumber)
+        if (newNumber > 0) {
+          timerDetails.push(word.startsWith('h') ? newNumber * 60 : newNumber)
+        }
       }
     }
   })

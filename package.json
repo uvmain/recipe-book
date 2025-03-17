@@ -6,7 +6,7 @@
     "frontend"
   ],
   "scripts": {
-    "postinstall": "npm run create-cert && cd api && go mod download",
+    "postinstall": "npm run create-cert && cd api && go mod tidy",
     "clean": "rimraf -v -I api/server api/server.exe api/dist/* frontend/dist",
     "clean:full": "rimraf -v -I api/server api/server.exe api/data api/dist/* frontend/dist frontend/node_modules node_modules recipebook.localhost.pem recipebook.localhost-key.pem",
     "dev:backend": "cd api && cross-env LOCAL_DEV_ENV=true ADMIN_USER=admin ADMIN_PASSWORD=password go run .",
