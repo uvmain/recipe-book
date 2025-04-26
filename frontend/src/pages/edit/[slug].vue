@@ -97,7 +97,7 @@ onBeforeMount(async () => {
 <template>
   <div>
     <RecipeForm v-if="recipe" :can-delete="true" :recipe="recipe" @cancel="handleCancel" @click-delete="toggleDeleting()" @save="handleSave" />
-    <div v-if="deleting" class="flex justify-center gap-4 lg:w-2/3 mx-auto mb-8">
+    <div v-if="deleting" class="flex justify-center gap-4 mx-auto lg:w-2/3 mb-8">
       <button aria-label="cancel" class="w-full textButton" @click="toggleDeleting">
         Cancel
       </button>

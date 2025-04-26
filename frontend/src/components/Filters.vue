@@ -25,7 +25,7 @@ function closeFilters() {
 </script>
 
 <template>
-  <div class="flex flex-col mx-auto p-2 md:p-4 lg:p-6 text">
+  <div class="flex flex-col p-2 mx-auto md:p-4 lg:p-6 text">
     <div class="mx-auto grid grid-cols-2 lg:grid-cols-3 gap-y-1 gap-x-3">
       <div v-for="(course, index) in allowedCourses" :key="index" class="flex gap-1">
         <input

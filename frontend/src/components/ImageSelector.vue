@@ -125,7 +125,7 @@ watch(model, () => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center gap-10 p-6 text max-w-100vw" @paste="onPaste">
+  <div class="flex flex-col items-center text gap-10 p-6 max-w-100vw" @paste="onPaste">
     <label :for="label">{{ label }}</label>
     <div :id="label" class="flex flex-col gap-0">
       <input
@@ -137,7 +137,7 @@ watch(model, () => {
       />
       <label
         for="fileInput"
-        class="block text-sm text-gray-700 border-1 border-solid border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none p-2 text-center hover:bg-gray-200 w-28rem"
+        class="border-1 border-solid p-2 block text-sm text-gray-700 border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none text-center hover:bg-gray-200 w-28rem"
       >
         Browse
       </label>
@@ -147,7 +147,7 @@ watch(model, () => {
       <input
         v-model="imageUrlInput"
         placeholder="Enter image URL"
-        class="block w-28rem mt-2 p-2 border-1 border-solid border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+        class="block w-28rem p-2 border-1 border-solid border-gray-300 rounded-lg focus:outline-none mt-2 focus:ring-2 focus:ring-blue-600"
         @change="onUrlChange"
       />
       <span class="text-sm">
@@ -161,7 +161,7 @@ watch(model, () => {
         <img
           :src="model"
           alt="Uploaded Image"
-          class="rounded-lg shadow-md w-28rem object-contain"
+          class="rounded-lg w-28rem shadow-md object-contain"
         />
       </div>
       <div v-else-if="recipe.imageFilename" class="mt-4">

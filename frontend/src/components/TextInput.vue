@@ -43,11 +43,11 @@ function handleInput(event: any) {
         :id="label"
         :placeholder="model"
         :value="model"
-        class="w-full border-1 border-white border-dashed p-2 min-h-40 rounded"
+        class="w-full border-1 border-white border-dashed p-2 rounded min-h-40"
         @input="handleInput"
       />
     </div>
-    <div v-if="type === 'textarea'" class="absolute -right-38 top-2 flex flex-col gap-2">
+    <div v-if="type === 'textarea'" class="absolute flex flex-col gap-2 -right-38 top-2">
       <button
         id="markdownList"
         class="textButton w-auto"

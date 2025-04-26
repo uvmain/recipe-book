@@ -20,7 +20,7 @@ const model = computed({
 </script>
 
 <template>
-  <div class="w-full flex flex-row gap-4">
+  <div class="flex w-full flex-row gap-4">
     <label :for="label">{{ label }}</label>
     <input
       :id="label"

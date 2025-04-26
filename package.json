@@ -17,7 +17,7 @@
     "build:dist": "cpy dist ../../ --cwd=frontend",
     "build": "cross-env CGO_ENABLED=0 npm run build:frontend && npm run build:dist && npm run build:backend",
     "preview": "concurrently npm:caddy:preview npm:preview:go",
-    "preview:go": "cd api && cross-env LOCAL_DEV_ENV=true ADMIN_USER=admin ADMIN_PASSWORD=password server.exe",
+    "preview:go": "cd api && cross-env LOCAL_DEV_ENV=true ADMIN_USER=admin ADMIN_PASSWORD=password ./server",
     "create-cert": "mkcert recipebook.localhost && mkcert --install",
     "caddy": "caddy run --config Caddyfile",
     "caddy:preview": "caddy run --config Caddyfile.preview",

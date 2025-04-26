@@ -4,5 +4,8 @@
   ],
   "cSpell.words": [
     "formkit"
-  ]
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  }
 }

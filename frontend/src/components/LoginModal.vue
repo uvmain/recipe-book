@@ -53,7 +53,7 @@ onClickOutside(target, () => emits('modalClose'))
   <div v-if="isOpen" class="top-0 text fixed left-0 z-999 size-full backdrop-blur-xl">
     <div v-if="!userLoginState" @keydown.escape="cancel">
       <div ref="target" class="mx-auto mb-auto mt-150px w-300px px-30px pb-30px pt-20px modal">
-        <div class="flex flex-col w-300 gap-4 p-6">
+        <div class="flex flex-col gap-4 p-6 w-300">
           <form class="flex flex-col gap-2">
             <div class="flex flex-row items-center gap-2">
               <label for="username">Username:</label>
@@ -77,7 +77,7 @@ onClickOutside(target, () => emits('modalClose'))
     </div>
     <div v-else @keydown.escape="cancel">
       <div class="mx-auto mb-auto mt-150px w-300px px-30px pb-30px pt-20px modal rounded-sm">
-        <div class="mb-2 py-4 text-center">
+        <div class="text-center mb-2 py-4">
           You are logged in.
         </div>
         <div class="flex justify-center gap-4">

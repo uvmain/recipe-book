@@ -16,8 +16,8 @@ This is a **recipebook Web Application** built with a **Go REST API backend** an
 
 ## Prerequisites
 
-- Go (tested on 1.23)
-- Node.js & npm (tested on Node 20 LTS)
+- Go (tested on 1.24)
+- Node.js & npm (tested on Node 22 LTS)
 
 ## Getting Started
 

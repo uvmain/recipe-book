@@ -38,16 +38,16 @@ const imageAddress = computed(() => {
 </script>
 
 <template>
-  <div class="tracking-wider text-center border text rounded no-underline block overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-100 dark:hover:shadow-gray-600 hover:cursor-pointer" @click="navigateToRecipe()">
+  <div class="text-center border text rounded block shadow-md tracking-wider no-underline overflow-hidden hover:shadow-xl transition-shadow duration-100 dark:hover:shadow-gray-600 hover:cursor-pointer" @click="navigateToRecipe()">
     <div id="card-header" class="flex flex-col h-60">
       <img :src="imageAddress" :alt="recipeCard.name" loading="lazy" :width="recipeCard.imageWidth" :height="recipeCard.imageHeight" class="w-full object-cover h-full">
     </div>
     <div>
-      <h2 class="text-xl font-bold titleText mx-1">
+      <h2 class="text-xl font-bold mx-1 titleText">
         {{ recipeCard.name }}
       </h2>
       <div class="flex items-center gap-3 mb-4 align-middle">
-        <hr class="flex-grow border-gray-300">
+        <hr class="border-gray-300 flex-grow">
         <RecipeIcons :recipe="recipeCard" colour="text" />
         <hr class="flex-grow border-gray-300">
       </div>

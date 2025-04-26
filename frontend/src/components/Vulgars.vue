@@ -22,7 +22,7 @@ const vulgarFractions = [
 </script>
 
 <template>
-  <div class="grid grid-cols-5 gap-2">
+  <div class="grid gap-2 grid-cols-5">
     <div v-for="(vulgarFraction, index) in vulgarFractions" :key="index" class="text-lg recipeCardBackground text-center rounded">
       {{ vulgarFraction }}
     </div>

@@ -50,8 +50,8 @@ const parsedSource = computed(() => {
 </script>
 
 <template>
-  <div class="mx-2 flex gap-4 lg:gap-6 flex-col sm:max-w-90vw sm:max-w-60vw lg:max-w-200 tracking-wider">
-    <h2 class="text-center mb-4 text-4xl titleText">
+  <div class="flex gap-4 flex-col tracking-wider mx-2 lg:gap-6 sm:max-w-90vw sm:max-w-60vw lg:max-w-200">
+    <h2 class="text-center mb-4 titleText text-4xl">
       {{ recipe.name }}
     </h2>
     <div class="flex items-center mx-auto gap-4 w-4/5">
@@ -59,7 +59,7 @@ const parsedSource = computed(() => {
       <RecipeIcons :recipe="recipe" />
       <div class="w-full h-0.5 to-zinc-500 from-gray-400 dark:from-zinc-500 dark:to-gray-400 bg-gradient-to-l" />
     </div>
-    <div class="flex flex-col gap-4 p-4 recipeCardBackground text justify-between border-solid md:flex-row border-1 border-gray-400 rounded">
+    <div class="flex flex-col gap-4 p-4 recipeCardBackground text justify-between border-solid border-1 rounded md:flex-row border-gray-400">
       <div ref="details" class="text-center mx-auto md:text-left md:mx-0 md:max-w-3/4">
         <div v-if="recipe.author">
           <strong>Author:</strong>
@@ -96,7 +96,7 @@ const parsedSource = computed(() => {
         </h3>
         <div class="text-wrap" v-html="instructionsMarkdown" />
       </div>
-      <div v-if="timers.length" class="flex gap-2 flex-wrap md:gap-4 justify-center">
+      <div v-if="timers.length" class="flex gap-2 justify-center flex-wrap md:gap-4">
         <Timer v-for="(timer, index) of timers" :key="index" :minutes="timer" />
       </div>
     </div>
