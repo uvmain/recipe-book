@@ -5,11 +5,9 @@ const props = defineProps({
   recipeCard: { type: Object, required: true },
 })
 
-const router = useRouter()
-
-function navigateToRecipe() {
-  router.push(`/recipe/${props.recipeCard.slug}`)
-}
+const linkTarget = computed(() => {
+  return `/recipe/${props.recipeCard.slug}`
+})
 
 const caloriesPerServing = computed(() => {
   return calculateCaloriesPerServing(props.recipeCard.calories, props.recipeCard.servings)
@@ -38,7 +36,10 @@ const imageAddress = computed(() => {
 </script>
 
 <template>
-  <div class="text-center border text rounded block shadow-md tracking-wider no-underline overflow-hidden hover:shadow-xl transition-shadow duration-100 dark:hover:shadow-gray-600 hover:cursor-pointer" @click="navigateToRecipe()">
+  <a
+    class="text-center border text rounded block shadow-md tracking-wider no-underline overflow-hidden hover:shadow-xl transition-shadow duration-100 dark:hover:shadow-gray-600 hover:cursor-pointer"
+    :href="linkTarget"
+  >
     <div id="card-header" class="flex flex-col h-60">
       <img :src="imageAddress" :alt="recipeCard.name" loading="lazy" :width="recipeCard.imageWidth" :height="recipeCard.imageHeight" class="w-full object-cover h-full">
     </div>
@@ -71,5 +72,5 @@ const imageAddress = computed(() => {
         </p>
       </div>
     </div>
-  </div>
+  </a>
 </template>
