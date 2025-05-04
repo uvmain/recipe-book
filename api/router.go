@@ -51,6 +51,7 @@ func StartServer() {
 	router.HandleFunc("GET /api/recipecards", handleGetRecipeCardsOrderedByDateCreated)
 	router.HandleFunc("GET /api/random-recipe", handleGetRandomRecipe)
 	router.HandleFunc("GET /api/images/{filename}", handleGetImageByFilename)
+	router.HandleFunc("GET /api/search", handleGetSlugsByFullTextSearch)
 
 	// authenticated routes
 	router.Handle("POST /api/recipes", auth.AuthMiddleware(http.HandlerFunc(handlePostRecipe)))
@@ -108,7 +109,7 @@ func handleGetRecipeCardsOrderedByDateCreated(w http.ResponseWriter, r *http.Req
 
 	var filters types.Filters
 
-	filters.Search = strings.Split(searchParam, ",")
+	filters.Search = searchParam
 	filters.Calories, _ = strconv.Atoi(caloriesParam)
 	filters.Courses = strings.Split(coursesParam, ",")
 	filters.Country = countryParam
@@ -232,4 +233,13 @@ func handlePatchImageByFilename(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("Image replaced successfully"))
+}
+
+func handleGetSlugsByFullTextSearch(w http.ResponseWriter, r *http.Request) {
+	searchText := r.URL.Query().Get("search-text")
+	slugs, _ := database.FullTextSearch(searchText)
+	w.Header().Set("Content-Type", "application/json")
+	if err := json.NewEncoder(w).Encode(slugs); err != nil {
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+	}
 }

@@ -5,7 +5,6 @@ import (
 	"log"
 	"recipebook/logic"
 	"recipebook/types"
-	"strings"
 	"time"
 )
 
@@ -142,9 +141,20 @@ func UpdateRecipeBySlug(slug string, updates map[string]interface{}) error {
 func GetRecipeCardsFilteredAndOrderedByDateCreated(filters types.Filters) ([]types.RecipeCard, error) {
 	var recipes []types.Recipe
 	var recipeCards []types.RecipeCard
+	var query string
 
-	query := `SELECT slug, dateCreated, name, author, source, course, country, vegetarian, prepTime, cookingTime, calories, servings, ingredients, instructions, imageFilename, imageWidth, imageHeight FROM recipes ORDER BY dateCreated DESC;`
-	rows, err := Database.Query(query)
+	if filters.Search == "" {
+		query = `SELECT DISTINCT r.slug, r.dateCreated, r.name, r.author, r.source, r.course, r.country, r.vegetarian, r.prepTime, r.cookingTime, r.calories, r.servings, r.ingredients, r.instructions, r.imageFilename, r.imageWidth, r.imageHeight
+		FROM recipes r
+		ORDER BY r.dateCreated DESC;`
+	} else {
+		query = `SELECT DISTINCT r.slug, r.dateCreated, r.name, r.author, r.source, r.course, r.country, r.vegetarian, r.prepTime, r.cookingTime, r.calories, r.servings, r.ingredients, r.instructions, r.imageFilename, r.imageWidth, r.imageHeight
+		FROM recipes r JOIN recipes_fts f ON r.slug = f.slug
+		WHERE recipes_fts MATCH ?
+		ORDER BY r.dateCreated DESC;`
+	}
+
+	rows, err := Database.Query(query, filters.Search)
 	if err != nil {
 		log.Printf("Query failed: %v", err)
 		return nil, err
@@ -193,12 +203,6 @@ func GetRecipeCardsFilteredAndOrderedByDateCreated(filters types.Filters) ([]typ
 			}
 		}
 
-		if logic.FilteredSliceIsNotEmpty(filters.Search) {
-			if !recipeContainsStrings(recipe, logic.FilterEmptyStringsFromSlice(filters.Search)) {
-				filterOut = true
-			}
-		}
-
 		if !filterOut {
 			recipes = append(recipes, recipe)
 		}
@@ -234,37 +238,26 @@ func GetRecipeCardsFilteredAndOrderedByDateCreated(filters types.Filters) ([]typ
 	return recipeCards, nil
 }
 
-func recipeContainsStrings(recipe types.Recipe, searchStrings []string) bool {
-	recipeStrings := []string{
-		recipe.Name.String,
-		recipe.Author.String,
-		recipe.Source.String,
-		recipe.Course.String,
-		recipe.Country.String,
-		recipe.ImageFilename.String,
+func FullTextSearch(textString string) ([]string, error) {
+	slugs := []string{}
+	query := `SELECT slug FROM recipes_fts WHERE recipes_fts MATCH ?;`
+
+	rows, err := Database.Query(query, textString)
+	if err != nil {
+		log.Printf("Rows iteration error: %v", err)
+		return []string{}, err
 	}
 
-	recipeStrings = append(recipeStrings, strings.Split(recipe.Slug, "-")...)
-	recipeStrings = append(recipeStrings, strings.Split(recipe.Ingredients.String, " ")...)
-	recipeStrings = append(recipeStrings, strings.Split(recipe.Instructions.String, " ")...)
-
-	if recipe.Vegetarian {
-		recipeStrings = append(recipeStrings, "vegetarian")
-	}
-
-	recipeStrings = logic.StringArraySortUniqueLowercase(recipeStrings)
-
-	for _, searchString := range searchStrings {
-		found := false
-		for _, recipeString := range recipeStrings {
-			if strings.Contains(recipeString, strings.ToLower(searchString)) {
-				found = true
-				break
-			}
+	for rows.Next() {
+		var slug string
+		if err := rows.Scan(&slug); err != nil {
+			log.Printf("Failed to scan row: %v", err)
+			return []string{}, err
 		}
-		if !found {
-			return false
-		}
+		slugs = append(slugs, slug)
 	}
-	return true
+
+	slugs = logic.StringArraySortUniqueLowercase(slugs)
+
+	return slugs, nil
 }

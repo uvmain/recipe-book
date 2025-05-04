@@ -18,7 +18,7 @@ const selectedCalories = useSessionStorage<number>('selectedCalories', 1000)
 
 async function getRecipes() {
   let url = searchInput.value || selectedCourses.value?.length || selectedVegetarian.value === true || selectedCountry.value?.length > 0 || selectedCalories.value !== 1000 ? 'recipecards?' : 'recipecards'
-  url = searchInput.value ? `${url}&filter=${searchInput.value.split(' ')}` : url
+  url = searchInput.value ? `${url}&filter=${searchInput.value}` : url
   url = selectedCourses.value?.length ? `${url}&courses=${selectedCourses.value}` : url
   url = selectedVegetarian.value === true ? `${url}&vegetarian=true` : url
   url = selectedCountry.value?.length > 0 ? `${url}&country=${selectedCountry.value}` : url
@@ -34,13 +34,9 @@ async function getRecipes() {
   }
 }
 
-const search = useDebounceFn(async () => {
+watch([searchInput, selectedCourses, selectedVegetarian, selectedCalories, selectedCountry], async () => {
   allRecipeCards.value = []
   await getRecipes()
-}, 700)
-
-watch([searchInput, selectedCourses, selectedVegetarian, selectedCalories, selectedCountry], () => {
-  search()
 })
 
 onMounted(async () => {

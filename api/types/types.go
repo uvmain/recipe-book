@@ -75,7 +75,7 @@ type RecipeCard struct {
 }
 
 type Filters struct {
-	Search     []string
+	Search     string
 	Calories   int
 	Courses    []string
 	Country    string
