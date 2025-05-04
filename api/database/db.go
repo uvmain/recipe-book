@@ -55,6 +55,9 @@ func Initialise() *sql.DB {
 	}
 
 	createRecipesTable()
+	createFtsTable()
+	insertFtsData()
+	createFtsTriggers()
 	CreateSessionsTable()
 	StartSessionCleanupRoutine()
 	return db
@@ -93,5 +96,89 @@ func createRecipesTable() {
 		} else {
 			log.Println("recipes table created")
 		}
+	}
+}
+
+func createFtsTable() {
+	query := `CREATE VIRTUAL TABLE IF NOT EXISTS recipes_fts USING fts5(
+		slug,
+		name,
+		author,
+		source,
+		course,
+		country,
+		ingredients,
+		instructions,
+	);`
+
+	checkQuery := "SELECT name FROM sqlite_master WHERE type='table' AND name='recipes'"
+	checkError := Database.QueryRow(checkQuery).Scan()
+
+	if checkError == nil {
+		log.Println("fts table already exists")
+	} else {
+		_, err := Database.Exec(query)
+		if err != nil {
+			log.Printf("Error creating fts table: %s", err)
+		} else {
+			log.Println("fts table created")
+		}
+	}
+}
+
+func insertFtsData() {
+	query := `INSERT INTO recipes_fts (slug,  name, author, source, course, country, ingredients, instructions)
+		SELECT slug, name, author, source, course, country, ingredients, instructions FROM recipes;`
+
+	_, err := Database.Exec(query)
+	if err != nil {
+		log.Printf("Error inserting data into fts table: %s", err)
+	} else {
+		log.Println("Data inserted into fts table")
+	}
+}
+
+func createFtsTriggers() {
+	createTriggerIfNotExists("after_insert", `CREATE TRIGGER after_insert AFTER INSERT ON recipes
+        BEGIN
+            INSERT INTO recipes_fts (slug, name, author, source, course, country, ingredients, instructions)
+            VALUES (new.slug, new.name, new.author, new.source, new.course, new.country, new.ingredients, new.instructions);
+        END;`)
+
+	createTriggerIfNotExists("after_delete", `CREATE TRIGGER after_delete AFTER DELETE ON recipes
+    BEGIN
+        DELETE FROM recipes_fts WHERE slug = old.slug;
+    END;`)
+
+	createTriggerIfNotExists("after_update", `CREATE TRIGGER after_update AFTER UPDATE ON recipes
+    BEGIN
+        UPDATE recipes_fts SET 
+            name = new.name, 
+            author = new.author, 
+            source = new.source, 
+            course = new.course, 
+            country = new.country, 
+            ingredients = new.ingredients, 
+            instructions = new.instructions
+        WHERE slug = old.slug;
+    END;`)
+}
+
+func createTriggerIfNotExists(triggerName string, triggerSQL string) {
+	checkQuery := "SELECT name FROM sqlite_master WHERE type='trigger' AND name=?"
+	var existingTrigger string
+	checkError := Database.QueryRow(checkQuery, triggerName).Scan(&existingTrigger)
+
+	if checkError == nil {
+		log.Printf("%s trigger already exists", triggerName)
+	} else if checkError == sql.ErrNoRows {
+		_, err := Database.Exec(triggerSQL)
+		if err != nil {
+			log.Printf("Error creating %s trigger: %s", triggerName, err)
+		} else {
+			log.Printf("%s trigger created", triggerName)
+		}
+	} else {
+		log.Printf("Error checking for %s trigger: %s", triggerName, checkError)
 	}
 }
