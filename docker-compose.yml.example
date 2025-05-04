@@ -1,0 +1,10 @@
+services:
+  recipebook:
+    image: recipebook:latest
+    container_name: recipebook
+    env_file:
+      - .env
+    volumes:
+      - /mnt/main/docker/recipebook:/data
+    ports:
+      - "3000:8080"

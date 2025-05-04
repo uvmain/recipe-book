@@ -52,7 +52,7 @@ npm run dev
 ```
 This command:
 - Starts the Caddy server for reverse proxy
-- Runs the frontend in development mode (MHR)
+- Runs the frontend in development mode (HMR)
 - Runs the backend in development mode
 
 Open [recipebook.localhost](https://[recipebook.localhost) in your browser
