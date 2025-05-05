@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"recipebook/logic"
 
-	_ "modernc.org/sqlite"
+	_ "github.com/mattn/go-sqlite3"
 )
 
 var Database *sql.DB
@@ -36,7 +36,7 @@ func Initialise() *sql.DB {
 		log.Println("Database already exists")
 	}
 
-	db, err := sql.Open("sqlite", dbPath)
+	db, err := sql.Open("sqlite3", dbPath)
 
 	if err != nil {
 		log.Printf("Error opening database file: %s", err)

@@ -6,7 +6,7 @@ This is a **recipebook Web Application** built with a **Go REST API backend** an
 
 - Go REST API backend
 - Vue.js frontend built with Vite
-- SQLite database for image metadata storage and auth session storage
+- SQLite database for data, image metadata and auth session storage
 - SSL/TLS certificate generation for local development
 
 ## Project Structure
@@ -16,8 +16,9 @@ This is a **recipebook Web Application** built with a **Go REST API backend** an
 
 ## Prerequisites
 
-- Go (tested on 1.24)
-- Node.js & npm (tested on Node 22 LTS)
+- Go (tested on 1.24.2) https://go.dev/dl/
+- GCC for CGo https://jmeubank.github.io/tdm-gcc/download/
+- Node.js & npm (tested on Node 22 LTS) 
 
 ## Getting Started
 
