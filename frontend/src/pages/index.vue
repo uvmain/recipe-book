@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { RecipeCard } from '../types/recipes'
-import { useDebounceFn, useSessionStorage } from '@vueuse/core'
+import { useSessionStorage } from '@vueuse/core'
 import { useHead } from '@vueuse/head'
 import { backendFetchRequest } from '../composables/fetchFromBackend'
 

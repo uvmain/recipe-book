@@ -125,7 +125,7 @@ watch(model, () => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center text gap-10 p-6 max-w-100vw" @paste="onPaste">
+  <div class="flex flex-col items-center text p-6 gap-10 max-w-100vw" @paste="onPaste">
     <label :for="label">{{ label }}</label>
     <div :id="label" class="flex flex-col gap-0">
       <input
@@ -137,7 +137,7 @@ watch(model, () => {
       />
       <label
         for="fileInput"
-        class="border-1 border-solid p-2 block text-sm text-gray-700 border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none text-center hover:bg-gray-200 w-28rem"
+        class="border-1 border-solid p-2 text-center block text-sm text-gray-700 border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none hover:bg-gray-200 w-28rem"
       >
         Browse
       </label>

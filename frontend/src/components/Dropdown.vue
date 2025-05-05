@@ -11,7 +11,7 @@ const select = ref<HTMLSelectElement>()
 </script>
 
 <template>
-  <div class="w-full flex flex-col gap-2">
+  <div class="flex flex-col w-full gap-2">
     <label :for="label">{{ label }}</label>
     <select
       ref="select"
