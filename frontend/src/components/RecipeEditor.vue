@@ -7,6 +7,7 @@ import { slugify } from '../composables/slugify'
 import { allowedCourses } from '../types/recipes'
 import Dropdown from './Dropdown.vue'
 import ImageSelector from './ImageSelector.vue'
+import Vulgars from './Vulgars.vue'
 
 const props = defineProps<{
   recipe: Recipe
@@ -73,6 +74,7 @@ onBeforeMount(async () => {
     <TextInput v-model="localRecipe.calories" type="text" label="Calories" />
     <TextInput v-model="localRecipe.servings" type="text" label="Servings" />
     <TextInput v-model="localRecipe.ingredients" type="textarea" label="Ingredients" />
+    <Vulgars />
     <TextInput v-model="localRecipe.instructions" type="textarea" label="Instructions" />
     <ImageSelector v-model:resized-image="resizedImage" v-model:resized-image-width="localRecipe.imageWidth" v-model:resized-image-height="localRecipe.imageHeight" label="Image" :recipe="recipe" />
 
