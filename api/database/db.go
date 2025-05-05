@@ -109,6 +109,7 @@ func createFtsTable() {
 		country,
 		ingredients,
 		instructions,
+		tokenize="trigram"
 	);`
 
 	checkQuery := "SELECT name FROM sqlite_master WHERE type='table' AND name='recipes'"
