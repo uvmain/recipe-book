@@ -1,11 +1,18 @@
 <script setup lang="ts">
+import { computedAsync } from '@vueuse/core'
 import markdownit from 'markdown-it'
+import { getCachedImageUrl } from '../composables/cachedStorage'
 import { calculateCaloriesPerServing } from '../composables/caloriesParse'
 import { getTimers } from '../composables/timerParse'
 
 const props = defineProps({
   recipe: { type: Object, required: true },
 })
+
+const details = ref<HTMLDivElement>()
+const image = ref<HTMLDivElement>()
+const ingredients = ref<HTMLDivElement>()
+const instructions = ref<HTMLDivElement>()
 
 const md = markdownit()
 
@@ -15,10 +22,6 @@ const sourceTag = computed(() => {
 
 const caloriesPerServing = computed(() => {
   return calculateCaloriesPerServing(props.recipe.calories, props.recipe.servings)
-})
-
-const imageAddress = computed(() => {
-  return props.recipe.imageFilename ? `/api/images/${props.recipe.imageFilename}` : '/default.webp'
 })
 
 const ingredientsMarkdown = computed(() => {
@@ -34,11 +37,6 @@ const timers = computed(() => {
   return [...new Set(fetchedTimers)]
 })
 
-const details = ref<HTMLDivElement>()
-const image = ref<HTMLDivElement>()
-const ingredients = ref<HTMLDivElement>()
-const instructions = ref<HTMLDivElement>()
-
 const parsedSource = computed(() => {
   if (props.recipe.source.startsWith('http')) {
     return new URL(props.recipe.source).host
@@ -47,6 +45,10 @@ const parsedSource = computed(() => {
     return props.recipe.source
   }
 })
+
+const imageAddress = computedAsync(async () => {
+  return await getCachedImageUrl(props.recipe.imageFilename)
+}, '/default.webp')
 </script>
 
 <template>
@@ -79,7 +81,6 @@ const parsedSource = computed(() => {
     </div>
     <div ref="image" class="flex">
       <img :src="imageAddress" :alt="recipe.name" loading="lazy" :width="recipe.imageWidth" :height="recipe.imageHeight" class="w-full border-1 border-solid border-gray-400 rounded object-cover max-h-60vh">
-      <!-- <img :src="imageAddress" :alt="recipe.name" loading="lazy" :width="recipe.imageWidth" :height="recipe.imageHeight" class="h-auto w-auto max-h-60vh max-w-95vw border-1 border-gray-400 border-solid box-border" /> -->
     </div>
     <div class="grid gap-4 mb-4">
       <!-- ingredients -->

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computedAsync } from '@vueuse/core'
+import { getCachedImageUrl } from '../composables/cachedStorage'
 import { calculateCaloriesPerServing } from '../composables/caloriesParse'
 
 const props = defineProps({
@@ -30,9 +32,9 @@ const showSource = computed(() => {
   return props.recipeCard.source && `${props.recipeCard.source}`.toLowerCase() !== 'unknown'
 })
 
-const imageAddress = computed(() => {
-  return props.recipeCard.imageFilename ? `/api/images/${props.recipeCard.imageFilename}` : '/default.webp'
-})
+const imageAddress = computedAsync(async () => {
+  return await getCachedImageUrl(props.recipeCard.imageFilename)
+}, '/default.webp')
 </script>
 
 <template>
