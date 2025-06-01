@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { computedAsync } from '@vueuse/core'
-import { getCachedImageUrl } from '../composables/cachedStorage'
 import { calculateCaloriesPerServing } from '../composables/caloriesParse'
 
 const props = defineProps({
@@ -32,9 +30,15 @@ const showSource = computed(() => {
   return props.recipeCard.source && `${props.recipeCard.source}`.toLowerCase() !== 'unknown'
 })
 
-const imageAddress = computedAsync(async () => {
-  return await getCachedImageUrl(props.recipeCard.imageFilename)
-}, '/default.webp')
+const imageUrl = computed(() => {
+  return `/api/images/${props.recipeCard.imageFilename}`
+})
+
+function onImageError(event: Event) {
+  const target = event.target as HTMLImageElement
+  target.onerror = null
+  target.src = '/default.webp'
+}
 </script>
 
 <template>
@@ -43,7 +47,7 @@ const imageAddress = computedAsync(async () => {
     :href="linkTarget"
   >
     <div id="card-header" class="flex flex-col h-60">
-      <img :src="imageAddress" :alt="recipeCard.name" loading="lazy" :width="recipeCard.imageWidth" :height="recipeCard.imageHeight" class="w-full object-cover h-full">
+      <img :src="imageUrl" :alt="recipeCard.name" loading="lazy" :width="recipeCard.imageWidth" :height="recipeCard.imageHeight" class="w-full object-cover h-full" @error="onImageError">
     </div>
     <div>
       <h2 class="text-xl font-bold mx-1 titleText">
