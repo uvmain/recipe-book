@@ -10,6 +10,7 @@ import Icons from 'unplugin-icons/vite'
 import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 import Pages from 'vite-plugin-pages'
+import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -23,7 +24,60 @@ export default defineConfig({
       viteOptimizeDeps: true,
     }),
     vue(),
-    // https://github.com/hannoeru/vite-plugin-pagesQ
+    VitePWA(
+      {
+        manifest: {
+          name: 'RecipeBook',
+          short_name: 'RecipeBook',
+          icons: [
+            {
+              src: '/favicon-256.png',
+              sizes: '256x256',
+              type: 'image/png',
+              purpose: 'any maskable',
+            },
+          ],
+        },
+        includeAssets: [
+          '/audio/sonnette_reveil.wav',
+          '/default.webp',
+          'favicon.ico',
+        ],
+        workbox: {
+          runtimeCaching: [
+            {
+              urlPattern: ({ url }) => {
+                return url.pathname.startsWith('/api') && !['/api/check-session', '/api/random-recipe'].includes(url.pathname)
+              },
+              handler: 'CacheFirst' as const,
+              options: {
+                cacheName: 'api-cache',
+                cacheableResponse: {
+                  statuses: [0, 200, 206],
+                },
+              },
+            },
+            {
+              urlPattern: ({ url }) => {
+                return url.pathname.startsWith('/api/images')
+              },
+              handler: 'CacheFirst' as const,
+              options: {
+                cacheName: 'image-cache',
+                expiration: {
+                  maxEntries: 300,
+                  maxAgeSeconds: 30 * 24 * 60 * 60,
+                },
+                cacheableResponse: {
+                  statuses: [0, 200],
+                },
+              },
+            },
+          ],
+        },
+      },
+    ),
+    // https://github.com/hannoeru/vite-plugin-pages
     Pages(),
     Icons({
       scale: 1.0,
@@ -51,7 +105,6 @@ export default defineConfig({
     Unfonts({
       google: {
         families: [
-          'Poppins',
           'Quicksand',
         ],
       },

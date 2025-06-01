@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { computedAsync } from '@vueuse/core'
 import markdownit from 'markdown-it'
-import { getCachedImageUrl } from '../composables/cachedStorage'
 import { calculateCaloriesPerServing } from '../composables/caloriesParse'
 import { getTimers } from '../composables/timerParse'
 
@@ -46,9 +44,15 @@ const parsedSource = computed(() => {
   }
 })
 
-const imageAddress = computedAsync(async () => {
-  return await getCachedImageUrl(props.recipe.imageFilename)
-}, '/default.webp')
+const imageUrl = computed(() => {
+  return `/api/images/${props.recipe.imageFilename}`
+})
+
+function onImageError(event: Event) {
+  const target = event.target as HTMLImageElement
+  target.onerror = null
+  target.src = '/default.webp'
+}
 </script>
 
 <template>
@@ -80,7 +84,7 @@ const imageAddress = computedAsync(async () => {
       </div>
     </div>
     <div ref="image" class="flex">
-      <img :src="imageAddress" :alt="recipe.name" loading="lazy" :width="recipe.imageWidth" :height="recipe.imageHeight" class="w-full border-1 border-solid border-gray-400 rounded object-cover max-h-60vh">
+      <img :src="imageUrl" :alt="recipe.name" loading="lazy" :width="recipe.imageWidth" :height="recipe.imageHeight" class="w-full border-1 border-solid border-gray-400 rounded object-cover max-h-60vh" @error="onImageError">
     </div>
     <div class="grid gap-4 mb-4">
       <!-- ingredients -->

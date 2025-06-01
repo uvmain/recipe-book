@@ -33,6 +33,7 @@
     "cspell": "^8.15.4",
     "env-cmd": "^10.1.0",
     "node-mkcert-binary": "^2.1.9",
-    "rimraf": "^6.0.1"
+    "rimraf": "^6.0.1",
+    "vite-plugin-pwa": "^1.0.0"
   }
 }
