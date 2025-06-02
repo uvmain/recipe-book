@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import type { Recipe } from '../types/recipes'
 import { useDark, useSessionStorage, useToggle } from '@vueuse/core'
-import { backendFetchRequest } from '../composables/fetchFromBackend'
+import { getRandomFilteredRecipeCard, getRecipeCount } from '../composables/fetches'
 import { resetFilters, resetSearch } from '../composables/resets'
 
 const isDark = useDark()
@@ -9,6 +8,7 @@ const toggleDark = useToggle(isDark)
 const isModalOpened = ref(false)
 const route = useRoute()
 const router = useRouter()
+const countOfRecipes = ref(0)
 
 const filtered = useSessionStorage<boolean>('filtered', false)
 const showFilters = useSessionStorage<boolean>('showFilters', false)
@@ -18,23 +18,15 @@ const currentPath = computed(() => {
   return router.currentRoute.value.path
 })
 
-const countOfRecipes = ref(0)
-
-async function getRecipeCount() {
-  const response = await backendFetchRequest('recipe-count')
-  const count = await response.json() as number
-  countOfRecipes.value = count
-}
-
 async function navToRandomRecipe() {
-  const response = await backendFetchRequest('random-recipe')
-  const randomRecipe = await response.json() as Recipe
+  const recipeCard = await getRandomFilteredRecipeCard()
+  const slug = recipeCard.slug
 
-  if (currentPath.value === `/recipe/${randomRecipe.slug}`) {
+  if (currentPath.value === `/recipe/${slug}`) {
     navToRandomRecipe()
   }
   resetSearch()
-  await router.push(`/recipe/${randomRecipe.slug}`)
+  await router.push(`/recipe/${slug}`)
 }
 
 async function navToHome() {
@@ -71,8 +63,8 @@ function closeModal() {
   isModalOpened.value = false
 }
 
-onBeforeMount(() => {
-  getRecipeCount()
+onBeforeMount(async () => {
+  countOfRecipes.value = await getRecipeCount()
 })
 </script>
 

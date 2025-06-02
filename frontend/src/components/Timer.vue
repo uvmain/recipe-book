@@ -9,7 +9,7 @@ const counting = ref(false)
 seconds.value = props.minutes * 60
 
 /* cspell:disable-next-line */
-const alarm = new Audio('/audio/sonnette_reveil.wav')
+const alarm = new Audio('/audio/timer.wav')
 
 const interval = setInterval(() => {
   if (seconds.value === 0) {

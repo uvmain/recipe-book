@@ -39,7 +39,7 @@ export default defineConfig({
           ],
         },
         includeAssets: [
-          '/audio/sonnette_reveil.wav',
+          '/audio/timer.wav',
           '/default.webp',
           'favicon.ico',
         ],

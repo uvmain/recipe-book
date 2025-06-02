@@ -2,7 +2,7 @@
 import type { RecipeCard } from '../types/recipes'
 import { useSessionStorage } from '@vueuse/core'
 import { useHead } from '@vueuse/head'
-import { backendFetchRequest } from '../composables/fetchFromBackend'
+import { getFilteredRecipeCards } from '../composables/fetches'
 
 useHead({
   titleTemplate: 'RecipeBook: Latest',
@@ -16,31 +16,12 @@ const selectedVegetarian = useSessionStorage<boolean>('selectedVegetarian', fals
 const selectedCountry = useSessionStorage<string>('selectedCountry', '')
 const selectedCalories = useSessionStorage<number>('selectedCalories', 1000)
 
-async function getRecipes() {
-  let url = searchInput.value || selectedCourses.value?.length || selectedVegetarian.value === true || selectedCountry.value?.length > 0 || selectedCalories.value !== 1000 ? 'recipecards?' : 'recipecards'
-  url = searchInput.value ? `${url}&filter=${searchInput.value}` : url
-  url = selectedCourses.value?.length ? `${url}&courses=${selectedCourses.value}` : url
-  url = selectedVegetarian.value === true ? `${url}&vegetarian=true` : url
-  url = selectedCountry.value?.length > 0 ? `${url}&country=${selectedCountry.value}` : url
-  url = selectedCalories.value !== 1000 ? `${url}&calories=${selectedCalories.value}` : url
-
-  try {
-    const response = await backendFetchRequest(url)
-    const jsonData = await response.json() as RecipeCard[]
-    allRecipeCards.value = jsonData
-  }
-  catch (error) {
-    console.error('Failed to fetch recipes:', error)
-  }
-}
-
 watch([searchInput, selectedCourses, selectedVegetarian, selectedCalories, selectedCountry], async () => {
-  allRecipeCards.value = []
-  await getRecipes()
+  allRecipeCards.value = await getFilteredRecipeCards()
 })
 
 onMounted(async () => {
-  await getRecipes()
+  allRecipeCards.value = await getFilteredRecipeCards()
 })
 </script>
 
