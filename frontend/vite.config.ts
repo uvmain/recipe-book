@@ -26,6 +26,9 @@ export default defineConfig({
     vue(),
     VitePWA(
       {
+        srcDir: './src',
+        filename: 'sw.ts',
+        strategies: 'injectManifest',
         manifest: {
           name: 'RecipeBook',
           short_name: 'RecipeBook',
@@ -43,38 +46,6 @@ export default defineConfig({
           '/default.webp',
           'favicon.ico',
         ],
-        workbox: {
-          runtimeCaching: [
-            {
-              urlPattern: ({ url }) => {
-                return url.pathname.startsWith('/api') && !['/api/check-session', '/api/random-recipe'].includes(url.pathname)
-              },
-              handler: 'CacheFirst' as const,
-              options: {
-                cacheName: 'api-cache',
-                cacheableResponse: {
-                  statuses: [0, 200, 206],
-                },
-              },
-            },
-            {
-              urlPattern: ({ url }) => {
-                return url.pathname.startsWith('/api/images')
-              },
-              handler: 'CacheFirst' as const,
-              options: {
-                cacheName: 'image-cache',
-                expiration: {
-                  maxEntries: 300,
-                  maxAgeSeconds: 30 * 24 * 60 * 60,
-                },
-                cacheableResponse: {
-                  statuses: [0, 200],
-                },
-              },
-            },
-          ],
-        },
       },
     ),
     // https://github.com/hannoeru/vite-plugin-pages

@@ -38,7 +38,25 @@ async function handleSave(recipe: Recipe, imageBase64?: string) {
     body: JSON.stringify(recipe),
     method: 'POST',
   })
-  await response.body
+
+  if (await response.ok) {
+    if ('serviceWorker' in navigator) {
+      const registration = await navigator.serviceWorker.ready
+      if (registration.active) {
+        const invalidationUrls = [
+          '/api/recipecards',
+          '/api/recipe-count',
+        ]
+        invalidationUrls.forEach((url) => {
+          registration.active?.postMessage({
+            type: 'INVALIDATE_CACHE',
+            url,
+          })
+        })
+      }
+    }
+  }
+
   router.push(`/recipe/${recipe.slug}`)
 }
 
