@@ -35,7 +35,9 @@ watch(
 )
 
 function handleDelete() {
-  emit('clickDelete')
+  if (localRecipe.value.slug && localRecipe.value.slug.length > 0) {
+    emit('clickDelete')
+  }
 }
 
 function cancel() {

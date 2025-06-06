@@ -115,28 +115,30 @@ async function deleteThisRecipe() {
     await backendFetchRequest(`images/${recipe.value.imageFilename}`, {
       method: 'DELETE',
     })
+  }
+  if (recipe.value.slug) {
     await backendFetchRequest(`recipes/${recipe.value.slug}`, {
       method: 'DELETE',
     })
-    if ('serviceWorker' in navigator) {
-      const registration = await navigator.serviceWorker.ready
-      if (registration.active) {
-        const invalidationUrls = [
-          `/api/images/${recipe.value.imageFilename}`,
-          `/api/recipes/${recipe.value.slug}`,
-          '/api/recipe-count',
-          '/api/recipecards',
-        ]
-        invalidationUrls.forEach((url) => {
-          registration.active?.postMessage({
-            type: 'INVALIDATE_CACHE',
-            url,
-          })
-        })
-      }
-    }
-    router.push('/')
   }
+  if ('serviceWorker' in navigator) {
+    const registration = await navigator.serviceWorker.ready
+    if (registration.active) {
+      const invalidationUrls = [
+        `/api/images/${recipe.value.imageFilename}`,
+        `/api/recipes/${recipe.value.slug}`,
+        '/api/recipe-count',
+        '/api/recipecards',
+      ]
+      invalidationUrls.forEach((url) => {
+        registration.active?.postMessage({
+          type: 'INVALIDATE_CACHE',
+          url,
+        })
+      })
+    }
+  }
+  router.push('/')
 }
 
 onBeforeMount(async () => {
