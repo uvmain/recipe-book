@@ -35,23 +35,7 @@ async function handleSave(recipe: Recipe, imageBase64?: string) {
     body: JSON.stringify(recipe),
     method: 'PATCH',
   })
-  if (await response.ok) {
-    if ('serviceWorker' in navigator) {
-      const registration = await navigator.serviceWorker.ready
-      if (registration.active) {
-        const invalidationUrls = [
-          `/api/recipes/${recipeSlug.value}`,
-          '/api/recipecards',
-        ]
-        invalidationUrls.forEach((url) => {
-          registration.active?.postMessage({
-            type: 'INVALIDATE_CACHE',
-            url,
-          })
-        })
-      }
-    }
-  }
+  await response
   router.push(`/recipe/${recipe.slug}`)
 }
 
@@ -75,24 +59,7 @@ async function patchImage(imageBase64: string, originalFilename: string, imageFi
       method: 'POST',
     })
 
-    if (await response.ok) {
-      if ('serviceWorker' in navigator) {
-        const registration = await navigator.serviceWorker.ready
-        if (registration.active) {
-          const invalidationUrls = [
-            `/api/images/${originalFilename}`,
-          ]
-          invalidationUrls.forEach((url) => {
-            registration.active?.postMessage({
-              type: 'INVALIDATE_CACHE',
-              url,
-            })
-          })
-        }
-      }
-    }
-
-    if (!response.ok) {
+    if (!await response.ok) {
       const errorText = await response.body
       console.error(`Image post failed: ${errorText}`)
     }
@@ -120,23 +87,6 @@ async function deleteThisRecipe() {
     await backendFetchRequest(`recipes/${recipe.value.slug}`, {
       method: 'DELETE',
     })
-  }
-  if ('serviceWorker' in navigator) {
-    const registration = await navigator.serviceWorker.ready
-    if (registration.active) {
-      const invalidationUrls = [
-        `/api/images/${recipe.value.imageFilename}`,
-        `/api/recipes/${recipe.value.slug}`,
-        '/api/recipe-count',
-        '/api/recipecards',
-      ]
-      invalidationUrls.forEach((url) => {
-        registration.active?.postMessage({
-          type: 'INVALIDATE_CACHE',
-          url,
-        })
-      })
-    }
   }
   router.push('/')
 }
