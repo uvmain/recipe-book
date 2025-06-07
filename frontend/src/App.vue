@@ -25,7 +25,16 @@ useHead({
 <template>
   <div id="app" class="min-h-screen flex flex-col background">
     <Header class="sticky top-0 z-10" />
-    <Filters v-if="showFiltersComponent" class="sticky z-10 background top-20" />
+    <Transition
+      enter-active-class="transition ease-out duration-200"
+      enter-from-class="opacity-0 transform -translate-y-4"
+      enter-to-class="opacity-100 transform translate-y-0"
+      leave-active-class="transition ease-in duration-150"
+      leave-from-class="opacity-100 transform translate-y-0"
+      leave-to-class="opacity-0 transform -translate-y-4"
+    >
+      <Filters v-if="showFiltersComponent" class="sticky z-10 background top-20" />
+    </Transition>
     <RouterView />
   </div>
 </template>
@@ -37,6 +46,5 @@ html, body, #app {
   border: 0;
   font-family: 'Quicksand', sans-serif;
   min-height: 100%;
-  @apply standard;
 }
 </style>

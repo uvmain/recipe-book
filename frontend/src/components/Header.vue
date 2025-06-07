@@ -52,7 +52,7 @@ const showFiltersButton = computed(() => {
 })
 
 const filterBorderClass = computed(() => {
-  return filtered.value ? 'border-green dark:border-green' : ''
+  return filtered.value ? 'border-zinc-400 dark:border-zinc-500' : ''
 })
 
 function openModal() {
@@ -69,8 +69,8 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div class="background w-full h-18 lg:h-20">
-    <header class="flex flex-row gap-1 justify-center items-center p-4 lg:p-6 lg:gap-4">
+  <div class="background w-full">
+    <header class="flex flex-wrap gap-1 justify-center items-center p-2 lg:p-6 pb-0 lg:gap-4">
       <div>
         <button
           type="button"

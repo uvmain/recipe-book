@@ -57,9 +57,9 @@ function onImageError(event: Event) {
 
 <template>
   <div class="flex gap-4 flex-col tracking-wider mx-2 lg:gap-6 sm:max-w-90vw sm:max-w-60vw lg:max-w-200">
-    <h2 class="text-center mb-4 titleText text-4xl">
+    <div class="text-center titleText text-4xl font-semibold my-4">
       {{ recipe.name }}
-    </h2>
+    </div>
     <div class="flex items-center mx-auto gap-4 w-4/5">
       <div class="w-full h-0.5 bg-gradient-to-r to-zinc-500 from-gray-400 dark:from-zinc-500 dark:to-gray-400" />
       <RecipeIcons :recipe="recipe" />

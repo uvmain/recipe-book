@@ -15,7 +15,7 @@ const select = ref<HTMLSelectElement>()
     <label :for="label">{{ label }}</label>
     <select
       ref="select"
-      class="w-full border-1 max-w-xs p-2 focus:ring-3 rounded"
+      class="w-full max-w-xs p-2 focus:ring-3 rounded text border recipeCardBackground"
       @change="$emit('update:modelValue', select?.value)"
     >
       <option

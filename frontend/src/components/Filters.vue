@@ -33,7 +33,7 @@ function closeFilters() {
           v-model="selectedCourses"
           type="checkbox"
           :value="course"
-          class="accent-gray-600 dark:accent-gray-400"
+          class="accent-zinc-600 dark:accent-zinc-400"
         >
         <label :for="course" class="font-light">
           {{ course }}
@@ -44,9 +44,9 @@ function closeFilters() {
           id="vegetarian"
           v-model="selectedVegetarian"
           type="checkbox"
-          class="accent-gray-600 dark:accent-gray-400"
+          class="accent-zinc-600 dark:accent-zinc-400"
         >
-        <icon-lucide-leafy-green class="text-lg text-green-600" />
+        <icon-lucide-leafy-green class="text-lg text-zinc-600 dark:text-zinc-400" />
         <label for="vegetarian" class="font-light">
           vegetarian
         </label>
@@ -65,7 +65,7 @@ function closeFilters() {
         type="range"
         min="100"
         max="1000"
-        class="dark:accent-gray-400 w-full accent-gray-400"
+        class="dark:accent-zinc-400 w-full accent-zinc-400"
       >
     </div>
 
@@ -79,7 +79,7 @@ function closeFilters() {
         <button
           type="button"
           aria-label="select country"
-          class="items-center flex items-center justify-center size-8 border-solid border-gray-200 active:bg-blue-gray-300 recipeCardBackground border"
+          class="items-center flex items-center justify-center size-8 active:bg-zinc-300 dark:active:bg-zinc-600 recipeCardBackground border"
           @click="selectedCountry = ''"
         >
           <icon-lucide-eraser class="text-lg headerButtonIcon" />
