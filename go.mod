@@ -3,6 +3,7 @@ module recipebook
 go 1.24.2
 
 require (
+	github.com/joho/godotenv v1.5.1
 	github.com/rs/cors v1.11.1
 	modernc.org/sqlite v1.37.0
 )
