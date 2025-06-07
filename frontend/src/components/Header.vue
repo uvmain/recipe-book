@@ -52,7 +52,7 @@ const showFiltersButton = computed(() => {
 })
 
 const filterBorderClass = computed(() => {
-  return filtered.value ? 'border-green dark:border-green' : ''
+  return filtered.value ? 'border-slate-400 dark:border-slate-500' : ''
 })
 
 function openModal() {

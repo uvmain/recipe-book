@@ -43,7 +43,7 @@ function onImageError(event: Event) {
 
 <template>
   <a
-    class="text-center border text rounded block shadow-md tracking-wider no-underline overflow-hidden hover:shadow-xl transition-shadow duration-100 dark:hover:shadow-gray-600 hover:cursor-pointer"
+    class="text-center border text rounded block tracking-wider no-underline overflow-hidden hover:cursor-pointer transition-transform duration-200 ease-in-out hover:scale-102"
     :href="linkTarget"
   >
     <div id="card-header" class="flex flex-col h-60">
@@ -54,9 +54,9 @@ function onImageError(event: Event) {
         {{ recipeCard.name }}
       </h2>
       <div class="flex items-center gap-3 mb-4 align-middle">
-        <hr class="border-gray-300 flex-grow">
+        <hr class="border flex-grow">
         <RecipeIcons :recipe="recipeCard" colour="text" />
-        <hr class="flex-grow border-gray-300">
+        <hr class="border flex-grow">
       </div>
       <div class="mb-0">
         <p v-if="showAuthor" class="text-sm recipeCardText">

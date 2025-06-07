@@ -52,39 +52,39 @@ onClickOutside(target, () => emits('modalClose'))
 <template>
   <div v-if="isOpen" class="top-0 text fixed left-0 z-999 size-full backdrop-blur-xl">
     <div v-if="!userLoginState" @keydown.escape="cancel">
-      <div ref="target" class="mx-auto mb-auto mt-150px w-300px px-30px pb-30px pt-20px modal">
+      <div ref="target" class="mx-auto mb-auto mt-150px w-300px px-30px pb-30px pt-20px modal recipeCardBackground border rounded-md">
         <div class="flex flex-col gap-4 p-6 w-300">
           <form class="flex flex-col gap-2">
             <div class="flex flex-row items-center gap-2">
               <label for="username">Username:</label>
-              <input id="username" v-model="username" type="text" name="username" autocomplete="username">
+              <input id="username" v-model="username" type="text" name="username" autocomplete="username" class="text border recipeCardBackground">
             </div>
             <div class="flex flex-row items-center gap-2">
               <label for="password">Password:</label>
-              <input id="password" v-model="password" type="password" name="password" autocomplete="current-password" @keydown.enter="login">
+              <input id="password" v-model="password" type="password" name="password" autocomplete="current-password" @keydown.enter="login" class="text border recipeCardBackground">
             </div>
           </form>
         </div>
         <div class="flex justify-center gap-4">
-          <button aria-label="cancel" class="button" @click="cancel">
+          <button aria-label="cancel" class="textButton" @click="cancel">
             Cancel
           </button>
-          <button aria-label="login" class="button" @click="login">
+          <button aria-label="login" class="textButton" @click="login">
             Login
           </button>
         </div>
       </div>
     </div>
     <div v-else @keydown.escape="cancel">
-      <div class="mx-auto mb-auto mt-150px w-300px px-30px pb-30px pt-20px modal rounded-sm">
+      <div class="mx-auto mb-auto mt-150px w-300px px-30px pb-30px pt-20px modal recipeCardBackground border rounded-md">
         <div class="text-center mb-2 py-4">
           You are logged in.
         </div>
         <div class="flex justify-center gap-4">
-          <button aria-label="cancel" class="button" @click="cancel">
+          <button aria-label="cancel" class="textButton" @click="cancel">
             Cancel
           </button>
-          <button aria-label="logout" class="button" @click="logout">
+          <button aria-label="logout" class="textButton" @click="logout">
             Logout
           </button>
         </div>

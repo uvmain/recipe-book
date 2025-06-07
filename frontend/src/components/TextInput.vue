@@ -35,7 +35,7 @@ function handleInput(event: any) {
         :placeholder="model"
         :value="model"
         :type="type"
-        class="w-full border-1 border-white border-dashed p-2 rounded"
+        class="w-full p-2 rounded text border recipeCardBackground"
         @input="handleInput"
       />
       <textarea
@@ -43,7 +43,7 @@ function handleInput(event: any) {
         :id="label"
         :placeholder="model"
         :value="model"
-        class="w-full border-1 border-white border-dashed p-2 rounded min-h-40"
+        class="w-full p-2 rounded min-h-40 text border recipeCardBackground"
         @input="handleInput"
       />
     </div>

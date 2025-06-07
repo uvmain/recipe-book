@@ -8,14 +8,14 @@ defineProps({
 <template>
   <div class="flex gap-2 flex-row">
     <div v-if="recipe.vegetarian" id="vegetarianIcon" class="flex relative group/veg">
-      <icon-lucide-leafy-green class="text-green-600" />
-      <span class="text-sm bg-zinc-700 text-gray-100 transition-opacity py-1 absolute -translate-y-full -translate-x-1/2 opacity-0 px-2 group-hover/veg:opacity-90">
+      <icon-lucide-leafy-green class="text-slate-600 dark:text-slate-400" />
+      <span class="text-sm bg-slate-800 text-slate-100 transition-opacity py-1 absolute -translate-y-full -translate-x-1/2 opacity-0 px-2 group-hover/veg:opacity-90">
         Vegetarian
       </span>
     </div>
     <div v-if="recipe.country" class="flex relative group/country">
       <Flag :country="recipe.country" />
-      <span class="text-sm transition-opacity bg-zinc-700 py-1 text-gray-100 absolute -translate-y-full -translate-x-1/2 opacity-0 px-2 group-hover/country:opacity-90">
+      <span class="text-sm transition-opacity bg-slate-800 text-slate-100 py-1 absolute -translate-y-full -translate-x-1/2 opacity-0 px-2 group-hover/country:opacity-90">
         {{ recipe.country }}
       </span>
     </div>
@@ -30,7 +30,7 @@ defineProps({
       <icon-lucide-soup v-else-if="recipe.course in ['soups', 'stews']" :class="colour" />
       <icon-lucide-lab-garlic v-else-if="recipe.course === 'seasonings'" :class="colour" />
       <icon-lucide-cooking-pot v-else :class="colour" />
-      <span class="text-sm transition-opacity bg-zinc-700 py-1 text-gray-100 absolute -translate-y-full -translate-x-1/2 opacity-0 px-2 group-hover/course:opacity-90">
+      <span class="text-sm transition-opacity bg-slate-800 text-slate-100 py-1 absolute -translate-y-full -translate-x-1/2 opacity-0 px-2 group-hover/course:opacity-90">
         {{ recipe.course }}
       </span>
     </div>
