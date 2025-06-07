@@ -32,7 +32,7 @@ cd gallery
 ```bash
 npm run deps
 ```
-This command downloads the npm dependencies for the local dev and frontend components, and the go dependencies for the api component.
+This command downloads the npm dependencies for the local dev and frontend components.
 
 3. **Set up environment variables:**
 Update the following environment variables in the /package.json (for local dev) and in the docker_compose.yml (or sibling .env file):
@@ -41,9 +41,9 @@ ADMIN_USER=your_admin_name
 ADMIN_PASSWORD=your_admin_password
 ```
 
-4. **Generate SSL/TLS certificates (optional for local development):**
+4. **Download the Golang dependencies for the api component and generate SSL/TLS certificates (optional for local development):**
 ```bash
-npm run create-cert
+npm run setup
 ```
 
 5. **Start development environment::**

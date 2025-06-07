@@ -10,7 +10,6 @@ import Icons from 'unplugin-icons/vite'
 import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 import Pages from 'vite-plugin-pages'
-import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -24,30 +23,6 @@ export default defineConfig({
       viteOptimizeDeps: true,
     }),
     vue(),
-    VitePWA(
-      {
-        srcDir: './src',
-        filename: 'sw.ts',
-        strategies: 'injectManifest',
-        manifest: {
-          name: 'RecipeBook',
-          short_name: 'RecipeBook',
-          icons: [
-            {
-              src: '/favicon-256.png',
-              sizes: '256x256',
-              type: 'image/png',
-              purpose: 'any maskable',
-            },
-          ],
-        },
-        includeAssets: [
-          '/audio/timer.wav',
-          '/default.webp',
-          'favicon.ico',
-        ],
-      },
-    ),
     // https://github.com/hannoeru/vite-plugin-pages
     Pages(),
     Icons({
