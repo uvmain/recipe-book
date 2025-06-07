@@ -6,7 +6,7 @@
     "frontend"
   ],
   "scripts": {
-    "postinstall": "go mod download && npm run create-cert",
+    "setup": "go mod download && npm run create-cert",
     "clean": "rimraf -v -I server server.exe frontend/dist",
     "clean:build": "rimraf -v -I server server.exe frontend/dist",
     "clean:full": "rimraf -v -I server server.exe data frontend/dist frontend/node_modules node_modules recipebook.localhost.pem recipebook.localhost-key.pem",
