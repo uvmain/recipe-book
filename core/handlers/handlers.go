@@ -6,10 +6,10 @@ import (
 	"net/http"
 	"recipebook/core/database"
 	"recipebook/core/images"
-	"recipebook/core/net"
 	"recipebook/core/types"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func HandleGetRecipeCount(w http.ResponseWriter, r *http.Request) {
@@ -61,15 +61,25 @@ func HandleGetRecipeCardsOrderedByDateCreated(w http.ResponseWriter, r *http.Req
 
 func HandleGetImageByFilename(w http.ResponseWriter, r *http.Request) {
 	filename := r.PathValue("filename")
-	imageBlob, err := images.GetImageByFilename(filename)
-
+	imageBlob, lastModified, err := images.GetImageByFilename(filename)
 	if err != nil {
 		http.Error(w, "Image not found", http.StatusNotFound)
 		return
 	}
+
+	ifModifiedSince := r.Header.Get("If-Modified-Since")
+	if ifModifiedSince != "" {
+		ifTime, err := time.Parse(http.TimeFormat, ifModifiedSince)
+		if err == nil && !lastModified.Truncate(time.Second).After(ifTime) {
+			w.WriteHeader(http.StatusNotModified)
+			return
+		}
+	}
+
 	mimeType := http.DetectContentType(imageBlob)
-	net.EnableCdnCaching(w)
 	w.Header().Set("Content-Type", mimeType)
+	w.Header().Set("Last-Modified", lastModified.Truncate(time.Second).UTC().Format(http.TimeFormat))
+	w.Header().Set("Cache-Control", "public, max-age=0, must-revalidate")
 	w.WriteHeader(http.StatusOK)
 	w.Write(imageBlob)
 }

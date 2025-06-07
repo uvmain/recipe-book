@@ -10,7 +10,9 @@ import (
 	"recipebook/core/auth"
 	"recipebook/core/config"
 	"recipebook/core/handlers"
+	"recipebook/core/logic"
 	"strings"
+	"time"
 
 	"github.com/rs/cors"
 )
@@ -67,6 +69,9 @@ func StartServer() {
 }
 
 func HandleFrontend(w http.ResponseWriter, r *http.Request) {
+	bootTime := logic.GetBootTime().Truncate(time.Second).UTC()
+	lastModified := bootTime.Format(http.TimeFormat)
+
 	cleanPath := path.Clean(r.URL.Path)
 	if cleanPath == "/" {
 		cleanPath = "/index.html"
@@ -74,13 +79,28 @@ func HandleFrontend(w http.ResponseWriter, r *http.Request) {
 		cleanPath = strings.TrimPrefix(cleanPath, "/")
 	}
 
+	// static content
 	file, err := distSubFS.Open(cleanPath)
 	if err == nil {
-		file.Close()
-		http.FileServer(http.FS(distSubFS)).ServeHTTP(w, r)
+		defer file.Close()
+
+		w.Header().Set("Cache-Control", "public, max-age=0, must-revalidate")
+		w.Header().Set("Last-Modified", lastModified)
+
+		ifModifiedSince := r.Header.Get("If-Modified-Since")
+		if ifModifiedSince != "" {
+			ifTime, err := time.Parse(http.TimeFormat, ifModifiedSince)
+			if err == nil && !bootTime.After(ifTime) {
+				w.WriteHeader(http.StatusNotModified)
+				return
+			}
+		}
+
+		http.ServeContent(w, r, cleanPath, bootTime, file.(io.ReadSeeker))
 		return
 	}
 
+	// serve index.html for vue-router content
 	indexFile, err := distSubFS.Open("index.html")
 	if err != nil {
 		http.Error(w, "index.html not found", http.StatusNotFound)
@@ -88,9 +108,17 @@ func HandleFrontend(w http.ResponseWriter, r *http.Request) {
 	}
 	defer indexFile.Close()
 
-	if stat, err := indexFile.Stat(); err == nil {
-		http.ServeContent(w, r, "index.html", stat.ModTime(), indexFile.(io.ReadSeeker))
-	} else {
-		http.Error(w, "Failed to serve index.html", http.StatusInternalServerError)
+	w.Header().Set("Cache-Control", "public, max-age=0, must-revalidate")
+	w.Header().Set("Last-Modified", lastModified)
+
+	ifModifiedSince := r.Header.Get("If-Modified-Since")
+	if ifModifiedSince != "" {
+		ifTime, err := time.Parse(http.TimeFormat, ifModifiedSince)
+		if err == nil && !bootTime.After(ifTime) {
+			w.WriteHeader(http.StatusNotModified)
+			return
+		}
 	}
+
+	http.ServeContent(w, r, "index.html", bootTime, indexFile.(io.ReadSeeker))
 }
