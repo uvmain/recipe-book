@@ -44,7 +44,7 @@ html, body, #app {
   margin: 0;
   padding: 0;
   border: 0;
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Onest', sans-serif;
   min-height: 100%;
 }
 </style>

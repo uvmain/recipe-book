@@ -61,7 +61,7 @@ onClickOutside(target, () => emits('modalClose'))
             </div>
             <div class="flex flex-row items-center gap-2">
               <label for="password">Password:</label>
-              <input id="password" v-model="password" type="password" name="password" autocomplete="current-password" @keydown.enter="login" class="text border recipeCardBackground">
+              <input id="password" v-model="password" type="password" name="password" autocomplete="current-password" class="text border recipeCardBackground" @keydown.enter="login">
             </div>
           </form>
         </div>

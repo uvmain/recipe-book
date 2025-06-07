@@ -51,7 +51,7 @@ export default defineConfig({
     Unfonts({
       google: {
         families: [
-          'Quicksand',
+          'Onest',
         ],
       },
     }),
