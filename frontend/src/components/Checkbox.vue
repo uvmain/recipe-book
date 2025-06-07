@@ -26,7 +26,7 @@ const model = computed({
       :id="label"
       v-model="model"
       type="checkbox"
-      class="accent-slate-600 dark:accent-slate-400"
+      class="accent-zinc-600 dark:accent-zinc-400"
     >
   </div>
 </template>
