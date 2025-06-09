@@ -31,6 +31,9 @@ func HandleGetRecipesOrderedByDateCreated(w http.ResponseWriter, r *http.Request
 func HandleGetRecipeBySlug(w http.ResponseWriter, r *http.Request) {
 	slug := r.PathValue("slug")
 	recipe, _ := database.GetRecipeBySlug(slug)
+	if IfModifiedResponse(w, r, recipe.LastModified) {
+		return
+	}
 	w.Header().Set("Content-Type", "application/json")
 	if err := json.NewEncoder(w).Encode(recipe); err != nil {
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
@@ -53,6 +56,30 @@ func HandleGetRecipeCardsOrderedByDateCreated(w http.ResponseWriter, r *http.Req
 	filters.Vegetarian, _ = strconv.ParseBool(vegetarianParam)
 
 	recipeCards, _ := database.GetRecipeCardsFilteredAndOrderedByDateCreated(filters)
+
+	var lastModified time.Time
+
+	for _, recipeCard := range recipeCards {
+		if recipeCard.LastModified.After(lastModified) {
+			lastModified = recipeCard.LastModified
+		}
+	}
+
+	ifModifiedSince := r.Header.Get("If-Modified-Since")
+	if ifModifiedSince != "" {
+		ifTime, err := time.Parse(http.TimeFormat, ifModifiedSince)
+		if err != nil {
+			log.Printf("error parsing ifTime")
+		}
+		if ifTime.After(lastModified) {
+			lastModified = time.Now()
+		}
+	}
+
+	if IfModifiedResponse(w, r, lastModified) {
+		return
+	}
+
 	w.Header().Set("Content-Type", "application/json")
 	if err := json.NewEncoder(w).Encode(recipeCards); err != nil {
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
@@ -67,19 +94,12 @@ func HandleGetImageByFilename(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ifModifiedSince := r.Header.Get("If-Modified-Since")
-	if ifModifiedSince != "" {
-		ifTime, err := time.Parse(http.TimeFormat, ifModifiedSince)
-		if err == nil && !lastModified.Truncate(time.Second).After(ifTime) {
-			w.WriteHeader(http.StatusNotModified)
-			return
-		}
+	if IfModifiedResponse(w, r, lastModified) {
+		return
 	}
 
 	mimeType := http.DetectContentType(imageBlob)
 	w.Header().Set("Content-Type", mimeType)
-	w.Header().Set("Last-Modified", lastModified.Truncate(time.Second).UTC().Format(http.TimeFormat))
-	w.Header().Set("Cache-Control", "public, max-age=0, must-revalidate")
 	w.WriteHeader(http.StatusOK)
 	w.Write(imageBlob)
 }
@@ -189,4 +209,18 @@ func HandleGetSlugsByFullTextSearch(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewEncoder(w).Encode(slugs); err != nil {
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 	}
+}
+
+func IfModifiedResponse(w http.ResponseWriter, r *http.Request, lastModified time.Time) bool {
+	w.Header().Set("Last-Modified", lastModified.Truncate(time.Second).UTC().Format(http.TimeFormat))
+	w.Header().Set("Cache-Control", "public, max-age=0, must-revalidate")
+	ifModifiedSince := r.Header.Get("If-Modified-Since")
+	if ifModifiedSince != "" {
+		ifTime, err := time.Parse(http.TimeFormat, ifModifiedSince)
+		if err == nil && !lastModified.Truncate(time.Second).After(ifTime) {
+			w.WriteHeader(http.StatusNotModified)
+			return true
+		}
+	}
+	return false
 }

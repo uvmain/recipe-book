@@ -32,17 +32,17 @@ func DeleteRecipeBySlug(slug string) error {
 
 func InsertRecipe(recipe types.RecipeInsert) error {
 	stmt, err := Database.Prepare(`INSERT INTO recipes (
-		slug, dateCreated, name, author, source, course, country, vegetarian, prepTime, cookingTime, calories, servings, ingredients, instructions, imageFilename, imageWidth, imageHeight
-	) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`)
+		slug, dateCreated, name, author, source, course, country, vegetarian, prepTime, cookingTime, calories, servings, ingredients, instructions, imageFilename, imageWidth, imageHeight, lastModified
+	) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`)
 	if err != nil {
 		return err
 	}
 	defer stmt.Close()
 
 	_, err = stmt.Exec(
-		recipe.Slug, time.Now(), recipe.Name, recipe.Author, recipe.Source, recipe.Course,
-		recipe.Country, recipe.Vegetarian, recipe.PrepTime, recipe.CookingTime, recipe.Calories,
-		recipe.Servings, recipe.Ingredients, recipe.Instructions, recipe.ImageFilename, recipe.ImageWidth, recipe.ImageHeight,
+		recipe.Slug, time.Now(), recipe.Name, recipe.Author, recipe.Source, recipe.Course, recipe.Country,
+		recipe.Vegetarian, recipe.PrepTime, recipe.CookingTime, recipe.Calories, recipe.Servings, recipe.Ingredients,
+		recipe.Instructions, recipe.ImageFilename, recipe.ImageWidth, recipe.ImageHeight, time.Now(),
 	)
 	if err != nil {
 		log.Printf("error inserting recipe row: %s", err)
@@ -54,11 +54,12 @@ func InsertRecipe(recipe types.RecipeInsert) error {
 
 func GetRecipeBySlug(slug string) (types.Recipe, error) {
 	var row types.Recipe
-	query := `SELECT slug, dateCreated, name, author, source, course, country, vegetarian, prepTime, cookingTime, calories, servings, ingredients, instructions, imageFilename, imageWidth, imageHeight FROM recipes WHERE slug = ?;`
+	query := `SELECT slug, dateCreated, name, author, source, course, country, vegetarian, prepTime, cookingTime, calories, servings, ingredients, instructions, imageFilename, imageWidth, imageHeight, lastModified FROM recipes WHERE slug = ?;`
 
 	err := Database.QueryRow(query, slug).Scan(
-		&row.Slug, &row.DateCreated, &row.Name, &row.Author, &row.Source, &row.Course, &row.Country, &row.Vegetarian, &row.PrepTime,
-		&row.CookingTime, &row.Calories, &row.Servings, &row.Ingredients, &row.Instructions, &row.ImageFilename, &row.ImageWidth, &row.ImageHeight,
+		&row.Slug, &row.DateCreated, &row.Name, &row.Author, &row.Source, &row.Course, &row.Country,
+		&row.Vegetarian, &row.PrepTime, &row.CookingTime, &row.Calories, &row.Servings, &row.Ingredients,
+		&row.Instructions, &row.ImageFilename, &row.ImageWidth, &row.ImageHeight, &row.LastModified,
 	)
 	if err != nil {
 		return types.Recipe{}, err
@@ -69,7 +70,7 @@ func GetRecipeBySlug(slug string) (types.Recipe, error) {
 func GetRecipesOrderedByDateCreated() ([]types.Recipe, error) {
 	var recipes []types.Recipe
 
-	query := `SELECT slug, dateCreated, name, author, source, course, country, vegetarian, prepTime, cookingTime, calories, servings, ingredients, instructions, imageFilename, imageWidth, imageHeight FROM recipes ORDER BY dateCreated DESC;`
+	query := `SELECT slug, dateCreated, name, author, source, course, country, vegetarian, prepTime, cookingTime, calories, servings, ingredients, instructions, imageFilename, imageWidth, imageHeight, lastModified FROM recipes ORDER BY dateCreated DESC;`
 	rows, err := Database.Query(query)
 	if err != nil {
 		log.Printf("Query failed: %v", err)
@@ -81,7 +82,7 @@ func GetRecipesOrderedByDateCreated() ([]types.Recipe, error) {
 		var recipe types.Recipe
 		if err := rows.Scan(&recipe.Slug, &recipe.DateCreated, &recipe.Name, &recipe.Author, &recipe.Source, &recipe.Course,
 			&recipe.Country, &recipe.Vegetarian, &recipe.PrepTime, &recipe.CookingTime, &recipe.Calories, &recipe.Servings,
-			&recipe.Ingredients, &recipe.Instructions, &recipe.ImageFilename, &recipe.ImageWidth, &recipe.ImageHeight); err != nil {
+			&recipe.Ingredients, &recipe.Instructions, &recipe.ImageFilename, &recipe.ImageWidth, &recipe.ImageHeight, &recipe.LastModified); err != nil {
 			log.Printf("Failed to scan row: %v", err)
 			return nil, err
 		}
@@ -98,10 +99,11 @@ func GetRecipesOrderedByDateCreated() ([]types.Recipe, error) {
 
 func GetRandomRecipe() (types.Recipe, error) {
 	var row types.Recipe
-	query := `SELECT slug, dateCreated, name, author, source, course, country, vegetarian, prepTime, cookingTime, calories, servings, ingredients, instructions, imageFilename, imageWidth, imageHeight FROM recipes ORDER BY RANDOM() LIMIT 1;`
+	query := `SELECT slug, dateCreated, name, author, source, course, country, vegetarian, prepTime, cookingTime, calories, servings, ingredients, instructions, imageFilename, imageWidth, imageHeight, lastModified FROM recipes ORDER BY RANDOM() LIMIT 1;`
 	err := Database.QueryRow(query).Scan(
-		&row.Slug, &row.DateCreated, &row.Name, &row.Author, &row.Source, &row.Course, &row.Country, &row.Vegetarian, &row.PrepTime,
-		&row.CookingTime, &row.Calories, &row.Servings, &row.Ingredients, &row.Instructions, &row.ImageFilename, &row.ImageWidth, &row.ImageHeight,
+		&row.Slug, &row.DateCreated, &row.Name, &row.Author, &row.Source, &row.Course, &row.Country,
+		&row.Vegetarian, &row.PrepTime, &row.CookingTime, &row.Calories, &row.Servings, &row.Ingredients,
+		&row.Instructions, &row.ImageFilename, &row.ImageWidth, &row.ImageHeight, &row.LastModified,
 	)
 	if err != nil {
 		return types.Recipe{}, err
@@ -110,6 +112,7 @@ func GetRandomRecipe() (types.Recipe, error) {
 }
 
 func UpdateRecipeBySlug(slug string, updates map[string]interface{}) error {
+	updates["lastModified"] = time.Now()
 	query := "UPDATE recipes SET "
 	params := []interface{}{}
 	i := 1
@@ -144,11 +147,11 @@ func GetRecipeCardsFilteredAndOrderedByDateCreated(filters types.Filters) ([]typ
 	var query string
 
 	if filters.Search == "" {
-		query = `SELECT DISTINCT r.slug, r.dateCreated, r.name, r.author, r.source, r.course, r.country, r.vegetarian, r.prepTime, r.cookingTime, r.calories, r.servings, r.ingredients, r.instructions, r.imageFilename, r.imageWidth, r.imageHeight
+		query = `SELECT DISTINCT r.slug, r.dateCreated, r.name, r.author, r.source, r.course, r.country, r.vegetarian, r.prepTime, r.cookingTime, r.calories, r.servings, r.ingredients, r.instructions, r.imageFilename, r.imageWidth, r.imageHeight, r.lastModified
 		FROM recipes r
 		ORDER BY r.dateCreated DESC;`
 	} else {
-		query = `SELECT DISTINCT r.slug, r.dateCreated, r.name, r.author, r.source, r.course, r.country, r.vegetarian, r.prepTime, r.cookingTime, r.calories, r.servings, r.ingredients, r.instructions, r.imageFilename, r.imageWidth, r.imageHeight
+		query = `SELECT DISTINCT r.slug, r.dateCreated, r.name, r.author, r.source, r.course, r.country, r.vegetarian, r.prepTime, r.cookingTime, r.calories, r.servings, r.ingredients, r.instructions, r.imageFilename, r.imageWidth, r.imageHeight, r.lastModified
 		FROM recipes r JOIN recipes_fts f ON r.slug = f.slug
 		WHERE recipes_fts MATCH ?
 		ORDER BY r.dateCreated DESC;`
@@ -166,7 +169,7 @@ func GetRecipeCardsFilteredAndOrderedByDateCreated(filters types.Filters) ([]typ
 		var filterOut = false
 		if err := rows.Scan(&recipe.Slug, &recipe.DateCreated, &recipe.Name, &recipe.Author, &recipe.Source, &recipe.Course,
 			&recipe.Country, &recipe.Vegetarian, &recipe.PrepTime, &recipe.CookingTime, &recipe.Calories, &recipe.Servings,
-			&recipe.Ingredients, &recipe.Instructions, &recipe.ImageFilename, &recipe.ImageWidth, &recipe.ImageHeight); err != nil {
+			&recipe.Ingredients, &recipe.Instructions, &recipe.ImageFilename, &recipe.ImageWidth, &recipe.ImageHeight, &recipe.LastModified); err != nil {
 			log.Printf("Failed to scan row: %v", err)
 			return nil, err
 		}
@@ -231,6 +234,7 @@ func GetRecipeCardsFilteredAndOrderedByDateCreated(filters types.Filters) ([]typ
 		recipeCard.Slug = recipe.Slug
 		recipeCard.Source = recipe.Source
 		recipeCard.Vegetarian = recipe.Vegetarian
+		recipeCard.LastModified = recipe.LastModified
 
 		recipeCards = append(recipeCards, recipeCard)
 	}

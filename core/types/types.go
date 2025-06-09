@@ -35,6 +35,7 @@ type Recipe struct {
 	ImageFilename NullString `json:"imageFilename"`
 	ImageWidth    int        `json:"imageWidth"`
 	ImageHeight   int        `json:"imageHeight"`
+	LastModified  time.Time  `json:"lastModified"`
 }
 
 type RecipeInsert struct {
@@ -72,6 +73,7 @@ type RecipeCard struct {
 	ImageFilename NullString `json:"imageFilename"`
 	ImageWidth    int        `json:"imageWidth"`
 	ImageHeight   int        `json:"imageHeight"`
+	LastModified  time.Time  `json:"lastModified"`
 }
 
 type Filters struct {

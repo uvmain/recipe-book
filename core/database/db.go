@@ -66,8 +66,8 @@ func Initialise() *sql.DB {
 func createRecipesTable() {
 	query := `CREATE TABLE IF NOT EXISTS recipes (
 		slug TEXT PRIMARY KEY NOT NULL,
-		dateCreated DATETIME,
-		name TEXT,
+		dateCreated DATETIME NOT NULL,
+		name TEXT NOT NULL,
 		author TEXT,
 		source TEXT,
 		course TEXT,
@@ -81,7 +81,8 @@ func createRecipesTable() {
 		instructions TEXT,
 		imageFilename TEXT,
 		imageWidth INTEGER,
-		imageHeight INTEGER
+		imageHeight INTEGER,
+		lastModified DATETIME NOT NULL
 	);`
 
 	checkQuery := "SELECT name FROM sqlite_master WHERE type='table' AND name='recipes'"

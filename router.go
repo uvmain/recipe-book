@@ -70,7 +70,6 @@ func StartServer() {
 
 func HandleFrontend(w http.ResponseWriter, r *http.Request) {
 	bootTime := logic.GetBootTime().Truncate(time.Second).UTC()
-	lastModified := bootTime.Format(http.TimeFormat)
 
 	cleanPath := path.Clean(r.URL.Path)
 	if cleanPath == "/" {
@@ -84,16 +83,8 @@ func HandleFrontend(w http.ResponseWriter, r *http.Request) {
 	if err == nil {
 		defer file.Close()
 
-		w.Header().Set("Cache-Control", "public, max-age=0, must-revalidate")
-		w.Header().Set("Last-Modified", lastModified)
-
-		ifModifiedSince := r.Header.Get("If-Modified-Since")
-		if ifModifiedSince != "" {
-			ifTime, err := time.Parse(http.TimeFormat, ifModifiedSince)
-			if err == nil && !bootTime.After(ifTime) {
-				w.WriteHeader(http.StatusNotModified)
-				return
-			}
+		if handlers.IfModifiedResponse(w, r, bootTime) {
+			return
 		}
 
 		http.ServeContent(w, r, cleanPath, bootTime, file.(io.ReadSeeker))
@@ -108,16 +99,8 @@ func HandleFrontend(w http.ResponseWriter, r *http.Request) {
 	}
 	defer indexFile.Close()
 
-	w.Header().Set("Cache-Control", "public, max-age=0, must-revalidate")
-	w.Header().Set("Last-Modified", lastModified)
-
-	ifModifiedSince := r.Header.Get("If-Modified-Since")
-	if ifModifiedSince != "" {
-		ifTime, err := time.Parse(http.TimeFormat, ifModifiedSince)
-		if err == nil && !bootTime.After(ifTime) {
-			w.WriteHeader(http.StatusNotModified)
-			return
-		}
+	if handlers.IfModifiedResponse(w, r, bootTime) {
+		return
 	}
 
 	http.ServeContent(w, r, "index.html", bootTime, indexFile.(io.ReadSeeker))
