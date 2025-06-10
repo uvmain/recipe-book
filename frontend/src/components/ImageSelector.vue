@@ -10,6 +10,9 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue', 'update:resizedImage', 'update:resizedImageWidth', 'update:resizedImageHeight'])
 const resizedImageUrl = ref<string>('')
 
+const maxPixelSize = ref<number>(800)
+const imageQuality = ref(0.9)
+
 const model = computed({
   get() {
     return props.resizedImage
@@ -83,8 +86,8 @@ function resizeAndConvertImage(base64Image: string) {
       return
     }
 
-    const maxWidth = 1200
-    const maxHeight = 1200
+    const maxWidth = maxPixelSize.value
+    const maxHeight = maxPixelSize.value
     let width = img.width
     let height = img.height
 
@@ -101,13 +104,16 @@ function resizeAndConvertImage(base64Image: string) {
       }
     }
 
+    width = Math.round(width)
+    height = Math.round(height)
+
     canvas.width = width
     canvas.height = height
     ctx.drawImage(img, 0, 0, width, height)
-    resizedImageUrl.value = canvas.toDataURL('image/webp', 1.0)
+    resizedImageUrl.value = canvas.toDataURL('image/webp', imageQuality.value)
     emit('update:resizedImage', resizedImageUrl.value)
-    emit('update:resizedImageWidth', Math.round(width))
-    emit('update:resizedImageHeight', Math.round(height))
+    emit('update:resizedImageWidth', width)
+    emit('update:resizedImageHeight', height)
   }
 
   img.onerror = (error) => {
@@ -171,6 +177,36 @@ watch(model, () => {
           class="rounded-lg shadow-md w-28rem object-contain"
         />
       </div>
+    </div>
+    <div class="flex flex-col gap-4 mt-6">
+      <label>
+        Max Pixel Size: {{ maxPixelSize }}
+        <input
+          v-model="maxPixelSize"
+          type="range"
+          min="100"
+          max="2000"
+          step="100"
+          class="w-full"
+        />
+      </label>
+      <label>
+        Image Quality: {{ imageQuality }}
+        <input
+          v-model="imageQuality"
+          type="range"
+          min="0.1"
+          max="1"
+          step="0.1"
+          class="w-full"
+        />
+      </label>
+      <button
+        class="p-4 h-auto w-auto headerButton"
+        @click="resizeAndConvertImage(model)"
+      >
+        Resize Image
+      </button>
     </div>
   </div>
 </template>

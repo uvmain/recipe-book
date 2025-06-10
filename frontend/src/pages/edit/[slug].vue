@@ -41,27 +41,19 @@ async function handleSave(recipe: Recipe, imageBase64?: string) {
 
 async function patchImage(imageBase64: string, originalFilename: string, imageFilename: string) {
   try {
-    let response = await backendFetchRequest(`images/${originalFilename}`, {
-      method: 'DELETE',
-    })
-    if (!response.ok) {
-      const errorText = await response.body
-      console.error(`Image delete failed: ${errorText}`)
-    }
-
     const imageBlob = await base64ToBlob(imageBase64)
     const formData = new FormData()
     formData.append('file', imageBlob)
     formData.append('filename', imageFilename)
 
-    response = await backendFetchRequest('images', {
+    const response = await backendFetchRequest('images', {
       body: formData,
-      method: 'POST',
+      method: 'PATCH',
     })
 
     if (!await response.ok) {
       const errorText = await response.body
-      console.error(`Image post failed: ${errorText}`)
+      console.error(`Image patch failed: ${errorText}`)
     }
   }
   catch (error) {
