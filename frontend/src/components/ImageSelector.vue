@@ -10,7 +10,7 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue', 'update:resizedImage', 'update:resizedImageWidth', 'update:resizedImageHeight'])
 const resizedImageUrl = ref<string>('')
 
-const maxPixelSize = ref<number>(800)
+const maxPixelSize = ref<number>(1000)
 const imageQuality = ref(0.9)
 
 const model = computed({
