@@ -28,7 +28,13 @@ onMounted(async () => {
 <template>
   <div class="background min-h-screen flex flex-col">
     <div class="grid gap-4 p-4 lg:p-6 grid-cols-1 grid-rows-2 lg:grid-cols-4 md:grid-cols-3 xl:grid-cols-5 md:gap-6">
-      <RecipeCard v-for="recipeCard in allRecipeCards" :key="recipeCard.name" :recipe-card="recipeCard" class="recipeCardBackground flex-1" />
+      <RecipeCard
+        v-for="(recipeCard, index) in allRecipeCards"
+        :key="recipeCard.slug"
+        :recipe-card="recipeCard"
+        :index="index"
+        class="recipeCardBackground flex-1"
+      />
     </div>
   </div>
 </template>

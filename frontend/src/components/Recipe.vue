@@ -84,7 +84,7 @@ function onImageError(event: Event) {
       </div>
     </div>
     <div ref="image" class="flex">
-      <img :src="imageUrl" :alt="recipe.name" loading="lazy" :width="recipe.imageWidth" :height="recipe.imageHeight" class="w-full border-1 border-solid border-gray-400 rounded object-cover max-h-60vh" @error="onImageError">
+      <img :src="imageUrl" :alt="recipe.name" loading="eager" :width="recipe.imageWidth" :height="recipe.imageHeight" class="w-full border-1 border-solid border-gray-400 rounded object-cover max-h-60vh" @error="onImageError">
     </div>
     <div class="grid gap-4 mb-4">
       <!-- ingredients -->

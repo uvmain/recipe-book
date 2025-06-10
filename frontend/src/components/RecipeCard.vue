@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { calculateCaloriesPerServing } from '../composables/caloriesParse'
 
+type LoadingAttribute = 'lazy' | 'eager'
+
 const props = defineProps({
   recipeCard: { type: Object, required: true },
+  index: { type: Number, default: 1 },
 })
 
 const linkTarget = computed(() => {
@@ -34,6 +37,10 @@ const imageUrl = computed(() => {
   return `/api/images/${props.recipeCard.imageFilename}`
 })
 
+const loading = computed<LoadingAttribute>(() => {
+  return props.index < 10 ? 'eager' : 'lazy'
+})
+
 function onImageError(event: Event) {
   const target = event.target as HTMLImageElement
   target.onerror = null
@@ -47,7 +54,7 @@ function onImageError(event: Event) {
     :href="linkTarget"
   >
     <div id="card-header" class="flex flex-col h-60">
-      <img :src="imageUrl" :alt="recipeCard.name" loading="lazy" :width="recipeCard.imageWidth" :height="recipeCard.imageHeight" class="w-full object-cover h-full" @error="onImageError">
+      <img :src="imageUrl" :alt="recipeCard.name" :loading="loading" :width="recipeCard.imageWidth" :height="recipeCard.imageHeight" class="w-full object-cover h-full" @error="onImageError">
     </div>
     <div>
       <h2 class="text-xl font-bold mx-1 titleText">
