@@ -46,7 +46,7 @@ async function patchImage(imageBase64: string, originalFilename: string, imageFi
     formData.append('file', imageBlob)
     formData.append('filename', imageFilename)
 
-    const response = await backendFetchRequest('images', {
+    const response = await backendFetchRequest(`images/${originalFilename}`, {
       body: formData,
       method: 'PATCH',
     })
