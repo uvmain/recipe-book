@@ -45,6 +45,6 @@ html, body, #app {
   padding: 0;
   border: 0;
   font-family: 'Onest', sans-serif;
-  min-height: 100%;
+  min-height: 100vh;
 }
 </style>
