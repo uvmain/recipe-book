@@ -6,10 +6,10 @@
     "frontend"
   ],
   "scripts": {
-    "setup": "go mod download && npm run create-cert",
+    "setup": "go mod download",
     "clean": "rimraf -v -I server server.exe frontend/dist",
     "clean:build": "rimraf -v -I server server.exe frontend/dist",
-    "clean:full": "rimraf -v -I server server.exe data frontend/dist frontend/node_modules node_modules recipebook.localhost.pem recipebook.localhost-key.pem",
+    "clean:full": "rimraf -v -I server server.exe data frontend/dist frontend/node_modules node_modules",
     "dev:backend": "go run .",
     "dev:frontend": "npm run dev --workspace frontend",
     "dev": "concurrently npm:caddy npm:dev:backend npm:dev:frontend",
@@ -18,7 +18,6 @@
     "build": "npm run build:frontend && npm run build:backend",
     "preview": "concurrently npm:caddy:preview npm:preview:go",
     "preview:go": "server.exe",
-    "create-cert": "mkcert server.localhost && mkcert --install",
     "caddy": "caddy run --config Caddyfile",
     "caddy:preview": "caddy run --config Caddyfile.preview",
     "cspell": "cspell \"**/*.{go,ts,js,vue}\"",
@@ -26,13 +25,20 @@
     "lint:fix": "npm run lint:fix --workspace frontend"
   },
   "devDependencies": {
-    "caddy-baron": "^2.0.1",
+    "@antfu/eslint-config": "^4.17.0",
+    "caddy-baron": "^3.0.2",
     "concurrently": "^9.0.1",
     "cpy-cli": "^5.0.0",
     "cross-env": "^7.0.3",
-    "cspell": "^8.15.4",
+    "cspell": "^9.2.0",
     "env-cmd": "^10.1.0",
-    "node-mkcert-binary": "^2.1.9",
-    "rimraf": "^6.0.1"
+    "rimraf": "^6.0.1",
+    "vite": "^7.0.5"
+  },
+  "overrides": {
+    "@antfu/eslint-config": {
+      "@eslint/plugin-kit": "^0.3.3"
+    },
+    "vite": "^7.0.5"
   }
 }

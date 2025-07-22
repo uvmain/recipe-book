@@ -1,5 +1,4 @@
 recipebook.localhost {
-	tls recipebook.localhost.pem recipebook.localhost-key.pem
 	handle {
 		reverse_proxy localhost:8080
 	}
