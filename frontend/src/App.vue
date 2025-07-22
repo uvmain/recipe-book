@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useSessionStorage } from '@vueuse/core'
 import { useHead } from '@vueuse/head'
 
@@ -14,7 +14,6 @@ useHead({
   htmlAttrs: {
     lang: 'en',
   },
-  charset: 'utf-8',
   title: 'RecipeBook',
   meta: [
     { name: 'description', content: 'Personal Recipe Book' },

@@ -18,18 +18,6 @@ const scrollBehavior: RouterScrollBehavior = async (to, from, savedPosition) => 
   return { top: 0 }
 }
 
-if ('serviceWorker' in navigator) {
-  void navigator.serviceWorker.getRegistrations().then((registrations) => {
-    for (const registration of registrations) {
-      registration.unregister().catch((err) => {
-        console.error('Failed to unregister service worker:', err)
-      })
-    }
-  }).catch((err) => {
-    console.error('Failed to get service worker registrations:', err)
-  })
-}
-
 export const createApp = ViteSSG(
   App as Component,
   {
