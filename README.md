@@ -7,7 +7,7 @@ This is a **recipebook Web Application** built with a **Go REST API backend** an
 - Go REST API backend
 - Vue.js frontend built with Vite
 - SQLite database for image metadata storage and auth session storage
-- Caddy for secure local development
+- Caddy for local development with SSL
 
 ## Project Structure
 
@@ -41,7 +41,7 @@ ADMIN_USER=your_admin_name
 ADMIN_PASSWORD=your_admin_password
 ```
 
-4. **Download the Golang dependencies for the api component:**
+4. **Download the Golang dependencies for the api component**
 ```bash
 npm run setup
 ```
