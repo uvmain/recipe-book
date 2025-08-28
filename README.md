@@ -7,7 +7,7 @@ This is a **recipebook Web Application** built with a **Go REST API backend** an
 - Go REST API backend
 - Vue.js frontend built with Vite
 - SQLite database for image metadata storage and auth session storage
-- SSL/TLS certificate generation for local development
+- Caddy for local development with SSL
 
 ## Project Structure
 
@@ -41,7 +41,7 @@ ADMIN_USER=your_admin_name
 ADMIN_PASSWORD=your_admin_password
 ```
 
-4. **Download the Golang dependencies for the api component and generate SSL/TLS certificates (optional for local development):**
+4. **Download the Golang dependencies for the api component**
 ```bash
 npm run setup
 ```
@@ -63,7 +63,6 @@ Open [recipebook.localhost](https://[recipebook.localhost) in your browser
 - `npm run frontend:dev` - Runs the frontend in development mode.
 - `npm run dev` - Starts Caddy and concurrently runs the frontend and backend.
 - `npm run build` - Builds both the backend and frontend for production.
-- `npm run create-cert` - Generates and installs certificates for local SSL.
 - `npm run preview` - Runs the built distributable with Caddy for SSL and routing.
 
 ## Deployment
