@@ -14,6 +14,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/NYTimes/gziphandler"
 	"github.com/rs/cors"
 )
 
@@ -54,7 +55,9 @@ func StartServer() {
 	router.Handle("PATCH /api/images/{filename}", auth.AuthMiddleware(http.HandlerFunc(handlers.HandlePatchImageByFilename)))
 	router.Handle("DELETE /api/images/{filename}", auth.AuthMiddleware(http.HandlerFunc(handlers.HandleDeleteImageByFilename)))
 
-	handler := cors.AllowAll().Handler(router)
+	handler := cors.AllowAll().Handler(
+		gziphandler.GzipHandler(router),
+	)
 
 	var serverAddress string
 	if config.IsLocalDevEnv() {
