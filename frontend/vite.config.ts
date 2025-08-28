@@ -33,15 +33,11 @@ export default defineConfig({
       // allow auto load markdown components under `./src/components/`
       extensions: ['vue', 'md'],
       dts: true,
-      // allow auto import and register components used in markdown
-      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+      include: [/\.vue$/, /\.vue\?vue/],
       // custom resolvers
       resolvers: [
-        // auto import icons
-        // https://github.com/antfu/unplugin-icons
         IconsResolver({
           prefix: 'icon',
-          // enabledCollections: ['carbon']
         }),
       ],
     }),
@@ -66,10 +62,6 @@ export default defineConfig({
   ],
   ssgOptions: {
     script: 'async',
-    format: 'cjs',
     formatting: 'minify',
-    beastiesOptions: {
-      reduceInlineStyles: false,
-    },
   },
 })
