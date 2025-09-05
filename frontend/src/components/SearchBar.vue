@@ -29,16 +29,18 @@ watch(inputText, () => {
 </script>
 
 <template>
-  <div class="flex relative">
+  <div class="grid items-center justify-items-end">
     <input
       id="search-input"
       v-model="inputText"
       :placeholder="placeHolder"
       type="text"
-      class="headerButton grow headerSearch"
+      class="headerButton headerSearch col-span-full row-span-full z-1 w-auto"
     >
-    <span v-if="inputText.length > 0" class="absolute inset-y-0 right-2 flex items-center pl-3" @click="inputText = ''">
-      <icon-lucide-eraser class="headerButtonIcon" />
-    </span>
+    <icon-lucide-eraser
+      v-if="inputText.length > 0"
+      class="headerButtonIcon col-span-full row-span-full z-2 px-3"
+      @click="inputText = ''"
+    />
   </div>
 </template>

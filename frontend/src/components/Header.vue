@@ -71,7 +71,7 @@ onBeforeMount(async () => {
 
 <template>
   <div class="background w-full">
-    <header class="flex flex-col gap-1 justify-center p-2 lg:p-6 pb-0 lg:gap-4 items-center">
+    <header class="flex flex-col gap-1 justify-center p-3 lg:p-6 lg:gap-4 items-center">
       <div class="flex flex-wrap gap-1 justify-center">
         <div>
           <button
