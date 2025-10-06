@@ -1,31 +1,43 @@
-# recipebook Web Application
 
-This is a **recipebook Web Application** built with a **Go REST API backend** and a **Vite/Vue frontend**. The application uses **SQLite** to store recipes and is designed to be served on a local or hosted server with a reverse proxy for routing.
 
-## Features
+[![SAST Code Scanning](https://github.com/uvmain/recipe-book/actions/workflows/sast.yml/badge.svg)](https://github.com/uvmain/recipe-book/actions/workflows/sast.yml)
+&nbsp;
+[![Dependency Scanning](https://github.com/uvmain/recipe-book/actions/workflows/dependency-scan.yml/badge.svg)](https://github.com/uvmain/recipe-book/actions/workflows/dependency-scan.yml)
+&nbsp;
+[![Build](https://github.com/uvmain/recipe-book/actions/workflows/build.yml/badge.svg)](https://github.com/uvmain/recipe-book/actions/workflows/build.yml)
 
+# Recipebook
+![Recipebook screenshot](./docs/assets/screenshot_2025-10-06_084700.jpeg)
+![Mobile screenshot](./docs/assets/recipebook.localhost_recipe_sour-and-hot-flower-tofu-soup-suanla-douhua-tang(iphone_14_pro_max).jpeg)
+
+## Self hosted recipe library
+
+### Features
+
+- Light and dark mode
+- Compression for fast loading
 - Go REST API backend
 - Vue.js frontend built with Vite
 - SQLite database for image metadata storage and auth session storage
 - Caddy for local development with SSL
 
-## Project Structure
+### Project Structure
 
 - **api/** - Go backend REST API
 - **frontend/** - Vite/Vue3 frontend application
 
-## Prerequisites
+### Prerequisites
 
-- Go (tested on 1.24)
+- Go (tested on 1.25)
 - Node.js & npm (tested on Node 22 LTS)
 
-## Getting Started
+### Getting Started
 
 1. **Clone the repository:**
 
 ```bash
-git clone https://github.com/uvmain/gallery
-cd gallery
+git clone https://github.com/uvmain/recipe-book
+cd recipe-book
 ```
 
 2. **Install dependencies:**
@@ -57,7 +69,7 @@ This command:
 
 Open [recipebook.localhost](https://[recipebook.localhost) in your browser
 
-## Scripts
+### Scripts
 
 - `npm run backend:dev` - Runs the Go backend in development mode.
 - `npm run frontend:dev` - Runs the frontend in development mode.
@@ -65,16 +77,19 @@ Open [recipebook.localhost](https://[recipebook.localhost) in your browser
 - `npm run build` - Builds both the backend and frontend for production.
 - `npm run preview` - Runs the built distributable with Caddy for SSL and routing.
 
-## Deployment
-
+### Deployment
+```
+docker run uvmain/recipebook:latest
+```
+or
 ```
 docker build -t recipebook:latest . && docker compose up -d
 ```
 
-## Contributing
+### Contributing
 
 Feel free to submit issues or pull requests for improvements.
 
-## License
+### License
 
 This project is licensed under the MIT License.

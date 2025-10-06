@@ -14,7 +14,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/NYTimes/gziphandler"
+	"github.com/go-swiss/compress"
 	"github.com/rs/cors"
 )
 
@@ -56,7 +56,7 @@ func StartServer() {
 	router.Handle("DELETE /api/images/{filename}", auth.AuthMiddleware(http.HandlerFunc(handlers.HandleDeleteImageByFilename)))
 
 	handler := cors.AllowAll().Handler(
-		gziphandler.GzipHandler(router),
+		compress.Middleware(router),
 	)
 
 	var serverAddress string
