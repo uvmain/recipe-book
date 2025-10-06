@@ -1,6 +1,6 @@
 services:
   recipebook:
-    image: recipebook:latest
+    image: uvmain/recipebook:latest
     container_name: recipebook
     env_file:
       - .env
