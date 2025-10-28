@@ -147,14 +147,19 @@ func GetRecipeCardsFilteredAndOrderedByDateCreated(filters types.Filters) ([]typ
 	var query string
 
 	if filters.Search == "" {
-		query = `SELECT DISTINCT r.slug, r.dateCreated, r.name, r.author, r.source, r.course, r.country, r.vegetarian, r.prepTime, r.cookingTime, r.calories, r.servings, r.ingredients, r.instructions, r.imageFilename, r.imageWidth, r.imageHeight, r.lastModified
+		query = `SELECT r.slug, r.dateCreated, r.name, r.author, r.source, r.course, r.country, r.vegetarian, r.prepTime, r.cookingTime, r.calories, r.servings, r.ingredients, r.instructions, r.imageFilename, r.imageWidth, r.imageHeight, r.lastModified
 		FROM recipes r
 		ORDER BY r.dateCreated DESC;`
 	} else {
-		query = `SELECT DISTINCT r.slug, r.dateCreated, r.name, r.author, r.source, r.course, r.country, r.vegetarian, r.prepTime, r.cookingTime, r.calories, r.servings, r.ingredients, r.instructions, r.imageFilename, r.imageWidth, r.imageHeight, r.lastModified
-		FROM recipes r JOIN recipes_fts f ON r.slug = f.slug
-		WHERE recipes_fts MATCH ?
-		ORDER BY r.dateCreated DESC;`
+		query = `with matches as (
+			SELECT DISTINCT slug
+			FROM recipes_fts
+			WHERE recipes_fts MATCH ?
+			)
+			select r.slug, r.dateCreated, r.name, r.author, r.source, r.course, r.country, r.vegetarian, r.prepTime, r.cookingTime, r.calories, r.servings, r.ingredients, r.instructions, r.imageFilename, r.imageWidth, r.imageHeight, r.lastModified
+			from recipes r
+			join matches m on m.slug = r.slug
+			order by r.dateCreated desc;`
 	}
 
 	rows, err := Database.Query(query, filters.Search)
