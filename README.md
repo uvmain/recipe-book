@@ -93,3 +93,7 @@ Feel free to submit issues or pull requests for improvements.
 ### License
 
 This project is licensed under the MIT License.
+
+###
+
+This project uses icons from https://github.com/Yummygum/flagpack-core

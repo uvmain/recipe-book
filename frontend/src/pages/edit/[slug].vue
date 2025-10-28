@@ -27,7 +27,6 @@ async function handleSave(recipe: Recipe, imageBase64?: string) {
   const originalFilename = recipe.imageFilename
   if (imageBase64 && imageBase64.length > 0) {
     recipe.imageFilename = imageFilename
-    console.log(imageFilename)
     await patchImage(imageBase64, originalFilename, imageFilename)
   }
 
