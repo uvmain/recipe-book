@@ -55,6 +55,7 @@ func Initialise() *sql.DB {
 	}
 
 	createRecipesTable()
+	createRecipesIndexes()
 	createFtsTable()
 	insertFtsData()
 	createFtsTriggers()
@@ -97,6 +98,26 @@ func createRecipesTable() {
 		} else {
 			log.Println("recipes table created")
 		}
+	}
+}
+
+func createRecipesIndexes() {
+	// create index on date_created
+	query := `CREATE INDEX IF NOT EXISTS idx_date_created ON recipes (dateCreated);`
+	_, err := Database.Exec(query)
+	if err != nil {
+		log.Printf("Error creating index on dateCreated: %s", err)
+	} else {
+		log.Println("Index on dateCreated upserted")
+	}
+
+	// create index on slug
+	query = `CREATE INDEX IF NOT EXISTS idx_slug ON recipes (slug);`
+	_, err = Database.Exec(query)
+	if err != nil {
+		log.Printf("Error creating index on slug: %s", err)
+	} else {
+		log.Println("Index on slug upserted")
 	}
 }
 
@@ -171,16 +192,17 @@ func createTriggerIfNotExists(triggerName string, triggerSQL string) {
 	var existingTrigger string
 	checkError := Database.QueryRow(checkQuery, triggerName).Scan(&existingTrigger)
 
-	if checkError == nil {
+	switch checkError {
+	case nil:
 		log.Printf("%s trigger already exists", triggerName)
-	} else if checkError == sql.ErrNoRows {
+	case sql.ErrNoRows:
 		_, err := Database.Exec(triggerSQL)
 		if err != nil {
 			log.Printf("Error creating %s trigger: %s", triggerName, err)
 		} else {
 			log.Printf("%s trigger created", triggerName)
 		}
-	} else {
+	default:
 		log.Printf("Error checking for %s trigger: %s", triggerName, checkError)
 	}
 }
