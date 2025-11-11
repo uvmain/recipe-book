@@ -36,7 +36,6 @@ export function getTimers(paragraph: string): number[] {
       }
       else {
         const newNumber = convertWordToNum(recipesWords[index - 1])
-        console.log(newNumber)
         if (newNumber > 0) {
           timerDetails.push(word.startsWith('h') ? newNumber * 60 : newNumber)
         }
