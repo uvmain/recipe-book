@@ -72,7 +72,7 @@ function onImageError(event: Event) {
           {{ recipe.author }}
         </div>
         <strong v-if="recipe.source">Source: </strong>
-        <component :is="sourceTag" v-if="recipe.source" :href="recipe.source" target="_blank" class="text underline-none text-wrap">
+        <component :is="sourceTag" v-if="recipe.source" :href="recipe.source" target="_blank" class="text text-wrap">
           {{ parsedSource }}
         </component>
       </div>
@@ -92,14 +92,14 @@ function onImageError(event: Event) {
         <h3 class="font-bold text-xl pl-2">
           Ingredients
         </h3>
-        <div v-html="ingredientsMarkdown" />
+        <div class="markdown" v-html="ingredientsMarkdown" />
       </div>
       <!-- instructions -->
       <div ref="instructions" class="pt-1 px-4 recipeCardBackground text border-1 border-solid border-gray-400 rounded">
         <h3 class="font-bold text-xl pl-2">
           Instructions
         </h3>
-        <div class="text-wrap" v-html="instructionsMarkdown" />
+        <div class="markdown" v-html="instructionsMarkdown" />
       </div>
       <div v-if="timers.length" class="flex gap-2 justify-center flex-wrap md:gap-4">
         <Timer v-for="(timer, index) of timers" :key="index" :minutes="timer" />
@@ -107,3 +107,11 @@ function onImageError(event: Event) {
     </div>
   </div>
 </template>
+
+<style lang="css" scoped>
+.markdown {
+  & :deep(a) {
+    color: inherit;
+  }
+}
+</style>
