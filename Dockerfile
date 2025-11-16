@@ -22,10 +22,8 @@ RUN CGO_ENABLED=0 go build -ldflags="-s -w" -o recipebook .
 
 FROM gcr.io/distroless/base-debian12
 
-WORKDIR /app
-
 COPY --from=backend-build /app/recipebook .
 
 EXPOSE 8080
 
-CMD ["/app/recipebook"]
+CMD ["./recipebook"]
