@@ -1,8 +1,6 @@
 package images
 
 import (
-	"bytes"
-	"image"
 	"io"
 	"log"
 	"mime/multipart"
@@ -10,9 +8,6 @@ import (
 	"path/filepath"
 	"recipebook/core/config"
 	"time"
-
-	"github.com/gen2brain/webp"
-	"github.com/nfnt/resize"
 )
 
 func UploadImage(file multipart.File, filename string) error {
@@ -53,26 +48,6 @@ func GetImageByFilename(filename string) ([]byte, time.Time, error) {
 		return nil, time.Now(), err
 	}
 	return blob, modTime, nil
-}
-
-func ResizeImageBytes(imgBytes []byte, size int, quality int) []byte {
-	img, _, err := image.Decode(bytes.NewReader(imgBytes))
-	if err != nil {
-		log.Printf("Error decoding image: %s", err)
-		return nil
-	}
-
-	if size > 0 {
-		img = resize.Thumbnail(uint(size), uint(size), img, resize.Lanczos3)
-	}
-
-	var buf bytes.Buffer
-	if err := webp.Encode(&buf, img, webp.Options{Quality: quality}); err != nil {
-		log.Printf("Error encoding image: %s", err)
-		return nil
-	}
-
-	return buf.Bytes()
 }
 
 func DeleteImageByFilename(filename string) error {

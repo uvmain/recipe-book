@@ -88,26 +88,8 @@ func HandleGetRecipeCardsOrderedByDateCreated(w http.ResponseWriter, r *http.Req
 
 func HandleGetImageByFilename(w http.ResponseWriter, r *http.Request) {
 	filename := r.PathValue("filename")
-	sizeParam := r.URL.Query().Get("size")
-	qualityParam := r.URL.Query().Get("quality")
 
-	var size int
-	var quality int = 75
 	var err error
-
-	if sizeParam != "" {
-		size, err = strconv.Atoi(sizeParam)
-		if err != nil {
-			size = 0
-		}
-	}
-
-	if qualityParam != "" {
-		quality, err = strconv.Atoi(qualityParam)
-		if err != nil {
-			quality = 75
-		}
-	}
 
 	imageBlob, lastModified, err := images.GetImageByFilename(filename)
 	if err != nil {
@@ -118,8 +100,6 @@ func HandleGetImageByFilename(w http.ResponseWriter, r *http.Request) {
 	if IfModifiedResponse(w, r, lastModified) {
 		return
 	}
-
-	imageBlob = images.ResizeImageBytes(imageBlob, size, quality)
 
 	mimeType := http.DetectContentType(imageBlob)
 	w.Header().Set("Content-Type", mimeType)

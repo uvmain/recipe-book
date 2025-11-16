@@ -23,7 +23,7 @@
 
 ### Project Structure
 
-- **api/** - Go backend REST API
+- **core/** - Go backend REST API
 - **frontend/** - Vite/Vue3 frontend application
 
 ### Prerequisites
@@ -42,7 +42,7 @@ cd recipe-book
 
 2. **Install dependencies:**
 ```bash
-npm run deps
+npm i
 ```
 This command downloads the npm dependencies for the local dev and frontend components.
 

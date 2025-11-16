@@ -33,9 +33,8 @@
     "unplugin-fonts": "^1.1.1",
     "unplugin-icons": "^22.0.0",
     "unplugin-vue-components": "^30.0.0",
-    "unplugin-vue-router": "^0.16.0",
+    "unplugin-vue-router": "^0.17.0",
     "vite": "^7.1.3",
-    "vite-ssg": "^28.1.0",
-    "vue-tsc": "^3.0.6"
+    "vite-ssg": "^28.1.0"
   }
 }
