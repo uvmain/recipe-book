@@ -20,7 +20,7 @@ COPY --from=frontend-build /frontend/dist ./frontend/dist
 
 RUN CGO_ENABLED=0 go build -ldflags="-s -w" -o recipebook .
 
-FROM gcr.io/distroless/base-debian12
+FROM gcr.io/distroless/static-debian12
 
 COPY --from=backend-build /app/recipebook .
 
