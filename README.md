@@ -29,7 +29,7 @@
 ### Prerequisites
 
 - Go (tested on 1.25)
-- Node.js & npm (tested on Node 22 LTS)
+- Node.js & npm (tested on Node 24)
 
 ### Getting Started
 
