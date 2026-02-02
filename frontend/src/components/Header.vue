@@ -41,7 +41,10 @@ async function navToNew() {
 }
 
 async function navToEdit() {
-  await router.push(`/edit/${route.params.slug}`)
+  const slug = (route.params as { slug?: string }).slug
+  if (slug) {
+    await router.push(`/edit/${slug}`)
+  }
 }
 
 function toggleFilters() {

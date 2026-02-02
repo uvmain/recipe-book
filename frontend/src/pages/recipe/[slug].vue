@@ -3,7 +3,7 @@ import type { Recipe } from '../../types/recipes'
 import { useHead } from '@vueuse/head'
 import { backendFetchRequest } from '../../composables/fetchFromBackend'
 
-const route = useRoute()
+const route = useRoute('/recipe/[slug]')
 const recipe = ref()
 
 const recipeSlug = computed(() => `${route.params.slug}`)

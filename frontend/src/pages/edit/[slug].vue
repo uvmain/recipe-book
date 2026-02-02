@@ -5,7 +5,7 @@ import RecipeForm from '../../components/RecipeEditor.vue'
 import { backendFetchRequest } from '../../composables/fetchFromBackend'
 import { base64ToBlob } from '../../composables/imaging'
 
-const route = useRoute()
+const route = useRoute('/edit/[slug]')
 const router = useRouter()
 const recipeSlug = computed(() => `${route.params.slug}`)
 const recipe = ref<Recipe>({} as Recipe)
