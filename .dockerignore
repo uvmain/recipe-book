@@ -1,0 +1,10 @@
+.github
+.vscode
+data
+node_modules
+tmp
+.env
+Caddy*
+recipebook
+recipebook.exe
+docs

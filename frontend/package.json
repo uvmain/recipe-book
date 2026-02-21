@@ -1,5 +1,5 @@
 {
-  "name": "recipebook",
+  "name": "recipebook-frontend",
   "type": "module",
   "version": "0.0.0",
   "private": true,
@@ -25,7 +25,7 @@
     "@unocss/eslint-plugin": "^66.6.0",
     "@vitejs/plugin-vue": "^6.0.4",
     "@vueuse/head": "^2.0.0",
-    "eslint": "^10.0.1",
+    "eslint": "^10.0.0",
     "markdown-it": "^14.1.1",
     "typescript": "^5.9.3",
     "unocss": "^66.6.0",
@@ -33,7 +33,6 @@
     "unplugin-fonts": "^1.4.0",
     "unplugin-icons": "^23.0.1",
     "unplugin-vue-components": "^31.0.0",
-    "unplugin-vue-router": "^0.19.2",
     "vite": "^7.3.1",
     "vite-ssg": "^28.3.0"
   },
