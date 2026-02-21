@@ -104,7 +104,7 @@ func HandleGetImageByFilename(w http.ResponseWriter, r *http.Request) {
 	mimeType := http.DetectContentType(imageBlob)
 	w.Header().Set("Content-Type", mimeType)
 	w.WriteHeader(http.StatusOK)
-	w.Write(imageBlob)
+	_, _ = w.Write(imageBlob)
 }
 
 func HandlePatchRecipeBySlug(w http.ResponseWriter, r *http.Request) {
@@ -120,7 +120,7 @@ func HandlePatchRecipeBySlug(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Recipe updated successfully"))
+	_, _ = w.Write([]byte("Recipe updated successfully"))
 }
 
 func HandlePostRecipe(w http.ResponseWriter, r *http.Request) {
@@ -135,7 +135,7 @@ func HandlePostRecipe(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Recipe posted successfully"))
+	_, _ = w.Write([]byte("Recipe posted successfully"))
 }
 
 func HandleDeleteRecipeBySlug(w http.ResponseWriter, r *http.Request) {
@@ -145,7 +145,7 @@ func HandleDeleteRecipeBySlug(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Recipe deleted successfully"))
+	_, _ = w.Write([]byte("Recipe deleted successfully"))
 }
 
 func HandleGetRandomRecipe(w http.ResponseWriter, r *http.Request) {
@@ -170,7 +170,7 @@ func HandlePostNewImage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Image uploaded successfully"))
+	_, _ = w.Write([]byte("Image uploaded successfully"))
 }
 
 func HandleDeleteImageByFilename(w http.ResponseWriter, r *http.Request) {
@@ -181,7 +181,7 @@ func HandleDeleteImageByFilename(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Image deleted successfully"))
+	_, _ = w.Write([]byte("Image deleted successfully"))
 }
 
 func HandlePatchImageByFilename(w http.ResponseWriter, r *http.Request) {
@@ -202,7 +202,7 @@ func HandlePatchImageByFilename(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Image replaced successfully"))
+	_, _ = w.Write([]byte("Image replaced successfully"))
 }
 
 func HandleGetSlugsByFullTextSearch(w http.ResponseWriter, r *http.Request) {

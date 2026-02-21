@@ -68,7 +68,10 @@ func StartServer() {
 		log.Println("Application running at http://localhost:8080")
 	}
 
-	http.ListenAndServe(serverAddress, handler)
+	err = http.ListenAndServe(serverAddress, handler)
+	if err != nil {
+		log.Fatal("Server failed to start:", err)
+	}
 }
 
 func HandleFrontend(w http.ResponseWriter, r *http.Request) {

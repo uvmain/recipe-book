@@ -33,7 +33,12 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 			return
 		}
-		database.SaveSessionToken(token, time.Hour*24*7)
+		err = database.SaveSessionToken(token, time.Hour*24*7)
+		if err != nil {
+			log.Println("Error saving session token:", err)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
 		http.SetCookie(w, &http.Cookie{
 			Name:     "appSession",
 			Value:    token,
@@ -75,7 +80,12 @@ func LogoutHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("User logging out")
 	cookie, err := r.Cookie("appSession")
 	if err == nil {
-		database.DeleteSessionToken(cookie.Value)
+		err = database.DeleteSessionToken(cookie.Value)
+		if err != nil {
+			log.Println("Error deleting session token:", err)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
 		http.SetCookie(w, &http.Cookie{
 			Name:   "appSession",
 			Value:  "",

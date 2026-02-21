@@ -12,13 +12,6 @@ import (
 
 var Database *sql.DB
 
-func GetDB() *sql.DB {
-	if Database == nil {
-		Initialise()
-	}
-	return Database
-}
-
 func Initialise() *sql.DB {
 	dbPath := filepath.Join(config.DataDirectory, "sqlite.db")
 	if _, err := os.Stat(dbPath); os.IsNotExist(err) {

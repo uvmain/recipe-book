@@ -38,10 +38,14 @@ func CreateDir(directoryPath string) {
 	}
 }
 
-func StringArraySortUnique(arrayToSort []string) []string {
+func StringArraySortUniqueLowercase(arrayToSort []string) []string {
 	slices.Sort(arrayToSort)
 	arrayToSort = slices.Compact(arrayToSort)
-	return arrayToSort
+	lowerSlice := make([]string, 0, len(arrayToSort))
+	for _, s := range arrayToSort {
+		lowerSlice = append(lowerSlice, strings.ToLower(s))
+	}
+	return lowerSlice
 }
 
 func ConvertNullStringToInt(nullStringValue types.NullString) (int, error) {
@@ -71,14 +75,4 @@ func FilterEmptyStringsFromSlice(stringSlice []string) []string {
 func FilteredSliceIsNotEmpty(stringSlice []string) bool {
 	newSlice := FilterEmptyStringsFromSlice(stringSlice)
 	return (len(newSlice) > 0)
-}
-
-func StringArraySortUniqueLowercase(arrayToSort []string) []string {
-	slices.Sort(arrayToSort)
-	arrayToSort = slices.Compact(arrayToSort)
-	lowerSlice := make([]string, 0, len(arrayToSort))
-	for _, s := range arrayToSort {
-		lowerSlice = append(lowerSlice, strings.ToLower(s))
-	}
-	return lowerSlice
 }
