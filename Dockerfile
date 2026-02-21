@@ -8,7 +8,7 @@ RUN npm install
 
 RUN npm run build
 
-FROM golang:1.25.6 AS backend-build
+FROM golang:1.26.0 AS backend-build
 
 WORKDIR /app
 

@@ -1,6 +1,7 @@
 package config
 
 import (
+	"log"
 	"os"
 	"path/filepath"
 	"recipebook/core/logic"
@@ -13,7 +14,10 @@ var DataDirectory string
 var ImagesDirectory string
 
 func LoadEnv() {
-	godotenv.Load(".env")
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Printf("No .env file found, relying on environment variables")
+	}
 
 	dataPath := os.Getenv("DATA_PATH")
 	if dataPath == "" {
