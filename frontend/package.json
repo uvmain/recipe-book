@@ -12,21 +12,21 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@vueuse/core": "^14.2.0",
-    "vue": "^3.5.27",
-    "vue-router": "^4.6.4"
+    "@vueuse/core": "^14.2.1",
+    "vue": "^3.5.28",
+    "vue-router": "^5.0.3"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^7.2.0",
-    "@iconify-json/lucide": "^1.2.87",
+    "@antfu/eslint-config": "^7.4.3",
+    "@iconify-json/lucide": "^1.2.92",
     "@iconify-json/lucide-lab": "^1.2.3",
     "@types/markdown-it": "^14.1.2",
-    "@types/node": "^25.2.0",
+    "@types/node": "^25.3.0",
     "@unocss/eslint-plugin": "^66.6.0",
-    "@vitejs/plugin-vue": "^6.0.3",
+    "@vitejs/plugin-vue": "^6.0.4",
     "@vueuse/head": "^2.0.0",
-    "eslint": "^9.39.2",
-    "markdown-it": "^14.1.0",
+    "eslint": "^10.0.1",
+    "markdown-it": "^14.1.1",
     "typescript": "^5.9.3",
     "unocss": "^66.6.0",
     "unplugin-auto-import": "^21.0.0",
@@ -35,7 +35,7 @@
     "unplugin-vue-components": "^31.0.0",
     "unplugin-vue-router": "^0.19.2",
     "vite": "^7.3.1",
-    "vite-ssg": "^28.2.2"
+    "vite-ssg": "^28.3.0"
   },
   "overrides": {
     "ajv": "^6.14.0",
