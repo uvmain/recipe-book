@@ -12,8 +12,6 @@
     "types": [
       "node",
       "vite/client",
-      "unplugin-fonts/client",
-      "vite-ssg"
     ],
     "strict": true,
     "noEmit": true,

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useSessionStorage } from '@vueuse/core'
-import { useHead } from '@vueuse/head'
 
 const route = useRoute()
 
@@ -8,16 +7,6 @@ const showFilters = useSessionStorage('showFilters', false)
 
 const showFiltersComponent = computed(() => {
   return route.path === '/' && showFilters.value
-})
-
-useHead({
-  htmlAttrs: {
-    lang: 'en',
-  },
-  title: 'RecipeBook',
-  meta: [
-    { name: 'description', content: 'Personal Recipe Book' },
-  ],
 })
 </script>
 

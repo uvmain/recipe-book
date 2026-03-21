@@ -1,6 +1,6 @@
 module recipebook
 
-go 1.26.0
+go 1.26.1
 
 require (
 	github.com/go-swiss/compress v0.0.0-20231015173048-c7b565746931

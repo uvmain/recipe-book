@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Recipe } from '../../types/recipes'
-import { useHead } from '@vueuse/head'
+import { useHead } from '@unhead/vue'
 import { backendFetchRequest } from '../../composables/fetchFromBackend'
 
 const route = useRoute('/recipe/[slug]')
@@ -24,7 +24,7 @@ const computedHead = computed(() => {
 })
 
 useHead({
-  titleTemplate: computedHead,
+  title: computedHead,
 })
 
 watch(recipeSlug, () => {
