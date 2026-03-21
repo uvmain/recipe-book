@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Recipe } from '../types/recipes'
-import { useHead } from '@vueuse/head'
+import { useHead } from '@unhead/vue'
 import { checkIfLoggedIn } from '../composables/auth'
 import { countries } from '../composables/countries'
 import { slugify } from '../composables/slugify'
@@ -51,7 +51,7 @@ function save() {
 }
 
 useHead({
-  titleTemplate: 'RecipeBook: New',
+  title: 'RecipeBook: New',
 })
 
 onBeforeMount(async () => {

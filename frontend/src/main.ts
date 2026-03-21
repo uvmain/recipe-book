@@ -1,8 +1,12 @@
 import type { RouterScrollBehavior } from 'vue-router'
-import { ViteSSG } from 'vite-ssg'
+import { createHead } from '@unhead/vue/client'
+import { createApp } from 'vue'
+import { createRouter, createWebHistory } from 'vue-router'
 import { routes } from 'vue-router/auto-routes'
 import App from './App.vue'
+
 import 'virtual:uno.css'
+import '~/styles/themeTransition.css'
 
 const scrollBehavior: RouterScrollBehavior = async (to, from, savedPosition) => {
   if (to.hash) {
@@ -18,11 +22,12 @@ const scrollBehavior: RouterScrollBehavior = async (to, from, savedPosition) => 
   return { top: 0 }
 }
 
-export const createApp = ViteSSG(
-  App as Component,
-  {
-    routes,
-    scrollBehavior,
-    base: import.meta.env.BASE_URL,
-  },
-)
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes,
+  scrollBehavior,
+})
+
+const head = createHead()
+
+createApp(App as Component).use(router).use(head).mount('#app')

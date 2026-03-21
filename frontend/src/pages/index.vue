@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { RecipeCard } from '../types/recipes'
+import { useHead } from '@unhead/vue'
 import { useSessionStorage } from '@vueuse/core'
-import { useHead } from '@vueuse/head'
 import { getFilteredRecipeCards } from '../composables/fetches'
 
 useHead({
-  titleTemplate: 'RecipeBook: Latest',
+  title: 'RecipeBook: Latest',
 })
 
 const allRecipeCards = ref<RecipeCard[]>([])

@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { useDark, useMediaQuery, useSessionStorage, useToggle } from '@vueuse/core'
+import { useDark, useMediaQuery, useSessionStorage } from '@vueuse/core'
 import { getRandomFilteredRecipeCard, getRecipeCount } from '../composables/fetches'
 import { resetFilters, resetSearch } from '../composables/resets'
 
 const isDark = useDark()
-const toggleDark = useToggle(isDark)
 const isModalOpened = ref(false)
 const route = useRoute()
 const router = useRouter()
@@ -18,6 +17,18 @@ const isLargeScreen = useMediaQuery('(min-width: 1024px)')
 const currentPath = computed(() => {
   return router.currentRoute.value.path
 })
+
+function toggleDark() {
+  if (!document.startViewTransition) {
+    // Fallback for browsers that don't support view transitions
+    isDark.value = !isDark.value
+    return
+  }
+
+  document.startViewTransition(() => {
+    isDark.value = !isDark.value
+  })
+}
 
 async function navToRandomRecipe() {
   const recipeCard = await getRandomFilteredRecipeCard()
