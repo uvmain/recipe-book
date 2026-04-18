@@ -10,6 +10,7 @@ const selectedVegetarian = useSessionStorage<boolean>('selectedVegetarian', fals
 const selectedCalories = useSessionStorage<number>('selectedCalories', 1000)
 const selectedCountry = useSessionStorage<string>('selectedCountry', '')
 const filtered = useSessionStorage<boolean>('filtered', false)
+const lastShuffled = useSessionStorage<string>('lastShuffled', '')
 
 const computedFiltered = computed(() => {
   return selectedCourses.value.length > 0 || selectedVegetarian.value === true || selectedCalories.value < 1000 || selectedCountry.value !== undefined
@@ -98,6 +99,17 @@ function closeFilters() {
     <hr class="filterHr">
 
     <div class="flex flex-row gap-2 mx-auto">
+      <button
+        type="button"
+        aria-label="reset shuffle"
+        class="flex flex-row gap-2 items-center w-auto p-4 headerButton"
+        @click="lastShuffled = ''"
+      >
+        <icon-lucide-shuffle class="headerButtonIcon" />
+        <p class="text text-lg">
+          Reset shuffle
+        </p>
+      </button>
       <button
         type="button"
         aria-label="reset filters"

@@ -15,9 +15,18 @@ const selectedCourses = useSessionStorage<string[]>('selectedCourses', [])
 const selectedVegetarian = useSessionStorage<boolean>('selectedVegetarian', false)
 const selectedCountry = useSessionStorage<string>('selectedCountry', '')
 const selectedCalories = useSessionStorage<number>('selectedCalories', 1000)
+const lastShuffled = useSessionStorage<string>('lastShuffled', '')
 
 watch([searchInput, selectedCourses, selectedVegetarian, selectedCalories, selectedCountry], async () => {
   allRecipeCards.value = await getFilteredRecipeCards()
+})
+
+watch(lastShuffled, async () => {
+  if (lastShuffled.value === '') {
+    allRecipeCards.value = await getFilteredRecipeCards()
+    return
+  }
+  allRecipeCards.value = allRecipeCards.value.sort(() => Math.random() - 0.5)
 })
 
 onMounted(async () => {

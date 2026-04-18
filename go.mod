@@ -6,7 +6,7 @@ require (
 	github.com/go-swiss/compress v0.0.0-20231015173048-c7b565746931
 	github.com/joho/godotenv v1.5.1
 	github.com/rs/cors v1.11.1
-	modernc.org/sqlite v1.48.2
+	modernc.org/sqlite v1.49.1
 )
 
 require (
