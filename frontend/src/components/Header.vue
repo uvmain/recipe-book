@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useDark, useMediaQuery, useSessionStorage } from '@vueuse/core'
-import { getRandomFilteredRecipeCard, getRecipeCount } from '../composables/fetches'
+import { getRecipeCount } from '../composables/fetches'
 import { resetFilters, resetSearch } from '../composables/resets'
 
 const isDark = useDark()
@@ -12,6 +12,7 @@ const countOfRecipes = ref(0)
 const filtered = useSessionStorage<boolean>('filtered', false)
 const showFilters = useSessionStorage<boolean>('showFilters', false)
 const userLoginState = useSessionStorage('untrustedLoginState', false)
+const lastShuffled = useSessionStorage<string>('lastShuffled', '')
 const isLargeScreen = useMediaQuery('(min-width: 1024px)')
 
 const currentPath = computed(() => {
@@ -30,15 +31,8 @@ function toggleDark() {
   })
 }
 
-async function navToRandomRecipe() {
-  const recipeCard = await getRandomFilteredRecipeCard()
-  const slug = recipeCard.slug
-
-  if (currentPath.value === `/recipe/${slug}`) {
-    navToRandomRecipe()
-  }
-  resetSearch()
-  await router.push(`/recipe/${slug}`)
+async function randomiseRecipes() {
+  lastShuffled.value = new Date().toISOString()
 }
 
 async function navToHome() {
@@ -102,7 +96,7 @@ onBeforeMount(async () => {
             type="button"
             aria-label="navigate to random recipe"
             class="headerButton"
-            @click="navToRandomRecipe()"
+            @click="randomiseRecipes()"
           >
             <icon-lucide-shuffle class="headerButtonIcon" />
           </button>
