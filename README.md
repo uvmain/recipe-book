@@ -29,7 +29,7 @@
 ### Prerequisites
 
 - Go (tested on 1.25)
-- Node.js & npm (tested on Node 24)
+- Node.js & pnpm (tested on Node 24)
 
 ### Getting Started
 
@@ -42,9 +42,9 @@ cd recipe-book
 
 2. **Install dependencies:**
 ```bash
-npm i
+pnpm i
 ```
-This command downloads the npm dependencies for the local dev and frontend components.
+This command downloads the pnpm dependencies for the local dev and frontend components.
 
 3. **Set up environment variables:**
 Update the following environment variables in the /package.json (for local dev) and in the docker_compose.yml (or sibling .env file):
@@ -55,12 +55,12 @@ ADMIN_PASSWORD=your_admin_password
 
 4. **Download the Golang dependencies for the api component**
 ```bash
-npm run setup
+pnpm run setup
 ```
 
 5. **Start development environment::**
 ```bash
-npm run dev
+pnpm run dev
 ```
 This command:
 - Starts the Caddy server for reverse proxy
@@ -71,11 +71,11 @@ Open [recipebook.localhost](https://[recipebook.localhost) in your browser
 
 ### Scripts
 
-- `npm run backend:dev` - Runs the Go backend in development mode.
-- `npm run frontend:dev` - Runs the frontend in development mode.
-- `npm run dev` - Starts Caddy and concurrently runs the frontend and backend.
-- `npm run build` - Builds both the backend and frontend for production.
-- `npm run preview` - Runs the built distributable with Caddy for SSL and routing.
+- `pnpm run backend:dev` - Runs the Go backend in development mode.
+- `pnpm run frontend:dev` - Runs the frontend in development mode.
+- `pnpm run dev` - Starts Caddy and concurrently runs the frontend and backend.
+- `pnpm run build` - Builds both the backend and frontend for production.
+- `pnpm run preview` - Runs the built distributable with Caddy for SSL and routing.
 
 ### Deployment
 ```
