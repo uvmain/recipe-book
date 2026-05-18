@@ -19,26 +19,37 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
           go-version: '1.26.2'
+
       - name: Run govulncheck
         run: |
           go install golang.org/x/vuln/cmd/govulncheck@latest
           govulncheck ./...
 
-  npm-audit:
-    name: NPM Audit (Workspaces)
+  pnpm-audit:
+    name: PNPM Audit (Workspaces)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '24'
+          cache: 'pnpm'
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
       - name: Install all dependencies (workspaces)
-        run: npm ci
+        run: pnpm install --frozen-lockfile
+
       - name: Audit all dependencies (workspaces)
-        run: npm audit --audit-level=moderate || true
+        run: pnpm audit --audit-level=moderate || true
