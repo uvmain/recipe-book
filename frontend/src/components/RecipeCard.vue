@@ -54,7 +54,15 @@ function onImageError(event: Event) {
     :href="linkTarget"
   >
     <div id="card-header" class="flex flex-col h-60">
-      <img :src="imageUrl" :alt="recipeCard.name" :loading="loading" :width="recipeCard.imageWidth" :height="recipeCard.imageHeight" class="w-full object-cover h-full" @error="onImageError">
+      <img
+        :src="imageUrl"
+        :alt="recipeCard.name"
+        :loading="loading"
+        :width="recipeCard.imageWidth"
+        :height="recipeCard.imageHeight"
+        class="w-full object-cover h-full"
+        @error="onImageError"
+      >
     </div>
     <div>
       <h2 class="text-xl font-bold mx-1 titleText">

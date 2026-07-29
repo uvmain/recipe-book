@@ -66,41 +66,50 @@ function onImageError(event: Event) {
       <div class="w-full h-0.5 to-zinc-500 from-gray-400 dark:from-zinc-500 dark:to-gray-400 bg-gradient-to-l" />
     </div>
     <div class="flex flex-col gap-4 p-4 recipeCardBackground text justify-between border-solid border-1 rounded md:flex-row border-gray-400">
-      <div ref="details" class="text-center mx-auto md:text-left md:mx-0 md:max-w-3/4">
-        <div v-if="recipe.author">
-          <strong>Author:</strong>
-          {{ recipe.author }}
-        </div>
-        <strong v-if="recipe.source">Source: </strong>
-        <component :is="sourceTag" v-if="recipe.source" :href="recipe.source" target="_blank" class="text text-wrap">
-          {{ parsedSource }}
-        </component>
-      </div>
-      <div class="text-center mx-auto grid text-sm md:text-right opacity-80 min-w-1/5 lg:mx-0">
+      <section ref="details" aria-label="Recipe Details" class="text-center mx-auto md:text-left md:mx-0 md:max-w-3/4">
+        <section v-if="recipe.author" aria-label="Author">
+          <span><strong>Author:</strong> {{ recipe.author }}</span>
+        </section>
+        <section v-if="recipe.source" aria-label="Source">
+          <strong>Source: </strong>
+          <component :is="sourceTag" :href="recipe.source" target="_blank" class="text text-wrap">
+            {{ parsedSource }}
+          </component>
+        </section>
+      </section>
+      <section aria-label="Recipe Servings and Time" class="text-center mx-auto grid text-sm md:text-right opacity-80 min-w-1/5 lg:mx-0">
         <span v-if="recipe.servings">Servings: {{ recipe.servings }}</span>
         <span v-if="recipe.prepTime">Prep: {{ recipe.prepTime }}</span>
         <span v-if="recipe.cookingTime">Cook: {{ recipe.cookingTime }}</span>
         <span v-if="caloriesPerServing">Calories: {{ caloriesPerServing }}</span>
-      </div>
+      </section>
     </div>
     <div ref="image" class="flex">
-      <img :src="imageUrl" :alt="recipe.name" loading="eager" :width="recipe.imageWidth" :height="recipe.imageHeight" class="w-full border-1 border-solid border-gray-400 rounded object-cover max-h-60vh" @error="onImageError">
+      <img
+        :src="imageUrl"
+        :alt="recipe.name"
+        loading="eager"
+        :width="recipe.imageWidth"
+        :height="recipe.imageHeight"
+        class="w-full border-1 border-solid border-gray-400 rounded object-cover max-h-60vh"
+        @error="onImageError"
+      >
     </div>
     <div class="grid gap-4 mb-4">
       <!-- ingredients -->
-      <div ref="ingredients" class="recipeCardBackground text border-1 border-solid border-gray-400 rounded pt-1 px-4">
-        <h3 class="font-bold text-xl pl-2">
+      <section ref="ingredients" aria-labelledby="ingredients" class="recipeCardBackground text border-1 border-solid border-gray-400 rounded pt-1 px-4">
+        <h3 id="ingredients" class="font-bold text-xl pl-2">
           Ingredients
         </h3>
         <div class="markdown" v-html="ingredientsMarkdown" />
-      </div>
+      </section>
       <!-- instructions -->
-      <div ref="instructions" class="pt-1 px-4 recipeCardBackground text border-1 border-solid border-gray-400 rounded">
-        <h3 class="font-bold text-xl pl-2">
+      <section ref="instructions" aria-labelledby="instructions" class="pt-1 px-4 recipeCardBackground text border-1 border-solid border-gray-400 rounded">
+        <h3 id="instructions" class="font-bold text-xl pl-2">
           Instructions
         </h3>
         <div class="markdown" v-html="instructionsMarkdown" />
-      </div>
+      </section>
       <div v-if="timers.length" class="flex gap-2 justify-center flex-wrap md:gap-4">
         <Timer v-for="(timer, index) of timers" :key="index" :minutes="timer" />
       </div>

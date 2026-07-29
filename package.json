@@ -4,9 +4,6 @@
   "description": "Self Hosted Recipe recipebook",
   "main": "index.js",
   "packageManager": "pnpm@11.1.2",
-  "workspaces": [
-    "./frontend"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/uvmain/recipe-book.git"
@@ -32,14 +29,15 @@
     "lint:backend": "golangci-lint run",
     "lint:frontend": "pnpm --filter ./frontend lint",
     "lint": "pnpm lint:frontend && pnpm lint:backend",
-    "lint:fix": "pnpm --filter ./frontend lint:fix"
+    "lint:fix": "pnpm --filter ./frontend lint:fix",
+    "deps:update": "go get -u && go mod tidy && pnpm update -r --latest"
   },
   "devDependencies": {
     "caddy-baron": "^5.0.1",
-    "concurrently": "^9.2.1",
+    "concurrently": "^10.0.4",
     "cpy-cli": "^7.0.0",
     "cross-env": "^10.1.0",
-    "cspell": "^10.0.0",
+    "cspell": "^10.0.1",
     "rimraf": "^6.1.3"
   }
 }

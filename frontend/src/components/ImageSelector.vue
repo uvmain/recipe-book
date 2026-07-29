@@ -173,7 +173,7 @@ watch(model, () => {
       <div v-else-if="recipe.imageFilename" class="mt-4">
         <img
           :src="fallbackImageAddress"
-          alt="Uploaded Image"
+          alt="Uploaded Image Address"
           class="rounded-lg shadow-md w-28rem object-contain"
         />
       </div>
