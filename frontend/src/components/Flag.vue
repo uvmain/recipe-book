@@ -14,5 +14,5 @@ const flagCode = computed(() => {
 </script>
 
 <template>
-  <img v-if="flagCode" :src="`/flags/${flagCode}.svg`" />
+  <img v-if="flagCode" :alt="`${props.country} flag`" :src="`/flags/${flagCode}.svg`" />
 </template>

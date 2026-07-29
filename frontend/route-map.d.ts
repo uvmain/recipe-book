@@ -20,9 +20,9 @@ import type {
 
 declare module 'vue-router' {
   interface TypesConfig {
-    ParamParsers:
-      | never
+    _ParamParsers: {}
     RouteNamedMap: import('vue-router/auto-routes').RouteNamedMap
+    _RouteFileInfoMap: import('vue-router/auto-routes')._RouteFileInfoMap
   }
 }
 
@@ -77,17 +77,23 @@ declare module 'vue-router/auto-routes' {
         | '/'
       views:
         | never
+      pathParamNames:
+        | never
     }
     'src/pages/edit/[slug].vue': {
       routes:
         | '/edit/[slug]'
       views:
         | never
+      pathParamNames:
+        | 'slug'
     }
     'src/pages/new.vue': {
       routes:
         | '/new'
       views:
+        | never
+      pathParamNames:
         | never
     }
     'src/pages/recipe/[slug].vue': {
@@ -95,6 +101,8 @@ declare module 'vue-router/auto-routes' {
         | '/recipe/[slug]'
       views:
         | never
+      pathParamNames:
+        | 'slug'
     }
   }
 
