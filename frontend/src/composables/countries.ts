@@ -335,7 +335,7 @@ export const countryToFlagCode: Record<string, string> = {
   'Faroe Islands': 'fo',
   'France': 'fr',
   'Gabon': 'ga',
-  'England': 'gb',
+  'England': 'gb-eng',
   'Scotland': 'gb-sct',
   'United Kingdom of Great Britain': 'gb-ukm',
   'Wales': 'gb-wls',

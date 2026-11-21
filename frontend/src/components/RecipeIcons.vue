@@ -8,7 +8,7 @@ defineProps({
 <template>
   <div class="flex gap-2 flex-row">
     <div v-if="recipe.vegetarian" id="vegetarianIcon" class="flex relative group/veg">
-      <icon-lucide-leafy-green class="text-zinc-600 dark:text-zinc-400" />
+      <icon-lucide-leafy-green class="text-emerald-700 dark:text-emerald-400" />
       <span class="text-sm bg-zinc-800 text-zinc-100 transition-opacity py-1 absolute -translate-y-full -translate-x-1/2 opacity-0 px-2 group-hover/veg:opacity-90">
         Vegetarian
       </span>
