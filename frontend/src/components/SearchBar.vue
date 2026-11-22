@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useDebounceFn, useSessionStorage } from '@vueuse/core'
+import { debounce } from '~/logic/debounce'
+import { useSessionStorage } from '~/logic/storage'
 
 const props = defineProps({
   recipeCount: { type: Number, default: 0 },
@@ -15,12 +16,14 @@ async function navigateHomeIfNeeded() {
   }
 }
 
-const debouncedNav = useDebounceFn(async () => {
+const debouncedNav = debounce(async () => {
   await navigateHomeIfNeeded()
 }, 700)
 
 const placeHolder = computed(() => {
-  return props.recipeCount > 0 ? `Search ${props.recipeCount} recipes..` : 'Search..'
+  return props.recipeCount > 0
+    ? `Search ${props.recipeCount} recipes..`
+    : 'Search..'
 })
 
 watch(inputText, () => {

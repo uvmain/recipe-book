@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { SessionCheck } from '../types/auth'
-import { onClickOutside, useSessionStorage } from '@vueuse/core'
-import { checkIfLoggedIn } from '../composables/auth'
-import { backendFetchRequest } from '../composables/fetchFromBackend'
+import { useSessionStorage } from '~/logic/storage'
+import { checkIfLoggedIn } from '../logic/auth'
+import { backendFetchRequest } from '../logic/fetchFromBackend'
 
 defineProps({
   isOpen: Boolean,
@@ -12,7 +12,7 @@ const emits = defineEmits(['modalClose'])
 
 const username = ref('')
 const password = ref('')
-const target = ref(null)
+const target = useTemplateRef<HTMLElement>('target')
 const userLoginState = useSessionStorage('untrustedLoginState', false)
 
 async function login() {
@@ -46,7 +46,13 @@ onBeforeMount(() => {
   checkIfLoggedIn()
 })
 
-onClickOutside(target, () => emits('modalClose'))
+onMounted(() => {
+  document.addEventListener('click', (event) => {
+    if (!target.value?.contains(event.target as Node)) {
+      emits('modalClose')
+    }
+  })
+})
 </script>
 
 <template>

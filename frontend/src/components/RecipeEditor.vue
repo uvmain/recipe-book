@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import type { Recipe } from '../types/recipes'
-import { useHead } from '@unhead/vue'
-import { checkIfLoggedIn } from '../composables/auth'
-import { countries } from '../composables/countries'
-import { slugify } from '../composables/slugify'
+import { checkIfLoggedIn } from '../logic/auth'
+import { countries } from '../logic/countries'
+import { slugify } from '../logic/slugify'
 import { allowedCourses } from '../types/recipes'
 import Dropdown from './Dropdown.vue'
 import ImageSelector from './ImageSelector.vue'
@@ -50,15 +49,15 @@ function save() {
   }
 }
 
-useHead({
-  title: 'RecipeBook: New',
-})
-
 onBeforeMount(async () => {
   const loggedIn = await checkIfLoggedIn()
   if (!loggedIn) {
     emit('cancel')
   }
+})
+
+onMounted(() => {
+  document.title = 'RecipeBook: New'
 })
 </script>
 

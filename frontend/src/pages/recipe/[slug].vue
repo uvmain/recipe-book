@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { Recipe } from '../../types/recipes'
-import { useHead } from '@unhead/vue'
-import { backendFetchRequest } from '../../composables/fetchFromBackend'
+import { backendFetchRequest } from '../../logic/fetchFromBackend'
 
 const route = useRoute('/recipe/[slug]')
 const recipe = ref()
@@ -13,19 +12,14 @@ async function getRecipe() {
     const response = await backendFetchRequest(`recipes/${recipeSlug.value}`)
     const jsonData = await response.json() as Recipe
     recipe.value = jsonData
+    document.title = recipe.value
+      ? `RecipeBook: ${recipe.value.name}`
+      : 'RecipeBook'
   }
   catch (error) {
     console.error('Failed to fetch recipe:', error)
   }
 }
-
-const computedHead = computed(() => {
-  return recipe.value ? `RecipeBook: ${recipe.value.name}` : 'RecipeBook'
-})
-
-useHead({
-  title: computedHead,
-})
 
 watch(recipeSlug, () => {
   getRecipe()

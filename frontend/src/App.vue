@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useSessionStorage } from '@vueuse/core'
+import { useSessionStorage } from '~/logic/storage'
 
 const route = useRoute()
 

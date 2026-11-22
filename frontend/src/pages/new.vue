@@ -3,8 +3,8 @@ import type { Recipe } from '../types/recipes'
 import { ref } from 'vue'
 import RecipeForm from '../components/RecipeEditor.vue'
 
-import { backendFetchRequest } from '../composables/fetchFromBackend'
-import { base64ToBlob } from '../composables/imaging'
+import { backendFetchRequest } from '../logic/fetchFromBackend'
+import { base64ToBlob } from '../logic/imaging'
 
 const router = useRouter()
 const newRecipe = ref<Recipe>({

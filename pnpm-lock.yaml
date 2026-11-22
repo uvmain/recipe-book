@@ -20,12 +20,6 @@ importers:
 
   frontend:
     dependencies:
-      '@unhead/vue':
-        specifier: ^3.4.3
-        version: 3.4.3(@oxc-project/types@0.156.0)(lightningcss@1.33.0)(oxc-parser@0.153.0)(rolldown@1.2.19)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1))(vue@3.5.46(typescript@6.0.3))
-      '@vueuse/core':
-        specifier: ^15.0.0
-        version: 15.0.0(vue@3.5.46(typescript@6.0.3))
       vue:
         specifier: ^3.5.46
         version: 3.5.46(typescript@6.0.3)
@@ -68,7 +62,7 @@ importers:
         version: 66.13.0(@oxc-project/types@0.156.0)(cac@7.1.0)(rolldown@1.2.19)(srvx@1.0.8)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1))
       unplugin-auto-import:
         specifier: ^21.1.0
-        version: 21.1.0(@vueuse/core@15.0.0(vue@3.5.46(typescript@6.0.3)))(oxc-parser@0.153.0)(rolldown@1.2.19)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1))
+        version: 21.1.0(oxc-parser@0.153.0)(rolldown@1.2.19)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1))
       unplugin-icons:
         specifier: ^24.0.0
         version: 24.0.0(@vue/compiler-sfc@3.5.46)(rolldown@1.2.19)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1))
@@ -917,9 +911,6 @@ packages:
   '@types/unist@3.0.3':
     resolution: {integrity: sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q==}
 
-  '@types/web-bluetooth@0.0.21':
-    resolution: {integrity: sha512-oIQLCGWtcFZy2JW77j9k8nHzAOpqMHLQejDA48XXMWH6tjCQHz5RCFz1bzsmROyL6PUm+LLnUiI4BCn221inxA==}
-
   '@typescript-eslint/eslint-plugin@8.73.0':
     resolution: {integrity: sha512-UkygMFer53Yzn29MCYFTHf34hGXf5KJhiDWfIm1tXtXRrym1CS6l5H9Y3yCtPWChpC0/f93H88gdj8tN0dd4kw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
@@ -982,48 +973,6 @@ packages:
   '@typescript-eslint/visitor-keys@8.73.0':
     resolution: {integrity: sha512-k4lsFVpRZICbltkIEEH4hZRkwXkqDF1GHBpClKQOHQY+RkoZAAuyc1ci3I6p+CB6v3U4jaHIUshc4RzzQXZWLg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
-  '@unhead/bundler@3.4.3':
-    resolution: {integrity: sha512-noUTzazRB4fMgO/nluoirrZJXngNbNb3sQzIslA805tKkwakRv2fib4Xe4EdiTuNB7V5XmpUFvfQkKRdBQ9qAA==}
-    peerDependencies:
-      '@unhead/cli': ^3.4.3
-      '@vitejs/devtools-kit': ^0.7.6
-      esbuild: '>=0.17.0'
-      lightningcss: '>=1.20.0'
-      oxc-parser: '>=0.98.0'
-      rolldown: '>=1.0.0'
-      unhead: ^3.4.3
-      vite: '>=6.4.2'
-      webpack: '>=5.0.0'
-    peerDependenciesMeta:
-      '@unhead/cli':
-        optional: true
-      '@vitejs/devtools-kit':
-        optional: true
-      esbuild:
-        optional: true
-      lightningcss:
-        optional: true
-      oxc-parser:
-        optional: true
-      rolldown:
-        optional: true
-      vite:
-        optional: true
-      webpack:
-        optional: true
-
-  '@unhead/vue@3.4.3':
-    resolution: {integrity: sha512-Wrmk62oC/V1EcBSKRDuy77kVaBtBXXsj6b+vEEWvmfo9AQfpLlc2b6vvvSj9WnXr8VY1ksKHj49Ejo8J/wLSOA==}
-    peerDependencies:
-      vite: '>=6.4.2'
-      vue: '>=3.5.18'
-      webpack: '>=5.0.0'
-    peerDependenciesMeta:
-      vite:
-        optional: true
-      webpack:
-        optional: true
 
   '@unocss/autocomplete@66.13.0':
     resolution: {integrity: sha512-p/3bF4q66M95LbegaE8VhbegLq1LGwtjdf2s0Uy+2Nnb/Tdcid5696jsEoM2nOvAt4I7exwQOxu85/SfTPJS2g==}
@@ -1182,22 +1131,6 @@ packages:
 
   '@vue/shared@3.5.46':
     resolution: {integrity: sha512-P1WePbdzHrcIciWtmY2Im9EFhdakd3rZxYqvalOa3SfoxtF35Q8Uhmj1tKn6bWP4utcOpN8ao6BoJUItq0Uf+g==}
-
-  '@vueuse/core@15.0.0':
-    resolution: {integrity: sha512-Zv67h5mrk7YHDJsRObx+DXaCBz6RKBUpxqLesJ+3xZNPG6yuQs7ja7kg3veFrrouYLWAqydQ7CwGEbLVxB43Ng==}
-    engines: {node: '>=22'}
-    peerDependencies:
-      vue: ^3.5.0
-
-  '@vueuse/metadata@15.0.0':
-    resolution: {integrity: sha512-sfWE5LADAKJ0KnjtGliMdSN8Ij/L7uP6rXIZlgPloAI4zvvefbw6H5Lt7KJA6RqQOYgVqWF5Guj50HHMIzygBg==}
-    engines: {node: '>=22'}
-
-  '@vueuse/shared@15.0.0':
-    resolution: {integrity: sha512-vbNXhGrbV53xPOMSyOzMHQRvhMgZf7oNDw2RChUetVxwTIEkInQ1joZ9JbT0G3z2n2AJNjvmCWeM9ySYrnvogA==}
-    engines: {node: '>=22'}
-    peerDependencies:
-      vue: ^3.5.0
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -1854,9 +1787,6 @@ packages:
 
   hookable@5.5.3:
     resolution: {integrity: sha512-Yc+BQe8SvoXH1643Qez1zqLRmbA5rCL+sSmk6TVos0LWVfNIB7PGncdlId77WzLGSIB5KaWgTaNTs2lNVEI6VQ==}
-
-  hookable@6.1.2:
-    resolution: {integrity: sha512-+abwxtiEA52GCVIsQqut3S/uKTbUwYIp4Pe/vv+6py5XiXBCqMZHg6pA6Y5qhgLSEys0/cYuPbO0z1QFj5ZCmg==}
 
   hookified@1.15.1:
     resolution: {integrity: sha512-MvG/clsADq1GPM2KGo2nyfaWVyn9naPiXrqIe4jYjXNZQt238kWyOGrsyc/DmRAQ+Re6yeo6yX/yoNCG5KAEVg==}
@@ -2545,14 +2475,6 @@ packages:
 
   undici-types@8.9.0:
     resolution: {integrity: sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg==}
-
-  unhead@3.4.3:
-    resolution: {integrity: sha512-0FZI/qCCyIey14CKlGMFpiQumWSatlthJy7Xvro7H3nmi/V2owkcCXG03k0GXDc2/TV1K6bvrbAwhzTRe5Nhdw==}
-    peerDependencies:
-      vite: '>=6.4.2'
-    peerDependenciesMeta:
-      vite:
-        optional: true
 
   unimport@6.5.0:
     resolution: {integrity: sha512-t0KLJLRbebz3f7NrQe+vy2ObeugVeM1XqI2oeYnauddmHSglYj3U6bxOJ65IbXmOFkcAGFJK2OyGH7aqHPM6Ug==}
@@ -3541,8 +3463,6 @@ snapshots:
 
   '@types/unist@3.0.3': {}
 
-  '@types/web-bluetooth@0.0.21': {}
-
   '@typescript-eslint/eslint-plugin@8.73.0(@typescript-eslint/parser@8.73.0(eslint@10.15.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.15.0(jiti@2.7.0))(typescript@6.0.3)':
     dependencies:
       '@eslint-community/regexpp': 4.12.3
@@ -3637,50 +3557,6 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 8.73.0
       eslint-visitor-keys: 5.0.1
-
-  '@unhead/bundler@3.4.3(@oxc-project/types@0.156.0)(lightningcss@1.33.0)(oxc-parser@0.153.0)(rolldown@1.2.19)(unhead@3.4.3(rolldown@1.2.19)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1)))(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1))':
-    dependencies:
-      magic-string: 1.4.5
-      oxc-walker: 1.1.1(@oxc-project/types@0.156.0)(oxc-parser@0.153.0)(rolldown@1.2.19)
-      unhead: 3.4.3(rolldown@1.2.19)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1))
-      unplugin: 3.7.0(rolldown@1.2.19)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1))
-    optionalDependencies:
-      lightningcss: 1.33.0
-      oxc-parser: 0.153.0
-      rolldown: 1.2.19
-      vite: 8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1)
-    transitivePeerDependencies:
-      - '@farmfe/core'
-      - '@oxc-project/types'
-      - '@rsbuild/core'
-      - '@rspack/core'
-      - bun-types-no-globals
-      - rollup
-      - unloader
-
-  '@unhead/vue@3.4.3(@oxc-project/types@0.156.0)(lightningcss@1.33.0)(oxc-parser@0.153.0)(rolldown@1.2.19)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1))(vue@3.5.46(typescript@6.0.3))':
-    dependencies:
-      '@unhead/bundler': 3.4.3(@oxc-project/types@0.156.0)(lightningcss@1.33.0)(oxc-parser@0.153.0)(rolldown@1.2.19)(unhead@3.4.3(rolldown@1.2.19)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1)))(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1))
-      hookable: 6.1.2
-      unhead: 3.4.3(rolldown@1.2.19)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1))
-      unplugin: 3.7.0(rolldown@1.2.19)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1))
-      vue: 3.5.46(typescript@6.0.3)
-    optionalDependencies:
-      vite: 8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1)
-    transitivePeerDependencies:
-      - '@farmfe/core'
-      - '@oxc-project/types'
-      - '@rsbuild/core'
-      - '@rspack/core'
-      - '@unhead/cli'
-      - '@vitejs/devtools-kit'
-      - bun-types-no-globals
-      - esbuild
-      - lightningcss
-      - oxc-parser
-      - rolldown
-      - rollup
-      - unloader
 
   '@unocss/autocomplete@66.13.0':
     dependencies:
@@ -3963,19 +3839,6 @@ snapshots:
       '@vue/shared': 3.5.46
 
   '@vue/shared@3.5.46': {}
-
-  '@vueuse/core@15.0.0(vue@3.5.46(typescript@6.0.3))':
-    dependencies:
-      '@types/web-bluetooth': 0.0.21
-      '@vueuse/metadata': 15.0.0
-      '@vueuse/shared': 15.0.0(vue@3.5.46(typescript@6.0.3))
-      vue: 3.5.46(typescript@6.0.3)
-
-  '@vueuse/metadata@15.0.0': {}
-
-  '@vueuse/shared@15.0.0(vue@3.5.46(typescript@6.0.3))':
-    dependencies:
-      vue: 3.5.46(typescript@6.0.3)
 
   acorn-jsx@5.3.2(acorn@8.19.0):
     dependencies:
@@ -4676,8 +4539,6 @@ snapshots:
       hookified: 1.15.1
 
   hookable@5.5.3: {}
-
-  hookable@6.1.2: {}
 
   hookified@1.15.1: {}
 
@@ -5524,23 +5385,6 @@ snapshots:
 
   undici-types@8.9.0: {}
 
-  unhead@3.4.3(rolldown@1.2.19)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1)):
-    dependencies:
-      hookable: 6.1.2
-      unplugin: 3.7.0(rolldown@1.2.19)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1))
-    optionalDependencies:
-      vite: 8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1)
-    transitivePeerDependencies:
-      - '@farmfe/core'
-      - '@rsbuild/core'
-      - '@rspack/core'
-      - bun-types-no-globals
-      - esbuild
-      - rolldown
-      - rollup
-      - unloader
-      - webpack
-
   unimport@6.5.0(oxc-parser@0.153.0)(rolldown@1.2.19)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1)):
     dependencies:
       acorn: 8.19.0
@@ -5625,7 +5469,7 @@ snapshots:
       - srvx
       - vite
 
-  unplugin-auto-import@21.1.0(@vueuse/core@15.0.0(vue@3.5.46(typescript@6.0.3)))(oxc-parser@0.153.0)(rolldown@1.2.19)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1)):
+  unplugin-auto-import@21.1.0(oxc-parser@0.153.0)(rolldown@1.2.19)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1)):
     dependencies:
       local-pkg: 1.2.1
       magic-string: 1.4.5
@@ -5633,8 +5477,6 @@ snapshots:
       unimport: 6.5.0(oxc-parser@0.153.0)(rolldown@1.2.19)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1))
       unplugin: 3.7.0(rolldown@1.2.19)(vite@8.3.8(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1))
       unplugin-utils: 0.3.2
-    optionalDependencies:
-      '@vueuse/core': 15.0.0(vue@3.5.46(typescript@6.0.3))
     transitivePeerDependencies:
       - '@farmfe/core'
       - '@rsbuild/core'

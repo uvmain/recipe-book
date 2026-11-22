@@ -1,5 +1,21 @@
 <script setup lang="ts">
-import { useClipboard } from '@vueuse/core'
+function useClipboard() {
+  const text = ref('')
+  const copied = ref(false)
+
+  function copy(value: string) {
+    text.value = value
+    navigator.clipboard.writeText(value).catch((err) => {
+      console.error('Failed to copy text: ', err)
+    })
+    copied.value = true
+    setTimeout(() => {
+      copied.value = false
+    }, 2000)
+  }
+
+  return { text, copy, copied }
+}
 
 const { text, copy, copied } = useClipboard()
 

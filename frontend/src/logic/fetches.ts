@@ -1,6 +1,6 @@
 import type { RecipeCard } from '../types/recipes'
-import { useSessionStorage } from '@vueuse/core'
-import { backendFetchRequest } from '../composables/fetchFromBackend'
+import { useSessionStorage } from '~/logic/storage'
+import { backendFetchRequest } from './fetchFromBackend'
 
 const searchInput = useSessionStorage<string>('searchInput', '')
 const selectedCourses = useSessionStorage<string[]>('selectedCourses', [])
@@ -9,12 +9,24 @@ const selectedCountry = useSessionStorage<string>('selectedCountry', '')
 const selectedCalories = useSessionStorage<number>('selectedCalories', 1000)
 
 export async function getFilteredRecipeCards(): Promise<RecipeCard[]> {
-  let url = searchInput.value || selectedCourses.value?.length || selectedVegetarian.value === true || selectedCountry.value?.length > 0 || selectedCalories.value !== 1000 ? 'recipecards?' : 'recipecards'
-  url = searchInput.value ? `${url}&filter=${searchInput.value}` : url
-  url = selectedCourses.value?.length ? `${url}&courses=${selectedCourses.value.join(',')}` : url
-  url = selectedVegetarian.value === true ? `${url}&vegetarian=true` : url
-  url = selectedCountry.value?.length > 0 ? `${url}&country=${selectedCountry.value}` : url
-  url = selectedCalories.value !== 1000 ? `${url}&calories=${selectedCalories.value}` : url
+  let url = searchInput.value || selectedCourses.value?.length || selectedVegetarian.value === true || selectedCountry.value?.length > 0 || selectedCalories.value !== 1000
+    ? 'recipecards?'
+    : 'recipecards'
+  url = searchInput.value
+    ? `${url}&filter=${searchInput.value}`
+    : url
+  url = selectedCourses.value?.length
+    ? `${url}&courses=${selectedCourses.value.join(',')}`
+    : url
+  url = selectedVegetarian.value === true
+    ? `${url}&vegetarian=true`
+    : url
+  url = selectedCountry.value?.length > 0
+    ? `${url}&country=${selectedCountry.value}`
+    : url
+  url = selectedCalories.value !== 1000
+    ? `${url}&calories=${selectedCalories.value}`
+    : url
 
   try {
     const response = await backendFetchRequest(url)

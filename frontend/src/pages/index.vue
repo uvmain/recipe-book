@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import type { RecipeCard } from '../types/recipes'
-import { useHead } from '@unhead/vue'
-import { useSessionStorage } from '@vueuse/core'
-import { getFilteredRecipeCards } from '../composables/fetches'
-
-useHead({
-  title: 'RecipeBook: Latest',
-})
+import { useSessionStorage } from '~/logic/storage'
+import { getFilteredRecipeCards } from '../logic/fetches'
 
 const allRecipeCards = ref<RecipeCard[]>([])
 
@@ -17,7 +12,13 @@ const selectedCountry = useSessionStorage<string>('selectedCountry', '')
 const selectedCalories = useSessionStorage<number>('selectedCalories', 1000)
 const lastShuffled = useSessionStorage<string>('lastShuffled', '')
 
-watch([searchInput, selectedCourses, selectedVegetarian, selectedCalories, selectedCountry], async () => {
+watch([
+  searchInput,
+  selectedCourses,
+  selectedVegetarian,
+  selectedCalories,
+  selectedCountry,
+], async () => {
   allRecipeCards.value = await getFilteredRecipeCards()
 })
 
@@ -31,6 +32,7 @@ watch(lastShuffled, async () => {
 
 onMounted(async () => {
   allRecipeCards.value = await getFilteredRecipeCards()
+  document.title = 'RecipeBook'
 })
 </script>
 

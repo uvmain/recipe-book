@@ -1,34 +1,31 @@
 <script setup lang="ts">
-import { useDark, useMediaQuery, useSessionStorage } from '@vueuse/core'
-import { getRecipeCount } from '../composables/fetches'
-import { resetFilters, resetSearch } from '../composables/resets'
+import { useLocalStorage, useSessionStorage } from '~/logic/storage'
+import { getRecipeCount } from '../logic/fetches'
+import { resetFilters, resetSearch } from '../logic/resets'
 
-const isDark = useDark()
 const isModalOpened = ref(false)
 const route = useRoute()
 const router = useRouter()
 const countOfRecipes = ref(0)
 
+const isDark = useLocalStorage<boolean>('dark', false)
 const filtered = useSessionStorage<boolean>('filtered', false)
 const showFilters = useSessionStorage<boolean>('showFilters', false)
 const userLoginState = useSessionStorage('untrustedLoginState', false)
 const lastShuffled = useSessionStorage<string>('lastShuffled', '')
-const isLargeScreen = useMediaQuery('(min-width: 1024px)')
 
 const currentPath = computed(() => {
   return router.currentRoute.value.path
 })
 
 function toggleDark() {
-  if (!document.startViewTransition) {
-    // Fallback for browsers that don't support view transitions
-    isDark.value = !isDark.value
-    return
+  if (!isDark.value) {
+    document.documentElement.classList.add('dark')
   }
-
-  document.startViewTransition(() => {
-    isDark.value = !isDark.value
-  })
+  else {
+    document.documentElement.classList.remove('dark')
+  }
+  isDark.value = !isDark.value
 }
 
 async function randomiseRecipes() {
@@ -75,6 +72,12 @@ function closeModal() {
 onBeforeMount(async () => {
   countOfRecipes.value = await getRecipeCount()
 })
+
+onMounted(async () => {
+  if (isDark.value && !document.documentElement.classList.contains('dark')) {
+    document.documentElement.classList.add('dark')
+  }
+})
 </script>
 
 <template>
@@ -101,7 +104,7 @@ onBeforeMount(async () => {
             <icon-lucide-shuffle class="headerButtonIcon" />
           </button>
         </div>
-        <SearchBar v-if="isLargeScreen" :recipe-count="countOfRecipes ?? 0" />
+        <SearchBar class="hidden lg:block" :recipe-count="countOfRecipes ?? 0" />
         <div v-if="showFiltersButton">
           <button
             type="button"
@@ -155,16 +158,8 @@ onBeforeMount(async () => {
           </button>
         </div>
       </div>
-      <SearchBar v-if="!isLargeScreen" :recipe-count="countOfRecipes ?? 0" />
+      <SearchBar class="lg:hidden" :recipe-count="countOfRecipes ?? 0" />
       <LoginModal :is-open="isModalOpened" @modal-close="closeModal" />
     </header>
   </div>
 </template>
-
-<style>
-@keyframes emptyanim {}
-
-.fade:hover {
-    animation:emptyanim;
-}
-</style>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { calculateCaloriesPerServing } from '../composables/caloriesParse'
+import { calculateCaloriesPerServing } from '../logic/caloriesParse'
 
 type LoadingAttribute = 'lazy' | 'eager'
 

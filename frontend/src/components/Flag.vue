@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { countryToFlagCode } from '../composables/countries'
+import { countryToFlagCode } from '../logic/countries'
 
 const props = defineProps({
   country: { type: String, required: false },

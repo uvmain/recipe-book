@@ -1,5 +1,4 @@
 import type { RouterScrollBehavior } from 'vue-router'
-import { createHead } from '@unhead/vue/client'
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { routes } from 'vue-router/auto-routes'
@@ -28,6 +27,4 @@ const router = createRouter({
   scrollBehavior,
 })
 
-const head = createHead()
-
-createApp(App as Component).use(router).use(head).mount('#app')
+createApp(App as Component).use(router).mount('#app')

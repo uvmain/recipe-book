@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useSessionStorage } from '@vueuse/core'
-import { countries } from '../composables/countries'
-import { resetFilters } from '../composables/resets'
+import { useSessionStorage } from '~/logic/storage'
+import { countries } from '../logic/countries'
+import { resetFilters } from '../logic/resets'
 import { allowedCourses } from '../types/recipes'
 
 const showFilters = useSessionStorage<boolean>('showFilters', false)

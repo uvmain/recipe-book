@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import markdownit from 'markdown-it'
-import { calculateCaloriesPerServing } from '../composables/caloriesParse'
-import { getTimers } from '../composables/timerParse'
+import { calculateCaloriesPerServing } from '../logic/caloriesParse'
+import { getTimers } from '../logic/timerParse'
 
 const props = defineProps({
   recipe: { type: Object, required: true },
